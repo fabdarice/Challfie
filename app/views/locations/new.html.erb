@@ -1,0 +1,17 @@
+<h1>Add a location</h1>
+<%= form_for @location do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :address %>
+  <%= f.text_field :address %>
+  <br>
+  <%= f.label :longitude %>
+  <%= f.text_field :longitude %>
+  <br>
+  <%= f.label :latitude %>
+  <%= f.text_field :latitude %>
+  <br>
+  <button type="submit">Add</button>
+<% end %>

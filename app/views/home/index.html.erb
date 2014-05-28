@@ -1,0 +1,27 @@
+<h1>Challfie website</h1>
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </thead>
+  <tbody>
+    <% @locations.each do |location| %>
+    <tr>
+      <td><%= location.name %></td>
+      <td><%= location.address %></td>
+      <td><%= location.latitude %></td>
+      <td><%= location.longitude %></td>
+      <td>Edit</td>
+      
+      <td><%= link_to "Delete", location_path(location), method: 'delete', data: {confirm: 'Are you sure?'} %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add a location", new_location_path %>
