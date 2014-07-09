@@ -37,7 +37,7 @@ module Api
     protected
     def ensure_params_exist
       return unless params[:login].blank?
-      render :json=>{:success=>false, :message=>"Missing username parameter"}, :status=>422
+      render :json=>{:success=>false, :message=>"Missing username parameter"}, :status=>401
     end
 
     def invalid_login_attempt

@@ -28,8 +28,13 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-# OAUTH2
-gem 'doorkeeper'
+gem "paperclip", "~> 4.1"
+
+gem "twitter-bootstrap-rails"
+
+gem 'omniauth-facebook'
+
+
 
 group :development, :test do
 

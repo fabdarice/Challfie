@@ -1,0 +1,8 @@
+<h3>List of All Books</h3>
+
+<% @books.each do |book| %>
+	Name : <%= book.name %> - Points : <%= book.required_points %> <br>
+	<%= image_tag book.cover.url(:medium) %> <br>
+	
+	<br><br>
+<% end %>

@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
-  def index
-    @locations = Location.all
-  end
+	before_filter :authenticate_user!
+
+ 	def index
+		@selfies = Selfie.where(user_id: current_user.id)
+	end
 end
