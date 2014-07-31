@@ -1,0 +1,15 @@
+<%= form_for(@user, :html => { :class => 'form-horizontal'}) do |f| %>
+  <%= field_set_tag "My Profile" do %>
+
+    
+    <div style='width: 100%; padding-left: 25%;'%>
+      <%= render 'devise/registrations/form', :f => f, :source => 'user' %>   
+      
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn">Update Profile</button>
+        </div>
+      </div>
+    </div>
+  <% end %>  
+<% end %>

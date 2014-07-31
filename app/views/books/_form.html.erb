@@ -14,8 +14,25 @@
 </div>
 
 <div class="control-group">
+  <%= f.label :level, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :level, class: 'input' %>
+  </div>
+</div>
+
+<% unless f.object.new_record? || !f.object.cover %>
+  <div class="control-group">
+    <label class="control-label">Uploaded Cover</label>
+    <div class="controls">
+      <%= image_tag(f.object.cover.url(:thumb), alt: 'Cover', title: 'Current Cover') %>
+    </div>
+  </div>
+<% end %>
+
+<div class="control-group">
   <%= f.label :cover, class: 'control-label' %>
   <div class="controls">
     <%= f.file_field :cover, class: 'input' %>
   </div>
 </div>
+

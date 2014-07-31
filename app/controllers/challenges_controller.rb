@@ -6,11 +6,10 @@ class ChallengesController < ApplicationController
 
 	def create
 		@challenge = Challenge.new(challenge_params)
-		@challenge.category_challenges.build(params[:category_challenge][:category_ids].map{|cat| {category_id:cat} if !cat.blank?}.compact)
 		
 		if @challenge.save
 			flash[:notice] = "Success : A new challenge has been created."
-			redirect_to root_path
+			redirect_to controller:'administration', action:'challenges'
 		else
 			flash[:alert] = "Error : Fail to create a new challenge."
 			render 'new'
@@ -21,8 +20,33 @@ class ChallengesController < ApplicationController
 		@challenges = Challenge.all
 	end
 
+	def edit
+		@challenge = Challenge.find(params[:id])
+	end
+
+	def update
+		@challenge = Challenge.find(params[:id])
+		@challenge.update_attributes(challenge_params)
+		if @challenge.save
+			redirect_to controller:'administration', action:'challenges'
+		else
+			render 'edit'
+		end
+	end
+
+	def destroy
+		challenge = Challenge.find(params[:id])
+		session[:return_to] ||= request.referer
+		if (challenge.destroy)
+		flash[:notice] = 'Challenge deleted.'
+		end
+		redirect_to controller:'administration', action:'challenges'
+	end
+
+	
+
 	private
 	 def challenge_params
-	 	params.require(:challenge).permit(:description, :point, :book_id)
+	 	params.require(:challenge).permit(:description, :point, :book_id, :category_ids => [])
 	 end
 end

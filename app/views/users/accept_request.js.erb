@@ -1,0 +1,3 @@
+$(".friends_btn_<%= @user.id %>").removeClass('btn-info').addClass('btn-danger');
+$(".friends_btn_<%= @user.id %>").html('<i class="fa fa-times-circle"></i> Remove follower');
+$(".friends_btn_<%= @user.id %>").attr("data-href", "<%=j remove_follower_user_path(@user) %>");

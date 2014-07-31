@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% if content_for?(:title) %>
+   <title><%= yield :title %></title>
+ <% else %>
+   <title>Challfie</title>
+ <% end %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+	<div id="main_content">
+		<%= yield %>
+	</div>
+</body>
+</html>

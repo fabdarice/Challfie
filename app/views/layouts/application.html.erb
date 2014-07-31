@@ -1,25 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Challfie</title>
+  <% if content_for?(:title) %>
+  	<title><%= yield :title %></title>
+  <% else %>
+	<title>Challfie</title>
+  <% end %>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
 </head>
 <body>
+	<nav id="menu" class="navbar-nav navbar-fixed-top" role="navigation">
+		<div class="container">
 
-<% if user_signed_in? %>
-  Welcome <%= current_user.username %> <%= link_to "Log Out", destroy_user_session_path, method: "delete" %><br>
-  <%= image_tag current_user.facebook_picture %><br>
-<% else %>
-	<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %><br>
-	<%= link_to "Sign in", new_user_session_path %><br>
-	<%= link_to "Register", new_user_registration_path %><br>
-<% end %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
+			<%= link_to image_tag("/assets/challfie_logo.png"), root_path, class:'navbar-brand' %>
+			<ul class="menu_items">
+				<li <% if current_page?(root_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-home fa-lg"></i> Home'), root_path %></li>
+				<li <% if current_page?(books_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-bolt fa-lg"></i> Challenges'), books_path %></li>
+				<li style='border-bottom: none;'><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="color:white;"><i class="fa fa-camera"></i></button></li>
+				<li <% if current_page?(new_challenge_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-users fa-lg"></i> Friends'), friends_user_path(current_user) %></li>
+				<li <% if current_page?(new_book_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-bullhorn fa-lg"></i> Notifications'), root_path %></li>				
+				<!--<li><i class="fa fa-star-o fa0lg"></i> Admin</li>-->
+			</ul>
+			
+			
+			<% if user_signed_in? %>
+				<div class="dropdown menu_items_right">					
+						<a id="dropdownMenu2" data-toggle="dropdown">
+							<div class="dropdown_profile_pic" style="float: right; color: black; font-size: 11px;"><%= current_user.username %></div>
+							<div style="width: 35px; height: 35px; vertical-align: middle; float:right; margin-right: 5px; ">
+								<%= image_tag current_user.show_profile_picture , alt: "Profile Picture", title: 'Profile Picture', style:"width: 35px; height: 35px;" %>								
+							</div>
+						</a>					
 
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+						<li role="presentation"><%= link_to "My Profile", edit_user_path(current_user) %>	</li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation"><%= link_to "Challenges", books_path %>	</li>
+						<li role="presentation"><%= link_to "Friends", edit_user_path(current_user) %>	</li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation"><%= link_to "Log Out", destroy_user_session_path, method: "delete" %></li>	   				   	
+					</ul>
+				</div>
+			<% end %>	
+
+			<div class="dropdown menu_items_right">
+				<a id="dropdownMenu1" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>
+					<li role="presentation"><%= link_to "Manage Challenges", controller: 'administration', action: 'challenges' %></li>
+			   	<li role="presentation"><%= link_to "Manage Categories", controller: 'administration', action: 'categories' %></li>
+			   </ul>
+			</div>							
+		</div>
+	</nav>
+		
+	<div id="main_body" class="container">
+		<div class="row">
+
+<!-- LEFT SIDE : USER INFOS -->
+			<div id="left_content">					
+				<% if user_signed_in? %>
+					<div class="show_speaker_thumb">
+						<%= image_tag current_user.show_profile_picture, alt: "Profile Picture", title: 'Profile Picture', class: 'img-thumbnail' %>
+					</div>
+					<div class="homepage_user_info">	
+						<span class="homepage_user_info_username"><%= current_user.username %></span><br>
+						<hr style="margin:0; margin-bottom: 5px;">
+						<%= image_tag "/assets/medal.jpeg", style: "width: 30px; height: 30px; float:left; margin-right: 5px;" %>
+						<p style="float:left; font-size: 11px;">
+							Challfie Master<br>
+							<span class="homepage_user_info_challfie_rank"><%= current_user.points %> points</span>
+						</p>
+						<div style="clear:both;"></div>																		
+					</div>
+				<% end %>
+				<div style="clear: both;"></div>
+				
+				<div class="homepage_user_friend_selfie_book_block">
+					
+					<div class="homepage_user_selfie_block">
+						<span class="number">106</span><br><span class="homepage_user_block_name">Selfies</span>
+					</div>
+
+					<%= link_to friends_user_path(current_user, :anchor => "following") do %>
+						<div class="homepage_user_friend_block">
+							<span class="number">239</span><br><span class="homepage_user_block_name">Following</span>
+						</div>
+					<% end %>
+
+					<%= link_to friends_user_path(current_user, :anchor => "followers") do %>
+						<div class="homepage_user_follower_block">
+							<span class="number">1987</span><br><span class="homepage_user_block_name">Followers</span>
+						</div>
+					<% end %>
+
+					<div class="homepage_user_book_block">
+						<span class="number">9</span><br><span class="homepage_user_block_name">Books</span>
+					</div>
+				</div>
+
+				<div class="progress">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>				  
+				</div>
+				<div class="progress_bar_legend">
+					<span class="pull-left">Lvl 1</span>
+					<span class="pull-right">Lvl 2</span>
+				</div><br><br>
+				<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal" style="color:#3B9893; font-size:15px;"><i class="fa fa-camera"> &nbsp; Take a Challenged Selfie</i></button>									
+			</div>
+
+<!-- MIDDLE : CONTENT -->
+			<%= yield %>
+						
+			<% if content_for?(:right_content) %>
+				<%= yield :right_content %>						
+			<% else %>
+				<%= render 'home/empty' %>
+			<% end %>	
+			
+						
+		</div>
+	</div>	
+
+	
+	<%= render "selfies/modal" %>
 </body>
 </html>

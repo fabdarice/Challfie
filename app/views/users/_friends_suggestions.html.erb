@@ -1,0 +1,50 @@
+<!-- RIGHT SIDE : SUGGESTED FRIENDS -->
+
+<script type="text/javascript">
+	$(function () {
+		// Ajax Form - Follow Suggested Friends	
+		$('.friends_btn').click(function () {					
+			$.ajax({
+	         type: "GET",
+	         url: $(this).attr("data-href"),
+	         dataType: 'script'        	
+	      }); 			 	
+		 	return false;
+		});	 
+	});	
+</script>
+
+<% @followers = current_user.all_follows %>
+<% followers_id = [-1] %>			
+<% @followers.each do |follower| %>				
+	<% followers_id << follower.followable_id %>				
+<% end %>
+
+<% @friends_suggestion = User.all.where("id != ? and id not in (?)", current_user.id,followers_id).limit(5) %>
+			
+<div id="right_content">
+	<span class="menu_title">Friends Suggestions</span> <span style="font-size:11px; float:right"> <%= link_to "+ Show all", root_path %></span><br>
+	<hr>
+	<div style="clear:both;"></div>
+	<div class="friends_suggestions_block">
+		<div class="one_friends_suggestions">
+			<ul class="list-unstyled">
+				<% @friends_suggestion.each do |fds_sug| %>
+					<li style='margin-top: 10px;'>
+						<%= image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px;" %>									
+						<p class="friend_username"><%= fds_sug.username %></p>
+						<span class="friend_rank">
+								Challfie Master									
+						</span>
+						
+						<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-primary btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
+						<div style="clear:both;"></div>
+					</li>
+				<% end %>
+
+			</ul>
+			<div style="clear:both;"></div>
+		</div>	
+		
+	</span>	
+</div>

@@ -19,11 +19,11 @@
 	</div>
 </div>
 
-<div class="control-group">
-	
-	<%= f.fields_for :category_challenges do |category| %>
+<div class="control-group">	
 	<div class="controls">
-		<%= collection_check_boxes :category_challenge, :category_ids, Category.all, :id, :name %>
+		<%= f.collection_check_boxes  :category_ids, Category.all, :id, :name do |b| %>   
+		<%= b.label(:"data-value" => b.value) { b.check_box + b.text } %>
+		<% end %>
 	</div>
-	<% end %>
+	
 </div>

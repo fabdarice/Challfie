@@ -30,9 +30,24 @@ gem 'jbuilder', '~> 1.2'
 
 gem "paperclip", "~> 4.1"
 
-gem "twitter-bootstrap-rails"
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', branch: 'bootstrap3'
+
+gem "font-awesome-rails"
 
 gem 'omniauth-facebook'
+
+gem 'will_paginate', '~> 3.0'
+
+
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+
+
+gem 'friendly_id', '~> 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
+
+gem "acts_as_follower"
 
 
 

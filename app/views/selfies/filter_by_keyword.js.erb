@@ -1,0 +1,1 @@
+$('#selfie_challenge_collection').replaceWith("<%=j collection_select 'selfie', :challenge_id, @challenges, :id, :description, @challenges.count == 0 ? {} : {selected: @challenges.first.id }, {:class => 'form-control', size: '6', id: 'selfie_challenge_collection'} %>");

@@ -1,0 +1,65 @@
+<div class="control-group <% if f.object.errors['firstname'].present? %><%= 'error' %><% end %>">
+  <%= f.label :firstname, class: 'control-label required' %>
+  <div class="controls">
+    <%= f.text_field :firstname, :autofocus => true, placeholder: 'Firstname' %>
+    <span class="help-inline"><%= display_error(f.object, 'firstname') %></span>
+  </div>
+</div>
+
+<div class="control-group <% if f.object.errors['lastname'].present? %><%= 'error' %><% end %>">
+  <%= f.label :lastname, class: 'control-label required' %>
+  <div class="controls">
+    <%= f.text_field :lastname, placeholder: 'Lastname' %>
+    <span class="help-inline"><%= display_error(f.object, 'lastname') %></span>
+  </div>
+</div>
+
+<div class="control-group <% if f.object.errors['email'].present? %><%= 'error' %><% end %>">
+  <%= f.label :email, class: 'control-label required' %>
+  <div class="controls">
+    <%= f.email_field :email, placeholder: 'Email' %>
+    <span class="help-inline"><%= display_error(f.object, 'email') %></span>
+  </div>
+</div>
+
+<div class="control-group <% if f.object.errors['username'].present? %><%= 'error' %><% end %>">
+  <%= f.label :username, class: 'control-label required' %>
+  <div class="controls">
+    <%= f.text_field :username, placeholder: 'Username' %>
+    <span class="help-inline"><%= display_error(f.object, 'username') %></span>
+  </div>
+</div>
+
+<% if source == 'devise' %>
+  <div class="control-group <% if f.object.errors['password'].present? %><%= 'error' %><% end %>">
+    <%= f.label :password, class: 'control-label required' %>
+    <div class="controls">
+      <%= f.password_field :password, placeholder: 'Password' %>
+      <span class="help-inline"><%= display_error(f.object, 'password') %></span>
+    </div>
+  </div>
+
+  <div class="control-group <% if f.object.errors['password_confirmation'].present? %><%= 'error' %><% end %>">
+    <%= f.label :password_confirmation, class: 'control-label required' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, placeholder: 'Password confirmation' %>
+    </div>
+  </div>    
+<% end %>
+
+<% unless @user.new_record? || !@user.avatar %>
+  <div class="control-group">
+    <label class="control-label">Uploaded Photo</label>
+    <div class="controls">
+      <%= image_tag(@user.avatar.url(:tiny), alt: 'Photo', title: 'Current photo') %>
+    </div>
+  </div>
+<% end %>
+
+<div class="control-group <% if f.object.errors['avatar'].present? %><%= 'error' %><% end %>">
+  <%= f.label :avatar, "Photo", class: 'control-label' %>
+  <div class="controls">
+    <%= f.file_field :avatar, class: 'input' %>
+  </div>
+</div>
+    

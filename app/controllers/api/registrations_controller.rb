@@ -26,8 +26,6 @@ module Api
     end
 
     def create_from_facebook
-
-      puts "UID = " + params[:uid]
       # You need to implement the method below in your model (e.g. app/models/user.rb)
       auth = {
                 :provider => "facebook",
@@ -40,7 +38,6 @@ module Api
                   :image => params[:profilepic]
                 } 
               }
-
 
       resource = User.find_for_facebook_oauth(auth, true)
       if resource.persisted?

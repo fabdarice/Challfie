@@ -1,0 +1,73 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colors";
+
+#list_friends_block {
+	float: left;
+	width: 820px;
+	margin-left:330px;	
+	background-color: $mygrey;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+
+	.one_line_following {
+		clear: both;
+		margin-bottom: 10px;
+		overflow: hidden;
+	}
+
+	.one_following_block_border {
+		width: 258px;
+		height: 100px;
+		
+		float: left;
+		padding: 3px;
+		border: 1px solid darken($mygrey, 5%);
+
+		.one_following_block {
+			width: 250px;
+			height: 92px;
+			background-color: $mygrey;
+			padding: 7px;
+		}
+	}
+
+	.block_space {
+		margin-right: 12px;
+	}
+}
+
+.friends_suggestions_block {
+	margin-top: 10px;
+}
+
+.friend_username {
+	color: $mygreen;
+	font-weight: 600;
+	margin-bottom: 0px;
+}
+
+.friend_rank {
+	font-size: 11px;
+	color: gray;
+	float: left;
+	display: block;
+}
+
+.friend_follower {
+	font-size: 10px;
+	font-style: italic;
+	
+}
+
+.friends_suggestions_btn {
+	margin-top: 10px;
+}
+
+.friends_btn {
+	margin-top: 4px;
+}

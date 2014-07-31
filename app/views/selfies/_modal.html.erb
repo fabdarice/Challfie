@@ -1,0 +1,58 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Take a Challenged Selfie</h4>
+      </div>
+      
+      
+      <%= form_for(Selfie.new, :html => { :class => 'form', id: 'selfie_form'}) do |f| %>
+	      <div class="modal-body">         
+	     		<div class="form-group">				  
+				    <%= f.text_area :message, class: 'form-control selfie_message', rows: 3, placeholder: 'Write your message...' %>	
+				    <output id="preview_selfie">NO IMAGE</output>			  
+				</div>
+				<div style="clear:both;"></div>
+				<div class="form-group" style="margin-top: 10px;">
+				  <div class="controls">
+				    <%= f.file_field :photo, class: 'input btn btn-info btn-xs pull-left', id: 'selfie_file', title:'<i class="fa fa-picture-o"></i> Add a Selfie' %>	
+
+				    <div id="selfie_alert" style="float:left; margin-left: 10px; margin-top:7px; font-size: 12px; color:red; font-weight:600;"></div>    
+				  </div>
+				</div>
+
+				<div style="clear:both;"></div>
+				
+				<hr style="width: 500px; margin: 10px 0px 10px 25px; ">
+				<h5 style="float:left; margin-right: 40px;"><i class="fa fa-bolt fa-lg"></i> Select a Challenge</h5>
+				<div class="row pull-right" style="margin-top: 5px; margin-right: 10px;">
+					
+					    <div class="input-group">
+					      <%= text_field_tag :search, params[:search], :placeholder => 'Filter by keywords..', class: "form-control", id: 'filter_challenge_field' %>
+					      <span class="input-group-btn">
+					        <button class="btn btn-default" type="button" id="filter_challenge">Filter</button>
+					      </span>
+					    </div><!-- /input-group -->
+					
+				</div>
+
+				<div style="clear:both;"></div>
+				
+				<br>
+
+				<div class="form-group">
+					<%= f.collection_select :challenge_id, Challenge.all, :id, :description, {:selected => Challenge.first.id}, {:class => 'form-control', size: '6', id: 'selfie_challenge_collection'} %>   
+				</div>
+				
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="submit" class="btn btn-primary">Save</button>
+	      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

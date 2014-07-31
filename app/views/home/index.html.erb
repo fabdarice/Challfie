@@ -1,21 +1,55 @@
-<h3>Challfie website</h3>
-
-<%= link_to "List of Books", books_path %><br><br>
-
-<%= link_to "List of Challenges", challenges_path %><br><br>
-
-<%= link_to "List of Categories", categories_path %><br><br>
-
-<%= link_to "Add a Selfie", new_selfie_path, class: 'btn btn-primary' %><br><br>
-
-<%= link_to "Add a Book", new_book_path, class: 'btn btn-primary' %><br><br>
-
-<%= link_to "Add a Challenge", new_challenge_path, class: 'btn btn-primary' %><br><br>
-
-<%= link_to "Add a Category", new_category_path, class: 'btn btn-primary' %><br><br>
-
-<% @selfies.each do |selfie| %>
-  <%= selfie.message %> <br>
-  <%= image_tag selfie.photo.url(:medium) %> <br>
-  <hr>
+<% content_for :right_content do %>
+	<%= render 'users/friends_suggestions' %>
 <% end %>
+
+<div id="main_content">
+
+	<% @selfies.each do |selfie| %>
+		<div class="selfie_post">
+		  <div class="selfie_post_user">
+		  		<%= image_tag selfie.user.show_profile_picture, class: 'img-thumbnail', style:'float: left; margin-right: 10px;' %>
+		  		<div class="selfie_post_user_username_challenge pull-left">
+		  			<p class="selfie_post_user_username"><%= selfie.user.username %></p>
+		  			<span class="selfie_post_user_challenge"><i class="fa fa-bolt fa-lg"></i> <%= selfie.challenge.description %></span><br>
+		  			<span class="selfie_post_date"><%= time_ago_in_words(selfie.created_at) %> ago</span>
+		  		</div>
+
+		  		<div class="dropdown pull-right">
+					<a id="dropdownMenu3" data-toggle="dropdown" class="selfie_dropdown"><i class="fa fa-cog fa-lg"></i></a>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu3">
+						<li role="presentation"><a href="#" class="edit_selfie_message" id="<%= selfie.id %>">Edit Selfie</a></li>
+						<li role="presentation"><%= link_to "Delete Selfie", selfie_path(selfie), method: 'delete', data: {confirm: 'Are you sure?'} %></li>
+				   </ul>
+				</div>
+		  </div>
+
+		  <div class="selfie_form_<%= selfie.id %> hidden" id="<%= selfie.id %>">
+		  		<div class="form_group">
+		  			<%= form_for selfie do |f| %>
+		  				<%= f.text_area :message, class: 'form-control edit_selfie_form', rows:'2', style:"font-size: 11px; font-family:'Tahoma', 'Arial';" %>
+		  			<% end %>
+		  		</div>	 
+		  		<br> 		
+		  </div>
+		  <%= simple_format(selfie.message, class: "selfie_post_message selfie_post_message_#{selfie.id}") %>
+		  <%= image_tag selfie.photo.url(:original), style: "width: 508px;" %> <br>
+
+	<!-- COMMENTS SECTION -->
+		  <div class="selfie_post_comment_block">
+			  <div class="selfie_post_comment_existing selfie_post_comment_existing_<%= selfie.id %>">
+			  	   <% selfie.comments.each do |comment| %>
+					  	  <%= render 'comments/list_comments', :comment => comment %>		  	  
+				  	<% end %>  		  	  
+			  	</div>   	  	   
+			  	
+		  	   <hr>
+
+			   <div class="selfie_post_comment_create form-group">
+			   	<%= form_for [selfie, Comment.new] do |comment| %>
+			   		<%= comment.text_area :message, class:'form-control selfie_post_comment_textarea', placeholder:'Write a comment..', row:'1' %>
+			   	<% end %>		  		
+			  	</div>
+		  </div>
+		</div>	
+	<% end %>
+</div>

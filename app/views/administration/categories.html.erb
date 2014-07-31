@@ -1,0 +1,30 @@
+<br>
+<% content_for :title do %>
+  <%= "Challfie - Manage Categories" %> 
+<% end %>
+<fieldset>
+  <legend><h3>Manage Categories<div class="fieldset_btn"><%= link_to 'Add New Category', new_category_path, class: 'btn btn-primary' %></div></h3></legend>
+</fieldset>
+          
+<br>
+
+<table class="table table-hover">
+  <thead>
+    <tr>        
+        <th>Name</th>        
+        <th class='text-center'>Edit</th>
+        <th class='text-center'>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td class='text-center'><%= link_to 'Edit', edit_category_path(category), class: 'btn'%></td>
+        <td class='text-center'><%= link_to 'Delete', category_path(category), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  
+<center><%= will_paginate @categories %></center>

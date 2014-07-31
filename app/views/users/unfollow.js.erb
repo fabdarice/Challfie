@@ -1,0 +1,3 @@
+$(".friends_btn_<%= @user.id %>").removeClass('btn-default btn-danger').addClass('btn-primary');
+$(".friends_btn_<%= @user.id %>").html('<i class="fa fa-rss"></i> Follow');
+$(".friends_btn_<%= @user.id %>").attr("data-href", "<%=j follow_user_path(@user) %>");

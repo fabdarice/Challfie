@@ -1,3 +1,133 @@
 // Place all the styles related to the selfies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colors";
+
+.selfie_post {
+	padding: 20px 20px 20px 20px;
+	background-color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #DAF0E8;
+	margin-bottom: 15px;
+}
+
+.selfie_post_user {
+	width: auto;
+	overflow: hidden;
+	margin-bottom: 5px;
+	height: 75px;
+
+	img {
+		width: 65px;
+		height: 65px;
+	}
+
+	.selfie_post_user_username {
+		color: darken($mygreen, 20%);
+		font-weight: 600;
+		font-size: 14px;
+		margin-bottom: 3px;
+		margin-top:3px;
+	}
+
+	.selfie_post_user_challenge {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.selfie_post_date {
+		font-size: 12px;
+		color: gray;
+		font-style: italic;
+	}
+}
+
+.selfie_post_message {
+	font-size: 13px;
+	margin-bottom: 15px;
+	font-family : "Tahoma", "Arial";
+}
+
+.selfie_post_comment_block {
+	background-color: $mygrey;
+}
+
+.selfie_post_comment_existing {	
+	padding: 10px 10px 0px 10px;
+}
+
+.selfie_post_comment_existing_username {
+	color: darken($mygreen, 20%);
+	font-weight: 600;
+	margin-right: 20px;
+}
+
+.selfie_post_comment_existing_date {
+	font-size: 11px;
+	color: gray;
+	font-style: italic;	
+}
+
+.selfie_post_comment_create {
+	padding: 10px;
+
+	textarea {
+		height: 35px;
+		font-size: 14px;
+		padding-left:10px;
+		font-family: "Tahoma, Arial";
+	}
+}
+
+#filter_challenge_field, #filter_challenge {
+	font-size: 12px;
+	height: 26px;	
+	padding: 0px 10px 0px 10px;
+}
+
+#preview_selfie {
+	margin-left: 10px;
+	padding-top: 0px;
+	height: 67px;
+	width: 67px;
+   border: 1px solid darken($mygrey, 10%);
+   float: left;
+   vertical-align: middle;
+   text-align: center;
+   line-height: 32px;
+   color:darken($mygrey, 30%); ;
+}
+
+.thumb  {
+    height: 65px;
+    margin: 0px 0px 0px 0px;
+    width: 65px;
+
+}
+
+
+
+.file-input-name {
+	visibility: hidden;
+}
+
+
+.selfie_message {
+	width: 480px;
+	float: left;
+}
+
+#selfie_file {
+	clear: both;
+
+}
+
+.selfie_dropdown {
+	
+	color: lighten($mygreen, 30%);
+	
+}
+

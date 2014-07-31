@@ -1,6 +1,5 @@
 <h3>Add New Book</h3>
 
-<p class="alert"><%= alert %></p>
 <%= form_for(@book, :html => { :class => 'form-horizontal'}) do |f| %>
 	<%= render 'books/form', :f => f %>   
 	<div class="control-group">

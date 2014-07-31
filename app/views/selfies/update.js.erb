@@ -1,0 +1,3 @@
+<% selfie = @selfie %>
+$('.selfie_post_message_<%= selfie.id %>').replaceWith('<%=j simple_format(selfie.message, class: "selfie_post_message selfie_post_message_#{selfie.id}") %>');
+$('.selfie_form_<%= selfie.id %>').addClass('hidden');

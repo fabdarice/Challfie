@@ -1,0 +1,1 @@
+$(".friends_btn_<%= @user.id %>").closest('.one_following_block_border').addClass('hide');

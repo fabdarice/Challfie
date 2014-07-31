@@ -7,10 +7,25 @@ Challfie::Application.routes.draw do
   root 'home#index'
 
   resources :locations
-  resources :selfies
+  resources :selfies do
+    resources :comments
+  end
   resources :books
   resources :categories
   resources :challenges
+  get '/selfies/filter/:search' => 'selfies#filter_by_keyword', as: :selfie_filter
+
+  resources :users do
+    member do
+      get :follow
+      get :unfollow
+      get :friends
+      get :accept_request
+      get :remove_follower
+    end
+  end
+
+  get '/administration/:action' => 'administration', :as => :administration
 
 
   namespace :api, defaults:{format: 'json'} do

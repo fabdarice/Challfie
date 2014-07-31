@@ -1,0 +1,35 @@
+<h3>Edit New Book</h3>
+
+<%= form_for(@book, :html => { :class => 'form-horizontal'}) do |f| %>
+	<%= render 'books/form', :f => f %>   
+	<div class="control-group">
+	  <div class="controls">
+	    <button type="submit" class="btn btn-primary">Update</button>
+	  </div>
+	</div>
+<% end %>
+<br>
+
+<h5>List of Challenges :</h5>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th>Description</th>
+        <th>Points</th>        
+        <th class='text-center'>Edit</th>
+        <th class='text-center'>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @challenges = @book.challenges.each %>
+    <% @challenges.each do |challenge| %>
+      <tr>
+        <td><%= challenge.description %></td>
+        <td><%= challenge.point %></td>
+        <td class='text-center'><%= link_to 'Edit', edit_challenge_path(challenge), class: 'btn'%></td>
+        <td class='text-center'><%= link_to 'Delete', challenge_path(challenge), class: 'btn', method: 'delete', confirm: 'Are you sure?' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

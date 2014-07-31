@@ -1,0 +1,34 @@
+<% friends.each_slice(3) do |slice| %>
+	<div class="one_line_following">
+	<% slice.each do |friend| %>
+		<div class="one_following_block_border <%= cycle('block_space', 'block_space', '') %>">
+			<div class="one_following_block ">
+				<%= image_tag friend.show_profile_picture, style: "float: left; margin-right: 10px; width: 75px; height:75px;" %>									
+				<p class="friend_username"><%= friend.username %></p>
+				<span class="friend_rank">
+					Challfie Master									
+				</span><br>
+				<span class="friend_follower">
+					1230 followers
+				</span><br>
+				
+				<% if friendship == "followers" %>
+					<%= link_to raw('<i class="fa fa-times-circle"></i> Remove follower') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
+				<% else %>
+					<% if friendship == "pending_request" %>
+						<%= link_to raw('<i class="fa fa-check-circle"></i> Accept Request') ,"javascript:void(0)", :"data-href" => accept_request_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>
+					<% else %>
+						<% if current_user.following_status(friend) == 1 %>
+							<%= link_to raw('<i class="fa fa-minus-square"></i> Unfollow') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
+						<% else %>
+							<%= link_to raw('<i class="fa fa-times"></i> Cancel Request') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
+						<% end %>	
+					<% end %>	
+				<% end %>
+				
+				<div style="clear:both;"></div>							
+			</div>
+		</div>	
+	<% end %>	
+	</div>
+<% end %>

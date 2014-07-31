@@ -1,3 +1,126 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colors";
+
+.show_speaker_thumb {
+  margin-right: 10px;
+  float: left;
+}
+
+.show_speaker_thumb img {
+  width: 75px;
+  height: 75px;
+}
+
+.homepage_user_info {
+	float: left;
+	width: 190px;
+	height: 65px;
+	
+
+	.homepage_user_info_username {
+		font-size: 14px;
+		font-family : "Arial";
+		font-weight: 600;
+		color: black;
+		line-height: 16px;
+		line-height: 25px;
+	}
+
+	.homepage_user_info_challfie_rank {
+		font-size: 10px;
+		color: $mydarkgrey;
+		line-height: 12px;
+	}
+}
+
+.fieldset_btn {
+  display: inline;
+  float: right;
+}
+
+.homepage_user_friend_selfie_book_block {
+	width: 100%;
+	overflow: hidden;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	border-top: 1px solid $mygrey;
+	border-bottom: 1px solid $mygrey;
+	
+
+	span.number {
+		font-size: 16px;
+		color: $mygreen;
+	}
+
+	span.homepage_user_block_name {
+		font-size: 10px;
+		color: darken($mygrey, 30%);
+		text-transform: uppercase;
+		
+
+	}
+
+	.homepage_user_selfie_block {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		float: left;		
+		width: 69px;
+		text-align: center;
+		border-right: 1px solid white;
+		cursor: pointer;
+		background-color: lighten($mygreen, 50%);
+	}
+
+	.homepage_user_friend_block {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		float: left;
+		border-right: 1px solid white;
+		width: 69px;
+		text-align: center;
+		cursor: pointer;
+		background-color: lighten($mygreen, 50%);
+	}
+
+	.homepage_user_follower_block {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		float: left;
+		border-right: 1px solid white;
+		width: 69px;
+		text-align: center;	
+		cursor: pointer;
+		background-color: lighten($mygreen, 50%);
+	}
+
+	.homepage_user_book_block {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		float: left;
+		
+		width: 69px;
+		text-align: center;	
+		cursor: pointer;
+		background-color: lighten($mygreen, 50%);
+	}
+
+	.homepage_user_book_block:hover, .homepage_user_friend_block:hover, .homepage_user_selfie_block:hover, .homepage_user_follower_block:hover {
+		background-color: lighten($mygreen, 40%);
+	}
+
+}
+
+.progress_bar_legend {
+	width: 100%;
+
+	span {
+		font-size: 11px;
+		color: gray;
+	}
+}
+
