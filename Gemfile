@@ -66,6 +66,9 @@ end
 
 group :production do
   gem 'pg', '~> 0.17.1'
+
+  #To Digest Assets on Heroku
+  gem 'rails_12factor'
 end
 
 group :doc do
