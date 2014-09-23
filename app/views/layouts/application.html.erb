@@ -9,119 +9,251 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-
 </head>
 <body>
+	<script type="text/javascript">
+		$(function () {			
+			// Activate Tooltip
+         $("[data-toggle='tooltip']").tooltip();
+
+         // Destroy the modal Object everytime he is being hidden - For Reloading objects with changes
+         $('body').on('hidden.bs.modal', '.modal', function () {
+			  $(this).removeData('bs.modal');
+			});
+
+         // Autocomplete field to search an user
+			$("#autocomplete_user_field").autocomplete({
+		        source: function (request, response) {
+		            $.ajax({
+		            	 type: "post",		
+		                url: "/user/autocomplete_search_user",
+		                data: {
+		                    user_input: request.term		                    
+		                },		                		                
+		                success: function(data) {	
+		                	if (data.length == 0) {		                			                		
+		                		$('.search-query').popover('show');
+		                	}
+	                  	response(data);		                  
+		                }						 
+		            });
+		        },
+		    	minLength: 2,
+		    	appendTo: "#menu",
+		    	autoFocus: true
+		   }).data("ui-autocomplete")._renderItem = function( ul, item ) {			   	
+	        return $( "<li></li>" )
+	            .data( "item.autocomplete", item )
+	            .append( "<a href='/users/" + item.slug + "'>" + "<img src='" + item.imgsrc + "' style='width: 35px; height: 35px; margin-right: 5px; float:left;'/>"  + item.label + "<br><span>" + item.mutualfriends + " mutual friends</span>" +  "</a>" )
+	            .appendTo( ul );
+    		}; 
+    		
+			// Ajax Form - Create a Comment to a Selfie
+			$('.selfie_post_comment_textarea').keydown(function(e) {	
+				if(e.which == 13 && !e.shiftKey) {				
+					if ($.trim($(this).val())) {
+					 	var form = $(this).parents('form:first');
+						var mytextarea = $(this);
+
+					   $.ajax({
+				         type: "POST",
+				         url: form.attr("action"),
+				         data: form.serialize(),
+				         dataType: 'script',	
+				         success: function(response){
+				         	mytextarea.val('');
+				         }
+				      });
+				   }				   
+				   return false;				
+			   } 
+			});
+
+			// Edit Selfie Description
+			$('.edit_selfie_message').click(function () {
+				var selfie_id = $(this).data("id");
+				$(".selfie_form_" + selfie_id).removeClass("hide");
+				$('.selfie_post_message_' + selfie_id).addClass("hide");
+
+				return false;
+			});
+
+
+			// Edit Selfie Privacy
+			$('.edit_selfie_privacy').click(function () {
+				var selfie_id = $(this).data("id");
+				
+				$(".selfie_privacy_form_" + selfie_id).removeClass("hide");
+				$('.selfie_privacy_icon_' + selfie_id).addClass("hide");
+
+				return false;
+			});
+
+			// Update Selfie Privacy - Public or Private
+			$('.private_radio_btn').click(function(event) {
+				event.preventDefault();			
+				var myform = $(this).closest("form");
+				
+				$.ajax({
+		         type: "POST",
+		         url: myform.attr("action"),
+		         data: myform.serialize(),
+		         dataType: 'script',		         
+		      });
+
+		      return false;
+			});
+
+			
+			// Ajax Form - Update Selfie Description
+			$('.edit_selfie_form').keydown(function(e) {
+				if(e.which == 13 && !e.shiftKey) {
+				 	var form = $(this).parents('form:first');
+				 				
+					$.ajax({
+			         type: "PUT",
+			         url: form.attr("action"),
+			         data: form.serialize(),
+			         dataType: 'script'		         
+			      }); 			 	
+				 	return false;
+				}
+			});
+
+			// Display all comments on one selfie
+			$('.show_all_comment_link').click(function(event) {
+				event.preventDefault();	
+				$.ajax({
+		         type: "GET",
+		         url: $(this).attr("data-href"),
+		         dataType: 'script'        	
+		      }); 			 	
+			 	return false;		
+			});		
+
+			// Open a popup with dimension and url content - Use to open Facebook Login popup
+			function popupCenter(url, width, height, name) {				
+			  var left = (screen.width/2)-(width/2);
+			  var top = (screen.height/2)-(height/2);
+			  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+			}	
+		});		
+	</script>
+
+	<% @homepage_notification = current_user.notifications.where(read: false) %>
+
+<!-- ##############  TOP MENU  ############## -->
 	<nav id="menu" class="navbar-nav navbar-fixed-top" role="navigation">
 		<div class="container">
 
-			<%= link_to image_tag("/assets/challfie_logo.png"), root_path, class:'navbar-brand' %>
+			<%= link_to image_tag("/assets/logo_letter.png", style: 'height: 36px; margin-top: 5px;'), root_path, class:'navbar-brand' %>			
+			<div class="menu_seach_bar">          
+            <div class="search_field navbar-search pull-left">
+              <span class="glyphicon glyphicon-search"></span>
+              <%= text_field_tag :search, params[:search_user], :class => 'search-query', :id => "autocomplete_user_field", :placeholder => 'Search by username..', :"data-toggle" => "popover", :"data-placement" => "bottom", :"data-content" => "No Results found.." %>    
+            </div>                      
+        </div>
+	      
 			<ul class="menu_items">
-				<li <% if current_page?(root_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-home fa-lg"></i> Home'), root_path %></li>
-				<li <% if current_page?(books_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-bolt fa-lg"></i> Challenges'), books_path %></li>
-				<li style='border-bottom: none;'><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="color:white;"><i class="fa fa-camera"></i></button></li>
-				<li <% if current_page?(new_challenge_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-users fa-lg"></i> Friends'), friends_user_path(current_user) %></li>
-				<li <% if current_page?(new_book_path) %>class="active"<% end %>> <%= link_to raw('<i class="fa fa-bullhorn fa-lg"></i> Notifications'), root_path %></li>				
-				<!--<li><i class="fa fa-star-o fa0lg"></i> Admin</li>-->
+				<!-- TOP MENU - HOME -->
+				<%= link_to root_path do %>
+					<li <% if current_page?(root_path) %>class="active"<% end %>>
+						<i class="fa fa-home fa-2x fa_menu_item"></i> Home
+					 </li>
+				<% end %>
+				
+				<!-- TOP MENU - CHALLENGES -->
+				<%= link_to books_path do %>
+					<li <% if current_page?(books_path) %>class="active"<% end %>> 
+						<i class="fa fa-bolt fa-2x"><div class="menu_notif">3</div></i> Challenges</span>
+					</li>
+				<% end %>
+				
+				<!-- TOP MENU - TAKE A SELFIE BUTTON -->
+				<a style='border-bottom: none; width: 70px; text-align:center'><li ><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="color:white;"><i class="fa fa-camera"></i></button></li></a>
+
+				<!-- TOP MENU - FRIENDS -->
+				<% if !current_user.followers(false).blank? and current_user.followers(false).count > 0 %>
+					<!-- HAVE PENDING REQUEST -->
+					<%= link_to user_friends_path(:anchor => "pending_request") do %>
+						<li <% if current_page?(user_friends_path) %>class="active"<% end %>> 
+							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(false).count %></div></i> Friends 
+						</li>
+					<% end %>
+				<% else %>
+					<!-- NO PENDING REQUEST -->
+					<%= link_to user_friends_path do %>
+						<li <% if current_page?(user_friends_path) %>class="active"<% end %>> 
+							<i class="fa fa-users fa-2x"></i> Friends 
+						</li>
+					<% end %>
+				<% end %>
+				
+				<!-- TOP MENU - NOTIFICATIONS -->				
+				<%= link_to notifications_path do %>
+					<li <% if current_page?(new_book_path) %>class="active"<% end %>> 
+						<i class='fa fa-bullhorn fa-2x'> 
+							<% if @homepage_notification.count != 0 %>
+								<div class='menu_notif'> <%= @homepage_notification.count %></div>
+							<% end %>	
+						</i> Notifications
+					</li>				
+				<% end %>								
 			</ul>
-			
-			
+
+			<!-- TOP MENU - USER PROFILE + ADMINISTRATION -->						
 			<% if user_signed_in? %>
 				<div class="dropdown menu_items_right">					
 						<a id="dropdownMenu2" data-toggle="dropdown">
-							<div class="dropdown_profile_pic" style="float: right; color: black; font-size: 11px;"><%= current_user.username %></div>
+							<div class="dropdown_profile_pic" style="float: right; color: #f6f8f8; font-size: 11px;"><%= current_user.username %></div>
 							<div style="width: 35px; height: 35px; vertical-align: middle; float:right; margin-right: 5px; ">
 								<%= image_tag current_user.show_profile_picture , alt: "Profile Picture", title: 'Profile Picture', style:"width: 35px; height: 35px;" %>								
 							</div>
 						</a>					
 
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-						<li role="presentation"><%= link_to "My Profile", edit_user_path(current_user) %>	</li>
+						<li role="presentation"><%= link_to user_path(current_user) do %><span class='glyphicon glyphicon-user' style="width: 20px; text-align:center;"></span> My Profile<% end %></li>
 						<li role="presentation" class="divider"></li>
-						<li role="presentation"><%= link_to "Challenges", books_path %>	</li>
-						<li role="presentation"><%= link_to "Friends", edit_user_path(current_user) %>	</li>
+						<li role="presentation"><%= link_to books_path do %><i class="fa fa-bolt" style="width: 20px; text-align:center;"></i> Challenges<% end %></li>
+						<li role="presentation"><%= link_to user_friends_path do %><i class="fa fa-users"  style="width: 20px; text-align:center;"></i> Friends<% end %></li>
+						<li role="presentation" class="divider"></li>						
+						<li role="presentation"><%= link_to destroy_user_session_path, method: "delete" do %><span class='glyphicon glyphicon-off' style="width: 20px; text-align:center;"></span> Sign Out<% end %></li>
 						<li role="presentation" class="divider"></li>
-						<li role="presentation"><%= link_to "Log Out", destroy_user_session_path, method: "delete" %></li>	   				   	
+						<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>
+						<li role="presentation"><%= link_to "Manage Challenges", controller: 'administration', action: 'challenges' %></li>
+				   	<li role="presentation"><%= link_to "Manage Categories", controller: 'administration', action: 'categories' %></li>	   				   	
 					</ul>
 				</div>
 			<% end %>	
-
-			<div class="dropdown menu_items_right">
-				<a id="dropdownMenu1" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
-				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>
-					<li role="presentation"><%= link_to "Manage Challenges", controller: 'administration', action: 'challenges' %></li>
-			   	<li role="presentation"><%= link_to "Manage Categories", controller: 'administration', action: 'categories' %></li>
-			   </ul>
-			</div>							
+							
 		</div>
 	</nav>
 		
 	<div id="main_body" class="container">
 		<div class="row">
-
-<!-- LEFT SIDE : USER INFOS -->
-			<div id="left_content">					
-				<% if user_signed_in? %>
-					<div class="show_speaker_thumb">
-						<%= image_tag current_user.show_profile_picture, alt: "Profile Picture", title: 'Profile Picture', class: 'img-thumbnail' %>
-					</div>
-					<div class="homepage_user_info">	
-						<span class="homepage_user_info_username"><%= current_user.username %></span><br>
-						<hr style="margin:0; margin-bottom: 5px;">
-						<%= image_tag "/assets/medal.jpeg", style: "width: 30px; height: 30px; float:left; margin-right: 5px;" %>
-						<p style="float:left; font-size: 11px;">
-							Challfie Master<br>
-							<span class="homepage_user_info_challfie_rank"><%= current_user.points %> points</span>
-						</p>
-						<div style="clear:both;"></div>																		
-					</div>
-				<% end %>
-				<div style="clear: both;"></div>
-				
-				<div class="homepage_user_friend_selfie_book_block">
-					
-					<div class="homepage_user_selfie_block">
-						<span class="number">106</span><br><span class="homepage_user_block_name">Selfies</span>
-					</div>
-
-					<%= link_to friends_user_path(current_user, :anchor => "following") do %>
-						<div class="homepage_user_friend_block">
-							<span class="number">239</span><br><span class="homepage_user_block_name">Following</span>
-						</div>
-					<% end %>
-
-					<%= link_to friends_user_path(current_user, :anchor => "followers") do %>
-						<div class="homepage_user_follower_block">
-							<span class="number">1987</span><br><span class="homepage_user_block_name">Followers</span>
-						</div>
-					<% end %>
-
-					<div class="homepage_user_book_block">
-						<span class="number">9</span><br><span class="homepage_user_block_name">Books</span>
-					</div>
-				</div>
-
-				<div class="progress">
-				  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>				  
-				</div>
-				<div class="progress_bar_legend">
-					<span class="pull-left">Lvl 1</span>
-					<span class="pull-right">Lvl 2</span>
-				</div><br><br>
-				<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal" style="color:#3B9893; font-size:15px;"><i class="fa fa-camera"> &nbsp; Take a Challenged Selfie</i></button>									
+<!-- ##############  LEFT CONTENT ############## -->
+			<div id="left_content">
+				<% if content_for?(:left_content) %>
+					<%= yield :left_content %>						
+				<% else %>
+					<%= render 'home/empty' %>
+				<% end %>								
 			</div>
 
-<!-- MIDDLE : CONTENT -->
-			<%= yield %>
-						
+<!-- ##############  MIDDLE CONTENT ############## -->
+			<div id="main_content">
+				<% if flash[:error] %>
+					<div class="alert alert-danger" role="alert"><%= flash[:error] %></div>
+				<% end %>	
+				<%= yield %>
+			</div>	
+
+<!-- ##############  RIGHT CONTENT ############## -->						
 			<% if content_for?(:right_content) %>
 				<%= yield :right_content %>						
 			<% else %>
 				<%= render 'home/empty' %>
 			<% end %>	
-			
-						
 		</div>
 	</div>	
 

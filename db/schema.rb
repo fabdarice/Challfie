@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731010444) do
+ActiveRecord::Schema.define(version: 20140913032501) do
 
   create_table "books", force: true do |t|
     t.text     "name"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 20140731010444) do
     t.datetime "updated_at"
   end
 
+  create_table "facebook_infos", force: true do |t|
+    t.integer  "user_id"
+    t.string   "facebook_uid"
+    t.string   "facebook_lastname"
+    t.string   "facebook_firstname"
+    t.string   "facebook_email"
+    t.string   "facebook_locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "follows", force: true do |t|
     t.integer  "followable_id",                   null: false
     t.string   "followable_type",                 null: false
@@ -88,6 +99,16 @@ ActiveRecord::Schema.define(version: 20140731010444) do
     t.datetime "updated_at"
   end
 
+  create_table "notifications", force: true do |t|
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "author_id"
+    t.integer  "selfie_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "selfies", force: true do |t|
     t.integer  "user_id"
     t.string   "message"
@@ -98,6 +119,7 @@ ActiveRecord::Schema.define(version: 20140731010444) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "challenge_id"
+    t.boolean  "private",            default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
@@ -143,5 +165,20 @@ ActiveRecord::Schema.define(version: 20140731010444) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+
+  create_table "votes", force: true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
 end

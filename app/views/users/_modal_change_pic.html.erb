@@ -1,0 +1,134 @@
+<script type="text/javascript">
+
+$(function () {
+	// To preview image before uploading it
+   function handleUserFileSelect(evt) {
+	   var files = evt.target.files; // FileList object
+	    // Loop through the FileList and render image files as thumbnails.
+	   for (var i = 0, f; f = files[i]; i++) {
+	      // Only process image files.
+	      if (!f.type.match('image.*')) {
+	        continue;
+	      }
+	      var reader = new FileReader();
+	      // Closure to capture the file information.
+	      reader.onload = (function(theFile) {
+	        return function(e) {	       
+	        	 $("#preview_user_proflle_pic").removeClass('hide');   
+	          document.getElementById('preview_user_proflle_pic').innerHTML = ['<img src="', e.target.result,
+	                            '" title="', escape(theFile.name), '"/>'].join('');
+				 
+				 // Store that the last picture chosen by the user is a upload file type
+	          $("#input_type_user").val("upload");
+	        };
+	      })(f);
+
+	      // Read in the image file as a data URL.
+	      reader.readAsDataURL(f);
+	    }
+	  }
+
+	 document.getElementById('user_file').addEventListener('change', handleUserFileSelect, false);
+
+	// Webcam Setup
+	$(".user_webcam_load").click(function(event) {
+		$("#user_webcam").empty();
+		$(".user_webcam_preview").removeClass('hide');
+		
+      // Load the javascript library      
+		jQuery.getScript("/assets/webcam.js")
+			.done(function() {
+				Webcam.set({
+		        width: 240,
+		        height: 240,
+		        dest_width: 400,
+		        dest_height: 400,
+		        image_format: 'jpeg', // image format
+		        jpeg_quality: 100        // image quality
+		    	});
+				Webcam.attach('#user_webcam');
+			});
+
+		$("#user_webcam").removeClass('hide');			
+		$(".user_webcam_load").addClass('hide');
+		$(".user_webcam_take_picture").removeClass('hide');
+	}); 
+
+	$(".user_webcam_take_picture").click(function(event) {
+		event.preventDefault();		
+
+   	// take snapshot and get image data
+      var data_uri = Webcam.snap();
+
+      $("#preview_user_proflle_pic").removeClass('hide');
+      // display results in page		
+      document.getElementById('preview_user_proflle_pic').innerHTML = '<img src="'+data_uri+'"/>';
+
+      // Store the DATA URI in hidden input
+      $("#mywebcam_user_data").val(data_uri);
+
+      // Store that the last picture chosen by the user is a webcam upload type
+      $("#input_type_user").val("webcam");      
+
+		/* yay, all good, do something */
+		$(".user_webcam_load").removeClass('hide');
+		$(".user_webcam_take_picture").addClass('hide');
+		$(".user_webcam_preview").addClass('hide');
+		Webcam.reset();
+	});
+
+	$(".dismiss_user_modal_webcam").click(function(event) {
+		event.preventDefault();		
+		$(".user_webcam_load").removeClass('hide');
+		$(".user_webcam_take_picture").addClass('hide');
+		$(".user_webcam_preview").addClass('hide');
+		$("#preview_user_proflle_pic").addClass('hide');
+	})
+});	
+
+</script>	
+
+<!-- Modal -->
+<div class="modal fade" id="changepicmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close dismiss_user_modal_webcam" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Change Profile Picture</h4>
+      </div>
+            
+      <%= form_for(current_user, :html => { :class => 'form' }) do |f| %>
+	      <div class="modal-body">
+	      	<output id="preview_user_proflle_pic" class="img-thumbnail hide">NO IMAGE</output>	
+	      	<div class="user_webcam_preview hide">		
+					<div id="user_webcam" class="img-thumbnail"></div>
+					<div class="take_snapshot">
+						<input type="button" value="Take Snapshot" class="user_webcam_take_picture btn btn-danger hide"/><br>
+						<hr style="margin-top: 10px; margin-bottom: 10px;">
+						<div class="alert alert-warning" role="alert"><i class="fa fa-info-circle"></i> If you don't see a preview on the left side, please authorize your webcam/camera.</div>
+					</div>
+				</div>	
+				<div style="clear:both;"></div>
+				<input id="mywebcam_user_data" type="hidden" name="mywebcamdata" value=""/>
+				<input id="input_type_user" type="hidden" name="myinputtype" value="upload"/>
+
+				<div class="form-group" style="margin-top: 10px;">					  
+				  <div class="controls pull-left">				  	 					  	 				  	 				  	 
+				  	 <%= f.file_field :avatar, class: 'input upload_btn pull-right', id: 'user_file', title:'<i class="fa fa-folder"></i> Upload from file' %>
+				  	 <button type="button" class="user_webcam_load btn upload_btn pull-right"><i class="fa fa-camera-retro"></i> Use Webcam</button>
+				    <div id="selfie_alert" style="float:left; margin-right: 10px; margin-top:7px; font-size: 12px; color:red; font-weight:600;"></div>
+				  </div>
+				</div>
+
+	      </div>        
+	     		
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default dismiss_user_modal_webcam" data-dismiss="modal">Cancel</button>
+	        <button type="submit" class="btn btn-primary">Save</button>
+	      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

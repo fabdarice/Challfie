@@ -1,0 +1,2 @@
+<% selfie = @selfie %>
+$(".selfie_post_comment_existing_<%= selfie.id %>").html("<%=j render partial: 'comments/comment', collection: @comments %>");

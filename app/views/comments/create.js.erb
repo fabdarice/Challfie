@@ -1,1 +1,1 @@
-$('.selfie_post_comment_existing_<%= @selfie.id %>').append("<%=j render 'comments/list_comments', :comment => @comment %>");
+$('.selfie_post_comment_existing_<%= @selfie.id %>').append("<%=j render 'comments/comment', :comment => @comment %>");

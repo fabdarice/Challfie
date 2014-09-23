@@ -1,0 +1,142 @@
+<script type="text/javascript">
+	$(function () {
+		// Ajax Form - Follow Suggested Friends	
+		$('.friends_btn').click(function () {					
+			$.ajax({
+	         type: "GET",
+	         url: $(this).attr("data-href"),
+	         dataType: 'script'        	
+	      }); 			 	
+		 	return false;
+		});	 
+
+		$(".big_profile_picture").hover(
+			function() {
+				$('.btn_change_pic').fadeIn('slow');
+		   	$(".btn_change_pic").removeClass("hide");		   	 
+		   }, function() {
+		   	$('.btn_change_pic').fadeOut('slow');		   	
+		   }
+		);
+
+		$("#friends_btn_hover").hover(
+			function() {
+				if ($(this).html() == '<i class="fa fa-check"></i> Following') {
+					$(this).html('<i class="fa fa-minus"></i> Unfollow');	
+					$(this).addClass('btn-danger');	   			   	 
+				}
+		   }, function() {
+		   	if ($(this).html() == '<i class="fa fa-minus"></i> Unfollow') {
+		   		$(this).html('<i class="fa fa-check"></i> Following');
+		   		$(this).removeClass('btn-danger');
+		   	}	
+		   }
+		);
+
+		$("#cancel_request_btn_hover").hover(
+			function() {
+				if ($(this).html() == '<i class="fa fa-clock-o"></i> Waiting Approval') {
+					$(this).html('<i class="fa fa-times"></i> Cancel Request');
+				}
+		   }, function() {
+		   	if ($(this).html() == '<i class="fa fa-times"></i> Cancel Request') {
+		   		$(this).html('<i class="fa fa-clock-o"></i> Waiting Approval');
+		   	}
+		   }
+		);
+	});
+</script>
+
+<!-- LEFT MENU USER PHOTO AND USERNAME AND RANK -->
+<% @homepage_followers = user.followers(true) %>
+<% @homepage_following = user.all_following %>
+
+<% if user_signed_in? %>
+	<div class="big_profile_picture">
+
+		<!-- User Profile Picture -->
+		<%= image_tag user.show_profile_picture, class: 'img-thumbnail', id: 'user_profile_picture' %>
+		
+		<% if current_user != user %>
+			<!-- Friendships Status button -->
+			<div class="friendship_btn_profile_picture">
+				<% if current_user.is_following?(user) %>
+					<%= link_to raw('<i class="fa fa-check"></i> Following') ,"javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn", id: 'friends_btn_hover' %>
+				<% elsif current_user.following?(user) %>											
+					<%= link_to raw("<i class='fa fa-clock-o'></i> Waiting Approval") ,"javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn", id: 'cancel_request_btn_hover' %>
+				<% else %>
+					<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(user), class: "btn btn-default btn-sm friends_btn friends_btn_#{user.id}" %>					
+				<% end %>
+					
+			</div>
+		<% end %>
+
+		<% if current_user == user %>		
+			<!-- CHANGE PROFILE PICTURE -->	
+			<div class="change_profile_picture">
+				<button type="button" class="btn btn-block btn_change_pic hide" data-toggle="modal" data-target="#changepicmodal">Change Picture</button>
+			</div>
+		<% end %>	
+		
+	</div>
+	<div class="profile_user_info">	
+		<div class="profile_user_username"><%= link_to user.username, user_path(user) %></div>
+		<div class="profile_user_rank_points">
+			<%= image_tag "/assets/book_master_volume_1.png", style: "width: 30px; height: 30px; float:left; margin-right: 5px; margin-top: 3px;" %>
+			<p style="float:left; font-size: 11px;">
+				Challfie Master<br>
+				<span class="homepage_user_info_challfie_rank"><%= user.points %> points</span>
+			</p>
+		</div>
+		<hr style="margin:0; margin-bottom: 5px;">	
+		<!-- <span class="pull-right"><%= link_to "Edit", edit_user_path %></span> -->		
+		<div style="clear:both;"></div>																		
+	</div>
+<% end %>
+<div style="clear: both;"></div>
+
+<div class="homepage_user_friend_selfie_book_block">
+
+	<%= link_to_if_with_block(user == current_user, user_path(user)) do %>
+		<!-- LEFT MENU SELFIES BLOCK -->
+		<div class="homepage_user_selfie_block">
+			<span class="number"><%= user.selfies.count %></span><br><span class="homepage_user_block_name">Selfies</span>
+		</div>
+	<% end %>	
+
+	<!-- LEFT MENU FOLLOWING BLOCK -->
+	
+	<%= link_to_if_with_block(user == current_user, user_friends_path, class:'homepage_friends_btn') do %>	
+		<div class="homepage_user_friend_block">
+			<span class="number"><%= @homepage_following.count %></span><br><span class="homepage_user_block_name">Following</span>
+		</div>
+	<% end %>
+
+	<!-- LEFT MENU FOLLOWERS BLOCK -->
+	<%= link_to_if_with_block(user == current_user, user_friends_path(:anchor => "followers"), class:'homepage_friends_btn')  do %>
+		<div class="homepage_user_follower_block">
+			<span class="number"><%= @homepage_followers.count %></span><br><span class="homepage_user_block_name">Followers</span>
+		</div>
+	<% end %>
+
+	<!-- LEFT MENU BOOKS BLOCK -->
+	<div class="homepage_user_book_block">
+		<span class="number">9</span><br><span class="homepage_user_block_name">Challenges</span>
+	</div>
+</div>
+
+<% if user == current_user %>
+	<!-- LEFT MENU USER PROGRESS BAR -->					
+	<div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+	</div>
+	<div class="progress_bar_legend">
+		<span class="pull-left">Lvl 1</span>
+		<span class="pull-right">Lvl 2</span>
+	</div><br><br>
+		
+	<!-- LEFT MENU TAKE A SELFIE BUTTON -->
+	<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; Take a Selfie Challenge</button>	
+
+	<%= render "/users/modal_change_pic" %>
+<% end %>

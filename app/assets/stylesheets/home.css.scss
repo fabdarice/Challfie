@@ -17,10 +17,9 @@
 .homepage_user_info {
 	float: left;
 	width: 190px;
-	height: 65px;
-	
+	height: 65px;	
 
-	.homepage_user_info_username {
+	.homepage_user_info_username a {
 		font-size: 14px;
 		font-family : "Arial";
 		font-weight: 600;
@@ -29,9 +28,19 @@
 		line-height: 25px;
 	}
 
+	.homepage_user_info_username a:focus, .homepage_user_info_username a:hover {
+		text-decoration: none;
+		color: darken($mygreen, 20%);
+	}
+
+	.homepage_user_info_username a:visited {
+		text-decoration: none;
+		
+	}
+
 	.homepage_user_info_challfie_rank {
 		font-size: 10px;
-		color: $mydarkgrey;
+		color: #8D8F8F;
 		line-height: 12px;
 	}
 }
@@ -122,5 +131,12 @@
 		font-size: 11px;
 		color: gray;
 	}
+}
+
+.take_a_selfie {
+	
+	color: #000000;
+	font-size: 13px;
+	font-family: "Century Gothic","Tahoma","Geneva","Arial";
 }
 

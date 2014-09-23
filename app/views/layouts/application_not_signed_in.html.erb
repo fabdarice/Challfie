@@ -11,9 +11,31 @@
   <%= csrf_meta_tags %>
 
 </head>
-<body>
-	<div id="main_content">
-		<%= yield %>
+<body style="padding-top: 0px;">	
+	<nav id="menu_signin" class="navbar" role="navigation">
+		<div class="container">
+			<%= image_tag "/assets/logo_left_side.png", class: 'pull-left', style:'margin-top: 5px;' %>
+			<div class="margin:auto" style="display: inline-block; margin-left: 480px;">				
+				<%= link_to image_tag("/assets/challfie.png", style: 'height: 36px; margin-top: 10px; text-align:center;'), root_path %>
+			</div>	
+			<%= image_tag "/assets/logo_right_side.png", class: 'pull-right', style:'margin-top: 5px;' %>			
+		</div>	
+      
+   </nav>
+	<div id="main_content_signin">
+		<div class="container" style="width: 1300px;">			
+			<%= yield %>
+		</div>
+	</div>
+	<div id="footer_signin">
+		<div class="container" style="width: 600px;">
+			<%= link_to "About Us", "#" %>
+			<%= link_to "Report Bug", "#" %>
+			<%= link_to "Contact", "#" %>
+			<%= link_to "Privacy", "#" %>
+			<%= link_to "Terms", "#" %>
+			<span class="copyright">Challfie &copy; 2014-2015</span>
+		</div>
 	</div>
 </body>
 </html>

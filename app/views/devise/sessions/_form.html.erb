@@ -1,0 +1,96 @@
+<script type='text/javascript'>
+	$(function () {
+		// To Open a popup for Facebook Authentication to Search for friends
+		$("a.popup").click(function(event) {				
+			popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentification");
+	  		event.stopPropagation(); 
+	  		return false;		
+		});	 
+
+		// Open a popup with dimension and url content - Use to open Facebook Login popup
+		function popupCenter(url, width, height, name) {
+		  var left = (screen.width/2)-(width/2);
+		  var top = (screen.height/2)-(height/2);
+		  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+		}
+	});		
+</script>
+<% if notice.present? %>
+  <br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= notice %></div>
+<% end %>
+
+<div class="logo_intro">
+	<p class="welcome_page_title">Take Selfies like you have never done before</p>
+  <div class="welcome_page_intro">
+    <strong>Challfie</strong> is the new <u>social network</u> designed exclusively for <strong>Selfies</strong>.<br><br>
+    It's a <strong>fun</strong> and <strong>simple way</strong> to share your selfies with your friends and to <strong>compete</strong> with them over the title of <u>Challfie's King</u>.<br><br>    
+    <div class="welcome_page_intro_block"><%= image_tag "/assets/lightning_background.png" %><span><strong><u>STEP 1</u></strong><br>Pick a Challenge</span></div>      
+    <div class="welcome_page_intro_block camera"><%= image_tag "/assets/camera_background.png" %><span><strong><u>STEP 2</u></strong><br>Take a Selfie for that challenge</span></div>
+    <div class="welcome_page_intro_block"><%= image_tag "/assets/approve_background.png" %><span><strong><u>STEP 3</u></strong><br>Get approve by your friends</span></div>
+    <div class="welcome_page_intro_block"><%= image_tag "/assets/book_background.png" %><span><strong><u>STEP 4</u></strong><br>Unlock New Challenge's Book</span></div>    
+  </div>
+  <div style="clear:both;"></div>
+
+
+  <div class="available_ios_android">
+    <p class="welcome_page_intro">Get started and download the <strong>Challfie app</strong> available on  <br>iOS and Android for <u>free</u> : </p>
+    <%= image_tag "/assets/download_ios.gif", style:'width: 150px; height: 48px;' %>
+    <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
+  </div>
+</div>
+<div class="login_form">    
+	<div class='login_block_small'>  
+		<% if devise_mapping.omniauthable? %>
+		  <% resource_class.omniauth_providers.each do |provider| %>
+		    <%= link_to "Sign in with #{provider.to_s.titleize}", user_omniauth_authorize_path(provider), :class => "popup btn btn-facebook", :"data-width" => 600, :"data-height" => 400 %><br />
+		  <% end %>  
+		<% end %>
+
+		<hr class="style-eight">
+		<br>
+		
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      	<span class="sign_in_alert"><%= flash[:alert] if flash[:alert] != "You need to sign in or sign up before continuing." %></span>
+      	<div class="control-group"><%= f.text_field :login, :autofocus => true, :placeholder => "Username or Email" %></div>
+      	
+       	<div class="control-group"><%= f.password_field :password, :placeholder => 'Password', class: 'login_password_field_small' %></div> 
+         
+         <%= f.submit 'Sign in', class: 'btn btn-primary btn_sign_in pull-right' %><br>
+         <div style="clear: both;"></div>
+         <% if devise_mapping.rememberable? -%>
+			    <%= f.check_box :remember_me %> <%= f.label :remember_me, class: 'remember_me_link' %>
+			<% end -%>
+			<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+				<%= link_to "I forgot my password", new_password_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br />
+			<% end -%>                        
+      <% end %>
+   </div>   
+   <br>
+   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |r| %>
+     <div class='login_block_small'>
+       <h2>Sign up <small> If Not Registered Yet</small></h2>   
+       <hr>     
+       <br>
+       
+       <span class='registration_error'><%= display_error(r.object, 'username') %></span>
+       <div class="control-group <% if r.object.errors['username'].present? %><%= 'error' %><% end %>"><%= r.text_field :username, :placeholder => 'Username' %></div>
+
+       <span class='registration_error'><%= display_error(r.object, 'firstname') %></span>
+       <div class="control-group <% if r.object.errors['firstname'].present? %><%= 'error' %><% end %>"><%= r.text_field :firstname, :placeholder => 'Firstname' %></div>
+
+       <span class='registration_error'><%= display_error(r.object, 'lastname') %></span>
+       <div class="control-group <% if r.object.errors['lastname'].present? %><%= 'error' %><% end %>"><%= r.text_field :lastname, :placeholder => 'Lastname' %></div>
+
+       <span class='registration_error'><%= display_error(r.object, 'email') %></span>
+       <div class="control-group <% if r.object.errors['email'].present? %><%= 'error' %><% end %>"><%= r.email_field :email, :placeholder => 'Email' %></div>
+       
+       <span class='registration_error'><%= display_error(r.object, 'password') %></span>
+       <div class="control-group <% if r.object.errors['password'].present? %><%= 'error' %><% end %>"><%= r.password_field :password, :placeholder => 'Password', class: 'login_password_field' %></div>
+
+       <span class='registration_error'><%= display_error(r.object, 'password_confirmation') %></span>  
+       <div class="control-group <% if r.object.errors['password_confirmation'].present? %><%= 'error' %><% end %>"><%= r.password_field :password_confirmation, :placeholder => 'Password Confirmation', class: 'login_password_field' %></div>       
+       
+       <div style='float: right;'><%= r.submit 'Register to Challfie', class: 'btn btn-info' %></div>       
+     </div>
+   <% end %>    
+</div>

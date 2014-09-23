@@ -1,3 +1,7 @@
+<% content_for :left_content do %>
+	<%= render 'home/left_content' %>
+<% end %>
+
 <h3>List of all challenges </h3>
 <% @challenges.each do |challenge| %>
 	<%= challenge.description %><br>

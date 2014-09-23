@@ -1,0 +1,15 @@
+<% if @is_timeline_tab %>	
+	$('.tab_challfie').append('<%=j render @timeline_selfie, :editable => true %>');
+	<% if @timeline_selfie.next_page %>  
+		$('#tab_timeline .pagination').replaceWith('<%= j will_paginate @timeline_selfie, next_label: "Older", previous_label: "Newer" %>');	
+	<% else %>
+		$('#tab_timeline .pagination').remove();
+	<% end %>
+<% else %>	
+	$('.tab_selfies').append('<%=j render "selfies_tab", :selfies => @selfies %>');	
+	<% if @selfies.next_page %>  
+	  $('#tab_photos .pagination').replaceWith('<%=j will_paginate @selfies, next_label: "Older", previous_label: "Newer" %>');
+	<% else %>  
+	  $('#tab_photos .pagination').remove();
+	<% end %>
+<% end %>

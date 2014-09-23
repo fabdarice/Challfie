@@ -1,0 +1,17 @@
+<div class="one_notification <% if !notification.read %>notification_unread<% end %>">
+	<div class="one_notification_author">
+		<%= link_to (image_tag notification.author.show_profile_picture), user_path(notification.author)  %>
+	</div>
+	<div class="one_notification_message">							
+		<%= raw notification.message %><br>
+		<span style="font-style: italic; font-size: 11px; color:gray;"><%= time_ago_in_words(notification.created_at)%> ago</span>	
+	</div>
+	<div class="one_notification_picture">
+		<% if notification.selfie %>
+			<%= link_to (image_tag notification.selfie.photo.url(:thumb)), selfie_path(notification.selfie), :"data-toggle"=>"modal", :"data-target"=>"#modal_selfie" %>
+		<% end %>	
+	</div>
+	<div style="clear: both;"></div>
+	
+</div>
+<hr style="margin-top:5px; margin-bottom:5px;">

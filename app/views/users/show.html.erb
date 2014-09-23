@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	$(function() {
+		// Autoload selfies when user is scrolling the page down
+		if ($('#profile_page').length && $(".pagination").length) {
+			$(window).scroll(function() {
+				var url;
+				if ($('#tab_timeline').hasClass("active")) {
+					url = $("#tab_timeline a.next_page").attr("href");						
+					if (url && $(window).scrollTop() > ($(document).height() - $(window).height() - 400)) {						
+					  url = url + '&tab=timeline';		
+					  $("#tab_timeline .pagination").text("Loading more challfies..."); 			  					  
+					  $.getScript(url); 
+					}
+				} else {					
+					url = $("#tab_photos a.next_page").attr("href");
+					if (url && $(window).scrollTop() > ($(document).height() - $(window).height() - 400)) {        				
+					  url = url + '&tab=photos';
+					  $("#tab_photos .pagination").text("Loading more selfies...");                					  
+					  $.getScript(url);     
+					}
+				}									
+			});
+			$(window).scroll();
+		}
+
+		$(".tab_photos_one_selfie").hover (
+			function () {				
+				$(this).find(".tab_photos_one_selfie_infos").removeClass('hide');
+			}, function() {
+				$(this).find(".tab_photos_one_selfie_infos").addClass('hide');
+			}
+		)
+
+	});
+</script>
+
+
+<% content_for :left_content do %>
+	<%= render 'users/left_content_profile', :user => @user %>
+<% end %>
+
+<% content_for :title do %>
+  <%= "Challfie - #{@user.username}" %> 
+<% end %>
+
+<div id="profile_page">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+	  <li class="active"><a href="#tab_timeline" role="tab" data-toggle="tab">Timeline</a></li>
+	  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges <span class="mybadge">42</span></a></li>
+	  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @user.selfies.count %></span></a></li>
+	  <li><a href="#tab_followers" role="tab" data-toggle="tab">Followers <span class="mybadge"><%= @followers.count %></span></a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content" style="padding:0px;">
+	  <div class="tab-pane fade in active" id="tab_timeline">
+	  		<div class="tab_challfie">
+				<%= render @timeline_selfie, :editable => true %>				
+			</div>  	
+			<center><%= will_paginate @timeline_selfie %></center>
+	  </div>
+	  <div class="tab-pane fade" id="tab_challenges">
+	  			
+	  </div>
+	  <div class="tab-pane fade" id="tab_photos">
+	  		<div class="tab_selfies">
+	  			<%= render "selfies_tab", :selfies => @selfies %>
+	  		</div>	
+	  		<center><%= will_paginate @selfies %></center>
+	  </div>
+	  <div class="tab-pane fade" id="tab_followers">
+	  		<%= render 'friends_tab', :friends => @followers, :friendship => "followers", :user => @user %>
+	  </div>
+	</div>
+	
+</div>	
+
+<%= render 'selfies/modal_selfie' %>
+
+
+
+	
+

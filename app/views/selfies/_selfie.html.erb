@@ -1,0 +1,96 @@
+<div class="selfie_post">
+	<!-- SELFIE USER PICTURE AND NAME -->
+  <div class="selfie_post_user">
+  		<%= link_to (image_tag selfie.user.show_profile_picture, class: 'img-thumbnail', style:'float: left; margin-right: 10px;'), user_path(selfie.user) %>
+  		<div class="selfie_post_user_username_challenge pull-left">
+  			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %></p>
+  			<span class="selfie_post_user_challenge"><i class="fa fa-bolt fa-lg"></i> <%= selfie.challenge.description %></span><br>
+        <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
+          <%= form_for selfie do |f| %>
+           <%= f.radio_button :private, false, id: "public_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="public_radio_btn_<%= selfie.id %>" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie." class=""><i class="fa fa-unlock"></i> Public</label>
+           <%= f.radio_button :private, true, id: "private_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="private_radio_btn_<%=selfie.id%>" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie."><i class="fa fa-lock"></i> Private</label>
+         <% end %>
+        </div> 
+  			<span class="selfie_post_date selfie_privacy_icon_<%= selfie.id %>">          
+            <% if selfie.private %>
+              <i class="fa fa-lock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Private - Only your followers can see this selfie."></i> 
+            <% else %>
+              <i class="fa fa-unlock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Public - Everyone can see this selfie."></i> 
+            <% end %>                      
+          <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %> ago</span>
+        </span>
+  		</div>
+
+      <% if !editable.blank? and editable == true and current_user == selfie.user %>
+  		<!-- SELFIE EDIT/DELETE SELFIE -->
+    		<div class="dropdown pull-right">
+  			   <a id="dropdownMenu3" data-toggle="dropdown" class="selfie_dropdown"><i class="fa fa-cog fa-lg"></i></a>
+    			 <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu3">
+    				 <li role="presentation"><a href="#" class="edit_selfie_message" data-id="<%= selfie.id %>">Edit Selfie</a></li>
+             <li role="presentation"><a href="#" class="edit_selfie_privacy" data-id="<%= selfie.id %>">Edit Privacy</a></li>
+    				 <li role="presentation"><%= link_to "Delete Selfie", selfie_path(selfie), method: 'delete', data: {confirm: 'Are you sure?'} %></li>
+    		   </ul>
+    		</div>
+      <% end %>
+  </div>
+
+  <div class="selfie_form_<%= selfie.id %> hide" data-id="<%= selfie.id %>">
+  		<div class="form_group">
+  			<%= form_for selfie do |f| %>          
+  				<%= f.text_area :message, class: 'form-control edit_selfie_form', rows:'2', style:"font-size: 11px; font-family:'Tahoma', 'Arial';" %>
+  			<% end %>
+  		</div>	 
+  		<br> 		
+  </div>
+
+  <!-- SELFIE MESSAGE -->
+  <div class="selfie_post_message_<%= selfie.id %>">
+    <%= simple_format(selfie.message, class: "selfie_post_message ") %>
+  </div>  
+
+  <!-- SELFIE PICTURE -->
+  <div class="selfie_image">
+  		<%= image_tag selfie.photo.url(:original), style: "width: 508px;" %>
+  		<%= image_tag "/assets/challenge_success.png", style: "width: 50px;", class: "selfie_challenge_status_img", :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Blablabla" %>
+  </div>
+
+  <!-- SELFIE APPROVE / DISAPPROVE BLOCK  -->
+  <div class="selfie_vote_block selfie_vote_block_<%= selfie.id %>">  		
+  		<%= link_to selfie_approve_path(selfie), class: 'btn-vote', remote: true do %>	
+  			<span class="approve_button <% if current_user.voted_up_on? selfie %>vote_green<% end %>">
+  				<span class="glyphicon glyphicon-thumbs-up"></span> Approve
+			   </span>
+  		<% end %>
+  		<%= link_to selfie_disapprove_path(selfie), class: 'btn-vote', remote: true do %>
+  			<span class="disapprove_button <% if current_user.voted_down_on? selfie %>vote_red<% end %>">
+  				<span class="glyphicon glyphicon-thumbs-down"></span> Disapprove
+			  </span>
+  		<% end %>			  
+  		
+  		<div class="selfie_nb_vote_block">
+  			<span class="vote_green" data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_upvotes.size, 'user')%> approve"><i class="fa fa-thumbs-up"></i> <span class='upvote'><%= selfie.get_upvotes.size %></span></span>
+  			<span data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_downvotes.size, 'user') %> disapprove"><i class="fa fa-thumbs-down" style='margin-left: 10px;'></i> <span class='downvote'><%= selfie.get_downvotes.size %></span></span>
+  		</div>
+  </div>
+
+<!-- COMMENTS SECTION -->
+  <div class="selfie_post_comment_block">    
+	  <div class="selfie_post_comment_existing selfie_post_comment_existing_<%= selfie.id %>">
+      <% number_of_previous_comment = selfie.comments.count - 3 %>
+      <% if number_of_previous_comment > 0 %>
+          <div class="show_all_comment">          
+            <%= link_to "Show #{number_of_previous_comment} Previous Comments.." ,"javascript:void(0)", :"data-href" => selfie_comments_showall_path(selfie), class: 'show_all_comment_link' %>
+          </div>	  	    
+      <% end %>  
+		  <%= render partial: 'comments/comment', collection: selfie.comments.last(3) %>		  	  		  	
+	  </div>   	  	   
+	  	
+  	   <hr>
+
+	  <div class="selfie_post_comment_create form-group">
+	   	<%= form_for [selfie, Comment.new] do |comment| %>
+	   		<%= comment.text_area :message, class:'form-control selfie_post_comment_textarea', placeholder:'Write a comment..', row:'1' %>
+	   	<% end %>		  		
+	 	</div>
+  </div>
+</div>

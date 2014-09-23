@@ -26,16 +26,6 @@ module Api
       end
     end
 
-    def update
-#                  respond_with User.update(params[:id], params[:users])
-
-    end
-
-    def destroy
-      #            respond_with User.destroy(params[:id])
-
-    end
-
     private
   
       def authenticate_user_from_token!

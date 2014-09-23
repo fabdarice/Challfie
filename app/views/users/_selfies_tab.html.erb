@@ -1,0 +1,16 @@
+<% selfies.each_slice(4) do |slice| %>
+	<div class="one_line_following">
+		<% slice.each do |selfie| %>
+			<div class="pull-left tab_photos_one_selfie <% if slice.count < 4 %>block_space_selfies <% else %><%= cycle('block_space_selfies', 'block_space_selfies', 'block_space_selfies', '') %> <% end %>">
+					<%= link_to selfie_path(selfie), :"data-toggle"=>"modal", :"data-target"=>"#modal_selfie" do %>
+						<%= (image_tag selfie.photo.url(:medium), class: 'img-thumbnail') %>
+						<%= image_tag "/assets/challenge_success.png", style: "width: 20px;", class: "tab_photos_one_selfie_infos_status", :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Blablabla" %>
+						<div class="tab_photos_one_selfie_infos hide">
+							<span class="glyphicon glyphicon-thumbs-up"></span> <%= selfie.get_upvotes.size %>&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-comment"></span> <%= selfie.comments.count %>
+						</div>
+					<% end %>	
+			</div>
+		<% end %>
+	</div>
+<% end %>	

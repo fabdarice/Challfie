@@ -1,0 +1,6 @@
+$('#list_notifications').append('<%=j render @notifications %>	');
+<% if @notifications.next_page %>
+  $('#index_list_notifications .pagination').replaceWith('<%= j will_paginate @notifications, next_label: "Older", previous_label: "Newer" %>');
+<% else %>
+  $('#index_list_notifications .pagination').remove();
+<% end %>

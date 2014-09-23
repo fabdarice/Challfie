@@ -4,63 +4,148 @@
 
 @import "colors";
 
+.big_profile_picture  {
+	position: relative;
+
+	img {
+		width: 280px;	
+	}
+}
+
+.change_profile_picture {
+	position: absolute;
+	z-index : 100;
+	bottom: 5px;
+	left: 5px;
+	
+   width: 268px;
+}
+
+.friendship_btn_profile_picture {
+	position: absolute;
+	z-index : 100;
+	top: 10px;
+	right: 10px;
+}
+
+.btn.btn_change_pic {	
+	background-image: none;
+	color: #ffffff;
+	border-radius: 0px;
+	height: 40px;
+	background: rgb(0, 0, 0) transparent;
+    /* RGBa with 0.6 opacity */
+    background: rgba(0, 0, 0, 0.5);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+
+}
+
+.profile_user_info {
+	width: 280px;
+
+	.profile_user_username {	
+		padding: 10px;	
+		width: 140px;
+		border-right: 1px solid $mygrey;
+		border-bottom: 1px solid $mygrey;
+		line-height: 30px;
+		float: left;
+		height: 50px;
+		overflow: hidden;
+		text-align: center;
+
+		a {
+			font-size: 14px;
+			font-family : "Arial";
+			font-weight: 600;
+			color: black;					
+		}
+	}
+
+	.profile_user_rank_points {
+		padding: 10px;
+		float: left;
+		width: 140px;
+		border-bottom: 1px solid $mygrey;
+		height: 50px;
+		overflow: hidden;
+	}
+}
+
 #list_friends_block {
 	float: left;
 	width: 820px;
-	margin-left:330px;	
+	
 	background-color: $mygrey;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	overflow: hidden;
+}
 
-	.one_line_following {
+.one_line_following {
 		clear: both;
 		margin-bottom: 10px;
 		overflow: hidden;
+		padding: 5px;
 	}
 
-	.one_following_block_border {
-		width: 258px;
-		height: 100px;
-		
-		float: left;
-		padding: 3px;
-		border: 1px solid darken($mygrey, 5%);
+.one_following_block_border {
+	width: 250px;
+	height: 100px;
+	
+	float: left;
+	padding: 3px;
+	
+	border: 1px solid $mydarkgrey;
+	box-shadow: 0 0 10px 1px $mydarkgrey;
+	-moz-box-shadow: 0 0 10px 1px $mydarkgrey;
+  	-webkit-box-shadow: 0 0 10px 1px $mydarkgrey;
 
-		.one_following_block {
-			width: 250px;
-			height: 92px;
-			background-color: $mygrey;
-			padding: 7px;
-		}
+	.one_following_block {
+		width: 243px;
+		height: 92px;
+		background-color: $mygrey;
+		padding: 7px;
 	}
+}
 
-	.block_space {
-		margin-right: 12px;
-	}
+.block_space {
+	margin-right: 19px;
+}
+
+.block_space_selfies {
+	margin-right: 9px;
 }
 
 .friends_suggestions_block {
 	margin-top: 10px;
 }
 
-.friend_username {
-	color: $mygreen;
+.friend_username a {
+	color: black;
 	font-weight: 600;
 	margin-bottom: 0px;
 }
 
+.friend_username a:hover, .friend_username a:focus {
+	color: darken($mygreen, 10%);
+}
+
 .friend_rank {
-	font-size: 11px;
+	font-size: 10px;
 	color: gray;
 	float: left;
 	display: block;
+	font-style: italic;
 }
 
 .friend_follower {
-	font-size: 10px;
-	font-style: italic;
+	font-size: 11px;
+	
 	
 }
 
@@ -71,3 +156,107 @@
 .friends_btn {
 	margin-top: 4px;
 }
+
+
+#profile_page {
+	float: left;
+	width: 820px;
+	
+	background-color: $mygrey;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+#profile_page_right_content {
+	border: 1px solid $mydarkgrey;
+	box-shadow: 0 0 10px 3px $mydarkgrey;
+	-moz-box-shadow: 0 0 10px 3px $mydarkgrey;
+  	-webkit-box-shadow: 0 0 10px 3px $mydarkgrey;
+	position: fixed;
+	margin-left:580px;
+	width: 240px;	
+	background-color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+
+
+#tab_timeline {
+	padding: 10px;
+	background: url('/assets/mychallfies_background.png') no-repeat center center fixed; 
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+
+	.tab_challfie {
+		width: 550px;
+		margin: auto;
+
+	}
+}
+
+.mybadge {
+	 background-color: #999999;
+    border-radius: 10px;
+    color: #ffffff;    
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 10px;
+    padding: 2px 5px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+    margin-left: 5px;
+}
+
+#user_webcam {
+	width: 250px;
+	height: 250px;
+	overflow: hidden;
+	float:left;
+	margin-right: 50px;
+}
+
+#preview_user_proflle_pic {	
+   vertical-align: middle;
+   text-align: center;   
+   color:darken($mygrey, 30%); 
+   display: table;
+   margin: 0 auto;
+
+   img {
+   	height: 270px;
+		width: auto;
+   }
+}	   
+
+#tab_photos {
+	padding: 10px;
+}
+
+.tab_photos_one_selfie {
+	position: relative;
+
+	.tab_photos_one_selfie_infos {
+		position: absolute;		
+		color: #ffffff;
+		right: 10px;
+		bottom: 10px;	
+		z-index :100;
+	}
+
+	.tab_photos_one_selfie_infos_status {
+		position: absolute;
+		z-index :100;
+		top: 10px;
+		right: 10px;
+	}
+}
+

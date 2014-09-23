@@ -21,6 +21,8 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -38,6 +40,9 @@ gem "font-awesome-rails"
 
 gem 'omniauth-facebook'
 
+# Facebook Graph
+gem "koala", "~> 1.10.0rc"
+
 gem 'will_paginate', '~> 3.0'
 
 
@@ -49,6 +54,11 @@ gem 'friendly_id', '~> 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.
 
 gem "acts_as_follower"
 
+gem 'rails3-jquery-autocomplete'
+
+gem 'progress_bar'
+
+gem 'acts_as_votable', '~> 0.10.0'
 
 
 group :development, :test do

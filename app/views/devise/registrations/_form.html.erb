@@ -1,65 +1,67 @@
-<div class="control-group <% if f.object.errors['firstname'].present? %><%= 'error' %><% end %>">
-  <%= f.label :firstname, class: 'control-label required' %>
-  <div class="controls">
-    <%= f.text_field :firstname, :autofocus => true, placeholder: 'Firstname' %>
-    <span class="help-inline"><%= display_error(f.object, 'firstname') %></span>
+<div class="form-group <% if f.object.errors['username'].present? %>error<% end %>">
+  <%= f.label :username, class: 'col-sm-3 control-label required' %>
+  <div class="col-sm-6">
+    <%= f.text_field :username, placeholder: 'Username', class: 'form-control', style:' margin-bottom:3px;', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Only alphanumeric characters allowed." %>
+    <span class="text-info" style="margin-top: 5px;"><span class="glyphicon glyphicon-warning-sign"></span> Your <u>username</u> is your primary ID to login.</span>
   </div>
-</div>
-
-<div class="control-group <% if f.object.errors['lastname'].present? %><%= 'error' %><% end %>">
-  <%= f.label :lastname, class: 'control-label required' %>
-  <div class="controls">
-    <%= f.text_field :lastname, placeholder: 'Lastname' %>
-    <span class="help-inline"><%= display_error(f.object, 'lastname') %></span>
-  </div>
-</div>
-
-<div class="control-group <% if f.object.errors['email'].present? %><%= 'error' %><% end %>">
-  <%= f.label :email, class: 'control-label required' %>
-  <div class="controls">
-    <%= f.email_field :email, placeholder: 'Email' %>
-    <span class="help-inline"><%= display_error(f.object, 'email') %></span>
-  </div>
-</div>
-
-<div class="control-group <% if f.object.errors['username'].present? %><%= 'error' %><% end %>">
-  <%= f.label :username, class: 'control-label required' %>
-  <div class="controls">
-    <%= f.text_field :username, placeholder: 'Username' %>
+  <div class="col-sm-3">  
     <span class="help-inline"><%= display_error(f.object, 'username') %></span>
   </div>
 </div>
 
+<div class="form-group <% if f.object.errors['firstname'].present? %>error<% end %>">
+  <%= f.label :firstname, class: 'col-sm-3 control-label required' %>
+  <div class="col-sm-6">
+    <%= f.text_field :firstname, :autofocus => true, placeholder: 'Firstname', class: 'form-control' %>
+  </div>
+  <div class="col-sm-3" style="padding-top: 7px;">  
+    <span class="help-inline"><%= display_error(f.object, 'firstname') %></span>
+  </div>
+</div>
+
+<div class="form-group <% if f.object.errors['lastname'].present? %>error<% end %>">
+  <%= f.label :lastname, class: 'col-sm-3 control-label required' %>
+  <div class="col-sm-6">
+    <%= f.text_field :lastname, placeholder: 'Lastname', class: 'form-control' %>    
+  </div>
+  <div class="col-sm-3" style="padding-top: 7px;">
+    <span class="help-inline"><%= display_error(f.object, 'lastname') %></span>
+  </div>
+</div>
+
+<div class="form-group <% if f.object.errors['email'].present? %>error<% end %>">
+  <%= f.label :email, class: 'col-sm-3 control-label required' %>
+  <div class="col-sm-6">
+    <% if source == 'devise' %>
+      <%= f.email_field :email, placeholder: 'Email', class: 'form-control', disabled: false %>
+    <% else %>
+      <%= f.email_field :email, placeholder: 'Email', class: 'form-control', disabled: true %>
+    <% end %>
+    
+  </div>
+  <div class="col-sm-3" style="padding-top: 7px;">  
+    <span class="help-inline"><%= display_error(f.object, 'email') %></span>
+  </div>
+</div>
+
 <% if source == 'devise' %>
-  <div class="control-group <% if f.object.errors['password'].present? %><%= 'error' %><% end %>">
-    <%= f.label :password, class: 'control-label required' %>
-    <div class="controls">
-      <%= f.password_field :password, placeholder: 'Password' %>
+  <div class="form-group <% if f.object.errors['password'].present? %>error<% end %>">
+    <%= f.label :password, class: 'col-sm-3 control-label required' %>
+    <div class="col-sm-6">
+      <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+    </div>
+    <div class="col-sm-3" style="padding-top: 7px;">  
       <span class="help-inline"><%= display_error(f.object, 'password') %></span>
     </div>
   </div>
 
-  <div class="control-group <% if f.object.errors['password_confirmation'].present? %><%= 'error' %><% end %>">
-    <%= f.label :password_confirmation, class: 'control-label required' %>
-    <div class="controls">
-      <%= f.password_field :password_confirmation, placeholder: 'Password confirmation' %>
+  <div class="form-group <% if f.object.errors['password_confirmation'].present? %>error<% end %>">
+    <%= f.label :password_confirmation, class: 'col-sm-3 control-label required' %>
+    <div class="col-sm-6">
+      <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
     </div>
   </div>    
 <% end %>
 
-<% unless @user.new_record? || !@user.avatar %>
-  <div class="control-group">
-    <label class="control-label">Uploaded Photo</label>
-    <div class="controls">
-      <%= image_tag(@user.avatar.url(:tiny), alt: 'Photo', title: 'Current photo') %>
-    </div>
-  </div>
-<% end %>
 
-<div class="control-group <% if f.object.errors['avatar'].present? %><%= 'error' %><% end %>">
-  <%= f.label :avatar, "Photo", class: 'control-label' %>
-  <div class="controls">
-    <%= f.file_field :avatar, class: 'input' %>
-  </div>
-</div>
     

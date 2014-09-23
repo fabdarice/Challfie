@@ -1,15 +1,69 @@
-<%= form_for(@user, :html => { :class => 'form-horizontal'}) do |f| %>
-  <%= field_set_tag "My Profile" do %>
+<script type="text/javascript">
+  $(function () {
+    $('#change_password').click(function(event) {
+      event.preventDefault();
+      $('div#change_password_form').removeClass('hide');
+      $(this).parents('.form-group').addClass('hide');
+    });
+  });
+</script>
 
+<% content_for :left_content do %>
+  <%= render 'home/left_content' %>
+<% end %>
+
+<div class="full_width_content">  
+  <h4>Edit My Profile</h4>
+  <hr><br>
+  <%= form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal' }) do |f| %>
     
-    <div style='width: 100%; padding-left: 25%;'%>
-      <%= render 'devise/registrations/form', :f => f, :source => 'user' %>   
-      
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn">Update Profile</button>
+    <%= render 'devise/registrations/form', :f => f, :source => 'user' %> 
+    <div class="form-group <% if f.object.errors['password_confirmation'].present? or f.object.errors['password'].present? %>hide<% end %>">      
+      <%= f.label :password, class: 'col-sm-3 control-label' %>      
+      <div class="col-sm-6" style='padding-top: 6px;'>
+        <a href="#" id="change_password">Change Password</a>
+      </div>  
+    </div>
+
+
+
+    <div id="change_password_form" class="<% if !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">
+      <div class="form-group <% if f.object.errors['password'].present? %>error<% end %>">
+        <%= f.label :password, "New Password", class: 'col-sm-3 control-label required' %>
+        <div class="col-sm-6">
+          <%= f.password_field :password, placeholder: 'Password', class: 'form-control', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Must be at least 8 characters." %>
+        </div>
+        <div class="col-sm-3" style="padding-top: 7px;">  
+          <span class="help-inline"><%= display_error(f.object, 'password') %></span>
         </div>
       </div>
+
+      <div class="form-group <% if f.object.errors['password_confirmation'].present? %>error<% end %>">
+        <%= f.label :password_confirmation, class: 'col-sm-3 control-label required' %>
+        <div class="col-sm-6">
+          <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
+        </div>
+        <div class="col-sm-3" style="padding-top: 7px;">  
+          <span class="help-inline"><%= display_error(f.object, 'password_confirmation') %></span>
+        </div>
+      </div>    
     </div>
-  <% end %>  
-<% end %>
+
+
+
+
+    <hr><br>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-6">
+        <button type="submit" class="btn btn-primary pull-right" style="margin-left: 10px;">Save</button>        
+        <%= link_to "Cancel", root_path, class:'btn btn-default pull-right' %>        
+      </div>      
+    </div>      
+  <% end %>
+  <br>
+  
+</div>  
+
+
+
+

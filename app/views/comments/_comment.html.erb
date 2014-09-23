@@ -1,0 +1,3 @@
+<%= link_to (image_tag comment.user.show_profile_picture, style: "float: left; margin-right: 10px; width: 35px; height:35px;"), user_path(comment.user) %>
+<p style="float: left; width: 440px; text-align:left; line-height: 19px; "><span class="selfie_post_comment_existing_username"><%= link_to comment.user.username, user_path(comment.user) %></span><span class="selfie_post_comment_existing_date"><%= time_ago_in_words(comment.created_at) %><br></span> <span style="font-family:'Tahoma, Arial'; font-size: 13px;"><%= simple_format(comment.message, {}, wrapper_tag: "span") %></span> </p>
+<div style="clear:both;"></div>		

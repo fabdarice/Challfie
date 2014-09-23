@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+         type: "GET",
+         url: "/notifications/all_read",         
+         dataType: 'script'         
+      });		   
+      
+
+      // Autoload notifications when user is scrolling the page down
+		if ($('#index_list_notifications').length && $(".pagination").length) {
+			$(window).scroll(function() {
+				var url;
+				url = $(".pagination a.next_page").attr("href");				
+				if (url && $(window).scrollTop() > ($(document).height() - $(window).height() - 320)) {        				
+				  $("#index_list_notifications .pagination").text("Loading more notifications..");                				  
+				  $.getScript(url);     
+				}
+			});
+			$(window).scroll();
+		}         
+  });
+
+</script>
+
+<% content_for :left_content do %>
+	<%= render 'home/left_content' %>
+<% end %>
+
+<% content_for :right_content do %>
+	<%= render 'users/friends_suggestions' %>
+<% end %>
+
+<div class="half_width_content" id="index_list_notifications">
+	<h5>Notifications</h5>
+	<hr style="border: 0.01em solid grey; margin-bottom: 15px;">
+	<div id="list_notifications">
+		<%= render @notifications %>		
+	</div>	
+	<center><%= will_paginate @notifications %></center>
+</div>
+<%= render 'selfies/modal_selfie' %>
+
+

@@ -1,3 +1,22 @@
 <% selfie = @selfie %>
+// Selfie Post Message
 $('.selfie_post_message_<%= selfie.id %>').replaceWith('<%=j simple_format(selfie.message, class: "selfie_post_message selfie_post_message_#{selfie.id}") %>');
-$('.selfie_form_<%= selfie.id %>').addClass('hidden');
+$('.selfie_form_<%= selfie.id %>').addClass('hide');
+
+
+// Selfie Privacy setting
+$('.selfie_privacy_form_<%= selfie.id %>').addClass("hide");
+$('.selfie_privacy_icon_<%= selfie.id %>').removeClass("hide");
+<% if selfie.private %>	
+	$("#public_radio_btn_<%= selfie.id %>").attr("checked", false);
+	$("#private_radio_btn_<%= selfie.id %>").attr("checked", true);
+	$("#private_radio_btn_<%= selfie.id %>").addClass('check_radio_btn');
+	$("#public_radio_btn_<%= selfie.id %>").removeClass('check_radio_btn');
+	$('.selfie_privacy_icon_<%= selfie.id %>').html('<i class="fa fa-lock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Private - Only your followers can see this selfie."></i> <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %> ago</span>');
+<% else %>
+	$("#public_radio_btn_<%= selfie.id %>").attr("checked", true);
+	$("#private_radio_btn_<%= selfie.id %>").attr("checked", false);
+	$("#public_radio_btn_<%= selfie.id %>").addClass('check_radio_btn');
+	$("#private_radio_btn_<%= selfie.id %>").removeClass('check_radio_btn');
+	$('.selfie_privacy_icon_<%= selfie.id %>').html('<i class="fa fa-unlock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Public - Everyone can see this selfie."></i> <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %> ago</span>');
+<% end %>

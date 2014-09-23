@@ -11,8 +11,18 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   extend FriendlyId
-  friendly_id :username, use: :slugged       
+  friendly_id :username, use: :slugged     
 
+
+  searchable do 
+    text :username, :boost => 5.0
+    text :firstname
+    text :lastname, :boost => 3.0
+    text :email
+  end  
+
+  acts_as_voter
+  
   acts_as_followable
   acts_as_follower
 
@@ -21,36 +31,45 @@ class User < ActiveRecord::Base
   validates :username,
             :uniqueness => { :case_sensitive => false },
             if: :not_from_facebook?
+
+  validates_presence_of :firstname, :lastname, :email, :username, message: 'Field cannot be empty.'            
   
+  validates_length_of :username, within: 2..20, too_short: 'minumum 2 characters', too_long: 'maximum 20 characters',
+                      if: :not_from_facebook?            
+
   validates_format_of :username, with: /\A[a-zA-Z\d]+\z/, 
                       message: "must contain only alphanumeric characters.", 
-                      if: :not_from_facebook?
-
-  validates_presence_of :firstname, :lastname, :email, :username, message: 'Field cannot be empty.'                        
+                      if: :not_from_facebook?                          
 
   validates :email,
             format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: "email format incorrect." }
 
+  has_one :facebook_info
   has_many :selfies
   has_many :comments
+  has_many :notifications
 
   has_attached_file :avatar, 
                     :styles => {:thumb => "" }, 
-                    :convert_options => { :thumb => "-gravity Center -crop 500x500+0+0 +repage -resize 400x400^" },
-                    :default_url => "/images/:style/missing.png"
+                    :convert_options => { :thumb => Proc.new { |instance| instance.avatar_dimension } },
+                    :default_url => "/assets/missing.jpg"
   
   validates_attachment :avatar,
             :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
             :size => { :in => 0..5.megabytes }
 
+  def avatar_dimension(size=400)
+    dimensions = Paperclip::Geometry.from_file(avatar.queued_for_write[:original].path)
+    min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
+    "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{size}x#{size}^"
+  end            
+
   def not_from_facebook?
     !self.from_facebook
   end
 
-  def self.find_for_facebook_oauth(auth, from_mobileapp)
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
-      puts "PROVIDER : " + auth[:provider] + "\n"
-      puts "UID : " + auth[:uid] + "\n"
+  def self.find_for_facebook_oauth(auth, from_mobileapp)        
+    facebook_user = where(auth.slice(:provider, :uid)).first_or_initialize do |user|    
       user.provider = auth[:provider]
       user.uid = auth[:uid]
       user.email = auth[:info][:email]
@@ -59,11 +78,20 @@ class User < ActiveRecord::Base
       user.firstname = auth[:info][:first_name]
       user.lastname = auth[:info][:last_name]
       user.facebook_picture = auth[:info][:image] # assuming the user model has an image
+      user.oauth_token = auth[:credentials][:token]
+      user.oauth_expires_at = auth[:credentials][:expires_at]
       user.from_facebook = true
-      user.from_mobileapp = from_mobileapp
-      user.skip_confirmation!       
+      user.from_mobileapp = from_mobileapp      
+      user.skip_confirmation!             
     end
-
+        
+    facebook_user.update_attributes(email: auth[:info][:email], 
+                                    username: auth[:info][:name], 
+                                    firstname: auth[:info][:first_name],
+                                    oauth_token: auth[:credentials][:token],
+                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]))    
+    facebook_user.save
+    return facebook_user
   end
 
   def self.new_with_session(params, session)
@@ -122,8 +150,22 @@ class User < ActiveRecord::Base
     follow.destroy    
   end
 
+  # If status = false : Return list of users self is following with pending request
+  # If status = true : Return list of users self is following
+  def following(status)
+    user_following = Follow.where('status = ? and follower_id = ? and blocked = false', status, self.id);
+    following = []
+    user_following.each do |f|
+      user = User.friendly.find(f.followable_id)
+      following << user
+    end
+    following
+  end
+
+  # If status = false : Return list of pending request
+  # If status = true : Return list of followers (users who are following you)
   def followers(status)
-    user_followers = Follow.where('status = ? and followable_id = ?', status, self.id);
+    user_followers = Follow.where('status = ? and followable_id = ? and blocked = false', status, self.id);
     followers = []
     user_followers.each do |f|
       user = User.friendly.find(f.follower_id)
@@ -132,11 +174,120 @@ class User < ActiveRecord::Base
     followers
   end
 
+  # return true if the status is approved
+  # return false if the status is pending or doesn't exist
   def following_status(user)
     follow = Follow.find_by followable_id: user.id, follower_id: self.id;    
-    follow.status
+    if !follow.blank?
+      follow.status
+    else
+      return false
+    end
+  end
+
+  def add_notifications(message, author, selfie)    
+    @notification = self.notifications.build(message: message, author: author, selfie: selfie)
+    @notification.save
+  end
+
+
+  # return list of block users by self user
+  def block_by_users
+    follows_block = Follow.blocked.where("follower_id = ? OR followable_id = ?", self.id, self.id)
+    @users_block = []
+    follows_block.each do |f|
+      @users_block << User.friendly.find(f.followable_id)
+      @users_block << User.friendly.find(f.follower_id)
+    end
+    @users_block
+  end
+
+
+  def friends_suggestions 
+    @friends_suggestion = []    
+    # Add Mutual friends from Facebook
+    if (!self.uid.blank? or (self.facebook_info and !self.facebook_info.facebook_uid.blank?)) and !self.oauth_token.blank?                  
+      begin                
+        @graph = Koala::Facebook::API.new(self.oauth_token)                   
+        facebook_friends = @graph.get_connections("me", "friends")  
+        facebook_friends.each do |fb_friend|
+          facebook_info = FacebookInfo.where(facebook_uid: fb_friend['id']).first
+          @friends_suggestion << User.where(uid: fb_friend['id']).first
+          if facebook_info
+            @friends_suggestion << facebook_info.user
+          end
+        end
+      rescue Koala::Facebook::APIError
+        logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
+        self.oauth_token = nil 
+        save       
+      end 
+    end   
+
+    dbconfig = YAML::load_file("config/database.yml")["development"]
+    dbconfig["host"] = dbconfig["hostname"]
+
+    client = Mysql2::Client.new(dbconfig)
+    # Call a stored procedure to retrieve list of suggested friends rank on number of mutual friends
+    results = client.query("CALL GetSuggestedFriends(#{self.id})")
+    results.each do |result|      
+      @friends_suggestion << User.friendly.find(result['ID'])      
+    end
+    
+    @friends_suggestion
+  end
+
+  # return true if self user is follow by param user
+  def is_follow_by?(user)
+    number = Follow.where("follower_id = ? and followable_id = ? and status = 1 and blocked = false", user.id, self.id)
+    return number.count != 0
+  end
+  
+  # return true if self user is following param user
+  def is_following?(user)
+    number = Follow.where("follower_id = ? and followable_id = ? and status = 1 and blocked = false", self.id, user.id)
+    return number.count != 0
+  end
+
+  def number_mutualfriends(user)    
+    myfriends_array = []
+    user_friends_array = []
+
+    # MY ARRAY OF FRIENDS
+    myfriends = Follow.for_follower(self).select("followable_id")
+    myfriends.each do |myfriend|
+      myfriends_array << myfriend.followable_id      
+    end
+
+    # param <user> ARRAY OF FRIENDS
+    user_friends = Follow.for_follower(user).select("followable_id")
+    user_friends.each do |f|
+      user_friends_array << f.followable_id
+    end
+    user_friends = Follow.for_followable(user).select("follower_id")
+    user_friends.each do |f|
+      user_friends_array << f.follower_id
+    end
+
+    # ARRAY OF MUTUAL FRIENDS
+    mutual_friends_array = myfriends_array & user_friends_array
+
+    return mutual_friends_array.count    
   end
  
+  # Return yes if user has no oauth_token or oauth_token is expired
+  def is_facebook_oauth_token_expired?
+    if self.oauth_token.blank? or self.oauth_expires_at.blank?      
+      return true
+    else
+      if self.oauth_expires_at <= Time.now        
+        return true
+      else      
+        return false
+      end
+    end
+  end
+
   private
   
   def generate_authentication_token

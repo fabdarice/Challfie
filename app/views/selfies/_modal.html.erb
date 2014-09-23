@@ -1,41 +1,236 @@
+<script type="text/javascript">
+$(function () {
+	$('input[type=file]').bootstrapFileInput();
+	$('.file-inputs').bootstrapFileInput();
+
+	// To preview image before uploading it
+   function handleFileSelect(evt) {
+	   var files = evt.target.files; // FileList object
+	    // Loop through the FileList and render image files as thumbnails.
+	   for (var i = 0, f; f = files[i]; i++) {
+	      // Only process image files.
+	      if (!f.type.match('image.*')) {
+	        continue;
+	      }
+	      var reader = new FileReader();
+	      // Closure to capture the file information.
+	      reader.onload = (function(theFile) {
+	        return function(e) {
+	          // Render thumbnail.
+	          var span = document.createElement('span');
+	          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+	                            '" title="', escape(theFile.name), '"/>'].join('');
+	          document.getElementById('preview_selfie').innerHTML = ['<span><img class="thumb" src="', e.target.result,
+	                            '" title="', escape(theFile.name), '"/></span>'].join('');
+				 
+				 // Store that the last picture chosen by the user is a upload file type
+	          $("#input_type_selfie").val("upload");
+	        };
+	      })(f);
+
+	      // Read in the image file as a data URL.
+	      reader.readAsDataURL(f);
+	    }
+	  }
+
+	 document.getElementById('selfie_file').addEventListener('change', handleFileSelect, false);
+
+ 	// Filtering Challenge
+   $('#filter_challenge').click(function() {
+	   var search_val = $('#filter_challenge_field').val();
+	   if (search_val == '') {
+	      search_val = 'emptySelection'
+	   };
+	   $.ajax({
+	      url: '/selfies/filter/' + search_val,
+	      type: 'get',
+	      dataType: 'script'
+	   });
+	   return false;  
+		});
+
+		$('#filter_challenge_field').keydown(function(e) {
+		 if(e.which == 13) {
+		   var search_val = $(this).val();
+		   if (search_val == '') {
+		     search_val = 'emptySelection'
+		   };
+		   $.ajax({
+		       url: '/selfies/filter/' + search_val,
+		       type: 'get',
+		       dataType: 'script'
+		    });
+		   return false;    
+		 }
+	});
+
+	// To Check if a selfie has been uploaded before submitting the form
+	$('#selfie_form').submit(function()
+	{			
+		if ($(".file-input-name")[0] || $("#mywebcam_data").val()){	
+		   return true;
+		} else {			
+			$('#selfie_alert').html("<i class='fa fa-exclamation-triangle'></i> Please select a file.");
+			return false;			
+		}
+	});
+
+	// When you click on "Add A Selfie" button to show two buttons : "Upload from File" and "Webcam"
+	$(".add_selfie_btn").click(function(event) {
+		event.preventDefault();
+		$(".add_selfie_btn").addClass('hide');
+		$(".upload_btn").removeClass('hide');		
+	})
+
+	// Webcam Setup
+	$(".webcam_load").click(function(event) {
+			
+		$("#webcam").empty();
+		$(".webcam_preview").removeClass('hide');
+		
+      // Load the javascript library      
+		jQuery.getScript("/assets/webcam.js")
+			.done(function() {
+				Webcam.set({
+		        width: 320,
+		        height: 240,
+		        dest_width: 640,
+		        dest_height: 480,
+		        image_format: 'jpeg', // image format
+		        jpeg_quality: 100        // image quality
+		    	});
+				Webcam.attach('#webcam');
+			});
+
+		$("#webcam").removeClass('hide');			
+		$(".webcam_load").addClass('hide');
+		$(".webcam_take_picture").removeClass('hide');
+	}); 
+
+	// When you click on "Take Snapshot with the webcam"
+	$(".webcam_take_picture").click(function(event) {
+		event.preventDefault();		
+
+   	// take snapshot and get image data
+      var data_uri = Webcam.snap();
+
+      // display results in page		
+      document.getElementById('preview_selfie').innerHTML = '<img src="'+data_uri+'"/>';
+
+      // Store the DATA URI in hidden input
+      $("#mywebcam_data").val(data_uri);
+
+      // Store that the last picture chosen by the user is a webcam upload type
+      $("#input_type_selfie").val("webcam");      
+
+		/* yay, all good, do something */
+		$(".webcam_load").removeClass('hide');
+		$(".webcam_take_picture").addClass('hide');
+		$(".webcam_preview").addClass('hide');
+		Webcam.reset();
+	});
+
+	// When you Cancel the Add Selfie Modal
+	$(".dismiss_modal_webcam").click(function(event) {
+		event.preventDefault();		
+		$(".webcam_load").removeClass('hide');
+		$(".webcam_take_picture").addClass('hide');
+		$(".webcam_preview").addClass('hide');
+	});
+	
+	// Open a popup with dimension and url content - Use to open Facebook Login popup
+	function popupCenter(url, width, height, name) {
+	  var left = (screen.width/2)-(width/2);
+	  var top = (screen.height/2)-(height/2);
+	  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+	}	
+
+	// Share Selfie on Facebook Button Event
+	$(".btn-facebook").click(function(event) {				
+		if ($("#share_facebook").val() == "1") {
+			$("#share_facebook").val("0");
+		} else {
+			$("#share_facebook").val("1");
+		}		
+		$(this).toggleClass("btn-facebook-disable");
+
+		if ($(this).data("oauthexpired") == true) {			
+			// To Open a popup for Facebook Authentication to share a Post
+			if (!$(this).hasClass("btn-facebook-disable")) {	
+				popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentification");
+		  		event.stopPropagation(); 
+		  		return false;
+			} else {
+				event.preventDefault();
+			}
+		} else {			
+			event.preventDefault();
+		}
+	});
+});
+</script>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close dismiss_modal_webcam" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Take a Challenged Selfie</h4>
       </div>
-      
-      
+            
       <%= form_for(Selfie.new, :html => { :class => 'form', id: 'selfie_form'}) do |f| %>
 	      <div class="modal-body">         
 	     		<div class="form-group">				  
-				    <%= f.text_area :message, class: 'form-control selfie_message', rows: 3, placeholder: 'Write your message...' %>	
+				    <%= f.text_area :message, class: 'form-control selfie_message_textarea', rows: 3, placeholder: 'Write your message...' %>	
 				    <output id="preview_selfie">NO IMAGE</output>			  
 				</div>
+				<div style="clear:both;"></div>			
+				<div class="webcam_preview hide">		
+					<div id="webcam" class="img-thumbnail"></div>
+					<div class="take_snapshot">
+						<input type="button" value="Take Snapshot" class="btn btn-danger webcam_take_picture hide"/><br>
+						<hr style="margin-top: 10px; margin-bottom: 10px;">
+						<div class="alert alert-warning" role="alert"><i class="fa fa-info-circle"></i> If you don't see a preview on the left side, please authorize your webcam/camera.</div>
+					</div>
+				</div>	
 				<div style="clear:both;"></div>
-				<div class="form-group" style="margin-top: 10px;">
-				  <div class="controls">
-				    <%= f.file_field :photo, class: 'input btn btn-info btn-xs pull-left', id: 'selfie_file', title:'<i class="fa fa-picture-o"></i> Add a Selfie' %>	
+				<input id="mywebcam_data" type="hidden" name="mywebcamdata" value=""/>
+				<input id="input_type_selfie" type="hidden" name="myinputtype" value="upload"/>
+				<input id="share_facebook" type="hidden" name="mysharefacebook" value="0"/>
 
-				    <div id="selfie_alert" style="float:left; margin-left: 10px; margin-top:7px; font-size: 12px; color:red; font-weight:600;"></div>    
+				<div class="form-group" style="margin-top: 10px;">
+					<%= f.radio_button :private, false, :checked => true, id: 'radio1' %> <label for="radio1" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie."><i class="fa fa-unlock"></i> Public</label>
+					<%= f.radio_button :private, true, id: 'radio2' %> <label for="radio2" data-toggle="tooltip" data-placement="top" title="Only your followers can see this selfie."><i class="fa fa-lock"></i> Private</label>					
+
+					
+					<%= link_to user_omniauth_authorize_path("facebook"), :class => "btn-facebook btn-facebook-disable", :"data-width" => 600, :"data-height" => 400 , :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Share this Selfie on Facebook.", :"data-oauthexpired" => (current_user.is_facebook_oauth_token_expired? ? true : false) do %>
+						<i class="fa fa-lg fa-facebook-square" style="margin-right: 3px;"></i> Share
+					<% end %>
+					
+				  <div class="controls pull-right">
+				  	 <button type="button" class='add_selfie_btn btn btn-danger pull-right'><i class="fa fa-camera"></i> Add a Selfie</button>					  	 				  	 				  	 
+				  	 <%= f.file_field :photo, class: 'input upload_btn pull-right hide', id: 'selfie_file', title:'<i class="fa fa-folder"></i> Upload from file' %>
+				  	 <button type="button" class="webcam_load btn upload_btn pull-right hide"><i class="fa fa-camera-retro"></i> Use Webcam</button>
+				    <div id="selfie_alert" style="float:left; margin-right: 10px; margin-top:7px; font-size: 12px; color:red; font-weight:600;"></div>    
 				  </div>
 				</div>
 
 				<div style="clear:both;"></div>
 				
 				<hr style="width: 500px; margin: 10px 0px 10px 25px; ">
-				<h5 style="float:left; margin-right: 40px;"><i class="fa fa-bolt fa-lg"></i> Select a Challenge</h5>
-				<div class="row pull-right" style="margin-top: 5px; margin-right: 10px;">
-					
-					    <div class="input-group">
-					      <%= text_field_tag :search, params[:search], :placeholder => 'Filter by keywords..', class: "form-control", id: 'filter_challenge_field' %>
-					      <span class="input-group-btn">
-					        <button class="btn btn-default" type="button" id="filter_challenge">Filter</button>
-					      </span>
-					    </div><!-- /input-group -->
-					
+				
+				<div>
+					<h5 style="float:left; margin-right: 40px;"><i class="fa fa-bolt fa-lg"></i> Select a Challenge</h5>
+					<div class="row pull-right" style="margin-top: 5px; margin-right: 10px; width: 200px;">						
+						    <div class="input-group">
+						      <%= text_field_tag :search, params[:search], :placeholder => 'Filter by keywords..', class: "form-control", id: 'filter_challenge_field' %>
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" type="button" id="filter_challenge">Filter</button>
+						      </span>
+						    </div><!-- /input-group -->
+						
+					</div>
 				</div>
 
 				<div style="clear:both;"></div>
@@ -48,7 +243,7 @@
 				
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-default dismiss_modal_webcam" data-dismiss="modal">Cancel</button>
 	        <button type="submit" class="btn btn-primary">Save</button>
 	      </div>
       <% end %>

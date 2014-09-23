@@ -2,6 +2,17 @@
 
 <script type="text/javascript">
 	$(function () {
+		$link = $('a.facebook_refresh_token');				
+		$link.bind('click', function(event) {				
+			popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentification");
+			event.stopPropagation(); 
+	  		return false;		
+		});
+		if (!(typeof $link[0] == 'undefined')) {
+			$link[0].click();
+		}
+	
+
 		// Ajax Form - Follow Suggested Friends	
 		$('.friends_btn').click(function () {					
 			$.ajax({
@@ -10,31 +21,45 @@
 	         dataType: 'script'        	
 	      }); 			 	
 		 	return false;
+		});
+
+		// To Open a popup for Facebook Authentication to Search for friends
+		$("a.popup").click(function(event) {				
+			popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentification");
+	  		event.stopPropagation(); 
+	  		return false;		
 		});	 
+
+		// Open a popup with dimension and url content - Use to open Facebook Login popup
+		function popupCenter(url, width, height, name) {			
+		  var left = (screen.width/2)-(width/2);
+		  var top = (screen.height/2)-(height/2);
+		  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+		}	
 	});	
 </script>
 
-<% @followers = current_user.all_follows %>
-<% followers_id = [-1] %>			
-<% @followers.each do |follower| %>				
-	<% followers_id << follower.followable_id %>				
-<% end %>
-
-<% @friends_suggestion = User.all.where("id != ? and id not in (?)", current_user.id,followers_id).limit(5) %>
+<% user = current_user %>
+<% @friends_suggestion = current_user.friends_suggestions %>
+<% facebook_url = user_omniauth_authorize_path("facebook") + "?type=friends_search" %>
 			
 <div id="right_content">
-	<span class="menu_title">Friends Suggestions</span> <span style="font-size:11px; float:right"> <%= link_to "+ Show all", root_path %></span><br>
+	<% if current_user.oauth_token.blank? and (!current_user.uid.blank? or (current_user.facebook_info and !current_user.facebook_info.facebook_uid.blank?)) %>
+		<%= link_to "Refresh Token", facebook_url , class: 'facebook_refresh_token hide', :"data-width" => 600, :"data-height" => 400 %>
+	<% end %>
+	<span class="menu_title">Friends Suggestions</span> <span style="font-size:11px; float:right"> <%= link_to "+ Show all", user_friends_path(:anchor => "friends_suggestions") %></span><br>
 	<hr>
 	<div style="clear:both;"></div>
 	<div class="friends_suggestions_block">
 		<div class="one_friends_suggestions">
+			
 			<ul class="list-unstyled">
-				<% @friends_suggestion.each do |fds_sug| %>
+				<% @friends_suggestion.first(5).each do |fds_sug| %>
 					<li style='margin-top: 10px;'>
-						<%= image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px;" %>									
-						<p class="friend_username"><%= fds_sug.username %></p>
+						<%= link_to (image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px;"), user_path(fds_sug) %>									
+						<p class="friend_username" style="margin-bottom: 5px;"><%= link_to fds_sug.username, user_path(fds_sug) %></p>
 						<span class="friend_rank">
-								Challfie Master									
+								<%= pluralize(current_user.number_mutualfriends(fds_sug), "mutual friend") %>								
 						</span>
 						
 						<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-primary btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
@@ -44,6 +69,16 @@
 
 			</ul>
 			<div style="clear:both;"></div>
+			<% if current_user.oauth_token.blank? or (current_user.uid.blank? and (current_user.facebook_info and current_user.facebook_info.facebook_uid.blank?)) %>
+				
+				<div style="text-align:center; font-size: 12px;">
+					
+					<%= link_to facebook_url, :class => "popup", :"data-width" => 600, :"data-height" => 400 , :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"See who among your Facebook friends are registered on Challfie." do %>
+						<i class="fa fa-facebook-square fa-lg"></i> Search for your Facebook friends
+					<% end %>	
+				</div>
+			<% end %>		
+			
 		</div>	
 		
 	</span>	

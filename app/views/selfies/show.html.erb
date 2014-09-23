@@ -1,0 +1,37 @@
+<script type="text/javascript">
+	$(function () {
+// Ajax Form - Create a Comment to a Selfie 
+     $('.selfie_post_comment_textarea').keydown(function(e) {          
+        if(e.which == 13 && !e.shiftKey) {        
+          if ($.trim($(this).val())) {
+            var form = $(this).parents('form:first');
+            var mytextarea = $(this);
+
+             $.ajax({
+                 type: "POST",
+                 url: form.attr("action"),
+                 data: form.serialize(),
+                 dataType: 'script',  
+                 success: function(response){
+                  mytextarea.val('');
+                 }
+              });
+           }           
+           return false;        
+         } 
+      });
+
+     $('.show_all_comment_link').click(function(event) {
+        event.preventDefault(); 
+        $.ajax({
+             type: "GET",
+             url: $(this).attr("data-href"),
+             dataType: 'script'         
+          });         
+        return false;   
+      });
+   }); 
+</script>      
+<div class="one_selfie_show">
+	<%= render @selfie, :editable => false %>
+</div>

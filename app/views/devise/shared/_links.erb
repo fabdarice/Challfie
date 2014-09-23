@@ -1,3 +1,19 @@
+<script type="text/javascript">	
+	$(function() {
+	  
+	  function popupCenter(url, width, height, name) {
+		  var left = (screen.width/2)-(width/2);
+		  var top = (screen.height/2)-(height/2);
+		  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+		}
+
+		$("a.popup").click(function(e) {
+		  popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentication");
+		  e.stopPropagation(); return false;
+		});
+	});	
+</script>
+
 <%- if controller_name != 'sessions' %>
   <%= link_to "Sign in", new_session_path(resource_name) %><br />
 <% end -%>
@@ -20,6 +36,6 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
-  <% end -%>
+    <%= link_to "Sign in with #{provider.to_s.titleize}", user_omniauth_authorize_path(provider), :class => "popup", :"data-width" => 600, :"data-height" => 400 %><br />
+  <% end -%>  
 <% end -%>

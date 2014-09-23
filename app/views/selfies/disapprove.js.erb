@@ -1,0 +1,5 @@
+<% selfie = @selfie %>
+$('.selfie_vote_block_<%= selfie.id %>').find('.downvote').html(<%= selfie.get_downvotes.size %>);
+$('.selfie_vote_block_<%= selfie.id %>').find('.disapprove_button').addClass('vote_red');
+$('.selfie_vote_block_<%= selfie.id %>').find('.upvote').html(<%= selfie.get_upvotes.size %>);
+$('.selfie_vote_block_<%= selfie.id %>').find('.approve_button').removeClass('vote_green');

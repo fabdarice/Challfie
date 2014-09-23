@@ -1,35 +1,46 @@
 Challfie::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   root 'home#index'
 
-  resources :locations
-  resources :selfies do
-    resources :comments
+  post '/user/autocomplete_search_user' => 'users#autocomplete_search_user'
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
+
+
+  resources :users, :only => [:update, :show] do
+    member do
+      get :follow
+      get :unfollow      
+      get :accept_request
+      get :remove_follower
+      get :block
+    end    
   end
+  get '/friends' => 'users#friends', as: :user_friends
+  get '/edit' => 'users#edit', as: :edit_user
+
+  resources :selfies do
+    resources :comments, :only => [:create]
+  end
+  get '/selfies/approve/:id' => 'selfies#approve', as: :selfie_approve
+  get '/selfies/disapprove/:id' => 'selfies#disapprove', as: :selfie_disapprove
+  get '/selfies/filter/:search' => 'selfies#filter_by_keyword', as: :selfie_filter
+  
+  get '/selfies/:id/comments/showall' => 'comments#show_selfie_comments', as: :selfie_comments_showall
+
   resources :books
   resources :categories
   resources :challenges
-  get '/selfies/filter/:search' => 'selfies#filter_by_keyword', as: :selfie_filter
-
-  resources :users do
-    member do
-      get :follow
-      get :unfollow
-      get :friends
-      get :accept_request
-      get :remove_follower
-    end
-  end
+  resources :notifications, :only => [:index]
+  get '/notifications/all_read' => 'notifications#all_read'
+  
 
   get '/administration/:action' => 'administration', :as => :administration
 
 
   namespace :api, defaults:{format: 'json'} do
-    resources :locations
+    
     resources :users, :only => [:show, :index]
     #devise_for :users, :controllers => { :sessions => "api/sessions", :registrations => "api/registrations"}
 

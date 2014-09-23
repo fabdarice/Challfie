@@ -1,0 +1,6 @@
+$('.list_selfies').append('<%=j render @selfies, :editable => true %>	');
+<% if @selfies.next_page %>
+  $('#home_list_selfies .pagination').replaceWith('<%= j will_paginate @selfies, next_label: "Older", previous_label: "Newer" %>');
+<% else %>
+  $('#home_list_selfies .pagination').remove();
+<% end %>

@@ -2,39 +2,58 @@
   <%= "Challfie - Friends" %> 
 <% end %>
 
+<% content_for :left_content do %>
+	<%= render 'users/left_content_profile', :user => current_user %>
+<% end %>
+
 <script type="text/javascript">
 	$(function () {
-		// Ajax Form - Follow Suggested Friends	
-		$('.friends_btn').click(function () {					
-			$.ajax({
-	         type: "GET",
-	         url: $(this).attr("data-href"),
-	         dataType: 'script'        	
-	      }); 			 	
-		 	return false;
-		});	 
-	});	
+
+		// Javascript to enable link to tab	
+		var url = document.location.toString();
+		if (url.match('#')) {
+		    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+		} 
+		// Change hash for page-reload
+		$('.nav-tabs a').on('shown', function (e) {
+		    window.location.hash = e.target.hash;
+		})
+
+		$('.homepage_friends_btn').click(function () {
+			// Change hash for page-reload
+			$('.nav-tabs a').on('shown', function (e) {
+			    window.location.hash = e.target.hash;
+			})
+			// Javascript to enable link to tab	
+			var url = $(this).attr("href");
+			if (url.match('#')) {
+			    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+			} 			
+		});		
+    });	 	
 </script>
 
 <div id="list_friends_block">
 	<ul class="nav nav-tabs" role="tablist">
-	  <li class="active"><a href="#following" role="tab" data-toggle="tab">Following <span class="badge"><%= @following.count %></span></a></li>
-	  <li><a href="#followers" role="tab" data-toggle="tab">Followers <span class="badge"><%= @followers.count %></span></a></li>
-	  <li><a href="#pending_request" role="tab" data-toggle="tab">Pending Request <span class="badge"><%= @pending_request.count %></span></a></li>
-	  <li><a href="#friends_suggestions" role="tab" data-toggle="tab">Friends Suggestion <span class="badge">42</span></a></li>
+	  <li class="active"><a href="#following" role="tab" data-toggle="tab" id="following_tab">Following <span class="badge"><%= @following.count %></span></a></li>
+	  <li><a href="#followers" role="tab" data-toggle="tab" id="followers_tab">Followers <span class="badge"><%= @followers.count %></span></a></li>
+	  <li><a href="#pending_request" role="tab" data-toggle="tab" id="pending_request_tab">Pending Request <span class="badge <% if !@pending_request.blank? and @pending_request.count > 0 %>badge_important<% end %>"><%= @pending_request.count %></span></a></li>
+	  <li><a href="#friends_suggestions" role="tab" data-toggle="tab">Friends Suggestion <span class="badge"><%= @friends_suggestions.count %></span></a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 	  <div class="tab-pane fade in active" id="following">
-		  	<%= render 'following', :friends => @following, :friendship => "following" %>
+		  	<%= render 'friends_tab', :friends => @following, :friendship => "following", :user => current_user %>
 	  </div>
 	  <div class="tab-pane fade" id="followers">
-	  		<%= render 'following', :friends => @followers, :friendship => "followers" %>
+	  		<%= render 'friends_tab', :friends => @followers, :friendship => "followers", :user => current_user %>
 	  </div>
 	  <div class="tab-pane fade" id="pending_request">
-	  		<%= render 'following', :friends => @pending_request, :friendship => "pending_request" %>
+	  		<%= render 'friends_tab', :friends => @pending_request, :friendship => "pending_request", :user => current_user %>
 	  </div>
-	  <div class="tab-pane fade" id="friends_suggestions">...</div>
+	  <div class="tab-pane fade" id="friends_suggestions">
+	  		<%= render 'friends_tab', :friends => @friends_suggestions, :friendship => "friends_suggestions", :user => current_user %>
+	  </div>
 	</div>
 </div>	
