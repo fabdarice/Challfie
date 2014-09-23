@@ -2,12 +2,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
-
-# Use sqlite3 as the database for Active Record
-gem 'mysql2'
-
-gem 'pg'
-
 gem 'devise'
 
 gem 'thin'
@@ -64,9 +58,14 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 
 group :development, :test do
-
+  # Use sqlite3 as the database for Active Record
+	gem 'mysql2'
   # For Email testing in development mode
   gem 'mailcatcher'
+end
+
+group :production do
+  gem 'pg'
 end
 
 group :doc do
