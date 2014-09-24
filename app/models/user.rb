@@ -224,7 +224,7 @@ class User < ActiveRecord::Base
       end 
     end   
 
-    dbconfig = YAML::load_file("config/database.yml")["development"]
+    dbconfig = YAML::load_file("config/database.yml")[Rails.env]
     dbconfig["host"] = dbconfig["hostname"]
 
     client = Mysql2::Client.new(dbconfig)

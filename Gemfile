@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 gem 'devise'
 
+# Use sqlite3 as the database for Active Record
+gem 'mysql2'
+
 gem 'thin'
 
 # Use SCSS for stylesheets
@@ -58,15 +61,12 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-	gem 'mysql2'
+  
   # For Email testing in development mode
   gem 'mailcatcher'
 end
 
 group :production do
-  gem 'pg', '~> 0.17.1'
-
   #To Digest Assets on Heroku
   gem 'rails_12factor'
 end

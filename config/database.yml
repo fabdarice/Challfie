@@ -22,11 +22,10 @@ test:
   timeout: 5000
 
 production:
-  adapter: postgresql
-  database: d9p9psn2773l5e
-  username: tarlgdmslcusbs
-  password: HvYIXyBdpvBr036Tmfjk85RAXM
-  host: ec2-54-225-101-124.compute-1.amazonaws.com
-  port: 5432
+  adapter: mysql2
+  database: heroku_3b95164d88f59bb
+  username: b0707b358f2cd9
+  password: 9bd87010
+  host: us-cdbr-iron-east-01.cleardb.net  
   pool: 5
   timeout: 5000
