@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 	autocomplete :user, :username, :limit => 10
 
  	def index 		
- 		users_following = current_user.following(true)
+ 		users_following = current_user.following(1)
  		list_following_ids = users_following.map{|u| u.id}
  		list_following_ids << current_user.id
  		

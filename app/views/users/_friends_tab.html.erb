@@ -9,7 +9,7 @@
 					<%= pluralize(current_user.number_mutualfriends(friend), "mutual friend") %>											
 				</span><br>
 				<span class="friend_follower">
-					<%= pluralize(friend.followers(true).count, "follower") %>
+					<%= pluralize(friend.followers(1).count, "follower") %>
 				</span><br>
 				
 				<% if friendship == "followers" %>

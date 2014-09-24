@@ -48,7 +48,7 @@
 </script>
 
 <!-- LEFT MENU USER PHOTO AND USERNAME AND RANK -->
-<% @homepage_followers = user.followers(true) %>
+<% @homepage_followers = user.followers(1) %>
 <% @homepage_following = user.all_following %>
 
 <% if user_signed_in? %>

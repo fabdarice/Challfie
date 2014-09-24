@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.friendly.find(params[:id])
-		@followers = @user.followers(true)		
+		@followers = @user.followers(1)		
 		if params["tab"] == "timeline"			
 			@is_timeline_tab = true			
 		else
@@ -58,9 +58,9 @@ class UsersController < ApplicationController
 		# LIST OF ALL FRIEND FOLLOWING
 		@following = current_user.all_following;		 
 		# LIST OF ALL FOLLOWERS
-		@followers = current_user.followers(true)
+		@followers = current_user.followers(1)
 		# LIST OF ALL PENDING REQUEST
-		@pending_request = current_user.followers(false)
+		@pending_request = current_user.followers(0)
 
 		@friends_suggestions = @user.friends_suggestions
 	end
@@ -73,8 +73,8 @@ class UsersController < ApplicationController
 		user_link = view_context.link_to current_user.username, user_path(current_user)
 		
 		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", current_user , nil)
-		@followers = current_user.followers(true)
-		@pending_request = current_user.followers(false)
+		@followers = current_user.followers(1)
+		@pending_request = current_user.followers(0)
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }
@@ -84,8 +84,8 @@ class UsersController < ApplicationController
 	def remove_follower
 		@user = User.friendly.find(params[:id])
 		@user.stop_following(current_user)
-		@pending_request = current_user.followers(false)
-		@followers = current_user.followers(true)
+		@pending_request = current_user.followers(0)
+		@followers = current_user.followers(1)
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
 	def block
 		@user = User.friendly.find(params[:id])
 		current_user.block(@user)
-		@pending_request = current_user.followers(false)
+		@pending_request = current_user.followers(0)
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }

@@ -1,5 +1,5 @@
 <!-- LEFT MENU current_user PHOTO AND current_user NAME AND RANK -->
-<% @homepage_followers = current_user.followers(true) %>
+<% @homepage_followers = current_user.followers(1) %>
 <% @homepage_following = current_user.all_following %>
 
 <% if user_signed_in? %>

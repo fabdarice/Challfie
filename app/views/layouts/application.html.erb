@@ -173,11 +173,11 @@
 				<a style='border-bottom: none; width: 70px; text-align:center'><li ><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="color:white;"><i class="fa fa-camera"></i></button></li></a>
 
 				<!-- TOP MENU - FRIENDS -->
-				<% if !current_user.followers(false).blank? and current_user.followers(false).count > 0 %>
+				<% if !current_user.followers(0).blank? and current_user.followers(0).count > 0 %>
 					<!-- HAVE PENDING REQUEST -->
 					<%= link_to user_friends_path(:anchor => "pending_request") do %>
 						<li <% if current_page?(user_friends_path) %>class="active"<% end %>> 
-							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(false).count %></div></i> Friends 
+							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(0).count %></div></i> Friends 
 						</li>
 					<% end %>
 				<% else %>
