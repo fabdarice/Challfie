@@ -18,6 +18,9 @@ config/secrets.yml
 /vendor/bundle
 config/database.yml
 
+# Ignore .DS_Store files on Mac
+.DS_Store
+
 # these should all be checked in to normalise the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
 
