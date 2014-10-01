@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'challfie'
-set :repo_url, 'git@bitbucket.org:fabdarice/challfie_web.git'
+set :repo_url, 'git@challfie:fabdarice/challfie_web.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
@@ -21,6 +21,10 @@ set :scm, :git
 
 # Default value for :pty is false
 set :pty, true
+
+set :ssh_options, {
+ forward_agent: true
+}
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml}
