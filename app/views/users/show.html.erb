@@ -40,16 +40,33 @@
 <% end %>
 
 <% content_for :title do %>
-  <%= "Challfie - #{@user.username}" %> 
+  <%= "Challfie" %> 
 <% end %>
+
+<% if current_user != @user %>
+	<% if !current_user.is_following?(@user) %>
+		<% if current_user.following?(@user) %>
+			<div class="alert alert-info alert_friends_<%= @user.id %>" role="alert">
+			  Your following request has been sent. Waiting on approval.
+			</div>
+		<% else %>
+			<div class="alert alert-info alert_friends_<%= @user.id %>" role="alert">
+			  Click <%= link_to "here", "#", :"data-href" => follow_user_path(@user), class: "friends_btn", style: 'text-decoration: none;' %> to start following <strong><%= @user.username %></strong> and see your friend's selfie challenges.
+			</div>
+		<% end %>
+	<% end %>
+<% end %>	
+
 
 <div id="profile_page">
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
 	  <li class="active"><a href="#tab_timeline" role="tab" data-toggle="tab">Timeline</a></li>
-	  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges <span class="mybadge">42</span></a></li>
-	  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @user.selfies.count %></span></a></li>
-	  <li><a href="#tab_followers" role="tab" data-toggle="tab">Followers <span class="mybadge"><%= @followers.count %></span></a></li>
+	  <% if current_user.is_following?(@user) or current_user == @user %>
+		  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges <span class="mybadge">42</span></a></li>
+		  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @user.selfies.count %></span></a></li>
+		  <li><a href="#tab_followers" role="tab" data-toggle="tab">Followers <span class="mybadge"><%= @followers.count %></span></a></li>
+		<% end %>  
 	</ul>
 
 	<!-- Tab panes -->
@@ -60,18 +77,20 @@
 			</div>  	
 			<center><%= will_paginate @timeline_selfie %></center>
 	  </div>
-	  <div class="tab-pane fade" id="tab_challenges">
-	  			
-	  </div>
-	  <div class="tab-pane fade" id="tab_photos">
-	  		<div class="tab_selfies">
-	  			<%= render "selfies_tab", :selfies => @selfies %>
-	  		</div>	
-	  		<center><%= will_paginate @selfies %></center>
-	  </div>
-	  <div class="tab-pane fade" id="tab_followers">
-	  		<%= render 'friends_tab', :friends => @followers, :friendship => "followers", :user => @user %>
-	  </div>
+	  <% if current_user.is_following?(@user) or current_user == @user %>
+		  <div class="tab-pane fade" id="tab_challenges">
+		  		<%= render 'books/list_books' %>
+		  </div>
+		  <div class="tab-pane fade" id="tab_photos">
+		  		<div class="tab_selfies">
+		  			<%= render "selfies_tab", :selfies => @selfies %>
+		  		</div>	
+		  		<center><%= will_paginate @selfies %></center>
+		  </div>
+		  <div class="tab-pane fade" id="tab_followers">
+		  		<%= render 'friends_tab', :friends => @followers, :friendship => "followers", :user => @user %>
+		  </div>
+	  <% end %>  
 	</div>
 	
 </div>	

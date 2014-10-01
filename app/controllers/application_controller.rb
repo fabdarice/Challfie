@@ -65,4 +65,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_if_not_admin
+    if current_user.administrator <= 3
+      redirect_to root_path
+    end
+  end
+
 end

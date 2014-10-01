@@ -1,25 +1,32 @@
-<div class="control-group">
+<div class="form-group">
   <%= f.label :description, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_area :description, class: 'input' %>
+    <%= f.text_area :description, class: 'form-control', style: 'width: 300px;', rows: 4 %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :point, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :point, class: 'input' %>
+    <%= f.text_field :point, class: 'form-control', style: 'width: 100px;' %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
+  <%= f.label :difficulty, class: 'control-label' %>
+  <div class="controls">    
+    <%= f.select :difficulty, options_for_select([['Very Easy', 1], ['Easy', 2], ['Intermediate', 3], ['Hard', 4], ['Very Hard', 5]], f.object.difficulty ), class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group">
 	<%= f.label :book, class: 'control-label' %>
 	<div class="controls">
 		<%= f.collection_select(:book_id, Book.all, :id, :name) %>
 	</div>
 </div>
 
-<div class="control-group">	
+<div class="form-group">
 	<div class="controls">
 		<%= f.collection_check_boxes  :category_ids, Category.all, :id, :name do |b| %>   
 		<%= b.label(:"data-value" => b.value) { b.check_box + b.text } %>

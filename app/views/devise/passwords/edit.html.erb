@@ -1,16 +1,34 @@
-<h2>Change your password</h2>
+<div class='container'>
+	<h3>Change your password</h3>	
+	<div style="width: 800px; margin: auto;">
+	<%= link_to root_path, style: 'font-size: 14px;' do %>
+	<i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
+<% end %>
+<br><br>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
+  <div class="contact_left">
+  		<%= f.label :password, 'New Password' %>
+  </div> 
+  <div class="contact_right form-group">
+      <%= f.password_field :password, :autofocus => true, class: 'form-control', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Must be at least 8 characters.", placeholder: 'Enter your new password' %>       
+  </div>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password, :autofocus => true %></div>
+  <div class="contact_left">
+  		<%= f.label :password_confirmation, 'Password Confirmation' %>
+  </div> 
+  <div class="contact_right form-group">
+      <%= f.password_field :password_confirmation, :autofocus => true, class: 'form-control', placeholder: 'Password Confirmation' %>
+   </div>
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Change my password" %></div>
+  <div class="contact_left"> &nbsp;</div>
+  <div class="contact_right">
+  	<%= f.submit "Change my password", class: "btn btn-primary" %>
+  	</div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<br><br>	
+</div>
+</div>

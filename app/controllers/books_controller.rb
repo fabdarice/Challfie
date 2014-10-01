@@ -1,6 +1,21 @@
 class BooksController < ApplicationController
+	before_filter :redirect_if_not_admin, :only => [:new, :create, :edit, :update, :destroy]
+
 	def new
 		@book = Book.new
+	end
+
+	def show
+		@book = Book.find(params[:id])
+		if @book.level > current_user.book_level
+			render 'selfies/restricted'
+		else
+		
+			@challenges = @book.challenges.order('difficulty ASC')
+
+			# Test if Book unlock first
+			render :layout => false
+		end
 	end
 
 	def create
@@ -12,10 +27,6 @@ class BooksController < ApplicationController
 			flash[:alert] = "Failed to create a new book."
 			render 'new'
 		end
-	end
-
-	def index
-		@books = Book.all
 	end
 
 	def edit

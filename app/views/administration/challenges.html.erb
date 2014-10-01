@@ -2,31 +2,34 @@
 <% content_for :title do %>
   <%= "Challfie - Manage Challenges" %> 
 <% end %>
-<fieldset>
-  <legend><h3>Manage Challenges<div class="fieldset_btn"><%= link_to 'Add New Challenge', new_challenge_path, class: 'btn btn-primary' %></div></h3></legend>
-</fieldset>
-          
-<br>
-<% @books.each do |book| %>
-  <h5> <%= book.name %> </h5>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-          <th>Description</th>
-          <th>Points</th>        
-          <th class='text-center'>Edit</th>
-          <th class='text-center'>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% book.challenges.each do |challenge| %>
-        <tr>
-          <td><%= challenge.description %></td>
-          <td><%= challenge.point %></td>
-          <td class='text-center'><%= link_to 'Edit', edit_challenge_path(challenge), class: 'btn'%></td>
-          <td class='text-center'><%= link_to 'Delete', challenge_path(challenge), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% content_for :left_content do %>
+  <%= render 'home/left_content' %>
 <% end %>
+<div class="administration_pages">
+  <h3>Manage Challenges</h3>
+    <%= link_to 'Add New Challenge', new_challenge_path, class: 'btn btn-primary' %>      
+  <br><br>
+  <% @books.each do |book| %>
+    <h5> <%= book.name %> </h5>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+            <th>Description</th>
+            <th>Points</th>        
+            <th class='text-center'>Edit</th>
+            <th class='text-center'>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% book.challenges.each do |challenge| %>
+          <tr>
+            <td><%= challenge.description %></td>
+            <td><%= challenge.point %></td>
+            <td class='text-center'><%= link_to 'Edit', edit_challenge_path(challenge), class: 'btn'%></td>
+            <td class='text-center'><%= link_to 'Delete', challenge_path(challenge), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

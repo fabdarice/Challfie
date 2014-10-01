@@ -22,18 +22,17 @@
 		</div>	
       
    </nav>
-	<div id="main_content_signin">
+	<div id="main_content_signin" >
 		<div class="container" style="width: 1300px;">			
 			<%= yield %>
 		</div>
 	</div>
 	<div id="footer_signin">
-		<div class="container" style="width: 600px;">
-			<%= link_to "About Us", "#" %>
-			<%= link_to "Report Bug", "#" %>
-			<%= link_to "Contact", "#" %>
-			<%= link_to "Privacy", "#" %>
-			<%= link_to "Terms", "#" %>
+		<div class="container" style="width: 500px;">
+			<%= link_to "About Us", about_us_path %>			
+			<%= link_to "Contact", new_contact_path %>
+			<%= link_to "Privacy", privacy_path %>
+			<%= link_to "Terms", terms_path %>
 			<span class="copyright">Challfie &copy; 2014-2015</span>
 		</div>
 	</div>

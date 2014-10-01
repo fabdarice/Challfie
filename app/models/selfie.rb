@@ -25,6 +25,42 @@ class Selfie < ActiveRecord::Base
 	 dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original].path)
 	 min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
 	 "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{width}x#{height}^"
-	end            
+	end         
+
+	def set_approval_status!(typevote)
+		if (typevote == "upvote" and self.approval_status == 1) or (typevote == "downvote" and self.approval_status == 2)
+			return
+		else
+			upvotes = self.get_upvotes.size
+			downvotes = self.get_downvotes.size
+
+			if upvotes >= 5
+				vote_ratio = upvotes.to_f / (upvotes + downvotes)				
+				if vote_ratio >= 0.75
+					if self.approval_status != 1
+						self.update_column(:approval_status, 1)
+						self.user.update_column(:points, self.challenge.point + self.user.points)										
+						self.user.unlock_book!												
+						self.user.add_notifications("Congratulations! Your challenge <strong><i>#{self.challenge.description}</i></strong> has been approved.", self.user , self, nil)	
+					end	
+				else
+					if self.approval_status != 2
+						tmp_approval_status = self.approval_status
+						self.update_column(:approval_status, 2)						
+						if tmp_approval_status == 1
+							self.user.update_column(:points, self.user.points - self.challenge.point)																
+						end
+						self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description}</i></strong> has been rejected.", self.user , self, nil)																		
+					end
+				end
+			else
+				if self.approval_status == 1
+					self.update_column(:approval_status, 2)												
+					self.user.update_column(:points, self.user.points - self.challenge.point)																						
+					self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description}</i></strong> has been unapproved.", self.user , self, nil)	
+				end
+			end			
+		end
+	end   
 
 end

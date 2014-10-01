@@ -1,4 +1,6 @@
 class ChallengesController < ApplicationController
+	before_filter :redirect_if_not_admin, :only => [:new, :create, :edit, :update, :destroy]
+	
 	def new
 		@challenge = Challenge.new
 		@category_challenges = @challenge.category_challenges.build
@@ -47,6 +49,6 @@ class ChallengesController < ApplicationController
 
 	private
 	 def challenge_params
-	 	params.require(:challenge).permit(:description, :point, :book_id, :category_ids => [])
+	 	params.require(:challenge).permit(:description, :point, :book_id, :difficulty, :category_ids => [])
 	 end
 end

@@ -6,33 +6,6 @@
 	<%= render 'users/left_content_profile', :user => current_user %>
 <% end %>
 
-<script type="text/javascript">
-	$(function () {
-
-		// Javascript to enable link to tab	
-		var url = document.location.toString();
-		if (url.match('#')) {
-		    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
-		} 
-		// Change hash for page-reload
-		$('.nav-tabs a').on('shown', function (e) {
-		    window.location.hash = e.target.hash;
-		})
-
-		$('.homepage_friends_btn').click(function () {
-			// Change hash for page-reload
-			$('.nav-tabs a').on('shown', function (e) {
-			    window.location.hash = e.target.hash;
-			})
-			// Javascript to enable link to tab	
-			var url = $(this).attr("href");
-			if (url.match('#')) {
-			    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
-			} 			
-		});		
-    });	 	
-</script>
-
 <div id="list_friends_block">
 	<ul class="nav nav-tabs" role="tablist">
 	  <li class="active"><a href="#following" role="tab" data-toggle="tab" id="following_tab">Following <span class="badge"><%= @following.count %></span></a></li>

@@ -74,9 +74,14 @@
 
 	.selfie_challenge_status_img {
 		position: absolute;
-		right: -20px;
-		top: -20px;
+		right: -10px;
+		top: -10px;
+
+		img {
+			width: 80px;
+		}
 	}
+
 }
 
 

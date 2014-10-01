@@ -1,3 +1,56 @@
 // Place all the styles related to the books controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#books_list {
+	padding: 20px;
+}
+
+.book_tier {
+	border-bottom: 1px solid grey;
+	padding: 10px;	
+	height: 200px;
+	
+
+	.book_tier_name {
+		float: left;
+		height: 150px;
+		font-size: 25px;
+		padding-top: 40px;
+		text-align: center;
+		line-height: 40px;
+		width: 150px;
+		font-weight: bold;
+		font-family: Zapf Chancery, cursive;
+	}
+
+	.one_book {
+		position: relative;
+		float: left;
+		width: 150px;
+
+		img.book_picture {
+			float: left;
+			width: 150px;			
+			z-index: 10;
+		}
+
+		img.book_lock {			
+			position: absolute;
+			top:0px;
+			left: 3px;
+			width: 150px;	
+			z-index: 100;		
+		}
+	}
+}
+
+.grayscale { 
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: url(grayscale.svg#greyscale); /* Firefox 4+ */
+  filter: gray; /* IE 6-9 */
+}

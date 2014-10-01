@@ -1,3 +1,4 @@
 $(".friends_btn_<%= @user.id %>").removeClass('btn-primary btn-danger').addClass('btn-default');
 $(".friends_btn_<%= @user.id %>").html('<i class="fa fa-times"></i> Cancel Request');
 $(".friends_btn_<%= @user.id %>").attr("data-href", "<%=j unfollow_user_path(@user) %>");
+$(".alert_friends_<%= @user.id %>").text("Your following request has been sent. Waiting on approval.");

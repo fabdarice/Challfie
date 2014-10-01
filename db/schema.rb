@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913032501) do
+ActiveRecord::Schema.define(version: 20140930050232) do
 
   create_table "books", force: true do |t|
     t.text     "name"
@@ -44,12 +44,21 @@ ActiveRecord::Schema.define(version: 20140913032501) do
     t.integer  "book_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "difficulty"
   end
 
   create_table "comments", force: true do |t|
     t.text     "message"
     t.integer  "selfie_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: true do |t|
+    t.string   "email"
+    t.text     "message"
+    t.integer  "type_contact"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,7 +116,10 @@ ActiveRecord::Schema.define(version: 20140913032501) do
     t.boolean  "read",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "book_id"
   end
+
+  add_index "notifications", ["book_id"], name: "index_notifications_on_book_id", using: :btree
 
   create_table "selfies", force: true do |t|
     t.integer  "user_id"
@@ -120,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140913032501) do
     t.datetime "photo_updated_at"
     t.integer  "challenge_id"
     t.boolean  "private",            default: false
+    t.integer  "approval_status",    default: 0
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
@@ -158,6 +171,8 @@ ActiveRecord::Schema.define(version: 20140913032501) do
     t.string   "facebook_picture"
     t.integer  "points",                 default: 0
     t.string   "slug"
+    t.integer  "book_level",             default: 1
+    t.integer  "administrator",          default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

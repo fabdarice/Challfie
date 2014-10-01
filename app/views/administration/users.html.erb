@@ -1,0 +1,44 @@
+<br>
+<% content_for :title do %>
+  <%= "Challfie - Manage Books" %> 
+<% end %>
+<% content_for :left_content do %>
+  <%= render 'home/left_content' %>
+<% end %>
+<div class="administration_pages">
+  <h3>Manage Users</h3> 
+  <%= link_to 'Add New User', "#", class: 'btn btn-primary' %>
+  <br><br>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th></th>
+          <th>Lastname</th>
+          <th>Firstname</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Signed in count</th>          
+          
+          <th class='text-center'>Show</th>
+          <th class='text-center'>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>        
+        <tr>
+          <td><div style='width: 50px; height: 50px;'><%= image_tag user.show_profile_picture, :style => 'width: 40px;' %></div></td>
+          <td><%= user.lastname %></td>
+          <td><%= user.firstname %></td>
+          <td><%= user.email %></td>
+          <td><%= user.username %></td>
+          <td><%= user.sign_in_count %></td>
+          <td class='text-center'><%= link_to 'Show', user_path(user), class: 'btn'%></td>
+          <td class='text-center'><%= link_to 'Delete', "#", class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
+        </tr>         
+      <% end %>
+    </tbody>
+  </table>
+    
+  <center><%= will_paginate @users %></center>
+</div>  

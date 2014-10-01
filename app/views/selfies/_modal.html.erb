@@ -238,7 +238,9 @@ $(function () {
 				<br>
 
 				<div class="form-group">
-					<%= f.collection_select :challenge_id, Challenge.all, :id, :description, {:selected => Challenge.first.id}, {:class => 'form-control', size: '6', id: 'selfie_challenge_collection'} %>   
+					<% current_user_books = Book.where("level <= ?", current_user.book_level) %>
+					<%= f.grouped_collection_select :challenge_id, current_user_books, :challenges, :name, :id, :description, {}, {:class => 'form-control', size: '15', id: 'selfie_challenge_collection'} %> 
+					<%# f.collection_select :challenge_id, Challenge.all, :id, :description, {:selected => Challenge.first.id}, {:class => 'form-control', size: '6', id: 'selfie_challenge_collection'} %>   
 				</div>
 				
 	      </div>

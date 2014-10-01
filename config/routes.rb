@@ -5,7 +5,7 @@ Challfie::Application.routes.draw do
   root 'home#index'
 
   post '/user/autocomplete_search_user' => 'users#autocomplete_search_user'
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :passwords => "passwords", :confirmations => "confirmations", :registrations => "registrations" }
 
 
   resources :users, :only => [:update, :show] do
@@ -37,6 +37,12 @@ Challfie::Application.routes.draw do
   
 
   get '/administration/:action' => 'administration', :as => :administration
+
+  get '/privacy' => 'extrapages#privacy_page'
+  get '/terms' => 'extrapages#terms'  
+  get '/about_us' => 'extrapages#about_us'
+
+  resources :contacts, :only => [:new, :create, :destroy]
 
 
   namespace :api, defaults:{format: 'json'} do

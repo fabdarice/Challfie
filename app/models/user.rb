@@ -185,8 +185,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def add_notifications(message, author, selfie)    
-    @notification = self.notifications.build(message: message, author: author, selfie: selfie)
+  def add_notifications(message, author, selfie, book)    
+    @notification = self.notifications.build(message: message, author: author, selfie: selfie, book: book)
     @notification.save
   end
 
@@ -249,6 +249,7 @@ class User < ActiveRecord::Base
     return number.count != 0
   end
 
+  # Return the number of mutual friends
   def number_mutualfriends(user)    
     myfriends_array = []
     user_friends_array = []
@@ -287,6 +288,36 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  # Check if user has enough point to unlock a new book 
+  def unlock_book!    
+    book_to_unlock = self.next_book
+    if book_to_unlock.required_points <= self.points
+      self.update_column(:book_level, book_to_unlock.level)      
+      self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", self, nil, book_to_unlock)      
+    end
+  end
+
+  # Return last book unlocked
+  def current_book
+    book = Book.find_by level: self.book_level
+    return book
+  end
+
+  def next_book
+    book = Book.find_by level: (self.book_level + 1)
+    return book
+  end
+
+  def next_book_progression
+    curbook = self.current_book
+    nextbook = self.next_book
+    book_diff = nextbook.required_points - curbook.required_points
+    user_diff = self.points - curbook.required_points
+    progression_percentage = (100 * user_diff) / book_diff
+    return progression_percentage
+  end
+
 
   private
   

@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+	before_filter :redirect_if_not_admin, :only => [:new, :create, :edit, :update, :destroy]
+	
 	def new
 		@category = Category.new
 		@category_challenges = @category.category_challenges.build

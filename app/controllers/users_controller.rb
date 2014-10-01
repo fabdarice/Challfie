@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 		end
 		@selfies = @user.selfies.order("created_at DESC").paginate(:page => params["page"], :per_page => 30)
 		@timeline_selfie = @user.selfies.order("created_at DESC").paginate(:page => params["page"])
+		@books = Book.all
 	end
 
 	def edit
@@ -72,7 +73,7 @@ class UsersController < ApplicationController
 		@follow.save
 		user_link = view_context.link_to current_user.username, user_path(current_user)
 		
-		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", current_user , nil)
+		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", current_user , nil, nil)
 		@followers = current_user.followers(1)
 		@pending_request = current_user.followers(0)
 		respond_to do |format|

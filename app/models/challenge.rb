@@ -10,4 +10,18 @@ class Challenge < ActiveRecord::Base
    	text :description
   	end
 
+  	def difficulty_icon
+  		case self.difficulty
+  		when 1
+  			"star_very_easy.png"
+  		when 2
+  			"star_easy.png"
+  		when 3
+  			"star_intermediate.png"
+  		when 4
+  			"star_hard.png"
+  		else
+  			"star_very_hard.png"
+  		end
+  	end
 end

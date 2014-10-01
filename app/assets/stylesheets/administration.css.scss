@@ -1,3 +1,18 @@
 // Place all the styles related to the administration controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colors";
+
+.administration_pages {
+	border: 1px solid $mydarkgrey;
+	box-shadow: 0 0 10px 3px $mydarkgrey;
+	-moz-box-shadow: 0 0 10px 3px $mydarkgrey;
+  	-webkit-box-shadow: 0 0 10px 3px $mydarkgrey;
+		
+	background-color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 10px;
+}

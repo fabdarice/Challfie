@@ -47,6 +47,28 @@
 	            .append( "<a href='/users/" + item.slug + "'>" + "<img src='" + item.imgsrc + "' style='width: 35px; height: 35px; margin-right: 5px; float:left;'/>"  + item.label + "<br><span>" + item.mutualfriends + " mutual friends</span>" +  "</a>" )
 	            .appendTo( ul );
     		}; 
+
+    		// Javascript to enable link to tab	
+			var url = document.location.toString();
+			if (url.match('#')) {
+			    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+			} 
+			// Change hash for page-reload
+			$('.nav-tabs a').on('shown', function (e) {
+			    window.location.hash = e.target.hash;
+			})
+
+			$('.tab_btn').click(function () {
+				// Change hash for page-reload
+				$('.nav-tabs a').on('shown', function (e) {
+				    window.location.hash = e.target.hash;
+				})
+				// Javascript to enable link to tab	
+				var url = $(this).attr("href");
+				if (url.match('#')) {
+				    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+				} 			
+			});
     		
 			// Ajax Form - Create a Comment to a Selfie
 			$('.selfie_post_comment_textarea').keydown(function(e) {	
@@ -163,9 +185,9 @@
 				<% end %>
 				
 				<!-- TOP MENU - CHALLENGES -->
-				<%= link_to books_path do %>
-					<li <% if current_page?(books_path) %>class="active"<% end %>> 
-						<i class="fa fa-bolt fa-2x"><div class="menu_notif">3</div></i> Challenges</span>
+				<%= link_to user_path(current_user, :anchor => "tab_challenges") do %>
+					<li> 
+						<i class="fa fa-bolt fa-2x"></i> Challenges</span>
 					</li>
 				<% end %>
 				
@@ -214,14 +236,19 @@
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
 						<li role="presentation"><%= link_to user_path(current_user) do %><span class='glyphicon glyphicon-user' style="width: 20px; text-align:center;"></span> My Profile<% end %></li>
 						<li role="presentation" class="divider"></li>
-						<li role="presentation"><%= link_to books_path do %><i class="fa fa-bolt" style="width: 20px; text-align:center;"></i> Challenges<% end %></li>
+						<li role="presentation"><%= link_to user_path(current_user, :anchor => "tab_challenges") do %><i class="fa fa-bolt" style="width: 20px; text-align:center;"></i> Challenges<% end %></li>
 						<li role="presentation"><%= link_to user_friends_path do %><i class="fa fa-users"  style="width: 20px; text-align:center;"></i> Friends<% end %></li>
+						<li role="presentation"><%= link_to notifications_path do %><i class="fa fa-bullhorn"  style="width: 20px; text-align:center;"></i> Notifications<% end %></li>
 						<li role="presentation" class="divider"></li>						
 						<li role="presentation"><%= link_to destroy_user_session_path, method: "delete" do %><span class='glyphicon glyphicon-off' style="width: 20px; text-align:center;"></span> Sign Out<% end %></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>
-						<li role="presentation"><%= link_to "Manage Challenges", controller: 'administration', action: 'challenges' %></li>
-				   	<li role="presentation"><%= link_to "Manage Categories", controller: 'administration', action: 'categories' %></li>	   				   	
+						<% if current_user.administrator >= 4 %>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>
+							<li role="presentation"><%= link_to "Manage Challenges", controller: 'administration', action: 'challenges' %></li>
+					   	<li role="presentation"><%= link_to "Manage Categories", controller: 'administration', action: 'categories' %></li>
+					   	<li role="presentation"><%= link_to "Manage Users", controller: 'administration', action: 'users' %></li>
+					   	<li role="presentation"><%= link_to "Manage Contacts", controller: 'administration', action: 'contacts' %></li>
+					   <% end %>		   				   	
 					</ul>
 				</div>
 			<% end %>	
@@ -238,7 +265,8 @@
 				<% else %>
 					<%= render 'home/empty' %>
 				<% end %>								
-			</div>
+			</div>	
+			
 
 <!-- ##############  MIDDLE CONTENT ############## -->
 			<div id="main_content">

@@ -1,0 +1,62 @@
+<div class="container">
+	<h3>Contact Us</h3>
+  <div style="width: 800px; margin: auto;">
+    <%= link_to root_path, style: 'font-size: 14px;' do %>
+      <i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
+    <% end %>
+  	<% if flash[:notice] %>
+        <br><br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
+     <% end %>
+     <% if flash[:error] %>
+        <br><br><div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div>
+     <% end %>  
+  	
+  	<br><br>
+  	     
+     <%= form_for @contact do |f| %>      
+       <div class="contact_left">
+          <%= f.label :email, 'Email Address' %>
+       </div>   
+       <div class="contact_right form-group">
+         <%= f.text_field :email, class: 'form-control', value: "#{user_signed_in? ? current_user.email : ''}" %>
+       </div>
+       <div style="clear: both;"></div>
+       <hr style="margin-bottom: 20px;">
+
+       <div class="contact_left">
+          <%= f.label :type_contact, 'Type of Message' %>
+       </div>   
+       <div class="contact_right form-group">
+         <%= f.select :type_contact, options_for_select([["Report a Bug", "1"], ["Require Assistance for your account", "2"], ["Report obscene, pornographic, offensive content", "3"], ["Give suggestions for the website", "4"], ["Contact us for any marketing or advertising request", "5"], ["Others", "6"]], ["Report a Bug", "1"]), {},  {class: 'form-control' , size: '7'}  %>
+       </div>
+       <div style="clear: both;"></div>
+       <hr style="margin-bottom: 20px;">
+
+       <div class="contact_left">
+        <%= f.label :message, 'Message' %>
+       </div>        
+       <div class="contact_right form-group">
+         <%= f.text_area :message, class: 'form-control', rows: '5' %>
+       </div>
+       
+       <div style="clear: both;"></div>
+       <hr style="margin-bottom: 20px;">
+
+       <div class="contact_left">
+          <label>Human Verification</label>
+       </div>
+       <div class="contact_right">
+          <%= recaptcha_tags %>
+        </div>    
+        <div style="clear: both;"></div>  
+        <hr style="margin-bottom: 20px;">
+      <div class="contact_left">  
+        <label> </label>
+      </div>
+      <div class="contact_right">
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </div>  
+    <% end %>  
+  </div>
+</div>
+<br><br>

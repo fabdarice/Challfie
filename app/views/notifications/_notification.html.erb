@@ -9,7 +9,9 @@
 	<div class="one_notification_picture">
 		<% if notification.selfie %>
 			<%= link_to (image_tag notification.selfie.photo.url(:thumb)), selfie_path(notification.selfie), :"data-toggle"=>"modal", :"data-target"=>"#modal_selfie" %>
-		<% end %>	
+		<% elsif notification.book %>				
+			<%= link_to (image_tag notification.book.cover.url(:medium)), user_path(notification.author, :anchor => "tab_challenges") %>
+		<% end %>
 	</div>
 	<div style="clear: both;"></div>
 	

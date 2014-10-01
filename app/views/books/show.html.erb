@@ -1,0 +1,21 @@
+<div class="modal-header">
+  	<button type="button" class="close dismiss_modal_webcam" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  	<h4 class="modal-title" id="myModalLabel"><%= @book.name %> - Book of Challenges</h4>
+</div>
+<div class="modal-body">
+	<table class="table table-striped">
+  		<tr>
+  			<th style="border-top: none; text-align:left;">Challenge Description</th>
+  			<th style="border-top: none; text-align:left;">Difficulties</th>
+  		</tr>
+  		<% @challenges.each do |challenge| %>
+  			<tr>
+  				<td style="width: 380px;"><%= challenge.description %></td>
+  				<td><%= image_tag "/assets/" + challenge.difficulty_icon, style: 'width: 130px;' %></td>
+  			</tr>
+  		<% end %>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default dismiss_modal_webcam" data-dismiss="modal">Close</button>
+</div>

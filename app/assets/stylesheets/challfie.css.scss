@@ -38,6 +38,14 @@ h5 {
 	float: left;
 }
 
+.page_title {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	display: block;
+	font-size: 16px;
+	color: $mygreen;
+}
+
 #menu {
 	width: auto;
 	height: 45px;
@@ -76,11 +84,14 @@ h5 {
 }
 
 #left_content {
-	padding: 15px 10px 15px 10px;
-	
 	width: 300px;
-	background-color: #FFFFFF;
 	position: fixed;
+}
+
+.left_content_block {
+	padding: 15px 10px 15px 10px;	
+	width: 300px;
+	background-color: #FFFFFF;	
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -88,6 +99,41 @@ h5 {
 	box-shadow: 0 0 10px 3px $mydarkgrey;
 	-moz-box-shadow: 0 0 10px 3px $mydarkgrey;
   	-webkit-box-shadow: 0 0 10px 3px $mydarkgrey;
+  	margin-bottom: 20px;
+}
+
+.next_book_block {
+	border-top: 1px solid #D6D6D6;
+	border-bottom: 1px solid #D6D6D6;
+	margin-top: 5px;
+	margin-bottom: 15px;	
+	height: 190px;
+}
+
+.book_number_challenges {
+	float: left;
+	height: 190px;	
+	margin-bottom: 20px;
+	margin-left: 10px;
+	border-left: 1px solid #D6D6D6;
+	line-height: 30px;
+	font-size: 13px;
+	width: 115px;
+	text-align: center;
+	text-transform: uppercase;
+	vertical-align: middle;
+	padding-top: 40px;
+	color: #919191;
+}
+
+
+
+.block_title {
+	text-transform: uppercase;
+	font-family: Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+	color: #636363;
+	font-size: 12px;
+	font-weight: 500;
 }
 
 #main_content {
@@ -104,18 +150,44 @@ h5 {
 }
 
 #right_content {
+	position: fixed;
+	margin-left:910px;
+	width: 240px;
+}
+
+.right_content_friends_suggestion {
 	border: 1px solid $mydarkgrey;
 	box-shadow: 0 0 10px 3px $mydarkgrey;
 	-moz-box-shadow: 0 0 10px 3px $mydarkgrey;
   	-webkit-box-shadow: 0 0 10px 3px $mydarkgrey;
-	position: fixed;
-	margin-left:910px;
-	width: 240px;	
+		
 	background-color: #FFFFFF;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	padding: 10px;
+}
+
+#extrapages {
+	margin-top: 10px;
+	a {
+    color: gray;
+    font-size: 11px;    
+    
+    
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .extrapages_separator {
+  	padding-left: 2px;
+  	padding-right: 2px
+  }
+
+  .copyright {
+    color: darken($mydarkgrey, 20%);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
 }
 
 .menu_items {

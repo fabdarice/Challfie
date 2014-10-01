@@ -1,0 +1,20 @@
+// Place all the styles related to the contacts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.contact_left {
+	width: 200px;
+	float: left;
+	margin-left: 100px;
+
+	label {
+		font-size: 13px;
+		color: gray;
+		margin-top: 5px;
+	}
+}
+
+.contact_right {
+	width: 500px;
+	float: left;
+}
