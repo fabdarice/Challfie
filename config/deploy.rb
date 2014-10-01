@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'challfie'
-set :repo_url, 'git@challfie:fabdarice/challfie_web.git'
+set :repo_url, 'git@bitbucket.org:fabdarice/challfie_web.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
@@ -21,9 +21,6 @@ set :log_level, :debug
 
 # Default value for :pty is false
 #set :pty, true
-set :ssh_options, {    
-    forward_agent: true
-}
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml}
@@ -46,14 +43,17 @@ namespace :deploy do
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-
-  desc "Symlink shared configs and folders on each release."
-  task :update_shared_symlinks do    
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  end  
-  
-  after :publishing, "deploy:update_shared_symlinks"
+    
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
 
+end
+
+namespace :logs do
+  desc "tail rails logs" 
+  task :tail_rails do
+    on roles(:app) do
+      execute "tail -f #{shared_path}/log/#{fetch(:rails_env)}.log"
+    end
+  end
 end
