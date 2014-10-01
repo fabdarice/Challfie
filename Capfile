@@ -10,7 +10,7 @@ require 'capistrano/rails'
 # If you are using rvm add these lines:
 require 'capistrano/rvm'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.1.2p95'
+set :rvm_ruby_version, '2.1.3p242'
 
 # Includes tasks from other gems included in your Gemfile
 #
@@ -30,4 +30,4 @@ set :rvm_ruby_version, '2.1.2p95'
 # require 'capistrano/rails/migrations'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
-Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
+Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

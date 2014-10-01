@@ -61,7 +61,7 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 gem "recaptcha", :require => "recaptcha/rails"
 
-gem 'capistrano', '~> 3.1.0'
+gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm', github: "capistrano/rvm"
