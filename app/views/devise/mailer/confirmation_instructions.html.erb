@@ -19,29 +19,29 @@
     <tr><td align="left" valign="top">
       <table width="650" id="main" border="0" cellpadding="0" cellspacing="20" style="margin:auto;">
 	         <tr>
-	         	<td><img src="http://challfie.com/assets/logo.png" alt="DOMTV Logo" width="100" height="100" style="display:block;"></td>
+	         	<td><img src="http://challfie.com/assets/logo.png" alt="Welcome" width="100" height="100" style="display:block; border: none;"></td>
 	           <td id="header" colspan="2" align="center">
 	            <%= link_to root_url do %>
-	              <img src="http://challfie.com/assets/challfie.png" alt="DOMTV Logo" width="423" height="150" style="display:block;" />            
+	              <img src="http://challfie.com/assets/challfie.png" alt="To Challfie" width="380" height="130" style="display:block; border: none;" />            
 	            <% end %>  
 	           </td>
-	           <td><img src="http://challfie.com/assets/logo_master.png" alt="DOMTV Logo" width="100" height="100" style="display:block;"></td>
+	           <td><img src="http://challfie.com/assets/logo_master.png" alt="" width="100" height="100" style="display:block; border: none;"></td>
 	         </tr>
 	         <tr>
 	           <td class="divider" colspan="4" bgcolor="#555555" height="2"></td>
 	         </tr>    
 
 	       	<tr><td colspan="4">       	 
-	            Welcome <strong><%= @resource.username %></strong> to <strong>Challfie</strong>, the new social network designed exclusively for Selfies.<br>
+	            Welcome <strong><%= @resource.username %></strong> to Challfie, the new social network designed exclusively for <strong>Selfies</strong>.<br>
 	     			Challfie is a fun and simple way to share your selfies with your friends and to compete with them over the title of Challfie's King.<br>
 	      		<br>
 					
-					Confirm your account email through the following link : 
+					<strong>Confirm your account<strong> email through the following link : <br>
 					<%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %><br><br>
 
-					Don't forget to download the <strong>Challfie app</strong> available on iOS and Android for free!<br><br>	
+					Don't forget to download the <strong>Challfie app</strong> available on iOS and Android for free!<br><br><br>	
 					Thank you for joining us !<br>
-				  	The Challfie Team.							  
+				  	<em>The Challfie Team.</em>							  
 	       	</td></tr>
 	       	    
       </table>
