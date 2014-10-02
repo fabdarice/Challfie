@@ -19,8 +19,6 @@ set :scm, :git
 # Default value for :log_level is :debug
 set :log_level, :debug
 
-set :bundle_binstubs, nil
-
 # Default value for :pty is false
 #set :pty, true
 
