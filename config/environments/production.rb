@@ -45,7 +45,7 @@ Challfie::Application.configure do
   # Set to :debug to see everything in the log.
   config.log_level = :info
 
-  #config.action_mailer.default_url_options = { :host => 'challfie.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'challfie.com' }
 
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
