@@ -67,6 +67,9 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm', github: "capistrano/rvm"
 
+gem 'impressionist'
+
+
 group :development, :test do
   
   # For Email testing in development mode
@@ -74,8 +77,7 @@ group :development, :test do
 end
 
 group :production do
-	gem 'postmark-rails'
-	gem 'aws-sdk'
+	gem 'postmark-rails'	
 end
 
 
