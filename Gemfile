@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "paperclip", "~> 4.1"
 
+
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', branch: 'bootstrap3'
@@ -74,6 +75,7 @@ end
 
 group :production do
 	gem 'postmark-rails'
+	gem 'aws-sdk'
 end
 
 
