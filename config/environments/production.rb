@@ -45,18 +45,10 @@ Challfie::Application.configure do
   # Set to :debug to see everything in the log.
   config.log_level = :info
 
-  config.action_mailer.default_url_options = { :host => 'challfie.herokuapp.com' }
+  #config.action_mailer.default_url_options = { :host => 'challfie.herokuapp.com' }
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD'],
-    :domain => "http://challfie.herokuapp.com",
-    :address => "smtp.sendgrid.net",
-    :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
-  }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]

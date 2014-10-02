@@ -72,6 +72,10 @@ group :development, :test do
   gem 'mailcatcher'
 end
 
+group :production do
+	gem 'postmark-rails'
+end
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
