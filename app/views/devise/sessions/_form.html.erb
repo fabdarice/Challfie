@@ -20,23 +20,23 @@
 <% end %>
 
 <div class="logo_intro">
-	<p class="welcome_page_title">Take Selfies like you have never done before</p>
-  <div class="welcome_page_intro">
-    <p>Challfie is the new <u>social network</u> designed exclusively for <strong>Selfies</strong>.</p>
-    It's a <u>fun</u> and <u>simple way</u> to share your selfies with your friends and to <u>compete</u> with them over the title of <strong>Challfie's King</strong>.<br>
-    <div class="welcome_page_intro_block"><%# image_tag "/assets/lightning_background.png" %><p class="step_title">STEP 1</p><%= image_tag "/assets/logo.png" %><span>Choose a Selfie Challenge</span></div>      
-    <div class="welcome_page_intro_block camera"><%# image_tag "/assets/camera_background.png" %><p class="step_title">STEP 2</p><%= image_tag "/assets/logo_chicken.png" %><span>Take a Selfie</span></div>
-    <div class="welcome_page_intro_block"><%# image_tag "/assets/approve_background.png" %><p class="step_title">STEP 3</p><%= image_tag "/assets/logo_apprentice.png" %><span>Get approve by your friends</span></div>
-    <div class="welcome_page_intro_block"><%# image_tag "/assets/book_background.png" %><p class="step_title">STEP 4</p><%= image_tag "/assets/logo_master.png" %><span>Unlock New Challenge's Book</span></div>    
+	<p class="welcome_page_title">The New Social Network exclusively for Selfies</p>
+  <p style="font-size: 22px; width: 600px;color: white; margin-top: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;">Take Selfies like you've never done before.</p><br>
+  
+  <div class="phone_section">
+    <div class="phone">
+      <%= image_tag "/assets/galaxy_s4.png", style:'width: 170px' %>
+      <%= image_tag "/assets/iphone.png", style:'width: 170px; left: 60px;' %>
+    </div>  
+    <div class="available_ios_android">    
+      <p class="welcome_page_intro">Get Started and Download the <u>Challfie app</u> available on iOs and Android for free</p>
+      <%= image_tag "/assets/download_ios.png", style:'width: 160px;' %>
+      <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
+    </div>
   </div>
-  <div style="clear:both;"></div>
 
 
-  <div class="available_ios_android">
-    <p class="welcome_page_intro">Get started and download the <strong>Challfie app</strong> available on  <br>iOS and Android for <u>free</u> : </p>
-    <%= image_tag "/assets/download_ios.gif", style:'width: 150px; height: 48px;' %>
-    <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
-  </div>
+  
 </div>
 <div class="login_form">    
 	<div class='login_block_small'>  
@@ -92,7 +92,7 @@
        <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
         <%= link_to "I didn't receive confirmation instructions", new_confirmation_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br /><br>
       <% end -%> 
-       <div style='float: right;'><%= r.submit 'Register to Challfie', class: 'btn btn-info' %></div>       
+       <div style='float: right;'><%= r.submit 'Register to Challfie', class: 'btn btn-primary' %></div>       
      </div>
    <% end %>    
 </div>
