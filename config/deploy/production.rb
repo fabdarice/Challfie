@@ -15,10 +15,11 @@ set :stage, :production
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '192.241.216.224', user: 'deploy', roles: %w{web app}, ssh_options: {	
-	keys: %w(/home/deploy/.ssh/challfie-server_rsa),
-	forward_agent: false,
-	auth_methods: %w(publickey password)
+server '192.241.216.224', user: 'deploy', roles: %w{web app}
+
+
+set :ssh_options, {		
+	forward_agent: true,	
 }
 
 
