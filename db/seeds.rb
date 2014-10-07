@@ -7,5 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 if Book.count == 0
-	Book.create!(name: 'Newbie IIII' , required_points: '0', level: '10')
+	Book.create!(name: 'Newbie I' , required_points: '0', level: '1')
+	Book.create!(name: 'Newbie II' , required_points: '100', level: '2')
+	Book.create!(name: 'Newbie III' , required_points: '300', level: '3')
 end
