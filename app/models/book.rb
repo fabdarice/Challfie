@@ -4,7 +4,7 @@ class Book < ActiveRecord::Base
 
 	has_attached_file :cover, :styles => { :medium => "400x", :thumb => "100x100>" }, :default_url => "/assets/missing.jpg"
   
-  	validates_attachment :cover, :presence => true,
+  	validates_attachment :cover,
 						  :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
 						  :size => { :in => 0..5.megabytes }
 

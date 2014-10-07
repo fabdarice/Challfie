@@ -6,4 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-	Book.create(name: 'Newbie I' , required_points: 0, level: 1)
+if Book.count == 0
+	Book.create!(name: 'Newbie IIII' , required_points: '0', level: '10')
+end
