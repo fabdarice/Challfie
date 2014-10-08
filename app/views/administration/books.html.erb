@@ -26,7 +26,7 @@
     <tbody>
       <% @books.each do |book| %>
         <tr>
-          <td><div style='width: 50px; height: 50px;'><%= image_tag book.cover.url(:thumb), :style => 'width: auto; height: 100%;' %></div></td>
+          <td><div style='width: 50px; height: 50px;'><%= image_tag book.cover.url(:medium), :style => 'width: auto; height: 100%;' %></div></td>
           <td><%= book.name %></td>
           <td><%= book.required_points %></td>
           <td><%= book.level %></td>

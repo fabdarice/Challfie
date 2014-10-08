@@ -24,7 +24,7 @@
   <div class="control-group">
     <label class="control-label">Uploaded Cover</label>
     <div class="controls">
-      <%= image_tag(f.object.cover.url(:thumb), alt: 'Cover', title: 'Current Cover') %>
+      <%= image_tag(f.object.cover.url(:medium), alt: 'Cover', title: 'Current Cover', style: 'width: 100px;') %>
     </div>
   </div>
 <% end %>
@@ -36,3 +36,18 @@
   </div>
 </div>
 
+<% unless f.object.new_record? || !f.object.thumb %>
+  <div class="control-group">
+    <label class="control-label">Uploaded Cover</label>
+    <div class="controls">
+      <%= image_tag(f.object.thumb.url(:original), alt: 'Thumb', title: 'Current Thumb', style: 'width: 100px;') %>
+    </div>
+  </div>
+<% end %>
+
+<div class="control-group">
+  <%= f.label :thumb, class: 'control-label' %>
+  <div class="controls">
+    <%= f.file_field :thumb, class: 'input' %>
+  </div>
+</div>

@@ -83,7 +83,7 @@
 		<div class="profile_user_info">	
 			<div class="profile_user_username"><%= link_to user.username, user_path(user) %></div>
 			<div class="profile_user_rank_points">
-				<%= image_tag user.current_book.cover.url(:medium), style: "width: 30px; height: 30px; float:left; margin-right: 5px; margin-top: 3px;" %>
+				<%= image_tag user.current_book.thumb.url(:original), style: "width: 30px; height: 30px; float:left; margin-right: 5px; margin-top: 3px;" %>
 				<p style="float:left; font-size: 11px; margin-top: 2px;">
 					Challfie <br><%= user.current_book.name %>
 				</p>

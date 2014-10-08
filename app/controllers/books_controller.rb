@@ -55,6 +55,6 @@ class BooksController < ApplicationController
 
 	private
 		def book_params
-		  params.require(:book).permit(:name, :required_points, :cover, :level)
+		  params.require(:book).permit(:name, :required_points, :cover, :level, :thumb)
 		end
 end
