@@ -14,8 +14,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-            <th>Description</th>
-            <th>Points</th>        
+            <th width="580">Description</th>
+            <th width="100">Points</th>        
             <th class='text-center'>Edit</th>
             <th class='text-center'>Delete</th>
         </tr>
@@ -23,13 +23,14 @@
       <tbody>
         <% book.challenges.each do |challenge| %>
           <tr>
-            <td><%= challenge.description %></td>
-            <td><%= challenge.point %></td>
+            <td width="600"><%= challenge.description %></td>
+            <td width="100"><%= challenge.point %></td>
             <td class='text-center'><%= link_to 'Edit', edit_challenge_path(challenge), class: 'btn'%></td>
             <td class='text-center'><%= link_to 'Delete', challenge_path(challenge), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <hr style="margin: 20px; border:1px solid red;">
   <% end %>
 </div>
