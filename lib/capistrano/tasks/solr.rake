@@ -7,7 +7,7 @@ namespace :solr do
         if command == "start" or (test "[ -f #{solr_pid} ]" and test "kill -0 $( cat #{solr_pid} )")
           within current_path do
             with rails_env: fetch(:rails_env, 'production') do
-              execute :bundle, 'exec', 'sunspot-solr', command, "--port=8983 --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
+              execute :bundle, 'exec', :rake, 'sunspot:solr:' + command
             end
           end
         end
