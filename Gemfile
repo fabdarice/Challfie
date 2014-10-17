@@ -46,8 +46,8 @@ gem "koala", "~> 1.10.0rc"
 gem 'will_paginate', '~> 3.0'
 
 
-gem 'sunspot_rails'
-gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+gem 'sunspot_rails', '~> 2.1.1'
+gem 'sunspot_solr', '~> 2.1.1' # optional pre-packaged Solr distribution for use in development
 
 
 gem 'friendly_id', '~> 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+

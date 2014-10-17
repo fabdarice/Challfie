@@ -299,8 +299,8 @@ DEPENDENCIES
   recaptcha
   sass-rails (~> 4.0.0)
   sdoc
-  sunspot_rails
-  sunspot_solr
+  sunspot_rails (~> 2.1.1)
+  sunspot_solr (~> 2.1.1)
   therubyracer
   thin
   turbolinks
