@@ -5,7 +5,9 @@
     		<%= link_to (image_tag selfie.user.show_profile_picture, class: 'img-thumbnail', style:'float: left; margin-right: 10px;'), user_path(selfie.user) %>
     		<div class="selfie_post_user_username_challenge pull-left">
     			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %></p>
-    			<span class="selfie_post_user_challenge"><i class="fa fa-bolt fa-lg"></i> <%= selfie.challenge.description %></span><br>
+          <% if !selfie.challenge.description.blank? %>
+    			 <span class="selfie_post_user_challenge"><i class="fa fa-bolt fa-lg"></i> <%= selfie.challenge.description %></span><br>
+          <% end %> 
           <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
             <%= form_for selfie do |f| %>
              <%= f.radio_button :private, false, id: "public_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="public_radio_btn_<%= selfie.id %>" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie." class=""><i class="fa fa-unlock"></i> Public</label>
