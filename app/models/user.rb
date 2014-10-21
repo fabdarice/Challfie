@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
       rescue Koala::Facebook::APIError
         logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
         self.oauth_token = nil 
-        save       
+        self.save       
       end 
     end   
 
