@@ -1,40 +1,42 @@
 <% friends.each_slice(3) do |slice| %>
 	<div class="one_line_following">
 	<% slice.each do |friend| %>
-		<div class="one_following_block_border <% if slice.count < 3 %>block_space <% else %><%= cycle('block_space', 'block_space', '') %> <% end %>">
-			<div class="one_following_block ">
-				<%= link_to (image_tag friend.show_profile_picture, style: "float: left; margin-right: 10px; width: 75px; height:75px;"), user_path(friend) %>									
-				<p class="friend_username" style="margin-bottom: 5px;"><%= link_to friend.username, user_path(friend) %></p>
-				<span class="friend_rank">
-					<%= pluralize(current_user.number_mutualfriends(friend), "mutual friend") %>											
-				</span><br>
-				<span class="friend_follower">
-					<%= pluralize(friend.followers(1).count, "follower") %>
-				</span><br>
-				
-				<% if friendship == "followers" %>
-					<%= link_to raw('<i class="fa fa-times-circle"></i> Remove') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
-				<% else %>
-					<% if friendship == "pending_request" %>
-						<%= link_to raw('<i class="fa fa-check-circle"></i>') ,"javascript:void(0)", :"data-href" => accept_request_user_path(friend), :title => "Accept Request", class: "btn btn-success btn-xs friends_btn friends_btn_#{friend.id}" %>
-						<%= link_to raw('<i class="fa fa-times"></i>') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), :title => "Decline Request", class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
-						<%= link_to raw('<span class="glyphicon glyphicon-ban-circle"></span>') ,"javascript:void(0)", :"data-href" => block_user_path(friend), :title => "Block User", class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
+		<% if !friend.blank? %>
+			<div class="one_following_block_border <% if slice.count < 3 %>block_space <% else %><%= cycle('block_space', 'block_space', '') %> <% end %>">
+				<div class="one_following_block ">
+					<%= link_to (image_tag friend.show_profile_picture, style: "float: left; margin-right: 10px; width: 75px; height:75px;"), user_path(friend) %>									
+					<p class="friend_username" style="margin-bottom: 5px;"><%= link_to friend.username, user_path(friend) %></p>
+					<span class="friend_rank">
+						<%= pluralize(current_user.number_mutualfriends(friend), "mutual friend") %>											
+					</span><br>
+					<span class="friend_follower">
+						<%= pluralize(friend.followers(1).count, "follower") %>
+					</span><br>
+					
+					<% if friendship == "followers" %>
+						<%= link_to raw('<i class="fa fa-times-circle"></i> Remove') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
 					<% else %>
-						<% if friendship == "friends_suggestions" %>
-							<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-primary btn-xs friends_btn friends_btn_#{friend.id}" %>
+						<% if friendship == "pending_request" %>
+							<%= link_to raw('<i class="fa fa-check-circle"></i>') ,"javascript:void(0)", :"data-href" => accept_request_user_path(friend), :title => "Accept Request", class: "btn btn-success btn-xs friends_btn friends_btn_#{friend.id}" %>
+							<%= link_to raw('<i class="fa fa-times"></i>') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), :title => "Decline Request", class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
+							<%= link_to raw('<span class="glyphicon glyphicon-ban-circle"></span>') ,"javascript:void(0)", :"data-href" => block_user_path(friend), :title => "Block User", class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
 						<% else %>
-							<% if user.following_status(friend) == 1 %>
-								<%= link_to raw('<i class="fa fa-minus-square"></i> Unfollow') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
+							<% if friendship == "friends_suggestions" %>
+								<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-primary btn-xs friends_btn friends_btn_#{friend.id}" %>
 							<% else %>
-								<%= link_to raw('<i class="fa fa-times"></i> Cancel Request') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
+								<% if user.following_status(friend) == 1 %>
+									<%= link_to raw('<i class="fa fa-minus-square"></i> Unfollow') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-danger btn-xs friends_btn friends_btn_#{friend.id}" %>
+								<% else %>
+									<%= link_to raw('<i class="fa fa-times"></i> Cancel Request') ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
+								<% end %>	
 							<% end %>	
 						<% end %>	
-					<% end %>	
-				<% end %>
-				
-				<div style="clear:both;"></div>							
+					<% end %>
+					
+					<div style="clear:both;"></div>							
+				</div>
 			</div>
-		</div>	
+		<% end %>		
 	<% end %>	
 	</div>
 <% end %>
