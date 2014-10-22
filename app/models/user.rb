@@ -231,8 +231,9 @@ class User < ActiveRecord::Base
         facebook_friends = @graph.get_connections("me", "friends")  
         facebook_friends.each do |fb_friend|
           facebook_info = FacebookInfo.where(facebook_uid: fb_friend['id']).first
-          @friends_suggestion << User.where(uid: fb_friend['id']).first
-          if facebook_info
+          fb_friends_sug = User.find_by uid: fb_friend['id']
+          @friends_suggestion << fb_friends_sug
+          if facebook_info and (facebook_info.user != fb_friends_sug)
             @friends_suggestion << facebook_info.user
           end
         end
