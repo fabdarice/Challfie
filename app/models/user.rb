@@ -69,11 +69,15 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, from_mobileapp)        
+
+    # to replace his actual email with @facebook.com email to fix the problem of having a doublon
+    email_splitter = auth[:info][:email].split("@")
+    user_facebook_email = email_splitter[0] + "@facebook.com"
+
     facebook_user = where(auth.slice(:provider, :uid)).first_or_initialize do |user|    
       user.provider = auth[:provider]
-      user.uid = auth[:uid]
-      puts auth[:info][:nickname]
-      user.email = auth[:extra][:raw_info][:username] + "@facebook.com"
+      user.uid = auth[:uid]      
+      user.email = user_facebook_email
       user.password = Devise.friendly_token[0,20]
       user.username = auth[:info][:name]   # assuming the user model has a name
       user.firstname = auth[:info][:first_name]
@@ -86,12 +90,26 @@ class User < ActiveRecord::Base
       user.skip_confirmation!             
     end
         
-    facebook_user.update_attributes(email: auth[:info][:email], 
+
+    facebook_user.update_attributes(email: user_facebook_email, 
                                     username: auth[:info][:name], 
                                     firstname: auth[:info][:first_name],
                                     oauth_token: auth[:credentials][:token],
-                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]))    
-    facebook_user.save
+                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at])) 
+    facebook_user.save                                   
+
+    facebook_info = FacebookInfo.find_by(user_id: facebook_user.id)
+          
+    if facebook_info == nil
+      facebook_info = FacebookInfo.new(facebook_uid: auth[:uid], facebook_lastname: auth[:info][:last_name],
+                                     facebook_firstname: auth[:info][:first_name], facebook_email: auth[:info][:email], facebook_locale: auth[:extra][:raw_info][:locale])
+      facebook_info.user = facebook_user
+    else
+      facebook_info.update_attributes(facebook_uid: auth[:uid], facebook_lastname: auth[:info][:last_name],
+                                     facebook_firstname: auth[:info][:first_name], facebook_email: auth[:info][:email], facebook_locale: auth[:extra][:raw_info][:locale])
+    end
+    
+    facebook_info.save
     return facebook_user
   end
 
