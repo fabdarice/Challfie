@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     facebook_user = where(auth.slice(:provider, :uid)).first_or_initialize do |user|    
       user.provider = auth[:provider]
       user.uid = auth[:uid]
-      user.email = auth[:info][:email]
+      user.email = auth[:info][:nickname] + "@facebook.com"
       user.password = Devise.friendly_token[0,20]
       user.username = auth[:info][:name]   # assuming the user model has a name
       user.firstname = auth[:info][:first_name]
