@@ -39,10 +39,6 @@
 	<%= render 'users/left_content_profile', :user => @user %>
 <% end %>
 
-<% content_for :title do %>
-  <%= "Challfie" %> 
-<% end %>
-
 <% if current_user != @user %>
 	<% if !current_user.is_following?(@user) %>
 		<% if current_user.following?(@user) %>
@@ -63,7 +59,7 @@
 	<ul class="nav nav-tabs" role="tablist">
 	  <li class="active"><a href="#tab_timeline" role="tab" data-toggle="tab">Timeline</a></li>
 	  <% if current_user.is_following?(@user) or current_user == @user %>
-		  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges <span class="mybadge">42</span></a></li>
+		  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges</a></li>
 		  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @user.selfies.count %></span></a></li>
 		  <li><a href="#tab_followers" role="tab" data-toggle="tab">Followers <span class="mybadge"><%= @followers.count %></span></a></li>
 		<% end %>  
@@ -72,7 +68,7 @@
 	<!-- Tab panes -->
 	<div class="tab-content" style="padding:0px;">
 	  <div class="tab-pane fade in active" id="tab_timeline">
-	  		<div class="tab_challfie">
+	  		<div class="tab_challfie list_selfies">
 				<%= render @timeline_selfie, :editable => true %>				
 			</div>  	
 			<center><%= will_paginate @timeline_selfie %></center>

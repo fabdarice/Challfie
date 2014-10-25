@@ -29,6 +29,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# to handle image
 gem "paperclip", "~> 4.1"
 
 
@@ -38,34 +39,48 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 
 gem "font-awesome-rails"
 
+# to include Facebook
 gem 'omniauth-facebook'
 
 # Facebook Graph
 gem "koala", "~> 1.10.0rc"
 
+# TO handle pagination
 gem 'will_paginate', '~> 3.0'
 
-
+# Search Engine - To search for users in the database
 gem 'sunspot_rails', '~> 2.1.1'
 gem 'sunspot_solr', '~> 2.1.1' # optional pre-packaged Solr distribution for use in development
 
-
+# have friendly id URL
 gem 'friendly_id', '~> 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
 
+# to handle friends - followers and following
 gem "acts_as_follower"
 
 gem 'rails3-jquery-autocomplete'
 
 gem 'progress_bar'
 
+# to handle vote - approve and reject
 gem 'acts_as_votable', '~> 0.10.0'
 
+
+# human verification
 gem "recaptcha", :require => "recaptcha/rails"
 
+# to deploy the website on the server
 gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm', github: "capistrano/rvm"
+
+# to handle auto detect language based on HTTP ACCEPT
+gem 'http_accept_language'
+
+# to detect the browser the user is using
+gem "browser"
+
 
 group :development, :test do
   

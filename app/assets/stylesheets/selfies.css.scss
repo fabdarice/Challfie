@@ -35,15 +35,16 @@
 	}
 
 	.selfie_post_user_username a {
-		color: darken($mygreen, 20%);
-		font-weight: 600;
+		color: $mygreen;
+		font-weight: 500;
 		font-size: 14px;
 		margin-top:3px;
+		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
 	}
 
 	.selfie_post_user_username a:hover, .selfie_post_user_username a:focus {
 		text-decoration: none;
-		color: $mygreen;
+		color: lighten($mygreen, 10%);
 	}
 
 	.selfie_post_user_username a:visited {
@@ -51,8 +52,12 @@
 	}
 
 	.selfie_post_user_challenge {
-		font-size: 13px;
-		line-height: 20px;
+		font-size: 12px;
+		line-height: 14px;
+		margin-bottom: 8px;
+		display: block;
+		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+		color: #575757;
 	}
 
 	.selfie_post_date {
@@ -126,13 +131,15 @@
 }
 
 .selfie_post_comment_existing_username a {
-	color: darken($mygreen, 20%);
-	font-weight: 600;
+	color: $mygreen;
+	font-weight: 500;
+	
 	margin-right: 20px;
+	font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
 }
 
 .selfie_post_comment_existing_username a:hover, .selfie_post_comment_existing_username a:focus {
-	color: $mygreen;
+	color: lighten($mygreen, 10%);
 	text-decoration: none;
 }
 

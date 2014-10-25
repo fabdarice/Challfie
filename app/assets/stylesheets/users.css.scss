@@ -56,11 +56,12 @@
 		height: 50px;
 		overflow: hidden;
 		text-align: center;
+		
 
 		a {
 			font-size: 14px;
-			font-family : "Arial";
-			font-weight: 600;
+			font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+			
 			color: black;					
 		}
 	}
@@ -126,8 +127,8 @@
 }
 
 .friend_username a {
-	color: black;
-	font-weight: 600;
+	color: #575757;
+	font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
 	margin-bottom: 0px;
 }
 
@@ -187,12 +188,7 @@
 
 
 #tab_timeline {
-	padding: 10px;
-	background: url('/assets/mychallfies_background.png') no-repeat center center fixed; 
-	-webkit-background-size: contain;
-	-moz-background-size: contain;
-	-o-background-size: contain;
-	background-size: contain;
+	padding: 10px;	
 
 	.tab_challfie {
 		width: 550px;

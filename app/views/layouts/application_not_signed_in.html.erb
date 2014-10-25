@@ -31,30 +31,30 @@
 
 	<div id="main_content_signin_steps">
 		<div class="container" style="width: 1200px;">			
-			<p class="step_header">Easy, Funny and Competitive</p>
+			<p class="step_header"><%= t 'sign_in.step_header' %></p>
 			<div style='margin-left: 50px;'>
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/book_apprentice_volume_1.png" %><br>
 					<p class="one_step_title">Challenges</p>
-					<p class="step_text">Discover more than <strong>100 Selfie Challenges</strong> divided in 9 levels of book <strong>to unlock.</strong></p>
+					<p class="step_text"><%= t 'sign_in.step_challenge_text_html' %></p>
 				</div>
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/step_camera.png" %><br>
 					<p class="one_step_title">Selfies</p>
-					<p class="step_text"><strong>Complete your challenge</strong> by taking the corresponding Selfie.</p>
+					<p class="step_text"><%= t 'sign_in.step_selfies_text_html' %></p>
 				</div> 
 				
 				
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/step_community.png" %><br>
-					<p class="one_step_title">Community</p>
-					<p class="step_text"><strong>Shared your Selfie Challenges</strong> with your friends and on Facebook and get your <strong>Challfie approved.</strong></p>			
+					<p class="one_step_title"><%= t 'sign_in.step_community' %></p>
+					<p class="step_text"><%= t 'sign_in.step_community_text_html' %></p>			
 				</div>
 
 				<div class="one_step">
 					<%= image_tag "/assets/step_competitive.png" %><br>
-					<p class="one_step_title">Competitive</p>
-					<p class="step_text"><strong>Earn points</strong> for each Challfie approved and compete among your friends upon the title of <strong>Challfie King</strong></p>		
+					<p class="one_step_title"><%= t 'sign_in.step_competitive' %></p>
+					<p class="step_text"><%= t 'sign_in.step_competitive_text_html' %></p>		
 				</div>
 			</div>		    
 		</div>

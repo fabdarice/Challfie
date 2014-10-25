@@ -6,10 +6,40 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :set_user_language
+  before_filter :check_browser
 
   layout :layout_by_resource
 
   protected
+
+  def check_browser
+    if browser.chrome?
+      puts "IS CHROME"
+    end
+
+    if browser.chrome_os?
+      puts "IS CHROME OS"
+    end
+
+    if browser.mobile?
+      puts "IS MOBILE"
+    end
+
+    if browser.tablet?
+      puts "IS TABLET"
+    end
+
+    puts "ACTUAL BROWSER = " + browser.to_s  
+
+  end
+
+  def set_user_language    
+    #puts I18n.available_locales
+    available = %w(en fr)
+    I18n.locale = http_accept_language.compatible_language_from(available)    
+    #I18n.locale = "fr"
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :avatar) }

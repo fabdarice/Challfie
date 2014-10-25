@@ -32,17 +32,15 @@ class User < ActiveRecord::Base
             :uniqueness => { :case_sensitive => false },
             if: :not_from_facebook?
 
-  validates_presence_of :firstname, :lastname, :email, :username, message: 'Field cannot be empty.'            
-  
-  validates_length_of :username, within: 2..20, too_short: 'minumum 2 characters', too_long: 'maximum 20 characters',
-                      if: :not_from_facebook?            
+  validates_presence_of :firstname, :lastname, :email, :username
+  validates_length_of :username, within: 2..20, if: :not_from_facebook?            
 
   validates_format_of :username, with: /\A[a-zA-Z\d]+\z/, 
-                      message: "must contain only alphanumeric characters.", 
+                      message: I18n.translate('sign_in.error_username_format'), 
                       if: :not_from_facebook?                          
 
   validates :email,
-            format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: "email format incorrect." }
+            format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: I18n.translate('sign_in.email_format') }
 
   has_one :facebook_info
   has_many :selfies

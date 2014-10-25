@@ -4,23 +4,23 @@
     <div class="selfie_post_user">
     		<%= link_to (image_tag selfie.user.show_profile_picture, class: 'img-thumbnail', style:'float: left; margin-right: 10px;'), user_path(selfie.user) %>
     		<div class="selfie_post_user_username_challenge pull-left">
-    			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %></p>
+    			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %> <span style="margin-left: 10px; font-size: 11px; color: gray;"><%= selfie.user.current_book.name %></span></p>
           <% if !selfie.challenge.description.blank? %>
-    			 <span class="selfie_post_user_challenge"><i class="fa fa-bolt fa-lg"></i> <%= selfie.challenge.description %></span><br>
+    			 <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %></span>
           <% end %> 
           <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
             <%= form_for selfie do |f| %>
-             <%= f.radio_button :private, false, id: "public_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="public_radio_btn_<%= selfie.id %>" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie." class=""><i class="fa fa-unlock"></i> Public</label>
-             <%= f.radio_button :private, true, id: "private_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="private_radio_btn_<%=selfie.id%>" data-toggle="tooltip" data-placement="top" title="Everyone can see this selfie."><i class="fa fa-lock"></i> Private</label>
+             <%= f.radio_button :private, false, id: "public_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="public_radio_btn_<%= selfie.id %>" data-toggle="tooltip" data-placement="top" title="<%= t 'selfie.radio_public_text' %>" class=""><i class="fa fa-unlock"></i> <%= t 'all_pages.public' %></label>
+             <%= f.radio_button :private, true, id: "private_radio_btn_#{selfie.id}", class: 'private_radio_btn' %><label for="private_radio_btn_<%=selfie.id%>" data-toggle="tooltip" data-placement="top" title="<%= t 'selfie.radio_private_text' %>"><i class="fa fa-lock"></i> <%= t 'all_pages.private' %></label>
            <% end %>
           </div> 
     			<span class="selfie_post_date selfie_privacy_icon_<%= selfie.id %>">          
               <% if selfie.private %>
-                <i class="fa fa-lock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Private - Only your followers can see this selfie."></i> 
+                <i class="fa fa-lock fa-lg" data-toggle="tooltip" data-placement="bottom" title="<%= t 'selfie.private_text' %>"></i> 
               <% else %>
-                <i class="fa fa-unlock fa-lg" data-toggle="tooltip" data-placement="bottom" title="Public - Everyone can see this selfie."></i> 
+                <i class="fa fa-unlock fa-lg" data-toggle="tooltip" data-placement="bottom" title="<%= t 'selfie.public_text' %>"></i> 
               <% end %>                      
-            <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %> ago</span>
+            <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %></span>
           </span>
     		</div>
 
@@ -29,9 +29,9 @@
       		<div class="dropdown pull-right">
     			   <a id="dropdownMenu3" data-toggle="dropdown" class="selfie_dropdown"><i class="fa fa-cog fa-lg"></i></a>
       			 <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu3">
-      				 <li role="presentation"><a href="#" class="edit_selfie_message" data-id="<%= selfie.id %>">Edit Selfie</a></li>
-               <li role="presentation"><a href="#" class="edit_selfie_privacy" data-id="<%= selfie.id %>">Edit Privacy</a></li>
-      				 <li role="presentation"><%= link_to "Delete Selfie", selfie_path(selfie), method: 'delete', data: {confirm: 'Are you sure?'} %></li>
+      				 <li role="presentation"><a href="#" class="edit_selfie_message" data-id="<%= selfie.id %>"><%= t 'selfie.edit_selfie_message' %></a></li>
+               <li role="presentation"><a href="#" class="edit_selfie_privacy" data-id="<%= selfie.id %>"><%= t 'selfie.edit_selfie_privacy' %></a></li>
+      				 <li role="presentation"><%= link_to "#{t 'selfie.delete_selfie'}", selfie_path(selfie), method: 'delete', data: {confirm: 'Are you sure?'} %></li>
       		   </ul>
       		</div>
         <% end %>
@@ -55,12 +55,15 @@
     <div class="selfie_image">
     		<%= image_tag selfie.photo.url(:original), style: "width: 508px;" %>
         <div class="selfie_challenge_status_img">
-          <% if selfie.approval_status == 1 %>
-            <%= image_tag "/assets/challenge_success.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Approved." %>  
+          <% if selfie.approval_status == 1 %>            
+            <%= image_tag "/assets/challenge_success.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Approved." if I18n.locale == :en %>  
+            <%= image_tag "/assets/challenge_approuve.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Approuvé." if I18n.locale == :fr %>              
           <% elsif selfie.approval_status == 2 %>
-            <%= image_tag "/assets/challenge_rejected.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Get more upvotes to be approve." %>
+            <%= image_tag "/assets/challenge_rejected.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Get more upvotes to be approve." if I18n.locale == :en %>
+            <%= image_tag "/assets/challenge_rejete.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Rejeté." if I18n.locale == :fr %>
           <% elsif selfie.approval_status == 0 %>
-            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Require more votes." %>            
+            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Require more votes." if I18n.locale == :en %>            
+            <%= image_tag "/assets/challenge_en_attente.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Nécessite plus de votes." if I18n.locale == :fr %>            
           <% end %>
         </div>
     		
@@ -70,12 +73,12 @@
     <div class="selfie_vote_block selfie_vote_block_<%= selfie.id %>">  		
     		<%= link_to selfie_approve_path(selfie), class: 'btn-vote', remote: true do %>	
     			<span class="approve_button <% if current_user.voted_up_on? selfie %>vote_green<% end %>">
-    				<span class="glyphicon glyphicon-thumbs-up"></span> Approve
+    				<span class="glyphicon glyphicon-thumbs-up"></span> <%= t 'selfie.approve' %>
   			   </span>
     		<% end %>
     		<%= link_to selfie_disapprove_path(selfie), class: 'btn-vote', remote: true do %>
     			<span class="disapprove_button <% if current_user.voted_down_on? selfie %>vote_red<% end %>">
-    				<span class="glyphicon glyphicon-thumbs-down"></span> Reject
+    				<span class="glyphicon glyphicon-thumbs-down"></span> <%= t 'selfie.reject' %>
   			  </span>
     		<% end %>			  
     		
@@ -101,7 +104,7 @@
 
   	  <div class="selfie_post_comment_create form-group">
   	   	<%= form_for [selfie, Comment.new] do |comment| %>
-  	   		<%= comment.text_area :message, class:'form-control selfie_post_comment_textarea', placeholder:'Write a comment..', row:'1' %>
+  	   		<%= comment.text_area :message, class:'form-control selfie_post_comment_textarea', placeholder:"#{ t 'selfie.write_comment' }", row:'1' %>
   	   	<% end %>		  		
   	 	</div>
     </div>

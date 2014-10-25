@@ -1,23 +1,71 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  sign_in:
+    title: "The New Social Network exclusively for Selfies"
+    subtitle: "Take Selfies like you've never done before"
+    downloadapp_html: "Get Started and Download the <u>Challfie app</u> available on iOs and Android for free"
+    username: "Username"
+    login: "Username or Email"
+    firstname: "First name"
+    lastname: "Last name"
+    email: "Email" 
+    password: "Password"
+    password_confirmation: "Password Confirmation"
+    remember_me: "Remember Me"
+    forgot_password: "I forgot my password"
+    sign_up: "Sign up"
+    not_registered_yet: "If Not Registered Yet"
+    sign_in: "Sign in"
+    sign_in_with_facebook: "Sign in with Facebook"
+    no_confirmation_instruction: "I didn't receive confirmation instructions"
+    register_for_challfie: "Register for Challfie"    
+    error_username_format: "must contain only alphanumeric characters."
+    error_email_format: "email format incorrect."
+    step_header: "Easy, Funny and Competitive"
+    step_challenge_text_html: "Discover more than <strong>100 Selfie Challenges</strong> divided in 9 levels of book <strong>to unlock.</strong>"
+    step_selfies_text_html: "<strong>Complete your challenge</strong> by taking the corresponding Selfie."
+    step_community: "Community"
+    step_community_text_html: "<strong>Shared your Selfie Challenges</strong> with your friends and on Facebook and get your <strong>Challfie approved.</strong>"
+    step_competitive: "Competitive"
+    step_competitive_text_html: "<strong>Earn points</strong> for each Challfie approved and compete among your friends upon the title of <strong>Challfie King</strong>"
+  flash:  
+    sign_in_alert: "You need to sign in or sign up before continuing."
+  activerecord:
+    errors: 
+      messages:        
+        blank: "Field cannot be empty."
+        too_long: "maximum 20 characters"
+        too_short: "minumum 2 characters"        
+        taken: "has already been taken"
+        confirmation: "doesn't match confirmation"
+
+  homepage:
+    search_friends: "Search by username.."
+    search_no_results: "No Results found.."
+    menu_friends: "Friends"
+    user_menu_my_profile: "My Profile"
+    sign_out: "Sign Out"
+    alert_first_selfie_html: "Welcome to Challfie! Get started and click <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>here</a></u> to take your first <strong>Selfie Challenge</strong>."
+    take_a_selfie: "Take a Selfie Challenge"
+
+  selfie:
+    radio_public_text: "Everyone can see this selfie."
+    radio_private_text: "Only your followers can see this selfie."
+    public_text: "Public - Everyone can see this selfie."
+    private_text: "Private - Only your followers can see this selfie."
+    edit_selfie_message: "Edit Message"
+    edit_selfie_privacy: "Edit Privacy"
+    delete_selfie: "Delete Selfie"
+    approve: "Approve"
+    reject: "Reject"
+    write_comment: "Write a comment.."
+
+  all_pages:
+    public: "Public"
+    private: "Private"
+    books: "Books"
+    edit: "Edit"
+
+  left_content:
+    next_book_unlock: "Next Book To Unlock"
+
+

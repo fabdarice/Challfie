@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% if content_for?(:title) %>
-  	<title><%= yield :title %></title>
-  <% else %>
-	<title>Challfie</title>
-  <% end %>
+  <% @homepage_notification = current_user.notifications.where(read: false) %>  
+	<title>
+		Challfie <%= "(#{@homepage_notification.count + current_user.followers(0).count})" if (@homepage_notification.count + current_user.followers(0).count) > 0 %>
+	</title>
+   <meta name="description" content="Challfie is the new Social Network exclusively for Selfies. Easy, Simple and Competitive, it combines taking selfies with related challenge. More than 100 Selfie challenges are available to unlock. Share your selfies with your friends, get your challenges approved and compete over the title of Challfie King." />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -14,7 +17,8 @@
 	<script type="text/javascript">
 		$(function () {			
 			// Activate Tooltip
-         $("[data-toggle='tooltip']").tooltip();
+			$("body").tooltip({ selector: '[data-toggle="tooltip"]' });
+         
 
          // Destroy the modal Object everytime he is being hidden - For Reloading objects with changes
          $('body').on('hidden.bs.modal', '.modal', function () {
@@ -74,7 +78,7 @@
 			});
     		
 			// Ajax Form - Create a Comment to a Selfie
-			$('.selfie_post_comment_textarea').keydown(function(e) {	
+			$('.list_selfies').on('keydown', '.selfie_post_comment_textarea', function(e) {	
 				if(e.which == 13 && !e.shiftKey) {				
 					if ($.trim($(this).val())) {
 					 	var form = $(this).parents('form:first');
@@ -95,7 +99,7 @@
 			});
 
 			// Edit Selfie Description
-			$('.edit_selfie_message').click(function () {
+			$('.list_selfies').on('click', '.edit_selfie_message', function () {
 				var selfie_id = $(this).data("id");
 				$(".selfie_form_" + selfie_id).removeClass("hide");
 				$('.selfie_post_message_' + selfie_id).addClass("hide");
@@ -105,7 +109,7 @@
 
 
 			// Edit Selfie Privacy
-			$('.edit_selfie_privacy').click(function () {
+			$('.list_selfies').on('click', 'a.edit_selfie_privacy', function() {				
 				var selfie_id = $(this).data("id");
 				
 				$(".selfie_privacy_form_" + selfie_id).removeClass("hide");
@@ -115,7 +119,7 @@
 			});
 
 			// Update Selfie Privacy - Public or Private
-			$('.private_radio_btn').click(function(event) {
+			$('.list_selfies').on('click', '.private_radio_btn', function(event) {
 				event.preventDefault();			
 				var myform = $(this).closest("form");
 				
@@ -131,7 +135,7 @@
 
 			
 			// Ajax Form - Update Selfie Description
-			$('.edit_selfie_form').keydown(function(e) {
+			$('.list_selfies').on('keydown', '.edit_selfie_form', function(e) {
 				if(e.which == 13 && !e.shiftKey) {
 				 	var form = $(this).parents('form:first');
 				 				
@@ -146,7 +150,7 @@
 			});
 
 			// Display all comments on one selfie
-			$('.show_all_comment_link').click(function(event) {
+			$('.list_selfies').on('click', '.show_all_comment_link', function(event) {
 				event.preventDefault();	
 				$.ajax({
 		         type: "GET",
@@ -165,30 +169,30 @@
 		});		
 	</script>
 
-	<% @homepage_notification = current_user.notifications.where(read: false) %>
+	
 
 <!-- ##############  TOP MENU  ############## -->
 	<nav id="menu" class="navbar-nav navbar-fixed-top" role="navigation">
-		<div class="container">
+		<div class="container" style="position: relative; min-width:1170px;">
 
-			<%= link_to image_tag("/assets/logo_letter.png", style: 'height: 36px; margin-top: 5px;'), root_path, class:'navbar-brand' %>			
+			<%= link_to image_tag("/assets/logo_letter.png", style: 'height: 36px; margin-top: 5px; position: absolute; left:10px;'), root_path, class:'navbar-brand' %>			
 			<div class="menu_seach_bar">          
             <div class="search_field navbar-search pull-left">
               <span class="glyphicon glyphicon-search"></span>
-              <%= text_field_tag :search, params[:search_user], :class => 'search-query', :id => "autocomplete_user_field", :placeholder => 'Search by username..', :"data-toggle" => "popover", :"data-placement" => "bottom", :"data-content" => "No Results found.." %>    
+              <%= text_field_tag :search, params[:search_user], :class => 'search-query', :id => "autocomplete_user_field", :placeholder => "#{t 'homepage.search_friends'}", :"data-toggle" => "popover", :"data-placement" => "bottom", :"data-content" => "#{t 'homepage.search_no_results'}" %>    
             </div>                      
         </div>
 	      
 			<ul class="menu_items">
 				<!-- TOP MENU - HOME -->
-				<%= link_to root_path do %>
-					<li <% if current_page?(root_path) %>class="active"<% end %>>
+				<%= link_to root_path, class: "#{current_page?(root_path) ? "active" : ""}" do %>
+					<li>
 						<i class="fa fa-home fa-2x fa_menu_item"></i> Home
 					 </li>
 				<% end %>
 				
 				<!-- TOP MENU - CHALLENGES -->
-				<%= link_to user_path(current_user, :anchor => "tab_challenges") do %>
+				<%= link_to user_path(current_user, :anchor => "tab_challenges"), class: "#{current_page?(user_path(current_user, :anchor => 'tab_challenges')) ? "active" : ""}" do %>
 					<li> 
 						<i class="fa fa-bolt fa-2x"></i> Challenges</span>
 					</li>
@@ -200,23 +204,23 @@
 				<!-- TOP MENU - FRIENDS -->
 				<% if !current_user.followers(0).blank? and current_user.followers(0).count > 0 %>
 					<!-- HAVE PENDING REQUEST -->
-					<%= link_to user_friends_path(:anchor => "pending_request") do %>
-						<li <% if current_page?(user_friends_path) %>class="active"<% end %>> 
-							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(0).count %></div></i> Friends 
+					<%= link_to user_friends_path(:anchor => "pending_request"), class: "#{current_page?(user_friends_path) ? "active" : ""}" do %>
+						<li> 
+							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(0).count %></div></i> <%= t 'homepage.menu_friends' %>
 						</li>
 					<% end %>
 				<% else %>
 					<!-- NO PENDING REQUEST -->
-					<%= link_to user_friends_path do %>
-						<li <% if current_page?(user_friends_path) %>class="active"<% end %>> 
-							<i class="fa fa-users fa-2x"></i> Friends 
+					<%= link_to user_friends_path, class: "#{current_page?(user_friends_path) ? "active" : ""}" do %>
+						<li> 
+							<i class="fa fa-users fa-2x"></i> <%= t 'homepage.menu_friends' %> 
 						</li>
 					<% end %>
 				<% end %>
 				
 				<!-- TOP MENU - NOTIFICATIONS -->				
-				<%= link_to notifications_path do %>
-					<li <% if current_page?(new_book_path) %>class="active"<% end %>> 
+				<%= link_to notifications_path, class: "#{current_page?(notifications_path) ? "active" : ""}" do %>
+					<li> 
 						<i class='fa fa-bullhorn fa-2x'> 
 							<% if @homepage_notification.count != 0 %>
 								<div class='menu_notif'> <%= @homepage_notification.count %></div>
@@ -230,20 +234,20 @@
 			<% if user_signed_in? %>
 				<div class="dropdown menu_items_right">					
 						<a id="dropdownMenu2" data-toggle="dropdown">
-							<div class="dropdown_profile_pic" style="float: right; color: #f6f8f8; font-size: 11px;"><%= current_user.username %></div>
+							<div class="dropdown_profile_pic" style="float: right; color: #f6f8f8; font-size: 11px;"><%=h truncate(current_user.username, :length => 25) %></div>
 							<div style="width: 35px; height: 35px; vertical-align: middle; float:right; margin-right: 5px; ">
 								<%= image_tag current_user.show_profile_picture , alt: "Profile Picture", title: 'Profile Picture', style:"width: 35px; height: 35px;" %>								
 							</div>
 						</a>					
 
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-						<li role="presentation"><%= link_to user_path(current_user) do %><span class='glyphicon glyphicon-user' style="width: 20px; text-align:center;"></span> My Profile<% end %></li>
+						<li role="presentation"><%= link_to user_path(current_user) do %><span class='glyphicon glyphicon-user' style="width: 20px; text-align:center;"></span> <%= t 'homepage.user_menu_my_profile' %><% end %></li>
 						<li role="presentation" class="divider"></li>
 						<li role="presentation"><%= link_to user_path(current_user, :anchor => "tab_challenges") do %><i class="fa fa-bolt" style="width: 20px; text-align:center;"></i> Challenges<% end %></li>
-						<li role="presentation"><%= link_to user_friends_path do %><i class="fa fa-users"  style="width: 20px; text-align:center;"></i> Friends<% end %></li>
+						<li role="presentation"><%= link_to user_friends_path do %><i class="fa fa-users"  style="width: 20px; text-align:center;"></i> <%= t 'homepage.menu_friends' %><% end %></li>
 						<li role="presentation"><%= link_to notifications_path do %><i class="fa fa-bullhorn"  style="width: 20px; text-align:center;"></i> Notifications<% end %></li>
 						<li role="presentation" class="divider"></li>						
-						<li role="presentation"><%= link_to destroy_user_session_path, method: "delete" do %><span class='glyphicon glyphicon-off' style="width: 20px; text-align:center;"></span> Sign Out<% end %></li>
+						<li role="presentation"><%= link_to destroy_user_session_path, method: "delete" do %><span class='glyphicon glyphicon-off' style="width: 20px; text-align:center;"></span> <%= t 'homepage.sign_out' %><% end %></li>
 						<% if current_user.administrator >= 4 %>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation"><%= link_to "Manage Books", controller: 'administration', action: 'books' %></li>

@@ -1,9 +1,7 @@
-<div class="container">
-	<h3>Contact Us</h3>
+<div class="container" style="background-color: white;">
+	<h2 style="margin-left: 460px;">Contact Us</h2>
   <div style="width: 800px; margin: auto;">
-    <%= link_to root_path, style: 'font-size: 14px;' do %>
-      <i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
-    <% end %>
+    
   	<% if flash[:notice] %>
         <br><br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
      <% end %>
@@ -21,7 +19,7 @@
          <%= f.text_field :email, class: 'form-control', value: "#{user_signed_in? ? current_user.email : ''}" %>
        </div>
        <div style="clear: both;"></div>
-       <hr style="margin-bottom: 20px;">
+       
 
        <div class="contact_left">
           <%= f.label :type_contact, 'Type of Message' %>
@@ -30,7 +28,7 @@
          <%= f.select :type_contact, options_for_select([["Report a Bug", "1"], ["Require Assistance for your account", "2"], ["Report obscene, pornographic, offensive content", "3"], ["Give suggestions for the website", "4"], ["Contact us for any marketing or advertising request", "5"], ["Others", "6"]], ["Report a Bug", "1"]), {},  {class: 'form-control' , size: '7'}  %>
        </div>
        <div style="clear: both;"></div>
-       <hr style="margin-bottom: 20px;">
+       
 
        <div class="contact_left">
         <%= f.label :message, 'Message' %>
@@ -40,23 +38,28 @@
        </div>
        
        <div style="clear: both;"></div>
-       <hr style="margin-bottom: 20px;">
+       
 
+       <!--
        <div class="contact_left">
           <label>Human Verification</label>
        </div>
        <div class="contact_right">
-          <%= recaptcha_tags %>
+          <%# recaptcha_tags %>
         </div>    
-        <div style="clear: both;"></div>  
-        <hr style="margin-bottom: 20px;">
+        <div style="clear: both;"></div> 
+        --> 
+        
       <div class="contact_left">  
         <label> </label>
       </div>
       <div class="contact_right">
         <button type="submit" class="btn btn-primary">Send Message</button>
+        <%= link_to "Cancel", root_path, class: "btn btn-default" %>                  
       </div>  
+      <div style="clear: both;"></div> 
     <% end %>  
   </div>
+  <br><br>
 </div>
 <br><br>

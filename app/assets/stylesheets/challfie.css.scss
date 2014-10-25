@@ -130,7 +130,7 @@ h5 {
 
 .block_title {
 	text-transform: uppercase;
-	font-family: Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
 	color: #636363;
 	font-size: 12px;
 	font-weight: 500;
@@ -233,9 +233,11 @@ h5 {
 
 .menu_items {
 	list-style: none outside none;
-	margin-left: 0px;
+	
 	overflow: hidden;
-	float: left;
+	position: absolute;
+	left: 240px;
+	width: 700px;
 }
 
 .search_field {
@@ -259,19 +261,24 @@ h5 {
   }
 }
 
-.menu_items_right {
-	list-style: none outside none;
-	float: right;
-	margin-right: 10px;
-	margin-left: 20px;
-	height: 43px;
-	bottom: 0;
-	line-height: 43px;
+.menu_seach_bar {
+	position: absolute;
+	left: 50px;
+	top: 0px;
+}
 
+.menu_items_right {
+	list-style: none outside none;	
+		
+	height: 43px;	
+	line-height: 43px;
+	position: absolute;
+	right: 40px;	
+	
 	a {
 		color: black;
 		text-decoration: none;
-
+		font-family:"Century Gothic","Tahoma","Geneva","Arial";
 	}
 }
 
@@ -291,12 +298,13 @@ h5 {
 	text-shadow:2px 2px 8px darken($mygreen, 10%);
 	float: left;
 	width: 130px;
-	height: 44px;		
+	height: 45px;		
 	text-align: center;
 	line-height: 45px;
 	color: $mygrey;
 	margin-right: 10px;
-	font-size : 14px;	
+	font-size : 13px;	
+	
 
 	button {
 		border-bottom: none;
@@ -311,9 +319,9 @@ h5 {
 
 .menu_items a.active, .menu_items a:hover, .menu_items a:focus {
 	line-height: 45px;
-	border-bottom: 4px solid darken($mygreen, 10%);
+	border-bottom: 4px solid lighten($mygreen, 10%);
 	cursor: pointer;
-	text-shadow:4px 4px 8px darken($mygreen, 10%);
+	
 }
 
 

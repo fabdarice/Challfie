@@ -20,8 +20,8 @@
 <% end %>
 
 <div class="logo_intro">
-	<p class="welcome_page_title">The New Social Network exclusively for Selfies</p>
-  <p style="font-size: 22px; width: 600px;color: white; margin-top: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;">Take Selfies like you've never done before.</p><br>
+	<p class="welcome_page_title"><%= t 'sign_in.title' %></p>
+  <p style="font-size: 22px; width: 600px;color: white; margin-top: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;"><%= t 'sign_in.subtitle' %></p><br>
   
   <div class="phone_section">
     <div class="phone">
@@ -29,7 +29,7 @@
       <%= image_tag "/assets/iphone.png", style:'width: 170px; left: 60px;' %>
     </div>  
     <div class="available_ios_android">    
-      <p class="welcome_page_intro">Get Started and Download the <u>Challfie app</u> available on iOs and Android for free</p>
+      <p class="welcome_page_intro"><%= t 'sign_in.downloadapp_html' %></p>
       <%= image_tag "/assets/download_ios.png", style:'width: 160px;' %>
       <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
     </div>
@@ -42,7 +42,7 @@
 	<div class='login_block_small'>  
 		<% if devise_mapping.omniauthable? %>
 		  <% resource_class.omniauth_providers.each do |provider| %>
-		    <%= link_to "Sign in with #{provider.to_s.titleize}", user_omniauth_authorize_path(provider), :class => "popup btn btn-facebook", :"data-width" => 600, :"data-height" => 400 %><br />
+		    <%= link_to "#{ t 'sign_in.sign_in_with_facebook' }", user_omniauth_authorize_path(provider), :class => "popup btn btn-facebook", :"data-width" => 600, :"data-height" => 400 %><br />
 		  <% end %>  
 		<% end %>
 
@@ -50,49 +50,49 @@
 		<br>
 		
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-      	<span class="sign_in_alert"><%= flash[:alert] if flash[:alert] != "You need to sign in or sign up before continuing." %></span>
-      	<div class="control-group"><%= f.text_field :login, :autofocus => true, :placeholder => "Username or Email" %></div>
+      	<span class="sign_in_alert"><%= flash[:alert] if flash[:alert] != "Vous devez etre authentifié pour pouvoir continuer." and flash[:alert] != "You need to sign in or sign up before continuing." %></span>
+      	<div class="control-group"><%= f.text_field :login, :autofocus => true, :placeholder => "#{ t 'sign_in.login'}" %></div>
       	
-       	<div class="control-group"><%= f.password_field :password, :placeholder => 'Password', class: 'login_password_field_small' %></div> 
+       	<div class="control-group"><%= f.password_field :password, :placeholder => "#{ t 'sign_in.password' }", class: 'login_password_field_small' %></div> 
          
-         <%= f.submit 'Sign in', class: 'btn btn-primary btn_sign_in pull-right' %><br>
+         <%= f.submit "#{ t 'sign_in.sign_in' }", class: 'btn btn-primary btn_sign_in pull-right' %><br>
          <div style="clear: both;"></div>
          <% if devise_mapping.rememberable? -%>
-			    <%= f.check_box :remember_me %> <%= f.label :remember_me, class: 'remember_me_link' %>
-			<% end -%>
-			<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-				<%= link_to "I forgot my password", new_password_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br />
-			<% end -%>                        
+			    <%= f.check_box :remember_me %> <%= f.label :remember_me, "#{ t 'sign_in.remember_me' }", class: 'remember_me_link' %>
+			   <% end -%>
+  			<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  				<%= link_to "#{ t 'sign_in.forgot_password' }", new_password_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br />
+  			<% end -%>                        
       <% end %>
    </div>   
    <br>
    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |r| %>
      <div class='login_block_small'>
-       <h2>Sign up <small> If Not Registered Yet</small></h2>   
+       <h2><%= t 'sign_in.sign_up' %><small> <%= t 'sign_in.not_registered_yet' %></small></h2>   
        <hr>     
        <br>
        
        <span class='registration_error'><%= display_error(r.object, 'username') %></span>
-       <div class="control-group <% if r.object.errors['username'].present? %><%= 'error' %><% end %>"><%= r.text_field :username, :placeholder => 'Username' %></div>
+       <div class="control-group <% if r.object.errors['username'].present? %><%= 'error' %><% end %>"><%= r.text_field :username, :placeholder => "#{ t 'sign_in.username' }" %></div>
 
        <span class='registration_error'><%= display_error(r.object, 'firstname') %></span>
-       <div class="control-group <% if r.object.errors['firstname'].present? %><%= 'error' %><% end %>"><%= r.text_field :firstname, :placeholder => 'Firstname' %></div>
+       <div class="control-group <% if r.object.errors['firstname'].present? %><%= 'error' %><% end %>"><%= r.text_field :firstname, :placeholder => "#{ t 'sign_in.firstname' }" %></div>
 
        <span class='registration_error'><%= display_error(r.object, 'lastname') %></span>
-       <div class="control-group <% if r.object.errors['lastname'].present? %><%= 'error' %><% end %>"><%= r.text_field :lastname, :placeholder => 'Lastname' %></div>
+       <div class="control-group <% if r.object.errors['lastname'].present? %><%= 'error' %><% end %>"><%= r.text_field :lastname, :placeholder => "#{ t 'sign_in.lastname' }" %></div>
 
        <span class='registration_error'><%= display_error(r.object, 'email') %></span>
-       <div class="control-group <% if r.object.errors['email'].present? %><%= 'error' %><% end %>"><%= r.email_field :email, :placeholder => 'Email' %></div>
+       <div class="control-group <% if r.object.errors['email'].present? %><%= 'error' %><% end %>"><%= r.email_field :email, :placeholder => "#{ t 'sign_in.email' }" %></div>
        
        <span class='registration_error'><%= display_error(r.object, 'password') %></span>
-       <div class="control-group <% if r.object.errors['password'].present? %><%= 'error' %><% end %>"><%= r.password_field :password, :placeholder => 'Password', class: 'login_password_field' %></div>
+       <div class="control-group <% if r.object.errors['password'].present? %><%= 'error' %><% end %>"><%= r.password_field :password, :placeholder => "#{ t 'sign_in.password' }", class: 'login_password_field' %></div>
 
        <span class='registration_error'><%= display_error(r.object, 'password_confirmation') %></span>  
-       <div class="control-group <% if r.object.errors['password_confirmation'].present? %><%= 'error' %><% end %>"><%= r.password_field :password_confirmation, :placeholder => 'Password Confirmation', class: 'login_password_field' %></div>       
+       <div class="control-group <% if r.object.errors['password_confirmation'].present? %><%= 'error' %><% end %>"><%= r.password_field :password_confirmation, :placeholder => "#{ t 'sign_in.password_confirmation' }", class: 'login_password_field' %></div>       
        <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-        <%= link_to "I didn't receive confirmation instructions", new_confirmation_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br /><br>
+        <%= link_to "#{ t 'sign_in.no_confirmation_instruction' }", new_confirmation_path(resource_name), class: 'pull-right', style: 'color:#808080; margin-top: 2px; font-style: italic;' %><br /><br>
       <% end -%> 
-       <div style='float: right;'><%= r.submit 'Register to Challfie', class: 'btn btn-primary' %></div>       
+       <div style='float: right;'><%= r.submit "#{ t 'sign_in.register_for_challfie' }", class: 'btn btn-primary' %></div>       
      </div>
    <% end %>    
 </div>

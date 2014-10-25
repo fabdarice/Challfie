@@ -32,7 +32,7 @@
 <div id="home_list_selfies">	
 	<% if @selfies.count == 0 %>
 		<div class="alert alert-info" role="alert">
-		  Welcome to Challfie! Get started and click <u><%= link_to "here", "#", :"data-toggle"=>"modal", :"data-target"=>"#myModal", style: 'text-decoration: none;' %></u> to take your first <strong>Selfie Challenge</strong>.
+		  <%= t 'homepage.alert_first_selfie_html' %>
 		</div>
 	<% end %>	
 	<div class="list_selfies">

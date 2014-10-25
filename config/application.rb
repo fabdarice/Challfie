@@ -23,5 +23,8 @@ module Challfie
     #SSL CONFIG
     #config.force_ssl = true
 
+    config.exceptions_app = self.routes
+
+
   end
 end

@@ -24,4 +24,20 @@ class Challenge < ActiveRecord::Base
   			"star_very_hard.png"
   		end
   	end
+
+
+    def difficulty_verbose
+      case self.difficulty
+      when 1
+        "Very Easy Challenge"
+      when 2
+        "Easy Challenge" 
+      when 3
+        "Intermediate Challenge"
+      when 4
+        "Hard Challenge"
+      else
+        "Very Hard Challenge"
+      end
+    end
 end
