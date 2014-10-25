@@ -14,7 +14,7 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def mobile
-		if browser.mac?
+		if browser.meta.include?(:ios)
 			@is_iphone = true
 		else
 			@is_iphone = false

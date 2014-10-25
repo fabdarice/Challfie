@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
       redirect_to mobile_path
     end    
     logger.info "This is from BROWSER = " + browser.to_s
+    if browser.bot?
+      logger.info "BROWSER - USER IS A BOT"
+    end
 
   end
 
