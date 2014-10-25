@@ -236,7 +236,7 @@ class User < ActiveRecord::Base
           facebook_info = FacebookInfo.where(facebook_uid: fb_friend['id']).first
           fb_friends_sug = User.find_by uid: fb_friend['id']
           # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
-          @friends_suggestion << fb_friends_sug if not self.following?(fb_friends_sug)
+          @friends_suggestion << fb_friends_sug if not fb_friends_sug.blank? and not self.following?(fb_friends_sug)
           if facebook_info and (facebook_info.user != fb_friends_sug)
             # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
             @friends_suggestion << facebook_info.user if not self.following?(facebook_info.user)
