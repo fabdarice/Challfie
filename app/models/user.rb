@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
     # Call a stored procedure to retrieve list of suggested friends rank on number of mutual friends
     results = client.query("CALL GetSuggestedFriends(#{self.id})")
     results.each do |result|      
-      @friends_suggestion << User.friendly.find(result['ID'])      
+      @friends_suggestion << User.friendly.find(result['id'])      
     end
     
     @friends_suggestion
