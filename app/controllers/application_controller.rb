@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
     if browser.mobile?
       redirect_to mobile_path
     end    
+    logger.info "This is from BROWSER = " + browser.to_s
+
   end
 
   def set_user_language    
