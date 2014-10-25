@@ -16,8 +16,11 @@ class ExtrapagesController < ApplicationController
 	def mobile
 		browser.meta.each do |f|
 			logger.info "BROWSER META = " + f.to_s
+			if f.to_s == "ios"
+				logger.info "IS TRUE IOS"
+			end
 		end
-		if browser.meta.include?(:ios)
+		if browser.meta.include?("ios")
 			@is_iphone = true
 			logger.info "IS IOS"
 		else
