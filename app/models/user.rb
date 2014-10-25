@@ -235,9 +235,11 @@ class User < ActiveRecord::Base
         facebook_friends.each do |fb_friend|
           facebook_info = FacebookInfo.where(facebook_uid: fb_friend['id']).first
           fb_friends_sug = User.find_by uid: fb_friend['id']
-          @friends_suggestion << fb_friends_sug
+          # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
+          @friends_suggestion << fb_friends_sug if not self.following?(fb_friends_sug)
           if facebook_info and (facebook_info.user != fb_friends_sug)
-            @friends_suggestion << facebook_info.user
+            # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
+            @friends_suggestion << facebook_info.user if not self.following?(facebook_info.user)
           end
         end
       rescue Koala::Facebook::APIError
@@ -253,8 +255,9 @@ class User < ActiveRecord::Base
     client = Mysql2::Client.new(dbconfig)
     # Call a stored procedure to retrieve list of suggested friends rank on number of mutual friends
     results = client.query("CALL GetSuggestedFriends(#{self.id})")
-    results.each do |result|      
-      @friends_suggestion << User.friendly.find(result['id'])      
+    results.each do |result|
+      local_user = User.friendly.find(result['id'])      
+      @friends_suggestion << local_user if not @friends_suggestion.include?(local_user)
     end
     
     @friends_suggestion
