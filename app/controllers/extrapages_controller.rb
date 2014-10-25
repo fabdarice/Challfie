@@ -13,5 +13,6 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def mobile
+		layout 'mobile_layout'
 	end
 end
