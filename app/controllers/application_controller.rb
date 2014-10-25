@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_browser    
-    if !browser.mobile?
+    if browser.mobile?
       redirect_to mobile_path
     end    
   end
