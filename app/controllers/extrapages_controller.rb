@@ -14,6 +14,10 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def mobile
-		
+		if browser.mac?
+			@is_iphone? = true
+		else
+			@is_iphone? = false
+		end
 	end
 end
