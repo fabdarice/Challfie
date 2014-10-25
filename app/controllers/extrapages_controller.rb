@@ -1,6 +1,7 @@
 class ExtrapagesController < ApplicationController
-	layout 'extra_pages'
-	skip_before_filter :check_browser, :only => [:mobile]
+	layout 'extra_pages', except: [:mobile]
+	layout 'mobile_layout', only: [:mobile]
+	skip_before_action :check_browser, only: [:mobile]
 
 
 	def privacy_page 
@@ -13,6 +14,6 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def mobile
-		layout 'mobile_layout'
+		
 	end
 end

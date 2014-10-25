@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   include Rails.application.routes.url_helpers
   protect_from_forgery with: :null_session
   
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :set_user_language
-  before_filter :check_browser
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_user_language
+  before_action :check_browser
 
   layout :layout_by_resource
 
