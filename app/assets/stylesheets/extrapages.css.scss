@@ -1,3 +1,19 @@
 // Place all the styles related to the extrapages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.mobile_title {
+	font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+	font-size: 20px;
+	color: #FFFFFF;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.mobile_text {
+	font-family:"Century Gothic","Tahoma","Geneva","Arial";
+	font-size: 13px;
+	color: #FFFFFF;
+	margin-bottom: 30px;
+	text-align: center;
+}
