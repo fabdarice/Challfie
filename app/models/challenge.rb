@@ -29,15 +29,35 @@ class Challenge < ActiveRecord::Base
     def difficulty_verbose
       case self.difficulty
       when 1
-        "Very Easy Challenge"
+        if I18n.locale == :fr
+          "Challenge très facile"
+        else
+          "Very Easy Challenge"
+        end
       when 2
-        "Easy Challenge" 
+        if I18n.locale == :fr
+          "Challenge facile"
+        else
+          "Easy Challenge"
+        end         
       when 3
-        "Intermediate Challenge"
+        if I18n.locale == :fr
+          "Challenge moyen"
+        else
+          "Intermediate Challenge"
+        end          
       when 4
-        "Hard Challenge"
+        if I18n.locale == :fr
+          "Challenge difficile"
+        else
+          "Hard Challenge"
+        end         
       else
-        "Very Hard Challenge"
+        if I18n.locale == :fr
+          "Challenge très difficile"
+        else
+          "Very Hard Challenge"
+        end         
       end
     end
 end

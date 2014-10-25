@@ -13,25 +13,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def check_browser
-    if browser.chrome?
-      puts "IS CHROME"
-    end
-
-    if browser.chrome_os?
-      puts "IS CHROME OS"
-    end
-
-    if browser.mobile?
-      puts "IS MOBILE"
-    end
-
-    if browser.tablet?
-      puts "IS TABLET"
-    end
-
-    puts "ACTUAL BROWSER = " + browser.to_s  
-
+  def check_browser    
+    if !browser.mobile?
+      redirect_to mobile_path
+    end    
   end
 
   def set_user_language    

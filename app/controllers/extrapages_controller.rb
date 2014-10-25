@@ -1,5 +1,7 @@
 class ExtrapagesController < ApplicationController
 	layout 'extra_pages'
+	skip_before_filter :check_browser, :only => [:mobile]
+
 
 	def privacy_page 
 	end
@@ -8,5 +10,8 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def about_us
+	end
+
+	def mobile
 	end
 end
