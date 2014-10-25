@@ -17,6 +17,7 @@
           <th>Name</th>
           <th>Required Points</th>
           <th>Level</th>
+          <th>Tier</th>
           <th>Nb of Challenges</th>
           
           <th class='text-center'>Edit</th>
@@ -30,6 +31,7 @@
           <td><%= book.name %></td>
           <td><%= book.required_points %></td>
           <td><%= book.level %></td>
+          <td><%= book.tier %></td>
           <td><%= book.challenges.count %></td>
           <td class='text-center'><%= link_to 'Edit', edit_book_path(book), class: 'btn'%></td>
           <td class='text-center'><%= link_to 'Delete', book_path(book), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>

@@ -1,7 +1,14 @@
 <div class="form-group">
-  <%= f.label :description, class: 'control-label' %>
+  <%= f.label :description_en, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_area :description, class: 'form-control', style: 'width: 300px;', rows: 4 %>
+    <%= f.text_area :description_en, class: 'form-control', style: 'width: 300px;', rows: 4 %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :description_fr, "Description FR", class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_area :description_fr, class: 'form-control', style: 'width: 300px;', rows: 4 %>
   </div>
 </div>
 

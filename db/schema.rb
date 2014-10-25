@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008191358) do
+ActiveRecord::Schema.define(version: 20141025221758) do
+
+  create_table "book_users", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "books", force: true do |t|
     t.text     "name"
@@ -27,6 +34,7 @@ ActiveRecord::Schema.define(version: 20141008191358) do
     t.string   "thumb_content_type"
     t.integer  "thumb_file_size"
     t.datetime "thumb_updated_at"
+    t.integer  "tier"
   end
 
   create_table "categories", force: true do |t|
@@ -44,11 +52,12 @@ ActiveRecord::Schema.define(version: 20141008191358) do
 
   create_table "challenges", force: true do |t|
     t.integer  "point"
-    t.text     "description"
+    t.text     "description_en"
     t.integer  "book_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "difficulty"
+    t.string   "description_fr"
   end
 
   create_table "comments", force: true do |t|
@@ -155,7 +164,6 @@ ActiveRecord::Schema.define(version: 20141008191358) do
     t.string   "facebook_picture"
     t.integer  "points",                 default: 0
     t.string   "slug"
-    t.integer  "book_level",             default: 1
     t.integer  "administrator",          default: 0
   end
 

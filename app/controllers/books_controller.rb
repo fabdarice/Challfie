@@ -7,7 +7,7 @@ class BooksController < ApplicationController
 
 	def show
 		@book = Book.find(params[:id])
-		if @book.level > current_user.book_level
+		if @book.level > current_user.current_book.level
 			render 'selfies/restricted'
 		else
 		
@@ -55,6 +55,6 @@ class BooksController < ApplicationController
 
 	private
 		def book_params
-		  params.require(:book).permit(:name, :required_points, :cover, :level, :thumb)
+		  params.require(:book).permit(:name, :required_points, :cover, :level, :thumb, :tier)
 		end
 end

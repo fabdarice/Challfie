@@ -1,4 +1,6 @@
-class RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController  
+  after_filter :initiate_first_book, :only => :create
+
   def update
     # For Rails 4
     account_update_params = devise_parameter_sanitizer.sanitize(:account_update)
@@ -26,6 +28,23 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     new_user_session_path
+  end
+
+  def initiate_first_book
+    first_level_book = Book.find_by level: 1
+    book_users = BookUser.new
+    book_users.user = resource
+    book_users.book = first_level_book
+    book_users.save
+
+    # First 200 subscribers
+    if User.count < 200
+      challfie_special_book = Book.find_by level: 0
+      book_users = BookUser.new
+      book_users.user = resource
+      book_users.book = challfie_special_book
+      book_users.save
+    end
   end
 
 end

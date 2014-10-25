@@ -122,9 +122,4 @@ class SelfiesController < ApplicationController
       params.require(:selfie).permit(:message, :photo, :challenge_id, :private)
     end
 
-    def upload_path # is used in upload and create
-		 file_name = session[:session_id].to_s + '.jpg'
-		 File.join(RAILS_ROOT, 'public', 'uploads', file_name)
-	 end
-
 end

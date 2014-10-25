@@ -2,26 +2,21 @@
 	<% @books.each_slice(3).with_index do |slice, index| %>
 		<div class="book_tier">
 			<div class="book_tier_name">
-				<% if index == 0 %>
-					Newbie<br>Tier
-				<% elsif index == 1 %>
-					Apprentice<br>Tier
-				<% else %>
-					Master<br>Tier
-				<% end %>
+				<%= raw slice.first.tier_name %>
 			</div>	
 			<% slice.each_with_index do |book, index| %>
-				<div class="one_book">					
-					<% if book.level > current_user.book_level %>
-						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture grayscale'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>
-						<%= image_tag "/assets/book_lock.png", class: 'book_lock grayscale', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"This Challenge's book is locked.", style: 'cursor: pointer;' %>
-					<% else %>
-						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>	
-					<% end %>	
-				</div>	
-				<% if index != 2 %>
+				<% if index != 0 %>
 					<%= image_tag "/assets/book_arrows.png", style: 'width: 60px; margin-top: 60px; float: left;' %>
 				<% end %>	
+				<div class="one_book">					
+					<% if current_user.books.include?(book) %>
+						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>							
+					<% else %>
+						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture grayscale'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>
+						<%= image_tag "/assets/book_lock.png", class: 'book_lock grayscale', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"This Challenge's book is locked.", style: 'cursor: pointer;' %>
+					<% end %>	
+				</div>	
+				
 			<% end %>		
 		</div>	
 	<% end %>

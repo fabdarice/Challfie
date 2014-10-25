@@ -11,7 +11,7 @@
   		<% @challenges.each do |challenge| %>
   			<tr>
   				<td style="width: 380px;"><%= challenge.description %></td>
-  				<td><%= image_tag "/assets/" + challenge.difficulty_icon, style: 'width: 130px;' %></td>
+  				<td><%= image_tag "/assets/" + challenge.difficulty_icon, style: 'width: 130px;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{challenge.difficulty_verbose}" %>
   			</tr>
   		<% end %>
 	</table>

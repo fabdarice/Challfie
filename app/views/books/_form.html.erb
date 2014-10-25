@@ -20,6 +20,13 @@
   </div>
 </div>
 
+<div class="control-group">
+  <%= f.label :tier, class: 'control-label' %>
+  <div class="controls">    
+    <%= f.select :tier, options_for_select([['Newbie Tier', 1], ['Apprentice Tier', 2], ['Master Tier', 3], ['Challfie Special Tier', 0]], f.object.tier ), class: 'form-control' %>
+  </div>
+</div>
+
 <% unless f.object.new_record? || !f.object.cover %>
   <div class="control-group">
     <label class="control-label">Uploaded Cover</label>

@@ -47,6 +47,11 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :notifications
 
+  has_many :books, :through => :book_users
+  has_many :book_users, dependent: :destroy
+  
+  
+
   has_attached_file :avatar, 
                     :styles => {:thumb => "" }, 
                     :convert_options => { :thumb => Proc.new { |instance| instance.avatar_dimension } },
@@ -311,19 +316,23 @@ class User < ActiveRecord::Base
   def unlock_book!    
     book_to_unlock = self.next_book
     if book_to_unlock.required_points <= self.points
-      self.update_column(:book_level, book_to_unlock.level)      
+      book_users = BookUser.new
+      book_users.user = self
+      book_users.book = book_to_unlock
+      book_users.save      
       self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", self, nil, book_to_unlock)      
     end
   end
 
   # Return last book unlocked
   def current_book
-    book = Book.find_by level: self.book_level
+    book = self.books.order("level DESC").first    
     return book
   end
 
   def next_book
-    book = Book.find_by level: (self.book_level + 1)
+    book = self.books.order("level DESC").first
+    book = Book.find_by level: (book.level + 1)
     return book
   end
 

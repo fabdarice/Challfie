@@ -16,10 +16,10 @@
 <body>
 	<script type="text/javascript">
 		$(function () {			
+			
 			// Activate Tooltip
 			$("body").tooltip({ selector: '[data-toggle="tooltip"]' });
          
-
          // Destroy the modal Object everytime he is being hidden - For Reloading objects with changes
          $('body').on('hidden.bs.modal', '.modal', function () {
 			  $(this).removeData('bs.modal');
@@ -169,7 +169,6 @@
 		});		
 	</script>
 
-	
 
 <!-- ##############  TOP MENU  ############## -->
 	<nav id="menu" class="navbar-nav navbar-fixed-top" role="navigation">
@@ -295,5 +294,7 @@
 	
 	<%= render "selfies/modal" %>
 	<%= render "/users/modal_change_pic" %>
+
+	<%= render "shared/google_analytics" %>
 </body>
 </html>
