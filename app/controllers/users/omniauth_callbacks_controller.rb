@@ -34,11 +34,30 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to root_path
         end
       end
-    else      
+    else
+
       # You need to implement the method below in your model (e.g. app/models/user.rb)
       @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], false)
 
       if @user.persisted?
+        # IF FIRST TIME REGISTRATION FROM FACEBOOK 
+        if BookUser.where(user_id: @user.id).count == 0
+          first_level_book = Book.find_by level: 1
+          book_users = BookUser.new
+          book_users.user = @user
+          book_users.book = first_level_book
+          book_users.save
+
+          # First 200 subscribers
+          if User.count < 200
+            challfie_special_book = Book.find_by level: 0
+            book_users = BookUser.new
+            book_users.user = @user
+            book_users.book = challfie_special_book
+            book_users.save
+          end          
+        end
+
         if !user_signed_in?                  
           sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
           set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
