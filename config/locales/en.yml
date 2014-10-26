@@ -67,5 +67,7 @@ en:
 
   left_content:
     next_book_unlock: "Next Book To Unlock"
+    this_book_contains: "This book contains"
+    progress_bar: "Once your progress bar reached 100%, you will unlocked your next book of challenges."
 
 

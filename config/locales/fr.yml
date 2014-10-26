@@ -66,6 +66,8 @@ fr:
 
   left_content:
     next_book_unlock: "Prochain Livre à débloquer"
+    this_book_contains: "Ce Livre contient"
+    progress_bar: "Lorsque tu atteindras 100%, tu debloqueras ton prochain livre de challenges."
 
   date:
     abbr_day_names:
