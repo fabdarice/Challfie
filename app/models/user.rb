@@ -98,7 +98,8 @@ class User < ActiveRecord::Base
                                     username: auth[:info][:name], 
                                     firstname: auth[:info][:first_name],
                                     oauth_token: auth[:credentials][:token],
-                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at])) 
+                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
+                                    facebook_picture: auth[:info][:image].gsub!("http", "https")) 
     facebook_user.save                                   
 
     facebook_info = FacebookInfo.find_by(user_id: facebook_user.id)
