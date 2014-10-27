@@ -42,7 +42,8 @@
 	<div class='login_block_small'>  
 		<% if devise_mapping.omniauthable? %>
 		  <% resource_class.omniauth_providers.each do |provider| %>
-		    <%= link_to "#{ t 'sign_in.sign_in_with_facebook' }", user_omniauth_authorize_url(provider, protocol: "https"), :class => "popup btn btn-facebook", :"data-width" => 600, :"data-height" => 400 %><br />
+        <% facebook_api_link_with_ssl = user_omniauth_authorize_url(provider, protocol: "https") + "?return_ssl_resources=true" %>
+		    <%= link_to "#{ t 'sign_in.sign_in_with_facebook' }", facebook_api_link_with_ssl, :class => "popup btn btn-facebook", :"data-width" => 600, :"data-height" => 400 %><br />
 		  <% end %>  
 		<% end %>
 
