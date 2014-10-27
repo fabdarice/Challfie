@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
       user.username = auth[:info][:name]   # assuming the user model has a name
       user.firstname = auth[:info][:first_name]
       user.lastname = auth[:info][:last_name]
-      user.facebook_picture = auth[:info][:image] # assuming the user model has an image
+      user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
       user.oauth_token = auth[:credentials][:token]
       user.oauth_expires_at = auth[:credentials][:expires_at]
       user.from_facebook = true
