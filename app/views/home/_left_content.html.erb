@@ -33,14 +33,14 @@
 		<!-- LEFT MENU FOLLOWING BLOCK -->
 		<%= link_to user_friends_path, class:'tab_btn' do %>
 			<div class="homepage_user_friend_block">
-				<span class="number"><%= @homepage_following.count %></span><br><span class="homepage_user_block_name">Following</span>
+				<span class="number"><%= @homepage_following.count %></span><br><span class="homepage_user_block_name"><%= t 'friends.following' %></span>
 			</div>
 		<% end %>
 
 		<!-- LEFT MENU FOLLOWERS BLOCK -->
 		<%= link_to user_friends_path(:anchor => "followers"), class:'tab_btn'  do %>
 			<div class="homepage_user_follower_block">
-				<span class="number"><%= @homepage_followers.count %></span><br><span class="homepage_user_block_name">Followers</span>
+				<span class="number"><%= @homepage_followers.count %></span><br><span class="homepage_user_block_name"><%= t 'friends.followers' %></span>
 			</div>
 		<% end %>
 

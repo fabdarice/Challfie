@@ -4,7 +4,7 @@
 	</div>
 	<div class="one_notification_message">							
 		<%= raw notification.message %><br>
-		<span style="font-style: italic; font-size: 11px; color:gray;"><%= time_ago_in_words(notification.created_at)%> ago</span>	
+		<span style="font-style: italic; font-size: 11px; color:gray;"><%= time_ago_in_words(notification.created_at)%></span>	
 	</div>
 	<div class="one_notification_picture">
 		<% if notification.selfie %>

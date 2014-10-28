@@ -97,6 +97,7 @@
 .one_following_block_border {
 	width: 250px;
 	height: 100px;
+	position: relative;
 	
 	float: left;
 	padding: 3px;
@@ -156,6 +157,15 @@
 
 .friends_btn {
 	margin-top: 4px;
+	font-size: 11px;
+}
+
+.friends_btn_suppr {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	color: $myred;
+	font-size: 14px;
 }
 
 

@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 	def friends
 		@user = current_user
 		# LIST OF ALL FRIEND FOLLOWING
-		@following = current_user.all_following;		 
+		@following = current_user.all_following
 		# LIST OF ALL FOLLOWERS
 		@followers = current_user.followers(1)
 		# LIST OF ALL PENDING REQUEST
@@ -73,7 +73,9 @@ class UsersController < ApplicationController
 		@follow.save
 		user_link = view_context.link_to current_user.username, user_path(current_user)
 		
-		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", current_user , nil, nil)
+		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", 
+										"#{user_link} a accepté ta <strong>demande d'ami</strong>.",
+										current_user , nil, nil)
 		@followers = current_user.followers(1)
 		@pending_request = current_user.followers(0)
 		respond_to do |format|

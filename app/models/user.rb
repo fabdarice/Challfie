@@ -208,8 +208,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def add_notifications(message, author, selfie, book)    
-    @notification = self.notifications.build(message: message, author: author, selfie: selfie, book: book)
+  def add_notifications(message_en, message_fr, author, selfie, book)    
+    @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author, selfie: selfie, book: book)
     @notification.save
   end
 
@@ -276,6 +276,11 @@ class User < ActiveRecord::Base
     return number.count != 0
   end
 
+  def is_following_with_pending_request?(user)
+    number = Follow.where("follower_id = ? and followable_id = ? and status = 0 and blocked = false", self.id, user.id)
+    return number.count != 0
+  end
+
   # Return the number of mutual friends
   def number_mutualfriends(user)    
     myfriends_array = []
@@ -324,7 +329,9 @@ class User < ActiveRecord::Base
       book_users.user = self
       book_users.book = book_to_unlock
       book_users.save      
-      self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", self, nil, book_to_unlock)      
+      self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", 
+                            "Félicitations! Tu as débloqué <strong><i>#{book_to_unlock.name}</i></strong>. ",
+                            self, nil, book_to_unlock)      
     end
   end
 

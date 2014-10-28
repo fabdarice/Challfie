@@ -4,10 +4,10 @@
 
 <div id="list_friends_block">
 	<ul class="nav nav-tabs" role="tablist">
-	  <li class="active"><a href="#following" role="tab" data-toggle="tab" id="following_tab">Following <span class="badge"><%= @following.count %></span></a></li>
-	  <li><a href="#followers" role="tab" data-toggle="tab" id="followers_tab">Followers <span class="badge"><%= @followers.count %></span></a></li>
-	  <li><a href="#pending_request" role="tab" data-toggle="tab" id="pending_request_tab">Pending Request <span class="badge <% if !@pending_request.blank? and @pending_request.count > 0 %>badge_important<% end %>"><%= @pending_request.count %></span></a></li>
-	  <li><a href="#friends_suggestions" role="tab" data-toggle="tab">Friends Suggestion <span class="badge"><%= @friends_suggestions.count %></span></a></li>
+	  <li class="active"><a href="#following" role="tab" data-toggle="tab" id="following_tab"><%= t 'friends.following' %> <span class="badge"><%= @following.count %></span></a></li>
+	  <li><a href="#followers" role="tab" data-toggle="tab" id="followers_tab"><%= t 'friends.followers' %> <span class="badge"><%= @followers.count %></span></a></li>
+	  <li><a href="#pending_request" role="tab" data-toggle="tab" id="pending_request_tab"><%= t 'friends.pending_request' %> <span class="badge <% if !@pending_request.blank? and @pending_request.count > 0 %>badge_important<% end %>"><%= @pending_request.count %></span></a></li>
+	  <li><a href="#friends_suggestions" role="tab" data-toggle="tab"><%= t 'right_content.friends_suggestions_title' %> <span class="badge"><%= @friends_suggestions.count %></span></a></li>
 	</ul>
 
 	<!-- Tab panes -->

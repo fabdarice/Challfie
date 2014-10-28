@@ -1,8 +1,22 @@
 fr:
+  sign_up:
+    confirmation_email_01_html: "Bienvenue sur Challfie, le nouveau <strong>Reseau Social</strong> réservé exclusivement pour les <strong>Selfies</strong>.<br>Simple, divertissant et compétitif, Challfie te permet de partager tes selfies avec tes amis et de te battre pour le titre suprême de Challfie's King."
+    confirmation_email_02_html: "<strong>Confirme ton compte</strong> en cliquant sur le lien suivant :"
+    confirmation_email_03_html: "N'oublie pas de telecharger dès à présent <strong>l'application Challfie</strong> disponible gratuitement sur Android et iPhone<br><br><br>Bienvenue parmi nous!<br><em>La Challfie Team.</em>"
+    confirm_my_account: "Confirmez mon compte"
+    reset_password_email_01_html: "Une demande de changement de mot de passe a été éffectué. Pour modifier votre mot de passe, cliquez sur le lien ci-dessous :"
+    reset_password_email_02_html: "<brSi vous n'en êtes pas l'auteur, merci de notifier les équipes Challfie immédiatement.<br> Si vous ne souhaitez pas modifier votre mot de passe, merci d'ignorer cet email, votre mot de passe ne changera pas tant que vous n'ayez pas cliquer sur le lien ci-dessus.<br><br>La Challfie Team."
+    reset_password: "Modifier mon mot de passe"
+    resend_confirmation_email: "Renvoyer l'email de confirmation"
+    email_or_username: "Email ou Identifiant"
+    email_or_username_placeholder: "Entrez votre addresse email ou votre identifiant"
+    forgot_password: "Mot de passe oublié?"
+    send_reset_password_email: "Envoyer Email"
+
   sign_in:
     title: "Le Nouveau Reseau Social exclusivement pour les Selfies"
     subtitle: "Prenez des Selfies comme vous ne l'avez jamais fais auparavant."
-    downloadapp_html: "Telechargez dès à présent <u>l'application Challfie</u> disponible gratuitement sur Android et iPhone" 
+    downloadapp_html: "Téléchargez dès à présent <u>l'application Challfie</u> disponible gratuitement sur Android et iPhone" 
     username: "Identifiant"
     login: "Identifiant or Email"
     firstname: "Prénom"
@@ -48,26 +62,63 @@ fr:
 
   selfie:
     radio_public_text: "Tout le monde peut voir ce Selfie."
-    radio_private_text: "Uniquement tes followers peuvent voir ce Selfie."
+    radio_private_text: "Uniquement tes fans peuvent voir ce Selfie."
     public_text: "Public - Tout le monde a accès à ce Selfie."
-    private_text: "Private - Uniquement tes followers ont accès à ce Selfie."
+    private_text: "Private - Uniquement tes fans ont accès à ce Selfie."
     edit_selfie_message: "Modifier Message"
     edit_selfie_privacy: "Modifier Visibilité"
     delete_selfie: "Supprimer Selfie"
     approve: "Approuver"
     reject: "Rejeter"
     write_comment: "Ecrire un commentaire.."
+    error_no_challenge: "Veuillez sélectionner un challenge."
+    error_no_selfie: "Veuillez sélectionner/prendre un selfie."
+    take_a_selfie: "Prendre un Selfie Challenge"
+    write_message: "Ajouter une description.."
+    camera_alert: "Si tu n'appercois pas la camera sur le côté gauche, penses à autoriser ta webcam/camera."
+    share_facebook_tooltip: "Partage la Selfie sur Facebook."
+    share_facebook: "Partagez"
+    add_selfie: "Ajouter une Selfie"
+    upload_file: "Depuis tes fichiers"
+    use_webcam: "Utiliser Webcam"
+    select_challenge: "Selectionne un Challenge"
+    filter_keyword: "Filtrer par mots clés.."
+    filter: "Filtrer"
+    take_snapshot: "Prendre la Photo"
 
   all_pages:
     public: "Publique"
     private: "Privé"
     books: "Livres" 
     edit: "Modifier" 
+    cancel: "Annuler"
+    save: "Ajouter"
+
+  friends:
+    mutual_friends: "amis en commun"
+    followers: "Fans"
+    following: "Amis"
+    follow: "Suivre"
+    waiting_approval: "Réponse en attente"
+    unfollow: "Supprimer"
+    cancel_request: "Annuler demande" 
+    pending_request: "Demande d'ami"  
+    remove: "Suppr."
+    accept_request_tooltip: "Acceptez la demande"
+    decline_request_tooltip: "Déclinez la demande"
+    block_request_tooltip: "Bloquer l'utilisateur"
 
   left_content:
     next_book_unlock: "Prochain Livre à débloquer"
     this_book_contains: "Ce Livre contient"
     progress_bar: "Lorsque tu atteindras 100%, tu debloqueras ton prochain livre de challenges."
+    change_profile_picture: "Modifier Image Profile"
+
+  right_content:
+    friends_suggestions_title: "Suggestion d'Amis"
+    show_all_suggestions: "+ Afficher Tout"
+    search_fb_friends: "Rechercher vos amis Facebook"
+    search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."
 
   date:
     abbr_day_names:

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	$(function () {
+	$(function () {		
 		// Ajax Form - Follow Suggested Friends	
 		$('.friends_btn').click(function () {					
 			$.ajax({
@@ -7,7 +7,9 @@
 	         url: $(this).attr("data-href"),
 	         dataType: 'script'        	
 	      }); 			 	
+	      $(this).unbind('mouseenter mouseleave');
 		 	return false;
+		 	
 		});	 
 
 		$(".big_profile_picture").hover(
@@ -19,29 +21,21 @@
 		   }
 		);
 
-		$("#friends_btn_hover").hover(
-			function() {
-				if ($(this).html() == '<i class="fa fa-check"></i> Following') {
-					$(this).html('<i class="fa fa-minus"></i> Unfollow');	
-					$(this).addClass('btn-danger');	   			   	 
-				}
+		$(".friends_btn_hover").hover(
+			function() {			
+				$(this).html("<i class='fa fa-minus'></i> <%= t 'friends.unfollow' %>");	
+				$(this).addClass('btn-danger');	   			   	 		
 		   }, function() {
-		   	if ($(this).html() == '<i class="fa fa-minus"></i> Unfollow') {
-		   		$(this).html('<i class="fa fa-check"></i> Following');
-		   		$(this).removeClass('btn-danger');
-		   	}	
+		   	$(this).html("<i class='fa fa-check'></i> <%= t 'friends.following' %>");	
+				$(this).removeClass('btn-danger');	   			   	 		
 		   }
 		);
 
-		$("#cancel_request_btn_hover").hover(
-			function() {
-				if ($(this).html() == '<i class="fa fa-clock-o"></i> Waiting Approval') {
-					$(this).html('<i class="fa fa-times"></i> Cancel Request');
-				}
-		   }, function() {
-		   	if ($(this).html() == '<i class="fa fa-times"></i> Cancel Request') {
-		   		$(this).html('<i class="fa fa-clock-o"></i> Waiting Approval');
-		   	}
+		$(".cancel_request_btn_hover").hover(			
+			function() {				
+				$(this).html("<i class='fa fa-times'></i> <%= t 'friends.cancel_request' %>");
+			}, function() {
+	   		$(this).html("<i class='fa fa-clock-o'></i> <%= t 'friends.waiting_approval' %>");
 		   }
 		);
 
@@ -64,11 +58,16 @@
 				<!-- Friendships Status button -->
 				<div class="friendship_btn_profile_picture">
 					<% if current_user.is_following?(user) %>
-						<%= link_to raw('<i class="fa fa-check"></i> Following') ,"javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn", id: 'friends_btn_hover' %>
+						<!-- IS YOUR FRIEND -->
+						<%= link_to "javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn friends_btn_#{user.id} friends_btn_hover" do %>
+							<i class='fa fa-check'></i> <%= t 'friends.following' %>
+						<% end %>
 					<% elsif current_user.following?(user) %>											
-						<%= link_to raw("<i class='fa fa-clock-o'></i> Waiting Approval") ,"javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn", id: 'cancel_request_btn_hover' %>
+						<!-- USER YOU ADDED - PENDING REQUEST -->
+						<%= link_to raw("<i class='fa fa-clock-o'></i> #{t 'friends.waiting_approval'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(user), class: "btn btn-default btn-sm friends_btn friends_btn_#{user.id} cancel_request_btn_hover" %>
 					<% else %>
-						<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(user), class: "btn btn-default btn-sm friends_btn friends_btn_#{user.id}" %>					
+						<!-- NOT YOUR FRIEND AND NOT PENDING REQUEST - YOU CAN ADD -->
+						<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(user), class: "btn btn-info btn-sm friends_btn friends_btn_#{user.id}" %>					
 					<% end %>
 						
 				</div>
@@ -77,7 +76,7 @@
 			<% if current_user == user %>		
 				<!-- CHANGE PROFILE PICTURE -->	
 				<div class="change_profile_picture">
-					<button type="button" class="btn btn-block btn_change_pic hide" data-toggle="modal" data-target="#changepicmodal">Change Picture</button>
+					<button type="button" class="btn btn-block btn_change_pic hide" data-toggle="modal" data-target="#changepicmodal"><%= t 'left_content.change_profile_picture' %></button>
 				</div>
 			<% end %>	
 			
@@ -110,28 +109,28 @@
 		
 		<%= link_to_if_with_block(user == current_user, user_friends_path, class:'tab_btn') do %>	
 			<div class="homepage_user_friend_block">
-				<span class="number"><%= @homepage_following.count %></span><br><span class="homepage_user_block_name">Following</span>
+				<span class="number"><%= @homepage_following.count %></span><br><span class="homepage_user_block_name"><%= t 'friends.following' %></span>
 			</div>
 		<% end %>
 
 		<!-- LEFT MENU FOLLOWERS BLOCK -->
 		<%= link_to_if_with_block(user == current_user, user_friends_path(:anchor => "followers"), class:'tab_btn')  do %>
 			<div class="homepage_user_follower_block">
-				<span class="number"><%= @homepage_followers.count %></span><br><span class="homepage_user_block_name">Followers</span>
+				<span class="number"><%= @homepage_followers.count %></span><br><span class="homepage_user_block_name"><%= t 'friends.followers' %></span>
 			</div>
 		<% end %>
 
 		<!-- LEFT MENU BOOKS BLOCK -->
 		<%= link_to_if_with_block(user == current_user, user_path(user, :anchor => "tab_challenges"), class:'tab_btn') do %>
 			<div class="homepage_user_book_block">
-				<span class="number"><%= user.books.count %></span><br><span class="homepage_user_block_name">Books</span>
+				<span class="number"><%= user.books.count %></span><br><span class="homepage_user_block_name"><%= t 'all_pages.books' %></span>
 			</div>
 		<% end %>	
 	</div>
 
 	<% if user == current_user %>
 		<!-- LEFT MENU USER PROGRESS BAR -->					
-		<div class="progress" style="clear: both; margin-top: 5px;">
+		<div class="progress" style="clear: both; margin-top: 5px;"  data-toggle="tooltip" data-placement="bottom" title="<%= t 'left_content.progress_bar' %>">
 		  <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.next_book_progression %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.next_book_progression %>%;"></div>				  
 		</div>
 		<div class="progress_bar_legend">
@@ -140,7 +139,7 @@
 		</div><br><br>
 			
 		<!-- LEFT MENU TAKE A SELFIE BUTTON -->
-		<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; Take a Selfie Challenge</button>	
+		<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; <%= t 'homepage.take_a_selfie' %></button>	
 
 		
 	<% end %>

@@ -1,13 +1,13 @@
-$(".friends_btn_<%= @user.id %>").removeClass('btn-default btn-danger').addClass('btn-primary');
-$(".friends_btn_<%= @user.id %>").html('<i class="fa fa-rss"></i> Follow');
+$(".friends_btn_<%= @user.id %>").removeClass('btn-default btn-danger').addClass('btn-info');
+$(".friends_btn_<%= @user.id %>").html("<i class='fa fa-rss'></i> <%= t 'friends.follow' %>");
 $(".friends_btn_<%= @user.id %>").attr("data-href", "<%=j follow_user_path(@user) %>");
-$("#friends_btn_hover").html('<i class="fa fa-rss"></i> Follow');
-$("#friends_btn_hover").removeClass('btn-danger');
-$("#friends_btn_hover").attr("data-href", "<%=j follow_user_path(@user) %>");
+//$(".friends_btn_hover").html('<i class="fa fa-rss"></i> Follow');
+//$(".friends_btn_hover").removeClass('btn-danger');
+//$(".friends_btn_hover").attr("data-href", "<%=j follow_user_path(@user) %>");
 
-$("#cancel_request_btn_hover").html('<i class="fa fa-rss"></i> Follow');
-$("#cancel_request_btn_hover").attr("data-href", "<%=j follow_user_path(@user) %>");
-$("#cancel_request_btn_hover").addClass("friends_btn_<%= @user.id %>");
-$("#friends_btn_hover").addClass("friends_btn_<%= @user.id %>");
+//$("#cancel_request_btn_hover").html('<i class="fa fa-rss"></i> Follow');
+//$("#cancel_request_btn_hover").attr("data-href", "<%=j follow_user_path(@user) %>");
+//$("#cancel_request_btn_hover").addClass("friends_btn_<%= @user.id %>");
+//$(".friends_btn_hover").addClass("friends_btn_<%= @user.id %>");
 
 

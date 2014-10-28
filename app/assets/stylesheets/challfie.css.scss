@@ -1,5 +1,11 @@
 @import "colors";
 
+@font-face {
+    font-family: 'Chinacat';
+    src: font-url('chinrg__.ttf') format('truetype');
+    src: font-url('chint___.ttf') format('truetype');
+}
+
 body { 
 	padding-top: 45px;
 	background-color: #f6f8f8;

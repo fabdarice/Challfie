@@ -1,5 +1,5 @@
 <div class='container'>
-	<h3>Resend confirmation instructions</h3>	
+	<h3><% t 'sign_up.resend_confirmation_email' %></h3>	
 	<div style="width: 800px; margin: auto;">
 	<%= link_to root_path, style: 'font-size: 14px;' do %>
 	<i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
@@ -9,15 +9,15 @@
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
   <div class="contact_left">
-  		<%= f.label :login, 'Email or Username' %>
+  		<%= f.label :login, "#{t 'sign_up.email_or_username'}" %>
   </div> 
   <div class="contact_right form-group">
-     <%= f.text_field :login, :autofocus => true, class: 'form-control', placeholder: ' Enter your Email address or your Username' %>       
+     <%= f.text_field :login, :autofocus => true, class: 'form-control', placeholder: "#{t 'sign_up.email_or_username_placeholder'}" %>       
   </div>
 
   <div class="contact_left"> &nbsp;</div>
   <div class="contact_right">
-  	<%= f.submit "Resend confirmation instructions", class: "btn btn-primary" %>
+  	<%= f.submit "#{t 'sign_up.resend_confirmation_email'}", class: "btn btn-primary" %>
   	</div>
 <% end %>
 

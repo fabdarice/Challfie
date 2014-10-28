@@ -51,7 +51,7 @@
 		   }).data("ui-autocomplete")._renderItem = function( ul, item ) {			   	
 	        return $( "<li></li>" )
 	            .data( "item.autocomplete", item )
-	            .append( "<a href='/users/" + item.slug + "'>" + "<img src='" + item.imgsrc + "' style='width: 35px; height: 35px; margin-right: 5px; float:left;'/>"  + item.label + "<br><span>" + item.mutualfriends + " mutual friends</span>" +  "</a>" )
+	            .append( "<a href='/users/" + item.slug + "'>" + "<img src='" + item.imgsrc + "' style='width: 35px; height: 35px; margin-right: 5px; float:left;'/>"  + item.label + "<br><span>" + item.mutualfriends + " <%= t 'friends.mutual_friends' %></span>" +  "</a>" )
 	            .appendTo( ul );
     		}; 
 
@@ -165,7 +165,21 @@
 			  var left = (screen.width/2)-(width/2);
 			  var top = (screen.height/2)-(height/2);
 			  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
-			}	
+			}
+
+			$("#auto_refresh_btn").click(function(event) {
+				event.preventDefault();
+				var after = $('.selfie_post:first').attr('data-time');
+				alert(after);
+				$.getScript("/auto_refresh?" + "after=" + after);
+
+				// AUTO REFRESH THE CONTENT EVRERY 5 SECONDS
+			//setInterval(function() {
+			  
+			//}, 5000);
+			})
+
+				
 		});		
 	</script>
 

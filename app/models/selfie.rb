@@ -41,7 +41,9 @@ class Selfie < ActiveRecord::Base
 						self.update_column(:approval_status, 1)
 						self.user.update_column(:points, self.challenge.point + self.user.points)										
 						self.user.unlock_book!												
-						self.user.add_notifications("Congratulations! Your challenge <strong><i>#{self.challenge.description}</i></strong> has been approved.", self.user , self, nil)	
+						self.user.add_notifications("Congratulations! Your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been approved.", 
+															 "Félicitations! Ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été approuvé.",
+															 self.user , self, nil)	
 					end	
 				else
 					if self.approval_status != 2
@@ -50,14 +52,18 @@ class Selfie < ActiveRecord::Base
 						if tmp_approval_status == 1
 							self.user.update_column(:points, self.user.points - self.challenge.point)																
 						end
-						self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description}</i></strong> has been rejected.", self.user , self, nil)																		
+						self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been rejected.", 
+															"Malheureusement.. ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été rejeté.",
+															self.user , self, nil)																		
 					end
 				end
 			else
 				if self.approval_status == 1
 					self.update_column(:approval_status, 2)												
 					self.user.update_column(:points, self.user.points - self.challenge.point)																						
-					self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description}</i></strong> has been unapproved.", self.user , self, nil)	
+					self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been unapproved.", 
+														 "Malheureusement.. ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été désapprouvé.",
+														 self.user , self, nil)	
 				end
 			end			
 		end

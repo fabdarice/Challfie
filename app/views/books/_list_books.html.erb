@@ -9,7 +9,7 @@
 					<%= image_tag "/assets/book_arrows.png", style: 'width: 60px; margin-top: 60px; float: left;' %>
 				<% end %>	
 				<div class="one_book">					
-					<% if current_user.books.include?(book) %>
+					<% if user.books.include?(book) %>
 						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>							
 					<% else %>
 						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture grayscale'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>

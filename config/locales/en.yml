@@ -1,4 +1,18 @@
 en:
+  sign_up:
+    confirmation_email_01_html: "Welcome to Challfie, the new <strong>social network</strong> designed exclusively for <strong>Selfies</strong>.<br>Challfie is a fun and simple way to share your selfies with your friends and to compete with them over the title of Challfie's King."
+    confirmation_email_02_html: "<strong>Confirm your account</strong> through the following link :"
+    confirmation_email_03_html: "Don't forget to download the <strong>Challfie app</strong> available on iOS and Android for free!<br><br><br>Thank you for joining us !<br><em>The Challfie Team.</em>"
+    confirm_my_account: "Confirm my account"
+    reset_password_email_01_html: "Someone has requested a link to change your password. You can do it through the link below :"
+    reset_password_email_02_html: "<br>If you didn't request this, please report this immediately to our team or please ignore this email.<br> Your password won't change until you access the link above and create a new one.<br><br>The Challfie Team."
+    reset_password: "Change my password"
+    resend_confirmation_email: "Resend confirmation instructions"
+    email_or_username: "Email or Username"
+    email_or_username_placeholder: "Enter your Email address or your Username"
+    forgot_password: "Forgot your password?"
+    send_reset_password_email: "Send me reset password instructions"
+
   sign_in:
     title: "The New Social Network exclusively for Selfies"
     subtitle: "Take Selfies like you've never done before"
@@ -58,16 +72,53 @@ en:
     approve: "Approve"
     reject: "Reject"
     write_comment: "Write a comment.."
+    error_no_challenge: "Please select a challenge."
+    error_no_selfie: "Please select or take a selfie."
+    take_a_selfie: "Take a Selfie Challenge"
+    write_message: "Write your message.."
+    camera_alert: "If you don't see a preview on the left side, please authorize your webcam/camera."
+    share_facebook_tooltip: "Share this Selfie on Facebook."
+    share_facebook: "Share"
+    add_selfie: "Add a Selfie"
+    upload_file: "Upload from file"
+    use_webcam: "Use Webcam"
+    select_challenge: "Select a Challenge"
+    filter_keyword: "Filter by keywords.."
+    filter: "Filter"
+    take_snapshot: "Take Snapshot"
 
   all_pages:
     public: "Public"
     private: "Private"
     books: "Books"
     edit: "Edit"
+    cancel: "Cancel"
+    save: "Save"
+
+  friends:
+    mutual_friends: "mutual friends"
+    followers: "Fans"
+    following: "Friends"
+    follow: "Follow"
+    waiting_approval: "Waiting approval"
+    unfollow: "Unfollow"
+    cancel_request: "Cancel Request"
+    pending_request: "Pending Request"
+    remove: "Delete"
+    accept_request_tooltip: "Accept Request"
+    decline_request_tooltip: "Decline Request"
+    block_request_tooltip: "Block User"    
 
   left_content:
     next_book_unlock: "Next Book To Unlock"
     this_book_contains: "This book contains"
     progress_bar: "Once your progress bar reached 100%, you will unlocked your next book of challenges."
+    change_profile_picture: "Change Profil Picture"
+
+  right_content:
+    friends_suggestions_title: "Friends Suggestions"
+    show_all_suggestions: "+ Show all"
+    search_fb_friends: "Search for your Facebook friends"
+    search_fb_friends_tooltip: "See who among your Facebook friends are registered on Challfie."
 
 

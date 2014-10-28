@@ -13,4 +13,13 @@ class HomeController < ApplicationController
 		@selfie = Selfie.new
 	end
 
+	def auto_refresh
+		
+
+		respond_to do |format|
+	      format.html { render :nothing => true }
+	      format.js { }
+	    end  
+	end
+
 end

@@ -48,7 +48,7 @@
 		<% if current_user.oauth_token.blank? and (!current_user.uid.blank? or (current_user.facebook_info and !current_user.facebook_info.facebook_uid.blank?)) %>
 			<%= link_to "Refresh Token", facebook_url , class: 'facebook_refresh_token hide', :"data-width" => 600, :"data-height" => 400 %>
 		<% end %>
-		<span class="block_title">Friends Suggestions</span> <span style="font-size:11px; float:right"> <%= link_to "+ Show all", user_friends_path(:anchor => "friends_suggestions") %></span><br>
+		<span class="block_title"><%= t 'right_content.friends_suggestions_title' %></span> <span style="font-size:11px; float:right"> <%= link_to "#{ t 'right_content.show_all_suggestions' }", user_friends_path(:anchor => "friends_suggestions") %></span><br>
 		<hr>
 		<div style="clear:both;"></div>
 		<div class="friends_suggestions_block">
@@ -61,10 +61,10 @@
 								<%= link_to (image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px;"), user_path(fds_sug) %>									
 								<p class="friend_username" style="margin-bottom: 5px;"><%= link_to fds_sug.username, user_path(fds_sug) %></p>
 								<span class="friend_rank">
-										<%= pluralize(current_user.number_mutualfriends(fds_sug), "mutual friend") %>								
+										<%= current_user.number_mutualfriends(fds_sug) %> <%= t 'friends.mutual_friends' %>								
 								</span><br>
 								
-								<%= link_to raw('<i class="fa fa-rss"></i> Follow') ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-primary btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
+								<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-info btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
 								<div style="clear:both;"></div>
 							</li>
 						<% end %>	
@@ -76,8 +76,8 @@
 					
 					<div style="text-align:center; font-size: 12px;">
 						
-						<%= link_to facebook_url, :class => "popup", :"data-width" => 600, :"data-height" => 400 , :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"See who among your Facebook friends are registered on Challfie." do %>
-							<i class="fa fa-facebook-square fa-lg"></i> Search for your Facebook friends
+						<%= link_to facebook_url, :class => "popup", :"data-width" => 600, :"data-height" => 400 , :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{t 'right_content.search_fb_friends_tooltip'}" do %>
+							<i class="fa fa-facebook-square fa-lg"></i> <%= t 'right_content.search_fb_friends' %>
 						<% end %>	
 					</div>
 				<% end %>		
