@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
       user = User.friendly.find(f.followable_id)
       following << user
     end
-    following
+    following = following.sort_by{|u| u.username.downcase}
   end
 
   # If status = false : Return list of pending request
@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
       user = User.friendly.find(f.follower_id)
       followers << user
     end
-    followers
+    followers = followers.sort_by{|u| u.username.downcase}
   end
 
   # return true if the status is approved

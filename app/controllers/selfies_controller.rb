@@ -16,6 +16,7 @@ class SelfiesController < ApplicationController
 		end
 
 		@selfie.user = current_user
+		@selfie.shared_fb = true if params[:mysharefacebook] == "1"
 
 		if @selfie.save
 			# Share the selfie on Facebook
@@ -24,6 +25,7 @@ class SelfiesController < ApplicationController
 				#puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
 				share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
 				@graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+
 			end	
 
 			redirect_to root_path
@@ -123,7 +125,7 @@ class SelfiesController < ApplicationController
 	
 	private
     def selfie_params
-      params.require(:selfie).permit(:message, :photo, :challenge_id, :private)
+      params.require(:selfie).permit(:message, :photo, :challenge_id, :private, :shared_fb)
     end
 
 end

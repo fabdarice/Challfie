@@ -58,6 +58,7 @@ class UsersController < ApplicationController
 		@user = current_user
 		# LIST OF ALL FRIEND FOLLOWING
 		@following = current_user.all_following
+		@following = @following.sort_by {|u| u.username.downcase}
 		# LIST OF ALL FOLLOWERS
 		@followers = current_user.followers(1)
 		# LIST OF ALL PENDING REQUEST

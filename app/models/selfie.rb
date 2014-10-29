@@ -1,5 +1,5 @@
 class Selfie < ActiveRecord::Base
-	#attr_accessor :content_type, :original_filename, :image_data
+	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status
 
 	self.per_page = 4
 

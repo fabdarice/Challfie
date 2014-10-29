@@ -29,8 +29,7 @@
 	<%= render 'home/left_content' %>
 <% end %>
 
-<div id="home_list_selfies">	
-	<%# link_to "AUTO REFRESH", "#", id: 'auto_refresh_btn' %>
+<div id="home_list_selfies">		
 	<% if @selfies.count == 0 %>
 		<div class="alert alert-info" role="alert">
 		  <%= t 'homepage.alert_first_selfie_html' %>

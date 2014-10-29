@@ -175,7 +175,7 @@ label.remember_me_link {
   font-family: "Chinacat", "Bree Serif", "Century Gothic","Tahoma","Geneva","Arial";
   text-shadow: 2px 2px  black;
   margin-bottom: 10px; 
-    
+    font-weight: 600;
 }
 
 .welcome_page_intro {
@@ -183,9 +183,9 @@ label.remember_me_link {
   font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
   font-size: 20px;
   line-height: 30px;
-  text-shadow: 2px 1px  $mygreen;
+  text-shadow: 2px 2px black;
   width: 320px;
-  font-weight: 100;
+  font-weight: 600;
   margin-bottom: 40px;
   margin-top: 20px;
 }

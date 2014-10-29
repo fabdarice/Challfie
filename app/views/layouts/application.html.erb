@@ -167,19 +167,6 @@
 			  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
 			}
 
-			$("#auto_refresh_btn").click(function(event) {
-				event.preventDefault();
-				var after = $('.selfie_post:first').attr('data-time');
-				alert(after);
-				$.getScript("/auto_refresh?" + "after=" + after);
-
-				// AUTO REFRESH THE CONTENT EVRERY 5 SECONDS
-			//setInterval(function() {
-			  
-			//}, 5000);
-			})
-
-				
 		});		
 	</script>
 
@@ -219,14 +206,14 @@
 					<!-- HAVE PENDING REQUEST -->
 					<%= link_to user_friends_path(:anchor => "pending_request"), class: "#{current_page?(user_friends_path) ? "active" : ""}" do %>
 						<li> 
-							<i class="fa fa-users fa-2x"><div class="menu_notif"><%= current_user.followers(0).count %></div></i> <%= t 'homepage.menu_friends' %>
+							<i class="fa fa-users fa-2x"><div class="menu_notif nb_friends_request"><%= current_user.followers(0).count %></div></i> <%= t 'homepage.menu_friends' %>
 						</li>
 					<% end %>
 				<% else %>
 					<!-- NO PENDING REQUEST -->
 					<%= link_to user_friends_path, class: "#{current_page?(user_friends_path) ? "active" : ""}" do %>
 						<li> 
-							<i class="fa fa-users fa-2x"></i> <%= t 'homepage.menu_friends' %> 
+							<i class="fa fa-users fa-2x"><div class="menu_notif nb_friends_request hide"><%= current_user.followers(0).count %></div></i> <%= t 'homepage.menu_friends' %> 
 						</li>
 					<% end %>
 				<% end %>
@@ -234,10 +221,8 @@
 				<!-- TOP MENU - NOTIFICATIONS -->				
 				<%= link_to notifications_path, class: "#{current_page?(notifications_path) ? "active" : ""}" do %>
 					<li> 
-						<i class='fa fa-bullhorn fa-2x'> 
-							<% if @homepage_notification.count != 0 %>
-								<div class='menu_notif'> <%= @homepage_notification.count %></div>
-							<% end %>	
+						<i class='fa fa-bullhorn fa-2x'> 							
+								<div class="menu_notif nb_notifications <% if @homepage_notification.count == 0 %>hide<% end %>"><%= @homepage_notification.count %></div>							
 						</i> Notifications
 					</li>				
 				<% end %>								

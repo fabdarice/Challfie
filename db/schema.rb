@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027235303) do
+ActiveRecord::Schema.define(version: 20141029082719) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20141027235303) do
     t.integer  "challenge_id"
     t.boolean  "private",            default: false
     t.integer  "approval_status",    default: 0
+    t.boolean  "shared_fb",          default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree

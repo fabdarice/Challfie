@@ -1,0 +1,28 @@
+// Add Selfies on Homeage
+$('.list_selfies').prepend('<%=j render @new_selfies, :editable => true %>');
+
+// Add Notifications Number
+var nb_notifications = parseInt($('.nb_notifications').text(), 10);
+var new_total_notifications = nb_notifications + <%= @new_notifications.count %>;
+if (new_total_notifications != 0) {
+	$('.nb_notifications').removeClass('hide');	
+}
+$('.nb_notifications').text(new_total_notifications);
+
+
+// Add Friends Request Number
+var nb_friends_request = parseInt($('.nb_friends_request').text(), 10);
+var new_nb_friends_request = nb_friends_request + <%= @new_friends_requests.count %>;
+$('.nb_friends_request').text(new_nb_friends_request);
+if (new_nb_friends_request != 0) {
+	$('.nb_friends_request').removeClass('hide');	
+} else {
+	$('.nb_friends_request').addClass('hide');
+}
+
+
+// Modify the title
+var title_number = new_nb_friends_request + new_total_notifications;
+if (title_number != 0) {	
+	document.title = "Challfie (" + title_number + ")";
+}
