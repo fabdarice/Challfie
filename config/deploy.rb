@@ -1,5 +1,3 @@
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
