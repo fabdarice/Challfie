@@ -63,12 +63,12 @@
 
 	span.number {
 		font-size: 16px;
-		color: $mygreen;
+		color: darken($mygreen, 10%);
 	}
 
 	span.homepage_user_block_name {
 		font-size: 10px;
-		color: darken($mygrey, 30%);
+		color: #636363;
 		text-transform: uppercase;
 		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
 
