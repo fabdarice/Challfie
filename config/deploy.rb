@@ -1,3 +1,5 @@
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
@@ -48,5 +50,7 @@ namespace :deploy do
     
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+  after 'deploy:update_code','whenever:update_crontab'
+
 end
 
