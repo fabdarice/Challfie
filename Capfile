@@ -9,6 +9,10 @@ require 'capistrano/rails'
 
 # If you are using rvm add these lines:
 require 'capistrano/rvm'
+
+# To use whenever (Cron jobs) with whenever gem
+require "whenever/capistrano"
+
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.3p242'
 
