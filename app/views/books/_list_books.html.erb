@@ -1,4 +1,5 @@
 <div id="books_list">
+<%# @books.group_by(&:tier).each do |tier, index| %>
 	<% @books.each_slice(3).with_index do |slice, index| %>
 		<div class="book_tier">
 			<div class="book_tier_name">
