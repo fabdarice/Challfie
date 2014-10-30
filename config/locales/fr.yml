@@ -101,7 +101,7 @@ fr:
     mutual_friends: "amis en commun"
     followers: "Fans"
     following: "Amis"
-    follow: "Suivre"
+    follow: "Ajouter Ami"
     waiting_approval: "Réponse en attente"
     unfollow: "Supprimer"
     cancel_request: "Annuler demande" 
