@@ -18,6 +18,11 @@ class SelfiesController < ApplicationController
 		@selfie.user = current_user
 		@selfie.shared_fb = true if params[:mysharefacebook] == "1"
 
+		daily_challenge = DailyChallenge.last		
+		if @selfie.challenge == daily_challenge.challenge			
+			@selfie.is_daily = true		
+		end
+
 		if @selfie.save
 			# Share the selfie on Facebook
 			if params[:mysharefacebook] == "1"
@@ -25,7 +30,6 @@ class SelfiesController < ApplicationController
 				#puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
 				share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
 				@graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
-
 			end	
 
 			redirect_to root_path
@@ -77,9 +81,22 @@ class SelfiesController < ApplicationController
 
 	def destroy
 	   selfie = Selfie.find(params[:id])
+	   challenge_value = selfie.challenge.point
+		challenge_value = challenge_value * 1.25 if selfie.is_daily 
 		session[:return_to] ||= request.referer
+
+		user = selfie.user
 		if (selfie.destroy)
-		flash[:notice] = 'Book deleted.'
+			flash[:notice] = 'Book deleted.'
+
+			# Remove points
+			user.update_column(:points, user.points - challenge_value)
+
+			#Delete Notifications related to that selfie
+			notifications_to_delete = Notification.where(selfie_id: params[:id])
+			notifications_to_delete.each do |notification|
+				notification.destroy
+			end
 		end
 		redirect_to session[:return_to]
 	end
@@ -92,8 +109,8 @@ class SelfiesController < ApplicationController
 
 		if @selfie.user != current_user
 			user_link = view_context.link_to current_user.username, user_path(current_user)			
-			@selfie.user.add_notifications("#{user_link} has approved your challenge <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
-													"#{user_link} a approuvé ton challenge <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
+			@selfie.user.add_notifications("#{user_link} has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
+													"#{user_link} a approuvé ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
 													current_user , @selfie, nil)
 		end
 		
@@ -111,8 +128,8 @@ class SelfiesController < ApplicationController
 
 		if @selfie.user != current_user
 			user_link = view_context.link_to current_user.username, user_path(current_user)			
-			@selfie.user.add_notifications("#{user_link} has rejected your challenge <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
-													"#{user_link} a rejeté ton challenge <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
+			@selfie.user.add_notifications("#{user_link} has rejected your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
+													"#{user_link} a rejeté ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
 													current_user , @selfie, nil)
 		end
 

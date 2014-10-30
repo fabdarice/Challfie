@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029082719) do
+ActiveRecord::Schema.define(version: 20141030000116) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -76,6 +76,12 @@ ActiveRecord::Schema.define(version: 20141029082719) do
     t.datetime "updated_at"
   end
 
+  create_table "daily_challenges", force: true do |t|
+    t.integer  "challenge_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "facebook_infos", force: true do |t|
     t.integer  "user_id"
     t.string   "facebook_uid"
@@ -128,6 +134,7 @@ ActiveRecord::Schema.define(version: 20141029082719) do
     t.boolean  "private",            default: false
     t.integer  "approval_status",    default: 0
     t.boolean  "shared_fb",          default: false
+    t.boolean  "is_daily",           default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree

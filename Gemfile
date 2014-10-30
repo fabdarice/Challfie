@@ -81,9 +81,11 @@ gem 'http_accept_language'
 # to detect the browser the user is using
 gem "browser"
 
+# to use cron to set up daily selfie
+gem "whenever"
 
-group :development, :test do
-  
+
+group :development, :test do  
   # For Email testing in development mode
   gem 'mailcatcher'
 

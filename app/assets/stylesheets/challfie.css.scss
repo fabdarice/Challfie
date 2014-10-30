@@ -202,6 +202,34 @@ h5 {
 	width: 240px;
 }
 
+.daily_challenge {
+	border: 1px solid $mydarkgrey;
+	box-shadow: 0 0 10px 3px $mydarkgrey;
+	-moz-box-shadow: 0 0 10px 3px $mydarkgrey;
+  	-webkit-box-shadow: 0 0 10px 3px $mydarkgrey;
+		
+	background-color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+
+	.daily_challenge_description {
+		font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+		display: block;
+		margin-bottom: 10px;
+		margin-top: 5px;
+		color: $mygreen;
+	}
+
+	.daily_challenge_explanation {
+		font-size: 10px;
+		font-style: italic;
+		color: gray;
+	}
+}
+
 .right_content_friends_suggestion {
 	border: 1px solid $mydarkgrey;
 	box-shadow: 0 0 10px 3px $mydarkgrey;

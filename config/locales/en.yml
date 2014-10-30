@@ -86,6 +86,9 @@ en:
     filter_keyword: "Filter by keywords.."
     filter: "Filter"
     take_snapshot: "Take Snapshot"
+    daily_challenge_title: "Daily Challenge"
+    difficulty: "Difficulty"
+    daily_challenge_explanation: "gets you bonus points on your challenge"
 
   all_pages:
     public: "Public"
@@ -103,7 +106,7 @@ en:
     waiting_approval: "Waiting approval"
     unfollow: "Unfollow"
     cancel_request: "Cancel Request"
-    pending_request: "Pending Request"
+    pending_request: "Fans Pending Request"
     remove: "Delete"
     accept_request_tooltip: "Accept Request"
     decline_request_tooltip: "Decline Request"
@@ -120,5 +123,6 @@ en:
     show_all_suggestions: "+ Show all"
     search_fb_friends: "Search for your Facebook friends"
     search_fb_friends_tooltip: "See who among your Facebook friends are registered on Challfie."
+
 
 

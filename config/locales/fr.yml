@@ -85,6 +85,9 @@ fr:
     filter_keyword: "Filtrer par mots clés.."
     filter: "Filtrer"
     take_snapshot: "Prendre la Photo"
+    daily_challenge_title: "Challenge du jour"
+    difficulty: "Difficulté"
+    daily_challenge_explanation: "te procure des points bonus pour ton challenge"
 
   all_pages:
     public: "Publique"
@@ -102,7 +105,7 @@ fr:
     waiting_approval: "Réponse en attente"
     unfollow: "Supprimer"
     cancel_request: "Annuler demande" 
-    pending_request: "Demande d'ami"  
+    pending_request: "Demande de fans"  
     remove: "Suppr."
     accept_request_tooltip: "Acceptez la demande"
     decline_request_tooltip: "Déclinez la demande"
@@ -118,7 +121,7 @@ fr:
     friends_suggestions_title: "Suggestion d'Amis"
     show_all_suggestions: "+ Afficher Tout"
     search_fb_friends: "Rechercher vos amis Facebook"
-    search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."
+    search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."    
 
   date:
     abbr_day_names:

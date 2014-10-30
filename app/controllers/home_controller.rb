@@ -11,6 +11,7 @@ class HomeController < ApplicationController
  		
 		@selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"])
 		@selfie = Selfie.new
+		
 	end
 
 	def auto_refresh

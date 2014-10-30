@@ -3,7 +3,7 @@
 <head>
   <% @homepage_notification = current_user.notifications.where(read: false) %>  
 	<title>
-		Challfie <%= "(#{@homepage_notification.count + current_user.followers(0).count})" if (@homepage_notification.count + current_user.followers(0).count) > 0 %>
+		<%= "(#{@homepage_notification.count + current_user.followers(0).count})" if (@homepage_notification.count + current_user.followers(0).count) > 0 %> Challfie 
 	</title>
    <meta name="description" content="Challfie is the new Social Network exclusively for Selfies. Easy, Simple and Competitive, it combines taking selfies with related challenge. More than 100 Selfie challenges are available to unlock. Share your selfies with your friends, get your challenges approved and compete over the title of Challfie King." />
    <meta http-equiv="X-UA-Compatible" content="IE=edge">

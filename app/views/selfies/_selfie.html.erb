@@ -6,7 +6,7 @@
     		<div class="selfie_post_user_username_challenge pull-left">
     			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %> <span style="margin-left: 10px; font-size: 11px; color: gray;"><%= selfie.user.current_book.name %></span></p>
           <% if !selfie.challenge.description.blank? %>
-    			 <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %></span>
+    			   <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> </span>
           <% end %> 
           <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
             <%= form_for selfie do |f| %>
@@ -20,7 +20,7 @@
               <% else %>
                 <i class="fa fa-unlock fa-lg" data-toggle="tooltip" data-placement="bottom" title="<%= t 'selfie.public_text' %>"></i> 
               <% end %>                      
-            <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %></span>
+            <span style="padding-left: 5px;"><%= time_ago_in_words(selfie.created_at) %>  <%= raw ("- <u>#{t 'selfie.daily_challenge_title'}</u>") if selfie.is_daily %></span>
           </span>
     		</div>
 
@@ -46,6 +46,7 @@
     		<br> 		
     </div>
 
+    <div style="clear:both"></div>
     <!-- SELFIE MESSAGE -->
     <div class="selfie_post_message_<%= selfie.id %>">
       <%= simple_format(selfie.message, class: "selfie_post_message ") %>

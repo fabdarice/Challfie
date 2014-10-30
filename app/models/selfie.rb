@@ -1,5 +1,5 @@
 class Selfie < ActiveRecord::Base
-	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status
+	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily
 
 	self.per_page = 4
 
@@ -33,16 +33,19 @@ class Selfie < ActiveRecord::Base
 		else
 			upvotes = self.get_upvotes.size
 			downvotes = self.get_downvotes.size
+			challenge_value = self.challenge.point
+			challenge_value = challenge_value * 1.25 if self.is_daily 
 
 			if upvotes >= 5
 				vote_ratio = upvotes.to_f / (upvotes + downvotes)				
 				if vote_ratio >= 0.75
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
-						self.user.update_column(:points, self.challenge.point + self.user.points)										
+
+						self.user.update_column(:points, challenge_value + self.user.points)										
 						self.user.unlock_book!												
-						self.user.add_notifications("Congratulations! Your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been approved.", 
-															 "Félicitations! Ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été approuvé.",
+						self.user.add_notifications("Congratulations! Your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{self.challenge.description_en}</i></strong> has been approved.", 
+															 "Félicitations! Ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{self.challenge.description_fr}</i></strong> a été approuvé.",
 															 self.user , self, nil)	
 					end	
 				else
@@ -50,19 +53,19 @@ class Selfie < ActiveRecord::Base
 						tmp_approval_status = self.approval_status
 						self.update_column(:approval_status, 2)						
 						if tmp_approval_status == 1
-							self.user.update_column(:points, self.user.points - self.challenge.point)																
+							self.user.update_column(:points, self.user.points - challenge_value)																
 						end
-						self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been rejected.", 
-															"Malheureusement.. ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été rejeté.",
+						self.user.add_notifications("Unfortunately.. your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{self.challenge.description_en}</i></strong> has been rejected.", 
+															"Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{self.challenge.description_fr}</i></strong> a été rejeté.",
 															self.user , self, nil)																		
 					end
 				end
 			else
 				if self.approval_status == 1
 					self.update_column(:approval_status, 2)												
-					self.user.update_column(:points, self.user.points - self.challenge.point)																						
-					self.user.add_notifications("Unfortunately.. your challenge <strong><i>#{self.challenge.description_en}</i></strong> has been unapproved.", 
-														 "Malheureusement.. ton challenge <strong><i>#{self.challenge.description_fr}</i></strong> a été désapprouvé.",
+					self.user.update_column(:points, self.user.points - challenge_value)																						
+					self.user.add_notifications("Unfortunately.. your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{self.challenge.description_en}</i></strong> has been unapproved.", 
+														 "Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{self.challenge.description_fr}</i></strong> a été désapprouvé.",
 														 self.user , self, nil)	
 				end
 			end			
