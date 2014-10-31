@@ -1,7 +1,6 @@
 # config valid only for Capistrano 3.1
 
 lock '3.2.1'
-set :whenever_command, "bundle exec whenever"
 
 set :application, 'challfie'
 set :repo_url, 'git@bitbucket.org:fabdarice/challfie_web.git'
@@ -50,6 +49,7 @@ namespace :deploy do
     
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+  
 
 end
 
