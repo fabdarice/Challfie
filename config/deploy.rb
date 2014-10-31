@@ -1,7 +1,7 @@
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
 # config valid only for Capistrano 3.1
+
 lock '3.2.1'
+set :whenever_command, "bundle exec whenever"
 
 set :application, 'challfie'
 set :repo_url, 'git@bitbucket.org:fabdarice/challfie_web.git'
