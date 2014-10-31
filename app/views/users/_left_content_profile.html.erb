@@ -129,18 +129,21 @@
 	</div>
 
 	<% if user == current_user %>
-		<!-- LEFT MENU USER PROGRESS BAR -->					
-		<div class="progress" style="clear: both; margin-top: 5px;"  data-toggle="tooltip" data-placement="bottom" title="<%= t 'left_content.progress_bar' %>">
-		  <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.next_book_progression %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.next_book_progression %>%;"></div>				  
-		</div>
-		<div class="progress_bar_legend">
-			<span class="pull-left"><%= current_user.current_book.name %></span>
-			<span class="pull-right"><%= current_user.next_book.name %></span>
-		</div><br><br>
-			
-		<!-- LEFT MENU TAKE A SELFIE BUTTON -->
-		<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; <%= t 'homepage.take_a_selfie' %></button>	
 
+		<% if not user.next_book.blank? %>
+		<!-- Means that he unlocked all books already -->
+			<!-- LEFT MENU USER PROGRESS BAR -->					
+			<div class="progress" style="clear: both; margin-top: 5px;"  data-toggle="tooltip" data-placement="bottom" title="<%= t 'left_content.progress_bar' %>">
+			  <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.next_book_progression %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.next_book_progression %>%;"></div>				  
+			</div>
+			<div class="progress_bar_legend">
+				<span class="pull-left"><%= current_user.current_book.name %></span>
+				<span class="pull-right"><%= current_user.next_book.name %></span>
+			</div><br><br>
+				
+			<!-- LEFT MENU TAKE A SELFIE BUTTON -->
+			<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; <%= t 'homepage.take_a_selfie' %></button>	
+		<% end %>	
 		
 	<% end %>
 </div>

@@ -1,11 +1,11 @@
 <div id="books_list">
-<%# @books.group_by(&:tier).each do |tier, index| %>
-	<% @books.each_slice(3).with_index do |slice, index| %>
+	<% @books.group_by(&:tier).each do |tier, books| %>
+	<%# @books.each_slice(3).with_index do |slice, index| %>
 		<div class="book_tier">
 			<div class="book_tier_name">
-				<%= raw slice.first.tier_name %>
+				<%= raw books.first.tier_name %>
 			</div>	
-			<% slice.each_with_index do |book, index| %>
+			<% books.each_with_index do |book, index| %>
 				<% if index != 0 %>
 					<%= image_tag "/assets/book_arrows.png", style: 'width: 60px; margin-top: 60px; float: left;' %>
 				<% end %>	

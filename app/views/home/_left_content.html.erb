@@ -58,26 +58,29 @@
 	<button type="button" class="btn btn-default btn-block take_a_selfie" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-camera"></span> &nbsp; <%= t 'homepage.take_a_selfie' %></button>	
 </div>	
 
-<div class="left_content_block">	
-	<span class="block_title"><%= t 'left_content.next_book_unlock' %></span><br>
-	<div class="next_book_block">
+<!-- Means that he unlocked all books already -->
+<% if not current_user.next_book.blank? %>
+	<div class="left_content_block">	
+		<span class="block_title"><%= t 'left_content.next_book_unlock' %></span><br>
+		<div class="next_book_block">
+			
+			<%= image_tag current_user.next_book.cover.url(:medium), style: 'width: 150px; float: left; margin-top: 5px;' %>
+			<div class="book_number_challenges">
+				<%= t 'left_content.this_book_contains' %><br>
+				<u><%= current_user.next_book.challenges.count %> challenges</u>
+			</div>
+		</div>	
 		
-		<%= image_tag current_user.next_book.cover.url(:medium), style: 'width: 150px; float: left; margin-top: 5px;' %>
-		<div class="book_number_challenges">
-			<%= t 'left_content.this_book_contains' %><br>
-			<u><%= current_user.next_book.challenges.count %> challenges</u>
-		</div>
-	</div>	
-	
-	<!-- LEFT MENU current_user PROGRESS BAR -->		
-	<span class="block_title">Progression</span>
-	<div class="progress" style="clear: both; margin-top: 5px;" data-toggle="tooltip" data-placement="bottom" title="<%= t 'left_content.progress_bar' %>">
+		<!-- LEFT MENU current_user PROGRESS BAR -->		
+		<span class="block_title">Progression</span>
+		<div class="progress" style="clear: both; margin-top: 5px;" data-toggle="tooltip" data-placement="bottom" title="<%= t 'left_content.progress_bar' %>">
 
-	  <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.next_book_progression %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.next_book_progression %>%;" ></div>				  
+		  <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.next_book_progression %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.next_book_progression %>%;" ></div>				  
+		</div>
+		<div class="progress_bar_legend">
+			<span class="pull-left"><%= current_user.current_book.name %></span>
+			<span class="pull-right"><%= current_user.next_book.name %></span>
+		</div>
+		<br>
 	</div>
-	<div class="progress_bar_legend">
-		<span class="pull-left"><%= current_user.current_book.name %></span>
-		<span class="pull-right"><%= current_user.next_book.name %></span>
-	</div>
-	<br>
-</div>
+<% end %>
