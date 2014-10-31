@@ -21,6 +21,6 @@
 set :output, "/home/deploy/challfie/shared/log/cron_log.log"
 
 
-every 1.day, :at => '5:01 pm' do
+every 5.minutes do
 	runner "DailyChallenge.new.set_daily_challenge"
 end

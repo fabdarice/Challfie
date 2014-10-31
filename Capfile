@@ -10,8 +10,7 @@ require 'capistrano/rails'
 # If you are using rvm add these lines:
 require 'capistrano/rvm'
 
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+
 
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.3p242'
