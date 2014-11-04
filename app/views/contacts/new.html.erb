@@ -1,5 +1,5 @@
 <div class="container" style="background-color: white;">
-	<h2 style="margin-left: 460px;">Contact Us</h2>
+	<div class="extrapage_title">Contact Us</div>
   <div style="width: 800px; margin: auto;">
     
   	<% if flash[:notice] %>
@@ -54,8 +54,8 @@
         <label> </label>
       </div>
       <div class="contact_right">
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <%= link_to "Cancel", root_path, class: "btn btn-default" %>                  
+        <button type="submit" class="btn btn-primary pull-left">Send Message</button>
+        <%= link_to "Cancel", root_path, class: "btn btn-default pull-left", style: "margin-left: 10px;" %>                  
       </div>  
       <div style="clear: both;"></div> 
     <% end %>  

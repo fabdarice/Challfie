@@ -12,7 +12,7 @@
   <%= csrf_meta_tags %>
 
 </head>
-<body style="padding-top: 0px;">	
+<body style="padding-top: 0px; background-color: white;">	
 	<nav id="menu_signin" class="navbar" role="navigation" style="background-color: #30768A;">
 		<div class="container">
 			<%= image_tag "/assets/logo_left_side.png", class: 'pull-left', style:'margin-top: 5px;' %>
@@ -21,8 +21,11 @@
 			</div>	
 			<%= image_tag "/assets/logo_right_side.png", class: 'pull-right', style:'margin-top: 5px;' %>			
 		</div>	
-      
    </nav>
+   <div class="under_menu">
+   	<p class="triangle">
+   	</p>
+   </div>
 	<div id="main_content_signin" style="background-image: none;" >
 		<div class="container" style="width: 1300px;">			
 			<%= yield %>
