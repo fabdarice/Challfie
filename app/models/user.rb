@@ -322,17 +322,19 @@ class User < ActiveRecord::Base
   end
 
   # Check if user has enough point to unlock a new book 
-  def unlock_book!    
-    book_to_unlock = self.next_book
-    if book_to_unlock.required_points <= self.points
-      book_users = BookUser.new
-      book_users.user = self
-      book_users.book = book_to_unlock
-      book_users.save      
-      self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", 
-                            "Félicitations! Tu as débloqué <strong><i>#{book_to_unlock.name}</i></strong>. ",
-                            self, nil, book_to_unlock)      
-    end
+  def unlock_book!
+    next_books = Book.where("level > ? ", self.current_book.level)
+    next_books.each do |book_to_unlock|          
+      if book_to_unlock.required_points <= self.points
+        book_users = BookUser.new
+        book_users.user = self
+        book_users.book = book_to_unlock
+        book_users.save      
+        self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", 
+                              "Félicitations! Tu as débloqué <strong><i>#{book_to_unlock.name}</i></strong>. ",
+                              self, nil, book_to_unlock)      
+      end
+    end  
   end
 
   # Return last book unlocked
@@ -355,7 +357,6 @@ class User < ActiveRecord::Base
     progression_percentage = (100 * user_diff) / book_diff
     return progression_percentage
   end
-
 
   private
   

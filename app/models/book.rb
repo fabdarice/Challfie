@@ -20,30 +20,47 @@ class Book < ActiveRecord::Base
    def tier_name
    	case self.tier
    	when 1
-        if I18n.locale == :fr
-          "Niveau <br>débutant"
-        else
-          "Newbie <br>Tier"
-        end
+      if I18n.locale == :fr
+        "Niveau <br>débutant"
+      else
+        "Newbie <br>Tier"
+      end
+    when 2
+      if I18n.locale == :fr
+        "Niveau <br>apprentit"
+      else
+        "Apprentice <br>Tier"
+      end         
+    when 3
+      if I18n.locale == :fr
+        "Niveau <br>Maître"
+      else
+        "Master <br>Tier"
+      end          
+    when 99
+      if I18n.locale == :fr
+        "Niveau Challfie Spécial"
+      else
+        "Challfie Special Tier"
+      end 
+    end  	
+   end
+
+   def book_color
+      case self.tier
+      when 1
+        # Newbie Tier
+        #"#e6c88e"
+        "background_newbie.png"
       when 2
-        if I18n.locale == :fr
-          "Niveau <br>apprentit"
-        else
-          "Apprentice <br>Tier"
-        end         
+        # Apprentice Tier
+        #"#b8b8b8"
+        "background_apprentice.png"
       when 3
-        if I18n.locale == :fr
-          "Niveau <br>Maître"
-        else
-          "Master <br>Tier"
-        end          
-      when 99
-        if I18n.locale == :fr
-          "Niveau Challfie Spécial"
-        else
-          "Challfie Special Tier"
-        end 
-      end  	
+        # Master Tier
+        #"#FDD017"
+        "background_master.png"
+      end  
    end
 
 end

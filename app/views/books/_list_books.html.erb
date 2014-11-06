@@ -14,7 +14,7 @@
 						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>							
 					<% else %>
 						<%= link_to (image_tag book.cover.url(:medium), class: 'book_picture grayscale'), book_path(book), :"data-toggle"=>"modal", :"data-target"=>"#modal_book" %>
-						<%= image_tag "/assets/book_lock.png", class: 'book_lock grayscale', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"This Challenge's book is locked.", style: 'cursor: pointer;' %>
+						<%= image_tag "/assets/book_lock.png", class: 'book_lock grayscale', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{t 'book.locked'}", style: 'cursor: pointer;' %>
 					<% end %>	
 				</div>	
 				

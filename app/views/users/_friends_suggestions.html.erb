@@ -75,7 +75,7 @@
 					<% @friends_suggestion.first(6).each do |fds_sug| %>
 						<% if !fds_sug.blank? %>
 							<li style='margin-top: 10px;'>
-								<%= link_to (image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px;"), user_path(fds_sug) %>									
+								<%= link_to (image_tag fds_sug.show_profile_picture, style: "float: left; margin-right: 10px; width: 65px; height:65px; background-image: url(/assets/#{fds_sug.current_book.book_color})", class: 'img-thumbnail'), user_path(fds_sug) %>									
 								<p class="friend_username" style="margin-bottom: 5px;"><%= link_to fds_sug.username, user_path(fds_sug) %></p>
 								<span class="friend_rank">
 										<%= current_user.number_mutualfriends(fds_sug) %> <%= t 'friends.mutual_friends' %>								

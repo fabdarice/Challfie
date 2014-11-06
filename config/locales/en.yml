@@ -124,5 +124,6 @@ en:
     search_fb_friends: "Search for your Facebook friends"
     search_fb_friends_tooltip: "See who among your Facebook friends are registered on Challfie."
 
-
+  book:
+    locked: "Unlock this book by completing selfie's challenges."
 

@@ -3,7 +3,7 @@
 		<% slice.each do |selfie| %>
 			<div class="pull-left tab_photos_one_selfie <% if slice.count < 4 %>block_space_selfies <% else %><%= cycle('block_space_selfies', 'block_space_selfies', 'block_space_selfies', '') %> <% end %>">
 					<%= link_to selfie_path(selfie), :"data-toggle"=>"modal", :"data-target"=>"#modal_selfie" do %>
-						<%= (image_tag selfie.photo.url(:medium), class: 'img-thumbnail') %>
+						<%= (image_tag selfie.photo.url(:medium), class: 'selfie-img-thumbnail') %>
 						<% if selfie.approval_status == 1 %>
 			            <%= image_tag "/assets/challenge_success.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Approved.", style: "width: 40px;", class: "tab_photos_one_selfie_infos_status" %>  
 			         <% elsif selfie.approval_status == 2 %>
