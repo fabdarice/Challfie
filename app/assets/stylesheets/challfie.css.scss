@@ -77,11 +77,16 @@ h5 {
 	
 }
 
-#menu_signin {
+.menu_signin {
 	width: auto;
 	height: 45px;
 	background-color: #f6f8f8;
 	border-radius: 0px;
+
+	img {
+		display: block;
+		margin:auto;
+	}
 }
 
 
@@ -360,12 +365,7 @@ h5 {
 }
 
 
-#menu_signin {
-	img {
-		display: block;
-		margin:auto;
-	}
-}
+
 
 .visible {
 	display: block;
