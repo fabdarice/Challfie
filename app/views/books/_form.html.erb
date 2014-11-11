@@ -23,7 +23,7 @@
 <div class="control-group">
   <%= f.label :tier, class: 'control-label' %>
   <div class="controls">    
-    <%= f.select :tier, options_for_select([['Newbie Tier', 1], ['Apprentice Tier', 2], ['Master Tier', 3], ['Challfie Special Tier', 0]], f.object.tier ), class: 'form-control' %>
+    <%= f.select :tier, options_for_select([['Newbie Tier', 1], ['Apprentice Tier', 2], ['Master Tier', 3], ['Challfie Special Tier', 99]], f.object.tier ), class: 'form-control' %>
   </div>
 </div>
 
