@@ -15,7 +15,7 @@ fr:
 
   sign_in:
     title: "Le Nouveau Reseau Social exclusivement pour les Selfies"
-    subtitle: "Prenez des Selfies comme nulle part ailleurs."
+    subtitle: "Prenez des Selfies Challenge comme nulle part ailleurs."
     downloadapp_html: "Téléchargez dès à présent <u>l'application Challfie</u> disponible gratuitement sur Android et iPhone" 
     username: "Identifiant"
     login: "Identifiant or Email"
@@ -35,20 +35,24 @@ fr:
     error_username_format: "uniquement des caractères alphanumérique."
     error_email_format: "format email incorrecte."
     step_header: "Simple, Divertissant et Compétitif"
-    step_challenge_text_html: "Découvre plus de <strong>100 Selfie Challenges</strong> répartis en 9 différents livres <strong>à débloquer</strong>."
-    step_selfies_text_html: "Prends des Selfies pour <strong>compléter vos Challenges</strong>."
-    step_community: "Communauté"
-    step_community_text_html: "<strong>Partage tes Selfies</strong> avec tes amis sur Facebook et fais <strong>approuver tes Challenges</strong>."
+    step_challenge_title: "Choisis un challenge"
+    step_challenge_text_html: "Découvre plus de 100 Selfie Challenges répartis en 10 différents livres à débloquer."
+    step_selfie_title: "Prends un Selfie"
+    step_selfies_text_html: "Complete ton Challenge en prenant le Selfie correspondant."
+    step_community: "Approbation"
+    step_community_title: "Obtiens l'approbation de ton Challenge par tes amis"
+    step_community_text_html: "Partage tes Selfies avec tes amis sur Facebook et fais approuver tes Challenges."
     step_competitive: "Compétitif"
-    step_competitive_text_html: "<strong>Gagne des points</strong> pour chaque Challfie approuvé et rivaliser avec tes amis pour le titre de <strong>Challfie King</strong>."
+    step_competitive_title: "Rivalise avec tes amis"
+    step_competitive_text_html: "Gagne des points et rivalise avec tes amis pour le titre de Challfie King."
   flash:  
     sign_in_alert: "Vous devez vous authentifié avant de pouvoir continuer."  
   activerecord:
     errors: 
       messages:        
         blank: "Veuillez compléter ce champ."
-        too_long: "maximum 20 caractères"
-        too_short: "minumum 2 caractères"
+        too_long: "maximum %{count} caractères"
+        too_short: "minumum %{count} caractères"
         taken: "L'identifiant existe déjà."  
         confirmation: "mot de passe et confirmation different."
   homepage:

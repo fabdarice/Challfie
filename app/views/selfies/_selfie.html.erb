@@ -63,8 +63,8 @@
             <%= image_tag "/assets/challenge_rejected.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Get more upvotes to be approve." if I18n.locale == :en %>
             <%= image_tag "/assets/challenge_rejete.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Selfie Challenge Rejeté." if I18n.locale == :fr %>
           <% elsif selfie.approval_status == 0 %>
-            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Require more votes." if I18n.locale == :en %>            
-            <%= image_tag "/assets/challenge_en_attente.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Nécessite plus de votes." if I18n.locale == :fr %>            
+            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Challenge pending. Require more votes." if I18n.locale == :en %>            
+            <%= image_tag "/assets/challenge_en_attente.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Challenge en attente. Nécessite plus de votes." if I18n.locale == :fr %>            
           <% end %>
         </div>
     		

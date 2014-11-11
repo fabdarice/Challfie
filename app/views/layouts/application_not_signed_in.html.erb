@@ -13,50 +13,57 @@
 </head>
 <body style="padding-top: 0px;">	
 	<nav class="menu_signin navbar" role="navigation">
-		<div class="container" style="text-align:center; margin:auto">
-			<%# image_tag "/assets/logo_left_side.png", class: 'pull-left', style:'margin-top: 5px;' %>
-			
+		<div class="container" style="text-align:center; margin:auto">					
 				<%= link_to image_tag("/assets/challfie_letter.png", style: 'height: 40px; margin-top: 5px; text-align:center;'), root_path %>
-			
-			<%# image_tag "/assets/logo_right_side.png", class: 'pull-right', style:'margin-top: 5px;' %>			
 		</div>	
       
    </nav>
 	<div id="main_content_signin" >
-		<div class="container" style="width: 1300px;">
-			<a href="http://www.freesitemapgenerator.com/">Free xml sitemap generator</a> 
-			
+		<div class="container" style="width: 1300px; position: relative;">						
 			<%= yield %>
+			<div class="arrow_sign_in_page">
+				<%= link_to (image_tag "/assets/navigate_down.png", style: "width: 50px;"), "#main_content_signin_steps" %>				
+			</div>	
+   		
 		</div>
 		
 	</div>
 
 	<div id="main_content_signin_steps">
-		<div class="container" style="width: 1200px;">			
-			<p class="step_header"><%= t 'sign_in.step_header' %></p>
+
+		<div class="container" style="width: 1200px;">		
+			<p class="step_header"><%= t 'sign_in.step_header' %></p>	
 			<div style='margin-left: 50px;'>
 				<div class="one_step" style="margin-right: 50px;">
-					<%= image_tag "/assets/book_apprentice_volume_1.png" %><br>
-					<p class="one_step_title">Challenges</p>
-					<p class="step_text"><%= t 'sign_in.step_challenge_text_html' %></p>
+					<%= image_tag "/assets/step_challenge.png" %><br>
+					<p class="one_step_title"><strong>STEP 1</strong></p>
+					<p class="one_step_title"><u><small style="color: black;">Challenge</small></u></p>
+					<p class="step_text"><%= t 'sign_in.step_challenge_title' %></p>
+					<p class="step_description"><%= t 'sign_in.step_challenge_text_html' %></p>
 				</div>
 				<div class="one_step" style="margin-right: 50px;">
-					<%= image_tag "/assets/step_camera.png" %><br>
-					<p class="one_step_title">Selfies</p>
-					<p class="step_text"><%= t 'sign_in.step_selfies_text_html' %></p>
+					<%= image_tag "/assets/step_selfie.png" %><br>
+					<p class="one_step_title"><strong>STEP 2</strong></p>
+					<p class="one_step_title"><u><small style="color: black;">Selfie</small></u></p>
+					<p class="step_text"><%= t 'sign_in.step_selfie_title' %></p>
+					<p class="step_description"><%= t 'sign_in.step_selfies_text_html' %></p>
 				</div> 
 				
 				
 				<div class="one_step" style="margin-right: 50px;">
-					<%= image_tag "/assets/step_community.png" %><br>
-					<p class="one_step_title"><%= t 'sign_in.step_community' %></p>
-					<p class="step_text"><%= t 'sign_in.step_community_text_html' %></p>			
+					<%= image_tag "/assets/step_approve.png" %><br>
+					<p class="one_step_title"><strong>STEP 3</strong></p>
+					<p class="one_step_title"><u><small style="color: black;"><%= t 'sign_in.step_community' %></small></u></p>
+					<p class="step_text"><%= t 'sign_in.step_community_title' %></p>
+					<p class="step_description"><%= t 'sign_in.step_community_text_html' %></p>			
 				</div>
 
 				<div class="one_step">
-					<%= image_tag "/assets/step_competitive.png" %><br>
-					<p class="one_step_title"><%= t 'sign_in.step_competitive' %></p>
-					<p class="step_text"><%= t 'sign_in.step_competitive_text_html' %></p>		
+					<%= image_tag "/assets/step_earn_points.png" %><br>
+					<p class="one_step_title"><strong>STEP 4</strong></p>
+					<p class="one_step_title"><u><small style="color: black;"><%= t 'sign_in.step_competitive' %></small></u></p>
+					<p class="step_text"><%= t 'sign_in.step_competitive_title' %></p>
+					<p class="step_description"><%= t 'sign_in.step_competitive_text_html' %></p>		
 				</div>
 			</div>		    
 		</div>

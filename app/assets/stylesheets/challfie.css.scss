@@ -152,7 +152,7 @@ h5 {
 }
 
 #main_content_signin {
-	margin: auto;
+	
 	background-image: url('/assets/test_photo_collage.jpg');
 	border-bottom: solid 1px $mygrey;
 	border-top: solid 1px $mygrey;
@@ -161,10 +161,20 @@ h5 {
    
 }
 
+.arrow_sign_in_page {
+   	position: absolute;
+   	text-align: center;
+   	margin: 0 auto;   	
+   	left: 0;
+   	right: 0;
+   	bottom: 10px;
+   }
+
 #main_content_signin_steps {
 	margin: auto;
 	margin-bottom: 60px;
-	margin-top: 40px;
+	margin-top:40px;
+	
 
 	.step_header {
 		font-size: 30px;
@@ -174,13 +184,10 @@ h5 {
 		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
 	}
 
-	
-
 	.one_step {
 		width: 220px;
 		float: left;
 		text-align: center;
-		
 
 		.one_step_title {
 			font-size: 20px;
@@ -191,7 +198,14 @@ h5 {
 		}
 
 		.step_text {
-			font-size: 14px;
+			font-size: 15px;
+
+		}
+
+		.step_description {
+			color: $myfontgrey;
+			font-size: 11px;
+			font-style: italic;
 		}
 
 		img {

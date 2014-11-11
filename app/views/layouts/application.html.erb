@@ -25,12 +25,14 @@
 			  $(this).removeData('bs.modal');
 			});
 
-         
+         $('#autocomplete_user_field').on("keypress", function () {
+         	$('.search-query').popover('hide');
+         });		
          // Autocomplete field to search an user
 			$("#autocomplete_user_field").autocomplete({
 
 		        source: function (request, response) {
-		        		
+		        	   	
 		            $.ajax({
 		            	 type: "post",		
 		                url: "/user/autocomplete_search_user",

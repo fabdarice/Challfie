@@ -15,7 +15,7 @@ en:
 
   sign_in:
     title: "The New Social Network exclusively for Selfies"
-    subtitle: "Take Selfies like you've never done before"
+    subtitle: "Take Selfie Challenge like you've never done before"
     downloadapp_html: "Get Started and Download the <u>Challfie app</u> available on iOs and Android for free"
     username: "Username"
     login: "Username or Email"
@@ -35,20 +35,24 @@ en:
     error_username_format: "must contain only alphanumeric characters."
     error_email_format: "email format incorrect."
     step_header: "Easy, Funny and Competitive"
-    step_challenge_text_html: "Discover more than <strong>100 Selfie Challenges</strong> divided in 9 levels of book <strong>to unlock.</strong>"
-    step_selfies_text_html: "<strong>Complete your challenge</strong> by taking the corresponding Selfie."
-    step_community: "Community"
-    step_community_text_html: "<strong>Shared your Selfie Challenges</strong> with your friends and on Facebook and get your <strong>Challfie approved.</strong>"
+    step_challenge_title: "Pick a challenge"
+    step_challenge_text_html: "Discover more than 100 Selfie Challenges divided in 10 levels of book to unlock."
+    step_selfie_title: "Take a Selfie"
+    step_selfies_text_html: "Complete your challenge by taking the corresponding Selfie."
+    step_community: "Approval"
+    step_community_title: "Get your Selfie Challenge approved by your friends"
+    step_community_text_html: "Shared your Selfie Challenges with your friends and on Facebook and get your Challfie approved."
     step_competitive: "Competitive"
-    step_competitive_text_html: "<strong>Earn points</strong> for each Challfie approved and compete among your friends upon the title of <strong>Challfie King</strong>"
+    step_competitive_title: "Compete with your friends"
+    step_competitive_text_html: "Earn points for each Challfie approved and compete among your friends upon the title of Challfie King"
   flash:  
     sign_in_alert: "You need to sign in or sign up before continuing."
   activerecord:
     errors: 
       messages:        
         blank: "Field cannot be empty."
-        too_long: "maximum 20 characters"
-        too_short: "minumum 2 characters"        
+        too_long: "maximum %{count} characters"
+        too_short: "minumum %{count} characters"        
         taken: "has already been taken"
         confirmation: "doesn't match confirmation"
 
