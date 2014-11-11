@@ -1,5 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController  
-  after_filter :initiate_first_book, :only => :create
+  after_action :only => :create do 
+    initiate_first_book("")
+  end
 
   def update
     # For Rails 4
@@ -30,21 +32,6 @@ class RegistrationsController < Devise::RegistrationsController
     new_user_session_path
   end
 
-  def initiate_first_book
-    first_level_book = Book.find_by level: 1
-    book_users = BookUser.new
-    book_users.user = resource
-    book_users.book = first_level_book
-    book_users.save
-
-    # First 200 subscribers
-    if User.count < 200
-      challfie_special_book = Book.find_by level: 0
-      book_users = BookUser.new
-      book_users.user = resource
-      book_users.book = challfie_special_book
-      book_users.save
-    end
-  end
+  
 
 end

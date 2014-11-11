@@ -1,6 +1,10 @@
 module Api
   class RegistrationsController < Devise::RegistrationsController    
     skip_before_filter :verify_authenticity_token
+    after_action :only => :create do
+      initiate_first_book(params[:login])
+    end
+
     respond_to :json
 
     def create

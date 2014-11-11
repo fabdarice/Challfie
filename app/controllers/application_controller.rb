@@ -86,4 +86,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def initiate_first_book(username)
+    user = resource || (User.find_by username: username)
+
+    first_level_book = Book.find_by level: 1
+    book_users = BookUser.new
+    book_users.user = user
+    book_users.book = first_level_book
+    book_users.save
+
+    # First 200 subscribers
+    if User.count < 200
+      challfie_special_book = Book.find_by level: 0
+      book_users = BookUser.new
+      book_users.user = user
+      book_users.book = challfie_special_book
+      book_users.save
+    end
+  end
+
 end
