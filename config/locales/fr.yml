@@ -33,7 +33,7 @@ fr:
     no_confirmation_instruction: "Je n'ai pas reçu d'email de confirmation"
     register_for_challfie: "S'inscrire sur Challfie"        
     error_username_format: "uniquement des caractères alphanumérique."
-    error_email_format: "format email incorrecte."
+    error_email_format: "format incorrect."
     step_header: "Simple, Divertissant et Compétitif"
     step_challenge_title: "Choisis un challenge"
     step_challenge_text_html: "Découvre plus de 100 Selfie Challenges répartis en 10 différents livres à débloquer."

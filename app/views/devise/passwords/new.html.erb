@@ -1,10 +1,14 @@
 <div class='container'>
-	<h3><%= t 'sign_up.forgot_password' %></h3>	
+  <div class="extrapage_title"><%= t 'sign_up.forgot_password' %></div>	
 	<div style="width: 800px; margin: auto;">
-	<%= link_to root_path, style: 'font-size: 14px;' do %>
-	<i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
-<% end %>
-<br><br>
+	<% if flash[:notice] %>
+      <br><br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
+   <% end %>
+   <% if flash[:error] %>
+      <br><br><div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div>
+   <% end %>  
+  
+  <br><br>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
@@ -17,11 +21,13 @@
 
   <div class="contact_left"> &nbsp;</div>
   <div class="contact_right">
-  	<%= f.submit "#{t 'sign_up.send_reset_password_email'}", class: "btn btn-primary" %>
-  	</div>
+  	<%= f.submit "#{t 'sign_up.send_reset_password_email'}", class: "btn btn-primary pull-left" %>
+    <%= link_to "Cancel", root_path, class: "btn btn-default pull-left", style: "margin-left: 10px;" %>                  
+
+  </div>
 <% end %>
 
 <br><br>	
-<br>
+<br><br>
 
 </div>

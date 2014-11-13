@@ -65,12 +65,14 @@ Challfie::Application.routes.draw do
       delete '/users/sign_out' => 'sessions#destroy', as: :destroy_user_session
       post   '/users'  => 'registrations#create',  as: :user_registration
 
-      post  '/users/password'  => 'passwords#create', as: :user_password
-      put   '/users/password'  => 'passwords#update', as: nil
-      patch '/users/password'  => 'passwords#update', as: nil
+      post  '/users/password'  => 'passwords#create', as: :user_password      
       post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook
 
     end
+
+    
+    get '/selfies/:login/:auth_token' => 'selfies#timeline', as: :selfies_timeline
+    
   end
 
 end

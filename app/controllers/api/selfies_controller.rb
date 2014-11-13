@@ -2,12 +2,15 @@ module Api
   class SelfiesController < ApplicationController
 
     before_filter :authenticate_user_from_token!
-    skip_before_filter  :verify_authenticity_token, :only => [:create]
-
     respond_to :json
 
-    def index
-      respond_with Selfie.all
+    def timeline
+      users_following = current_user.following(1)
+      list_following_ids = users_following.map{|u| u.id}
+      list_following_ids << current_user.id
+    
+      @selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"])
+      respond_with @selfies
     end
 
     def show
@@ -26,19 +29,7 @@ module Api
       end
     end
 
-    private
-  
-      def authenticate_user_from_token!
-        login = params[:login].presence
-        user       = login && (User.find_by_email(login) || User.find_by_username(login))
-   
-        # Notice how we use Devise.secure_compare to compare the token
-        # in the database with the token given in the params, mitigating
-        # timing attacks.
-        if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
-          sign_in user, store: false
-        end
-      end
-    
-  end
+
+
+  end    
 end
