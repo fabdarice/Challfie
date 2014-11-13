@@ -1,5 +1,5 @@
 class PasswordsController < Devise::PasswordsController
-  skip_before_filter :check_browser, only: [:edit, :update]
+  skip_before_action :check_browser
    
   layout 'extra_pages'
 
