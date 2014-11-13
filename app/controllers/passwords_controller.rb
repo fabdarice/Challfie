@@ -1,7 +1,7 @@
 class PasswordsController < Devise::PasswordsController
-  layout 'extra_pages'
-
   skip_before_action :check_browser, only: [:edit, :update]
+   
+  layout 'extra_pages'
 
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
