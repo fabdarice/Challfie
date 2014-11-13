@@ -12,6 +12,7 @@ fr:
     email_or_username_placeholder: "Entrez votre addresse email ou votre identifiant"
     forgot_password: "Mot de passe oublié?"
     send_reset_password_email: "Envoyer Email"
+    change_password: "Change mon mot de passe"
 
   sign_in:
     title: "Le Nouveau Reseau Social exclusivement pour les Selfies"

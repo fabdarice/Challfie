@@ -1,33 +1,34 @@
 <div class='container'>
   <div class="extrapage_title"><%= t 'sign_up.forgot_password' %></div>	
 	<div style="width: 800px; margin: auto;">
-	<% if flash[:notice] %>
-      <br><br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
-   <% end %>
-   <% if flash[:error] %>
-      <br><br><div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div>
-   <% end %>  
-  
-  <br><br>
+    	<% if flash[:notice] %>
+          <br><br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
+       <% end %>
+       <% if flash[:error] %>
+          <br><br><div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div>
+       <% end %>  
+      
+      <br><br>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-  <div class="contact_left">
-  		<%= f.label :login, "#{t 'sign_up.email_or_username'}" %>
-  </div> 
-  <div class="contact_right form-group">
-      <%= f.text_field :login, :autofocus => true, class: 'form-control', placeholder: "#{t 'sign_up.email_or_username_placeholder'}" %>       
-  </div>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="contact_left">
+      		<%= f.label :login, "#{t 'sign_up.email_or_username'}" %>
+      </div> 
+      <div class="contact_right form-group">
+          <%= f.text_field :login, :autofocus => true, class: 'form-control', placeholder: "#{t 'sign_up.email_or_username_placeholder'}" %>       
+      </div>
 
-  <div class="contact_left"> &nbsp;</div>
-  <div class="contact_right">
-  	<%= f.submit "#{t 'sign_up.send_reset_password_email'}", class: "btn btn-primary pull-left" %>
-    <%= link_to "Cancel", root_path, class: "btn btn-default pull-left", style: "margin-left: 10px;" %>                  
-
-  </div>
-<% end %>
+      <div class="contact_left"> &nbsp;</div>
+      <div class="contact_right">
+      	<%= f.submit "#{t 'sign_up.send_reset_password_email'}", class: "btn btn-primary pull-left" %>
+        <%= link_to "Cancel", root_path, class: "btn btn-default pull-left", style: "margin-left: 10px;" %>   
+      </div>                 
+      <div style="clear:both"></div>
+      
+    <% end %>
 
 <br><br>	
-<br><br>
+
 
 </div>

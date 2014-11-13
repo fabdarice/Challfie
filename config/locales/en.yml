@@ -12,6 +12,7 @@ en:
     email_or_username_placeholder: "Enter your Email address or your Username"
     forgot_password: "Forgot your password?"
     send_reset_password_email: "Send me reset password instructions"
+    change_password: "Change your password"
 
   sign_in:
     title: "The New Social Network exclusively for Selfies"
