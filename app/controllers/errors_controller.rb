@@ -1,4 +1,5 @@
 class ErrorsController < ApplicationController
+	
 	layout 'extra_pages'
 	
 	def not_found

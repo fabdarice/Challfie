@@ -1,5 +1,5 @@
 class ExtrapagesController < ApplicationController
-	before_action :check_browser, except: [:mobile]
+	
 
 	def privacy_page 
 		render layout: "extra_pages"

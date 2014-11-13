@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController  
-  before_action :check_browser
   after_action :only => :create do 
     initiate_first_book("")
   end

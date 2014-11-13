@@ -1,6 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
 	layout 'extra_pages'
-	skip_before_action :check_browser, only: [:show]
+	skip_before_action :check_browser
 
 	def show
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])

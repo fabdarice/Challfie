@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
 	def create
     @selfie = Selfie.find(params[:selfie_id])
     @comment = @selfie.comments.build(comments_params)
