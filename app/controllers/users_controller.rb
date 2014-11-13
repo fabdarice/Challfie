@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_action :check_browser
 	autocomplete :user, :username
 
 	def show

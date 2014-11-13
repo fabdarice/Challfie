@@ -1,4 +1,6 @@
 class NotificationsController < ApplicationController
+	before_action :check_browser
+	
 	def index
 		@notifications = current_user.notifications.order('created_at DESC').paginate(:page => params[:page])
 	end

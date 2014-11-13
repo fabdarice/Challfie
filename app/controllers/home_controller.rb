@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+	before_action :check_browser
 	before_filter :authenticate_user!
 
 	autocomplete :user, :username, :limit => 10
