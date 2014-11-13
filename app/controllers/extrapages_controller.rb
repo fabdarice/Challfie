@@ -22,4 +22,13 @@ class ExtrapagesController < ApplicationController
 		end
 		render layout: "mobile_layout"
 	end
+
+	def mobile_info
+		if browser.meta.include?("ios")
+			@is_iphone = true			
+		else
+			@is_iphone = false			
+		end		
+		render layout: "mobile_layout"
+	end
 end

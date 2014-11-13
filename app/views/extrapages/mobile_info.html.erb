@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="row">	  
+		<div class="mobile_title"><%= image_tag "/assets/challfie_letter_white.png", style: "width:215px;" %></div>		  
+	</div>
+	<div class="row" style="text-align: center; margin-bottom: 30px;">
+		<% if flash[:notice] %>
+          <div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div><br><br>
+       <% end %>
+       <% if flash[:error] %>
+          <div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div><br><br>
+       <% end %>
+
+		<% if @is_iphone %>
+			<%= link_to (image_tag "/assets/download_ios.png", style: "width: 170px;"), "#" %>
+		<% else %>
+			<%= link_to (image_tag "/assets/download_android.png", style: "width: 170px;"), "#" %>
+		<% end %>
+	</div>
+	
+</div>	
