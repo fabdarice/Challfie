@@ -10,7 +10,7 @@ module Api
       list_following_ids << current_user.id
     
       @selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"])
-      respond_with @selfies
+      respond_with @selfies, :include => [:user, :challenge]
     end
 
     def show
