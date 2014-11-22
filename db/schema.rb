@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141030000116) do
+ActiveRecord::Schema.define(version: 20141117085633) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20141030000116) do
 
   create_table "selfies", force: true do |t|
     t.integer  "user_id"
-    t.string   "message"
+    t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "photo_file_name"

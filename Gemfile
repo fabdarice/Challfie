@@ -84,6 +84,10 @@ gem "browser"
 # to use cron to set up daily selfie
 gem "whenever"
 
+# to customize how a model will be serialize (for Challfie API)
+gem 'active_model_serializers'
+
+
 
 group :development, :test do  
   # For Email testing in development mode

@@ -22,17 +22,19 @@ Challfie::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,   
     :s3_protocol => :https, 
+    :url => ":s3_domain_url",
+    :path => "/:class/:attachment/:id_partition/:style/:filename",
     :s3_credentials => {
       :bucket => ENV['CHALLFIE_AWS_BUCKET'],
       :access_key_id => ENV['CHALLFIE_AWS_ACCESS_KEY'],
       :secret_access_key => ENV['CHALLFIE_AWS_SECRET_KEY']
     }
-  } 
+  }
 
   Paperclip.options[:command_path] = "/usr/bin/"
   #Paperclip::Attachment.default_options[:s3_host_name] = 's3-us-west-2.amazonaws.com'
-  Paperclip::Attachment.default_options[:url] = ':s3_domain_url'
-  Paperclip::Attachment.default_options[:path] = '/:class/:attachment/:id_partition/:style/:filename'
+  #Paperclip::Attachment.default_options[:url] = ':s3_domain_url'
+  #Paperclip::Attachment.default_options[:path] = '/:class/:attachment/:id_partition/:style/:filename'
 
 
   # Disable Rails's static asset server (Apache or nginx will already do this).

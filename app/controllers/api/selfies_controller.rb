@@ -10,7 +10,9 @@ module Api
       list_following_ids << current_user.id
     
       @selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"])
-      respond_with @selfies, :include => [:user, :challenge]
+      #render :json=> {:success=>true, :selfies => @selfies, :user_photo => current_user.avatar.url}
+      render json: @selfies
+     
     end
 
     def show

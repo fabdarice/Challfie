@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     # in the database with the token given in the params, mitigating
     # timing attacks.
     if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
-      #sign_in user, store: false      
+      sign_in user, store: false      
       return true
     end
     render :json=> {:success=>false, :message=>"You need to be authenticate."}, :status=>421
@@ -91,19 +91,21 @@ class ApplicationController < ActionController::Base
   def initiate_first_book(username)
     user = resource || (User.find_by username: username)
 
-    first_level_book = Book.find_by level: 1
-    book_users = BookUser.new
-    book_users.user = user
-    book_users.book = first_level_book
-    book_users.save
-
-    # First 200 subscribers
-    if User.count < 200
-      challfie_special_book = Book.find_by level: 0
+    if user      
+      first_level_book = Book.find_by level: 1
       book_users = BookUser.new
       book_users.user = user
-      book_users.book = challfie_special_book
+      book_users.book = first_level_book
       book_users.save
+
+      # First 200 subscribers
+      if User.count < 200
+        challfie_special_book = Book.find_by level: 0
+        book_users = BookUser.new
+        book_users.user = user
+        book_users.book = challfie_special_book
+        book_users.save
+      end
     end
   end
 

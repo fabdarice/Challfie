@@ -7,14 +7,19 @@ module Api
 	  # POST /resource/password
 	   def create
 	     resource = User.find_by email: params[:email]
-	     resource = resource.send_reset_password_instructions
 
+	     if resource.blank?
+	     		render :json=> {:success=>false, :message => "Email address doesn't exist."}
+	     else 
 
-	     if resource
-	      render :json=> {:success=>true, :message => "Check your mailbox for reset password instructions."}
-	     else
-	      render :json=> {:success=>false, :message => "Couldn't send the reset password instructions. Try again later or do it through the website www.challfie.com."}
-	     end
+		     resource = resource.send_reset_password_instructions
+
+		     if resource
+		      render :json=> {:success=>true, :message => "Check your mailbox for reset password instructions."}
+		     else
+		      render :json=> {:success=>false, :message => "Couldn't send the reset password instructions. Try again later or do it through the website www.challfie.com."}
+		     end
+		  end  
 	   end
 	
 		protected
