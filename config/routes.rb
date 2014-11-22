@@ -9,6 +9,7 @@ Challfie::Application.routes.draw do
   post '/user/autocomplete_search_user' => 'users#autocomplete_search_user'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :passwords => "passwords", :confirmations => "confirmations", :registrations => "registrations" }
 
+  get '/users' => 'home#index'
 
   resources :users, :only => [:update, :show] do
     member do

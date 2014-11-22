@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController  
   after_action :only => :create do 
-    initiate_first_book("")
+    initiate_first_book(nil)
   end
 
   def update
