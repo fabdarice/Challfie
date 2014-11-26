@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
   def initiate_first_book(username)
     user = resource || (User.find_by username: username)
 
-    if not user.username.blank?        
+    if user and not user.username.blank?        
       first_level_book = Book.find_by level: 1
       book_users = BookUser.new
       book_users.user = user

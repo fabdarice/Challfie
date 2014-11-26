@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+	before_filter :authenticate_user!
 	before_filter :redirect_if_not_admin, :only => [:new, :create, :edit, :update, :destroy]
 
 	def new

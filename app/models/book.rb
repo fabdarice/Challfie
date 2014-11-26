@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-	#attr :name, :required_points, :cover
+	#attr :name, :required_points, :cover, :tier, :level, :thumb
 	has_many :challenges, dependent: :destroy
 	has_many :users, :through => :book_users
 	has_many :book_users, dependent: :destroy
