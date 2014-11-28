@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
 
   include Rails.application.routes.url_helpers
-  include ActiveController::Serialization
+  include ActionController::Serialization
 
   protect_from_forgery with: :null_session
   
