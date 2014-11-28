@@ -1,10 +1,14 @@
 class SelfieSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
-  attributes :id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment
+  attributes :id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote
+
+  delegate :current_user, to: :scope
+
 
   has_one :user
   has_one :challenge
+  #has_many :comments
 
   def creation_date
   	return time_ago_in_words(object.created_at)
@@ -27,8 +31,26 @@ class SelfieSerializer < ActiveModel::Serializer
   end
 
   def last_comment
-  	comment = object.comments.last
-  	
+  	last_comment = object.comments.last
+
+  	if last_comment 
+      puts last_comment.message.squish
+      
+  		{:message => last_comment.message.squish, :username => last_comment.user.username }  	
+  	else
+  		{}
+  	end
+  end
+
+  def status_vote
+    # api_current_user is defined in the application controller and represent the current user log in
+    if current_user.voted_up_on? object
+      return 1
+    end
+    if current_user.voted_down_on? object 
+      return 2
+    end
+    return 0
   end
 
 end

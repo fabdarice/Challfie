@@ -39,6 +39,7 @@ class Selfie < ActiveRecord::Base
 			if upvotes >= 5
 				vote_ratio = upvotes.to_f / (upvotes + downvotes)				
 				if vote_ratio >= 0.75
+					# Selfie Status = Approved
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
 
@@ -49,6 +50,7 @@ class Selfie < ActiveRecord::Base
 															 self.user , self, nil)	
 					end	
 				else
+					# Selfie Status = Unapproved
 					if self.approval_status != 2
 						tmp_approval_status = self.approval_status
 						self.update_column(:approval_status, 2)						

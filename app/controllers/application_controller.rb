@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  # to allow access to current_user on active model serializers
+  serialization_scope :view_context
+
+
   protected
 
   def check_browser 
@@ -108,5 +112,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 
 end
