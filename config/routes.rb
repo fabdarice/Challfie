@@ -73,7 +73,7 @@ Challfie::Application.routes.draw do
     end
 
     
-    get '/selfies/:login/:auth_token' => 'selfies#timeline', as: :selfies_timeline
+    post '/selfies' => 'selfies#timeline', as: :selfies_timeline
     
   end
 

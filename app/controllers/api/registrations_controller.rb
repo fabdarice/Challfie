@@ -58,7 +58,7 @@ module Api
     protected
 
     def invalid_login_attempt
-      render :json=> {:success=>false, :message=>"Error with your login or password"}, :status=>401
+      render :json=> {:success=>false, :message=> I18n.translate('sign_in.error_login_or_password')}, :status=>401
     end
   end
 end

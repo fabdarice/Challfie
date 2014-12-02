@@ -37,11 +37,11 @@ module Api
     protected
     def ensure_params_exist
       return unless params[:login].blank?
-      render :json=>{:success=>false, :message=>"Missing username parameter"}, :status=>401
+      render :json=>{:success=>false, :message=> I18n.translate('sign_in.missing_username')}, :status=>401
     end
 
     def invalid_login_attempt
-      render :json=> {:success=>false, :message=>"Error with your login or password"}, :status=>401
+      render :json=> {:success=>false, :message=> I18n.translate('sign_in.error_login_or_password')}, :status=>401
     end
   end
 end

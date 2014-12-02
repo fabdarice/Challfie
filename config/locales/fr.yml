@@ -46,6 +46,16 @@ fr:
     step_competitive: "Compétitif"
     step_competitive_title: "Rivalise avec tes amis"
     step_competitive_text_html: "Gagne des points et rivalise avec tes amis pour le titre de Challfie King."
+    missing_username: "Champ Identifiant manquant"
+    error_login_or_password: "Identifiant ou mot de passe incorrect"
+
+
+  password:
+    email_doesnt_exist: "L'addresse Email n'existe pas."
+    missing_email: "Champ Email manquant"
+    send_email_instructions: "Consulter votre boite email pour réinitialiser votre mot de passe."
+    send_email_error: "Erreur lors de la tentative de réinitialisation de votre mot de passe. Réessayer ultérieurement ou via le siteweb www.challfie.com."
+
   flash:  
     sign_in_alert: "Vous devez vous authentifié avant de pouvoir continuer."  
   activerecord:

@@ -9,15 +9,15 @@ module Api
 	     resource = User.find_by email: params[:email]
 
 	     if resource.blank?
-	     		render :json=> {:success=>false, :message => "Email address doesn't exist."}
+	     		render :json=> {:success=>false, :message => I18n.translate('password.email_doesnt_exist')}
 	     else 
 
 		     resource = resource.send_reset_password_instructions
 
 		     if resource
-		      render :json=> {:success=>true, :message => "Check your mailbox for reset password instructions."}
+		      render :json=> {:success=>true, :message => I18n.translate('password.send_email_instructions')}
 		     else
-		      render :json=> {:success=>false, :message => "Couldn't send the reset password instructions. Try again later or do it through the website www.challfie.com."}
+		      render :json=> {:success=>false, :message => I18n.translate('password.send_email_error')}
 		     end
 		  end  
 	   end
@@ -25,7 +25,7 @@ module Api
 		protected
 			def ensure_email_exist
 				return unless params[:email].blank?
-	      	render :json=>{:success=>false, :message=>"Missing email parameter"}, :status=>401
+	      	render :json=>{:success=>false, :message=> I18n.translate('password.missing_email')}, :status=>401
 			end
 
 	end

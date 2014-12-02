@@ -46,6 +46,15 @@ en:
     step_competitive: "Competitive"
     step_competitive_title: "Compete with your friends"
     step_competitive_text_html: "Earn points for each Challfie approved and compete among your friends upon the title of Challfie King"
+    missing_username: "Missing username parameter"
+    error_login_or_password: "Error with your login or password"
+
+  password:
+    email_doesnt_exist: "Email address doesn't exist."
+    missing_email: "Missing email parameter"
+    send_email_instructions: "Check your mailbox for reset password instructions."
+    send_email_error: "Couldn't send the reset password instructions. Try again later or do it through the website www.challfie.com."
+
   flash:  
     sign_in_alert: "You need to sign in or sign up before continuing."
   activerecord:
