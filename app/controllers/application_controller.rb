@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_user_language
   before_action :check_browser
-  
 
   layout :layout_by_resource
 
@@ -42,6 +41,7 @@ class ApplicationController < ActionController::Base
 
   
   def authenticate_user_from_token!
+    request.env["devise.skip_trackable"] = true        
     login = params[:login].presence
     user       = login && (User.find_by_email(login) || User.find_by_username(login))
     # Notice how we use Devise.secure_compare to compare the token
@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
       sign_in user, store: false      
       return true
     end
+    
     render :json=> {:success=>false, :message=>"You need to be authenticate."}, :status=>421
   end
 

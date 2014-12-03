@@ -74,6 +74,9 @@ Challfie::Application.routes.draw do
 
     
     post '/selfies' => 'selfies#timeline', as: :selfies_timeline
+    post '/selfies/refresh' => 'selfies#refresh', as: :selfies_refresh
+    post '/selfie/approve' => 'selfies#approve', as: :selfie_approve
+    post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
     
   end
 
