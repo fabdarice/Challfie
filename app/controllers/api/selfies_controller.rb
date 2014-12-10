@@ -13,6 +13,7 @@ module Api
       #render :json=> {:success=>true, :selfies => @selfies, :user_photo => current_user.avatar.url}
       render json: @selfies
     end
+    
 
     def refresh
       users_following = current_user.following(1)
@@ -33,9 +34,8 @@ module Api
         selfie.user.add_notifications("#{user_link} has approved your #{selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{selfie.challenge.description_en}</i></strong>.", 
                             "#{user_link} a approuvé ton #{selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{selfie.challenge.description_fr}</i></strong>.",
                             current_user , selfie, nil)
-      end
-      
-      render :json=> {:success=>true, :approval_status=>selfie.approval_status}
+      end      
+      render :json=> {:success=>true, :approval_status=>selfie.approval_status, :selfie_id => selfie.id}
     end
 
     def reject
@@ -50,26 +50,13 @@ module Api
                             "#{user_link} a rejeté ton #{selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{selfie.challenge.description_fr}</i></strong>.",
                             current_user , selfie, nil)
       end
-      render :json=> {:success=>true, :approval_status=>selfie.approval_status}
+      render :json=> {:success=>true, :approval_status=>selfie.approval_status, :selfie_id => selfie.id}
     end
 
-    def show
-      respond_with Selfie.find(params[:id])
+    def list_comments
+      selfie = Selfie.find(params[:id])
+      render json: selfie.comments
     end
-
-    def create
-      # respond_with User.create(access_token: params[:access_token], city: params[:city], created_at: Time.now, phone: params[:phone], region: params[:region], updated_at: Time.now)
-      @selfie = Selfie.create(name: params[:message])      
-      respond_to do |format|
-        if @selfie.save
-          format.json {render json: @selfie}
-        else
-          format.json {render json: {:error_message => @selfie.error, :status => 402}}
-        end
-      end
-    end
-
-
 
   end    
 end

@@ -77,6 +77,7 @@ Challfie::Application.routes.draw do
     post '/selfies/refresh' => 'selfies#refresh', as: :selfies_refresh
     post '/selfie/approve' => 'selfies#approve', as: :selfie_approve
     post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
+    post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
     
   end
 

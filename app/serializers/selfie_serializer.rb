@@ -1,14 +1,13 @@
 class SelfieSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
-  attributes :id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote
+  attributes :id, :message, :photo, :shared_fb, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote
 
   delegate :current_user, to: :scope
 
 
   has_one :user
   has_one :challenge
-  #has_many :comments
 
   def creation_date
   	return time_ago_in_words(object.created_at)
@@ -33,9 +32,7 @@ class SelfieSerializer < ActiveModel::Serializer
   def last_comment
   	last_comment = object.comments.last
 
-  	if last_comment 
-      puts last_comment.message.squish
-      
+  	if last_comment             
   		{:message => last_comment.message.squish, :username => last_comment.user.username }  	
   	else
   		{}
