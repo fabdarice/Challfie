@@ -140,4 +140,6 @@ en:
 
   book:
     locked: "Unlock this book by completing selfie's challenges."
+    challenge_description: "Challenge Description"
+    difficulty: "Difficulty"
 

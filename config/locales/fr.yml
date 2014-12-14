@@ -139,7 +139,9 @@ fr:
     search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."    
 
   book:
-    locked: "Débloque ce livre en complétant des selfies challenge."  
+    locked: "Débloque ce livre en complétant des selfies challenge." 
+    challenge_description: "Description du Challenge"
+    difficulty: "Difficulté" 
 
   date:
     abbr_day_names:

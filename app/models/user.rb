@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
             if: :not_from_facebook?
 
   validates_presence_of :firstname, :lastname, :email, :username
-  validates_length_of :username, within: 2..20, if: :not_from_facebook?            
+  validates_length_of :username, within: 2..15, if: :not_from_facebook?            
 
   validates_format_of :username, with: /\A[a-zA-Z\d]+\z/, 
                       message: I18n.translate('sign_in.error_username_format'), 

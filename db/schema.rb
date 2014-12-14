@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117085633) do
+ActiveRecord::Schema.define(version: 20141213090042) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -112,11 +112,12 @@ ActiveRecord::Schema.define(version: 20141117085633) do
     t.integer  "user_id"
     t.integer  "author_id"
     t.integer  "selfie_id"
-    t.boolean  "read",       default: false
+    t.boolean  "read",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "book_id"
     t.string   "message_fr"
+    t.integer  "type_notification", default: 0
   end
 
   add_index "notifications", ["book_id"], name: "index_notifications_on_book_id", using: :btree

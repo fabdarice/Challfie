@@ -71,13 +71,14 @@ Challfie::Application.routes.draw do
       post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook
 
     end
-
     
     post '/selfies' => 'selfies#timeline', as: :selfies_timeline
     post '/selfies/refresh' => 'selfies#refresh', as: :selfies_refresh
     post '/selfie/approve' => 'selfies#approve', as: :selfie_approve
     post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
     post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
+
+    resources :comments, :only => [:create]
     
   end
 

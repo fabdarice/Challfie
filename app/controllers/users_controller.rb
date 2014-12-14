@@ -114,6 +114,7 @@ class UsersController < ApplicationController
 		end
 
 		@users = search.results		
+
 		list = @users.map {|u| Hash[id: u.id, label: u.username, name: u.username, imgsrc: u.show_profile_picture, slug: u.slug, mutualfriends: current_user.number_mutualfriends(u)]}
     	render json: list		
 	end
