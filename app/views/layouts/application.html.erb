@@ -34,15 +34,16 @@
 		            $.ajax({
 		            	 type: "post",		
 		                url: "/user/autocomplete_search_user",
+		                dataType:'json',
 		                data: {
 		                    user_input: request.term		                    
 		                },		                		                
 		                success: function(data) {	
-		                	if (data.length == 0) {				                		           
+		                	if (data.users.length == 0) {				                		           
 		                		$('.search-query').popover('show');
 		                	}
-		                	alert(JSON.stringify(data));
-	                  	response(data);		                  
+		                	//alert(JSON.stringify(data));
+	                  	response(data.users);		                  
 		                }						 
 		            });
 		        },
