@@ -40,7 +40,8 @@
 		                success: function(data) {	
 		                	if (data.length == 0) {				                		           
 		                		$('.search-query').popover('show');
-		                	}		                	
+		                	}
+		                	alert(JSON.stringify(data));
 	                  	response(data);		                  
 		                }						 
 		            });
