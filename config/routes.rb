@@ -57,11 +57,18 @@ Challfie::Application.routes.draw do
   resources :errors, :only => [:show]  
 
 
+  # API HTTP REQUEST FOR MOBILE APPS
   namespace :api, defaults:{format: 'json'} do
     
-    resources :users, :only => [:show, :index]
-    #devise_for :users, :controllers => { :sessions => "api/sessions", :registrations => "api/registrations"}
 
+    # UsersController
+    resources :users, :only => [:show, :index]
+    post '/following' => 'users#following', as: :following  
+    post '/followers' => 'users#followers', as: :followers
+    post '/friends_suggestions' => 'users#friends_suggestions', as: :friends_suggestions
+        
+
+    # Devise Controller
     devise_scope :user do
       post   '/users/sign_in'  => 'sessions#create',  as: :user_session
       delete '/users/sign_out' => 'sessions#destroy', as: :destroy_user_session
@@ -72,13 +79,21 @@ Challfie::Application.routes.draw do
 
     end
     
+    # SelfiesController
     post '/selfies' => 'selfies#timeline', as: :selfies_timeline
     post '/selfies/refresh' => 'selfies#refresh', as: :selfies_refresh
     post '/selfie/approve' => 'selfies#approve', as: :selfie_approve
     post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
     post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
 
+    # CommentsController
     resources :comments, :only => [:create]
+
+    # NotificationsController
+    post '/notifications' => 'notifications#index', as: :notifications
+    post '/notifications/refresh' => 'notifications#refresh', as: :notifications_refresh    
+    post '/notifications/all_read' => 'notifications#all_read', as: :notifications_all_read
+
     
   end
 

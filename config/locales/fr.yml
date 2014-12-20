@@ -77,9 +77,9 @@ fr:
 
   selfie:
     radio_public_text: "Tout le monde peut voir ce Selfie."
-    radio_private_text: "Uniquement tes fans peuvent voir ce Selfie."
+    radio_private_text: "Uniquement tes abonnés peuvent voir ce Selfie."
     public_text: "Public - Tout le monde a accès à ce Selfie."
-    private_text: "Private - Uniquement tes fans ont accès à ce Selfie."
+    private_text: "Private - Uniquement tes abonnés ont accès à ce Selfie."
     edit_selfie_message: "Modifier Message"
     edit_selfie_privacy: "Modifier Visibilité"
     delete_selfie: "Supprimer Selfie"
@@ -114,13 +114,14 @@ fr:
 
   friends:
     mutual_friends: "amis en commun"
-    followers: "Fans"
-    following: "Amis"
-    follow: "Ajouter Ami"
+    followers: "Abonnés"
+    following: "Abonnements"
+    is_following: "Abonné"
+    follow: "Suivre"
     waiting_approval: "Réponse en attente"
     unfollow: "Supprimer"
     cancel_request: "Annuler demande" 
-    pending_request: "Demande de fans"  
+    pending_request: "Demande d'Amis"  
     remove: "Suppr."
     accept_request_tooltip: "Acceptez la demande"
     decline_request_tooltip: "Déclinez la demande"

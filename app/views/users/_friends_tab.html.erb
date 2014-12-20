@@ -15,10 +15,11 @@
 					</span><br>
 					
 					<% if friendship == "followers" %>
-						<!-- FANS/FOLLOWERS -->
+						<!-- FOLLOWERS TAB -->
 						<% if not current_user.is_following?(friend) and not current_user.is_following_with_pending_request?(friend) %>
 							<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>	
 						<% end %>
+						<!-- Little X top right of the block to delete a followers -->
 						<%= link_to raw("<i class='fa fa-times-circle'></i>") ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "friends_btn_suppr friends_btn friends_btn_remove_#{friend.id}" %>
 					<% else %>
 						<% if friendship == "pending_request" %>
@@ -28,14 +29,15 @@
 							<%= link_to raw('<span class="glyphicon glyphicon-ban-circle"></span>') ,"javascript:void(0)", :"data-href" => block_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.block_request_tooltip'}", class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
 						<% else %>
 							<% if friendship == "friends_suggestions" %>
-								<!-- FRIENDS SUGGESTIONS -->
+								<!-- FRIENDS SUGGESTIONS TAB -->
 								<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>
 							<% else %>
+								<!-- FOLLOWING TAB -->
 								<% if user.following_status(friend) == 1 %>
-								<!-- IS A FRIENDS -->
-									<%= link_to raw("<i class='fa fa-check'></i> #{t 'friends.following'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} friends_btn_hover" %>
+									<!-- ALREADY FOLLOWING -->
+									<%= link_to raw("<i class='fa fa-check'></i> #{t 'friends.is_following'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} friends_btn_hover" %>
 								<% else %>
-								<!-- USER YOU ADD - PENDING REQUEST -->
+									<!-- USER YOU ADD - PENDING REQUEST -->
 									<%= link_to raw("<i class='fa fa-times'></i> #{t 'friends.waiting_approval'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} cancel_request_btn_hover" %>
 								<% end %>	
 							<% end %>	

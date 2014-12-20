@@ -72,12 +72,10 @@ class UsersController < ApplicationController
 		@user = User.friendly.find(params[:id])
 		@follow = Follow.find_by followable_id: current_user.id, follower_id: @user.id
 		@follow.status = 1
-		@follow.save
-		user_link = view_context.link_to current_user.username, user_path(current_user)
-		
-		@user.add_notifications("#{user_link} has accepted your <strong>following request</strong>.", 
-										"#{user_link} a accepté ta <strong>demande d'ami</strong>.",
-										current_user , nil, nil)
+		@follow.save			
+		@user.add_notifications(" has accepted your <strong>following request</strong>.", 
+										" a accepté ta <strong>demande d'ami</strong>.",
+										current_user , nil, nil, Notification.type_notifications[:friend_request])
 		@followers = current_user.followers(1)
 		@pending_request = current_user.followers(0)
 		respond_to do |format|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213090042) do
+ActiveRecord::Schema.define(version: 20141216071044) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20141213090042) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "difficulty"
-    t.string   "description_fr"
+    t.text     "description_fr"
   end
 
   create_table "comments", force: true do |t|
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20141213090042) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "book_id"
-    t.string   "message_fr"
+    t.text     "message_fr"
     t.integer  "type_notification", default: 0
   end
 

@@ -107,11 +107,10 @@ class SelfiesController < ApplicationController
 
 		@selfie.set_approval_status!("upvote")
 
-		if @selfie.user != current_user
-			user_link = view_context.link_to current_user.username, user_path(current_user)			
-			@selfie.user.add_notifications("#{user_link} has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
-													"#{user_link} a approuvé ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
-													current_user , @selfie, nil)
+		if @selfie.user != current_user			
+			@selfie.user.add_notifications(" has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
+													" a approuvé ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
+													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval])
 		end
 		
 		respond_to do |format|
@@ -127,10 +126,9 @@ class SelfiesController < ApplicationController
 		@selfie.set_approval_status!("downvote")
 
 		if @selfie.user != current_user
-			user_link = view_context.link_to current_user.username, user_path(current_user)			
-			@selfie.user.add_notifications("#{user_link} has rejected your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_en}</i></strong>.", 
-													"#{user_link} a rejeté ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} <strong><i>#{@selfie.challenge.description_fr}</i></strong>.",
-													current_user , @selfie, nil)
+			@selfie.user.add_notifications(" has rejected your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
+													" a rejeté ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
+													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval])
 		end
 
 		respond_to do |format|

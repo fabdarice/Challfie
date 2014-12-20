@@ -208,8 +208,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def add_notifications(message_en, message_fr, author, selfie, book)    
-    @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author, selfie: selfie, book: book)
+  def add_notifications(message_en, message_fr, author, selfie, book, type_notification) 
+    puts type_notification   
+    @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author,
+                                             selfie: selfie, book: book, type_notification: type_notification)
     @notification.save
   end
 
@@ -330,9 +332,9 @@ class User < ActiveRecord::Base
         book_users.user = self
         book_users.book = book_to_unlock
         book_users.save      
-        self.add_notifications("Congratulations! You have unlocked <strong><i>#{book_to_unlock.name}</i></strong>. ", 
-                              "Félicitations! Tu as débloqué <strong><i>#{book_to_unlock.name}</i></strong>. ",
-                              self, nil, book_to_unlock)      
+        self.add_notifications("Congratulations! You have unlocked \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
+                              "Félicitations! Tu as débloqué \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
+                              self, nil, book_to_unlock, Notification.type_notifications[:book_unlock])      
       end
     end  
   end

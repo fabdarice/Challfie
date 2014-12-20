@@ -114,13 +114,14 @@ en:
 
   friends:
     mutual_friends: "mutual friends"
-    followers: "Fans"
-    following: "Friends"
-    follow: "Add Friend"
+    followers: "Followers"
+    following: "Following"
+    is_following: "Following"
+    follow: "Follow"
     waiting_approval: "Waiting approval"
     unfollow: "Delete"
     cancel_request: "Cancel Request"
-    pending_request: "Fans Pending Request"
+    pending_request: "Pending Request"
     remove: "Delete"
     accept_request_tooltip: "Accept Request"
     decline_request_tooltip: "Decline Request"
