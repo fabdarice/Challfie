@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 	def unfollow
 		@user = User.friendly.find(params[:id])
 		current_user.stop_following(@user)
-		flash[:notice] = "You are now unfollowing #{@user.username}."
+		flash[:notice] = "You unfollowed #{@user.username}."
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }

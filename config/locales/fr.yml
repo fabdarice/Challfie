@@ -45,7 +45,7 @@ fr:
     step_community_text_html: "Partage tes Selfies avec tes amis sur Facebook et fais approuver tes Challenges."
     step_competitive: "Compétitif"
     step_competitive_title: "Rivalise avec tes amis"
-    step_competitive_text_html: "Gagne des points et rivalise avec tes amis pour le titre de Challfie King."
+    step_competitive_text_html: "Gagne des points, augmente de niveau et rivalise avec tes amis pour le titre de Challfie King."
     missing_username: "Champ Identifiant manquant"
     error_login_or_password: "Identifiant ou mot de passe incorrect"
 

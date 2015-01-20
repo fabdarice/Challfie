@@ -1,5 +1,5 @@
 class ChallengeSerializer < ActiveModel::Serializer
-  attributes :id, :description
+  attributes :id, :description, :difficulty
 
   def description
   		if I18n.locale == :fr

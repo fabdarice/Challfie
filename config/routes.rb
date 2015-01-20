@@ -58,22 +58,25 @@ Challfie::Application.routes.draw do
 
 
   # API HTTP REQUEST FOR MOBILE APPS
-  namespace :api, defaults:{format: 'json'} do
-    
-
-    # UsersController
-    resources :users, :only => [:show, :index]
+  namespace :api, defaults:{format: 'json'} do    
+    # UsersController  - For Friends Purpose 
     post '/following' => 'users#following', as: :following  
     post '/followers' => 'users#followers', as: :followers
-    post '/friends_suggestions' => 'users#friends_suggestions', as: :friends_suggestions
-        
-
+    post '/suggestions_and_request' => 'users#suggestions_and_request', as: :suggestions_and_request
+    post '/following/unfollow' => 'users#unfollow', as: :unfollow
+    post '/followers/remove_follower' => 'users#remove_follower', as: :remove_follower
+    post '/follow' => 'users#follow', as: :follow
+    post '/accept_request' => 'users#accept_request', as: :accept_request
+    post '/user' => 'users#show', as: :user
+    post '/current_user' => 'users#show_current_user', as: :user_current_user
+    post '/user/selfies' => 'users#list_selfies', as: :user_selfies
+    post '/user/autocomplete_search_user' => 'users#autocomplete_search_user', as: :autocomplete_search_user
+            
     # Devise Controller
     devise_scope :user do
       post   '/users/sign_in'  => 'sessions#create',  as: :user_session
       delete '/users/sign_out' => 'sessions#destroy', as: :destroy_user_session
       post   '/users'  => 'registrations#create',  as: :user_registration
-
       post  '/users/password'  => 'passwords#create', as: :user_password      
       post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook
 
@@ -85,7 +88,8 @@ Challfie::Application.routes.draw do
     post '/selfie/approve' => 'selfies#approve', as: :selfie_approve
     post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
     post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
-
+    post '/selfie' => 'selfies#show', as: :selfie
+    
     # CommentsController
     resources :comments, :only => [:create]
 
@@ -94,7 +98,11 @@ Challfie::Application.routes.draw do
     post '/notifications/refresh' => 'notifications#refresh', as: :notifications_refresh    
     post '/notifications/all_read' => 'notifications#all_read', as: :notifications_all_read
 
-    
+    # BooksControlller
+    post '/books' => 'books#index', as: :books
+    post '/book/level_progression' => 'books#level_progression', as: :book_level_progression
+
+
   end
 
 end

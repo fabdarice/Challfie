@@ -1,5 +1,7 @@
 class Challenge < ActiveRecord::Base
-	#attr :description_en, :point, :description_fr, :book_id
+	#attr :description_en, :point, :description_fr, :book_id, :difficulty
+  default_scope { order("difficulty") }
+
 
 	has_many :categories, :through => :category_challenges
   has_many :category_challenges, dependent: :destroy

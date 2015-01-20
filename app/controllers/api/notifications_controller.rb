@@ -19,6 +19,7 @@ module Api
 
 	   def all_read
 	   	current_user.notifications.where(read: false).update_all(read: true)
+      render json: {}
 	   end
 
     end

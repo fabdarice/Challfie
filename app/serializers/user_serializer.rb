@@ -1,5 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture
+  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending
+
+  delegate :current_user, to: :scope
 
   def book_tier
   	return object.current_book.tier
@@ -31,6 +33,24 @@ class UserSerializer < ActiveModel::Serializer
 	        return false
 	      end
 	   end
+  end
+
+  def is_following
+    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false', current_user.id, object.id)
+    if @follow.count == 0 
+      return false
+    else
+      return true
+    end
+  end
+
+  def is_pending
+    @follow =  Follow.where('status = 0 and follower_id = ? and followable_id = ? and blocked = false', current_user.id, object.id)
+    if @follow.count == 0 
+      return false
+    else
+      return true
+    end
   end
   
 end

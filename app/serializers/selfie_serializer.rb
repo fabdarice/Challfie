@@ -33,7 +33,7 @@ class SelfieSerializer < ActiveModel::Serializer
   	last_comment = object.comments.last
 
   	if last_comment             
-  		{:message => last_comment.message.squish, :username => last_comment.user.username }  	
+  		{:message => last_comment.message.squish, :username => last_comment.user.username, :user_id => last_comment.user.id }  	
   	else
   		{}
   	end
