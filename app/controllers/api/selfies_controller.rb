@@ -72,5 +72,45 @@ module Api
       render json: selfie
     end    
 
+    def create
+      @selfie = Selfie.new
+      @selfie.message = params[:message]
+      @selfie.private = params[:is_private]
+      @selfie.shared_fb = params[:is_shared_fb]
+      challenge = Challenge.find(params[:challenge_id])
+      @selfie.challenge = challenge
+      
+      #@selfie.photo_content_type = "image/png"        
+      @selfie.photo = "data:image/jpeg;base64," + params[:image_base64String]
+      @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.png"      
+
+      @selfie.user = current_user
+      
+      daily_challenge = DailyChallenge.last   
+      if @selfie.challenge == daily_challenge.challenge     
+        @selfie.is_daily = true   
+      end
+
+      if @selfie.save
+        # Share the selfie on Facebook
+        #if params[:mysharefacebook] == "1"
+         # @graph = Koala::Facebook::API.new(current_user.oauth_token)
+         # #puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
+         # share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
+         # @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+        #end 
+
+        render :json=> {:success=>true}        
+      else
+        render :json=> {:success=>false}        
+      end
+    end
+
+
+    private
+      def selfie_params
+        params.require(:selfie).permit(:message, :photo, :challenge_id, :private, :shared_fb)
+      end
+
   end    
 end

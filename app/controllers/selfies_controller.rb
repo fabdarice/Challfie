@@ -10,7 +10,7 @@ class SelfiesController < ApplicationController
 		@selfie = Selfie.new(selfie_params)
 				
 		# Selfie has been taken with laptop/desktop Webcam		
-		if (!params[:mywebcamdata].blank? and params[:myinputtype] == "webcam")			
+		if (!params[:mywebcamdata].blank? and params[:myinputtype] == "webcam")						
 			@selfie.photo = params[:mywebcamdata]
 			@selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_webcamupload.jpg"
 		end
@@ -81,8 +81,11 @@ class SelfiesController < ApplicationController
 
 	def destroy
 	   selfie = Selfie.find(params[:id])
-	   challenge_value = selfie.challenge.point
-		challenge_value = challenge_value * 1.25 if selfie.is_daily 
+	   challenge_value = 0
+	   if selfie.approval_status == 1 
+	   	challenge_value = selfie.challenge.point
+			challenge_value = challenge_value * 1.25 if selfie.is_daily 
+		end
 		session[:return_to] ||= request.referer
 
 		user = selfie.user

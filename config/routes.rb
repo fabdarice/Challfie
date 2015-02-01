@@ -71,6 +71,7 @@ Challfie::Application.routes.draw do
     post '/current_user' => 'users#show_current_user', as: :user_current_user
     post '/user/selfies' => 'users#list_selfies', as: :user_selfies
     post '/user/autocomplete_search_user' => 'users#autocomplete_search_user', as: :autocomplete_search_user
+    post '/user/update' => 'users#update', as: :user_update
             
     # Devise Controller
     devise_scope :user do
@@ -79,6 +80,7 @@ Challfie::Application.routes.draw do
       post   '/users'  => 'registrations#create',  as: :user_registration
       post  '/users/password'  => 'passwords#create', as: :user_password      
       post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook
+
 
     end
     
@@ -89,6 +91,7 @@ Challfie::Application.routes.draw do
     post '/selfie/reject' => 'selfies#reject', as: :selfie_reject
     post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
     post '/selfie' => 'selfies#show', as: :selfie
+    post '/selfie/create' => 'selfies#create', as: :selfie_create
     
     # CommentsController
     resources :comments, :only => [:create]
@@ -102,6 +105,8 @@ Challfie::Application.routes.draw do
     post '/books' => 'books#index', as: :books
     post '/book/level_progression' => 'books#level_progression', as: :book_level_progression
 
+    # ChallengesController
+    post '/challenges' => 'challenges#index', as: :challenges
 
   end
 

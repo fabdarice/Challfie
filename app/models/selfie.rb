@@ -3,16 +3,17 @@ class Selfie < ActiveRecord::Base
 
 	self.per_page = 4
 
-	has_attached_file :photo, :styles => {  }, :default_url => "/assets/missing.jpg"
-
 	has_attached_file :photo, 
                     :styles => {:mobile => "", :thumb => "100x100>"}, 
                     :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension } },
                     :default_url => "/assets/missing.jpg"
   
-  	validates_attachment :photo, :presence => true,
-						  :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
-						  :size => { :in => 0..5.megabytes }
+	validates :photo, :attachment_presence => true
+	validates_with AttachmentPresenceValidator, :attributes => :photo
+	#validates_with AttachmentSizeValidator, :attributes => :photo, :less_than => 10.megabytes ==> This Make iOS image upload bug 
+	validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+   #validates_attachment_file_name :photo, :matches => [/png\Z/, /jpe?g\Z/] # ==> This Make iOS image upload bug 
+   #do_not_validate_attachment_file_type :photo
 
 	belongs_to :user
 	belongs_to :challenge

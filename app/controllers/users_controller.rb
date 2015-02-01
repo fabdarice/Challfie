@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 		@user = User.friendly.find(params[:id])		
 		if (!params[:mywebcamdata].blank? and params[:myinputtype] == "webcam")
 			@user.avatar = params[:mywebcamdata]
-			@user.avatar_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_user_webcamupload.jpg"
+			@user.avatar_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_userprofile_webcamupload.jpg"
 		else
 			@user.update_attributes(users_params)
 		end
