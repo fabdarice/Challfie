@@ -81,19 +81,11 @@ class SelfiesController < ApplicationController
 
 	def destroy
 	   selfie = Selfie.find(params[:id])
-	   challenge_value = 0
-	   if selfie.approval_status == 1 
-	   	challenge_value = selfie.challenge.point
-			challenge_value = challenge_value * 1.25 if selfie.is_daily 
-		end
 		session[:return_to] ||= request.referer
 
 		user = selfie.user
 		if (selfie.destroy)
 			flash[:notice] = 'Book deleted.'
-
-			# Remove points
-			user.update_column(:points, user.points - challenge_value)
 
 			#Delete Notifications related to that selfie
 			notifications_to_delete = Notification.where(selfie_id: params[:id])

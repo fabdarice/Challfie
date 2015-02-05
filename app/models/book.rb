@@ -12,7 +12,7 @@ class Book < ActiveRecord::Base
 
 	has_attached_file :thumb, :default_url => "/assets/missing.jpg"
   
-  	validates_attachment :thumb,
+  validates_attachment :thumb,
 						  :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
 						  :size => { :in => 0..5.megabytes }					  
 
@@ -37,7 +37,7 @@ class Book < ActiveRecord::Base
       else
         "Master <br>Tier"
       end          
-    when 99
+    when 100
       if I18n.locale == :fr
         "Niveau Challfie Spécial"
       else

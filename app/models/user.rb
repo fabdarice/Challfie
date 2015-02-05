@@ -76,8 +76,8 @@ class User < ActiveRecord::Base
     # to replace his actual email with @facebook.com email to fix the problem of having a doublon
     email_splitter = auth[:info][:email].split("@")
     user_facebook_email = email_splitter[0] + "@facebook.com"
-
-    facebook_user = where(auth.slice(:provider, :uid)).first_or_initialize do |user|    
+    
+    facebook_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|    
       user.provider = auth[:provider]
       user.uid = auth[:uid]      
       user.email = user_facebook_email
@@ -325,7 +325,7 @@ class User < ActiveRecord::Base
 
   # Check if user has enough point to unlock a new book 
   def unlock_book!
-    next_books = Book.where("level > ? ", self.current_book.level)
+    next_books = Book.where("level > ? and tier != 100", self.current_book.level)
     next_books.each do |book_to_unlock|          
       if book_to_unlock.required_points <= self.points
         book_users = BookUser.new
@@ -341,12 +341,12 @@ class User < ActiveRecord::Base
 
   # Return last book unlocked
   def current_book
-    book = self.books.order("level DESC").first    
+    book = self.books.where('tier != 100').order("level DESC").first    
     return book
   end
 
   def next_book
-    book = self.books.order("level DESC").first
+    book = self.books.where('tier != 100').order("level DESC").first
     book = Book.find_by level: (book.level + 1)
     return book
   end
@@ -354,6 +354,11 @@ class User < ActiveRecord::Base
   def next_book_progression
     curbook = self.current_book
     nextbook = self.next_book
+
+    if nextbook == nil
+      return nil
+    end
+
     book_diff = nextbook.required_points - curbook.required_points
     user_diff = self.points - curbook.required_points
     progression_percentage = (100 * user_diff) / book_diff

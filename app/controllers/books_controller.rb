@@ -7,15 +7,12 @@ class BooksController < ApplicationController
 	end
 
 	def show
-		@book = Book.find(params[:id])
-		if @book.level > current_user.current_book.level
-			render 'selfies/restricted'
-		else
-		
+		@book = current_user.books.find(params[:id])
+		if @book
 			@challenges = @book.challenges.order('difficulty ASC')
-
-			# Test if Book unlock first
-			render :layout => false
+			render :layout => false			
+		else
+			render 'selfies/restricted'			
 		end
 	end
 

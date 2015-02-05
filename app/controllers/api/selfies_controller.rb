@@ -79,8 +79,7 @@ module Api
       @selfie.shared_fb = params[:is_shared_fb]
       challenge = Challenge.find(params[:challenge_id])
       @selfie.challenge = challenge
-      
-      #@selfie.photo_content_type = "image/png"        
+            
       @selfie.photo = "data:image/jpeg;base64," + params[:image_base64String]
       @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.png"      
 

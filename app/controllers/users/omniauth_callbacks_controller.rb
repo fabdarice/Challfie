@@ -49,7 +49,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           book_users.save
 
           # First 200 subscribers
-          if User.count < 200
+          if User.count <= 2000
             challfie_special_book = Book.find_by level: 0
             book_users = BookUser.new
             book_users.user = @user

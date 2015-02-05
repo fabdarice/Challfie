@@ -1,5 +1,5 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :name, :cover, :is_unlocked
+  attributes :id, :name, :cover, :is_unlocked, :tier
 
   delegate :current_user, to: :scope
 
