@@ -79,9 +79,7 @@ Challfie::Application.routes.draw do
       delete '/users/sign_out' => 'sessions#destroy', as: :destroy_user_session
       post   '/users'  => 'registrations#create',  as: :user_registration
       post  '/users/password'  => 'passwords#create', as: :user_password      
-      post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook
-
-
+      post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook      
     end
     
     # SelfiesController

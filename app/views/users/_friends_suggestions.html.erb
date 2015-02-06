@@ -62,7 +62,7 @@
 
 	<!-- FRIENDS SUGGESTIONS BLOCK -->
 	<div class="right_content_friends_suggestion">
-		<% if current_user.oauth_token.blank? and (!current_user.uid.blank? or (current_user.facebook_info and !current_user.facebook_info.facebook_uid.blank?)) %>
+		<% if current_user.oauth_token.blank? and !current_user.uid.blank? %>
 			<%= link_to "Refresh Token", facebook_url , class: 'facebook_refresh_token hide', :"data-width" => 600, :"data-height" => 400 %>
 		<% end %>
 		<span class="block_title"><%= t 'right_content.friends_suggestions_title' %></span> <span style="font-size:11px; float:right"> <%= link_to "#{ t 'right_content.show_all_suggestions' }", user_friends_path(:anchor => "friends_suggestions") %></span><br>
@@ -89,7 +89,7 @@
 
 				</ul>
 				<div style="clear:both;"></div>
-				<% if current_user.oauth_token.blank? or (current_user.uid.blank? and (current_user.facebook_info and current_user.facebook_info.facebook_uid.blank?)) %>
+				<% if current_user.oauth_token.blank? or current_user.uid.blank? %>
 					
 					<div style="text-align:center; font-size: 12px;">
 						

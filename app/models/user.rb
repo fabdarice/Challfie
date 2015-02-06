@@ -74,10 +74,100 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth, from_mobileapp)        
 
     # to replace his actual email with @facebook.com email to fix the problem of having a doublon
+    user = self.where(email: auth[:info][:email]).first || self.where(provider: auth[:provider], uid: auth[:uid]).first
+
+    if user == nil
+      user = User.new
+      user.provider = auth[:provider]
+      user.uid = auth[:uid]      
+      user.email = auth[:info][:email]
+      user.password = Devise.friendly_token[0,20]
+      user.username = "fb" + auth[:uid]   # assuming the user model has a name
+      user.firstname = auth[:info][:first_name]
+      user.lastname = auth[:info][:last_name]
+      user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
+      user.oauth_token = auth[:credentials][:token]
+      user.oauth_expires_at = auth[:credentials][:expires_at]
+      user.from_facebook = true
+      user.from_mobileapp = from_mobileapp      
+      user.skip_confirmation!  
+    else  
+      user.update_attributes(uid: auth[:uid],
+                            provider: auth[:provider],
+                            oauth_token: auth[:credentials][:token],
+                            oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
+                            facebook_picture: auth[:info][:image].gsub!("http", "https")) 
+    end
+
+    if user.save                                   
+
+      facebook_info = FacebookInfo.find_by(user_id: user.id)            
+      if facebook_info == nil
+        facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
+                                       facebook_firstname: auth[:info][:first_name],
+                                       facebook_locale: auth[:extra][:raw_info][:locale])
+        facebook_info.user = user
+      else
+        facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
+                                       facebook_firstname: auth[:info][:first_name],
+                                       facebook_locale: auth[:extra][:raw_info][:locale])
+      end      
+      facebook_info.save
+
+      # IF FIRST TIME REGISTRATION FROM FACEBOOK 
+      if BookUser.where(user_id: user.id).count == 0
+        first_level_book = Book.find_by level: 1
+        book_users = BookUser.new
+        book_users.user = user
+        book_users.book = first_level_book
+        if !book_users.save 
+          return nil
+        end
+
+        # First 200 subscribers
+        if User.count <= 2000
+          challfie_special_book = Book.find_by level: 100
+          book_users = BookUser.new
+          book_users.user = user
+          book_users.book = challfie_special_book
+          if !book_users.save 
+            return nil
+          end
+        end          
+      end
+
+      return user
+    else  
+      return nil
+    end
+  end
+
+  def self.old_find_for_facebook_oauth(auth, from_mobileapp)        
+
+    # to replace his actual email with @facebook.com email to fix the problem of having a doublon
     email_splitter = auth[:info][:email].split("@")
     user_facebook_email = email_splitter[0] + "@facebook.com"
-    
-    facebook_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|    
+
+    user = self.where(email: auth[:info][:email]) || self.where(provider: auth[:provider], uid: auth[:uid])
+
+    if user == nil
+      user = User.new
+      user.provider = auth[:provider]
+      user.uid = auth[:uid]      
+      user.email = user_facebook_email
+      user.password = Devise.friendly_token[0,20]
+      user.username = auth[:info][:name]   # assuming the user model has a name
+      user.firstname = auth[:info][:first_name]
+      user.lastname = auth[:info][:last_name]
+      user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
+      user.oauth_token = auth[:credentials][:token]
+      user.oauth_expires_at = auth[:credentials][:expires_at]
+      user.from_facebook = true
+      user.from_mobileapp = from_mobileapp      
+      user.skip_confirmation!  
+    end
+
+    facebook_user = where(provider: auth[:provider], uid: auth[:uid]).first_or_initialize do |user|    
       user.provider = auth[:provider]
       user.uid = auth[:uid]      
       user.email = user_facebook_email
@@ -92,7 +182,6 @@ class User < ActiveRecord::Base
       user.from_mobileapp = from_mobileapp      
       user.skip_confirmation!             
     end
-        
 
     facebook_user.update_attributes(email: user_facebook_email, 
                                     username: auth[:info][:name], 
@@ -231,19 +320,14 @@ class User < ActiveRecord::Base
   def friends_suggestions 
     @friends_suggestion = []    
     # Add Mutual friends from Facebook
-    if (!self.uid.blank? or (self.facebook_info and !self.facebook_info.facebook_uid.blank?)) and !self.oauth_token.blank?                  
+    if !self.uid.blank? and !self.oauth_token.blank?                  
       begin                
         @graph = Koala::Facebook::API.new(self.oauth_token)                   
         facebook_friends = @graph.get_connections("me", "friends")  
         facebook_friends.each do |fb_friend|
-          facebook_info = FacebookInfo.where(facebook_uid: fb_friend['id']).first
           fb_friends_sug = User.find_by uid: fb_friend['id']
           # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
           @friends_suggestion << fb_friends_sug if not fb_friends_sug.blank? and not self.following?(fb_friends_sug)
-          if facebook_info and (facebook_info.user != fb_friends_sug)
-            # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
-            @friends_suggestion << facebook_info.user if not self.following?(facebook_info.user)
-          end
         end
       rescue Koala::Facebook::APIError
         logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"

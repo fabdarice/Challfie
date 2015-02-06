@@ -29,8 +29,7 @@ module Api
       end
     end
 
-    def create_from_facebook
-      # You need to implement the method below in your model (e.g. app/models/user.rb)
+    def create_from_facebook      
       auth = {
                 :provider => "facebook",
                 :uid => params[:uid],
@@ -40,18 +39,29 @@ module Api
                   :first_name => params[:firstname],
                   :last_name => params[:lastname],
                   :image => params[:profilepic]
-                } 
+                }, 
+                :credentials => {
+                  :token => params[:fbtoken],
+                  :expires_at => params[:fbtoken_expires_at]
+                },
+                :extra => {
+                  :raw_info => {
+                    :locale => params[:fb_locale]
+                  }
+                }
               }
 
       resource = User.find_for_facebook_oauth(auth, true)
-      if resource.persisted?
-        sign_in(:user, resource)
+      
+      if resource
+        if !user_signed_in?                  
+          sign_in(:user, resource)
+        end        
         render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login}
       else
         warden.custom_failure!
         render :json => {:success => false, :message => resource.errors}
       end
-
     end
 
 

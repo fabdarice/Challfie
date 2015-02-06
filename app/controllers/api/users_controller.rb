@@ -70,7 +70,7 @@ module Api
 
     # Get list of friends requests and suggestions
     def suggestions_and_request
-      if current_user.oauth_token.blank? or (current_user.uid.blank? and (current_user.facebook_info and current_user.facebook_info.facebook_uid.blank?))
+      if current_user.oauth_token.blank? or current_user.uid.blank?
         is_facebook_link = false
       else
         is_facebook_link = true

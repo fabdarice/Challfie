@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216071044) do
+ActiveRecord::Schema.define(version: 20150206195053) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -84,10 +84,8 @@ ActiveRecord::Schema.define(version: 20141216071044) do
 
   create_table "facebook_infos", force: true do |t|
     t.integer  "user_id"
-    t.string   "facebook_uid"
     t.string   "facebook_lastname"
     t.string   "facebook_firstname"
-    t.string   "facebook_email"
     t.string   "facebook_locale"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -159,7 +157,6 @@ ActiveRecord::Schema.define(version: 20141216071044) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "from_facebook",          default: false
-    t.string   "location"
     t.boolean  "from_mobileapp",         default: false
     t.string   "firstname"
     t.string   "lastname"
