@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
 
   
   def authenticate_user_from_token!
+    puts "LOGIN" + params[:login]
     request.env["devise.skip_trackable"] = true        
     login = params[:login].presence
     user       = login && (User.find_by_email(login) || User.find_by_username(login))

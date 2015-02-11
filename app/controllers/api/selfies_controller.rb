@@ -73,6 +73,7 @@ module Api
     end    
 
     def create
+      puts "ENTER CREATE SELFIE"
       @selfie = Selfie.new
       @selfie.message = params[:message]
       @selfie.private = params[:is_private]

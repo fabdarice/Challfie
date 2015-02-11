@@ -17,9 +17,9 @@ module Api
       current_user.avatar_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_userprofile_mobileupload.jpg"
           
       if current_user.save
-        render :json=> {:success=>true}
+        render json: current_user
       else
-        render :json=> {:success=>false}
+        render json: nil
       end
     end
 
@@ -137,6 +137,52 @@ module Api
 
       @users = search.results   
       render json: @users, each_serializer: FriendsSerializer, scope: current_user              
+    end
+
+
+    def facebook_link
+      auth = {
+                :provider => "facebook",
+                :uid => params[:uid],
+                :info => {                                    
+                  :first_name => params[:firstname],
+                  :last_name => params[:lastname],
+                }, 
+                :credentials => {
+                  :token => params[:fbtoken],
+                  :expires_at => params[:fbtoken_expires_at]
+                },
+                :extra => {
+                  :raw_info => {
+                    :locale => params[:fb_locale]
+                  }
+                }
+              }
+
+      current_user.update_attributes(provider: auth[:provider],
+                                    uid: auth[:uid],                                                                             
+                                    oauth_token: auth[:credentials][:token],
+                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]))
+      
+      facebook_info = FacebookInfo.find_by(user_id: current_user.id)
+          
+      if facebook_info == nil
+        facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
+                                        facebook_firstname: auth[:info][:first_name],
+                                        facebook_locale: auth[:extra][:raw_info][:locale])
+        facebook_info.user = current_user
+      else
+        facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
+                                       facebook_firstname: auth[:info][:first_name],
+                                       facebook_locale: auth[:extra][:raw_info][:locale])
+      end
+      
+      if !current_user.save or !facebook_info.save
+        render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
+      else
+        render :json => {:success => true}
+      end        
+      
     end
     
   end  

@@ -72,6 +72,7 @@ Challfie::Application.routes.draw do
     post '/user/selfies' => 'users#list_selfies', as: :user_selfies
     post '/user/autocomplete_search_user' => 'users#autocomplete_search_user', as: :autocomplete_search_user
     post '/user/update' => 'users#update', as: :user_update
+    post '/user/facebook_link' => 'users#facebook_link', as: :user_facebook_link
             
     # Devise Controller
     devise_scope :user do
