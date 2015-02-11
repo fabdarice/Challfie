@@ -73,6 +73,7 @@ module Api
     end    
 
     def create      
+      logger.info "ENTER CREATEAPI SELFIE"
       @selfie = Selfie.new
       @selfie.message = params[:message]
       @selfie.private = params[:is_private]
@@ -96,8 +97,11 @@ module Api
           @graph = Koala::Facebook::API.new(current_user.oauth_token)          
           share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
           if Rails.env.production?
+            logger.info "ENTER production"
+            logger.info @selfie.photo.url(:original).split("?")[0]
             @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
           else
+            logger.info "ENTER dev"
             @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
           end
         end 
