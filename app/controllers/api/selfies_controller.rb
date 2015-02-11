@@ -5,6 +5,7 @@ module Api
     respond_to :json
 
     def timeline
+      logger.info "ENTER TIMELINE"
       users_following = current_user.following(1)
       list_following_ids = users_following.map{|u| u.id}
       list_following_ids << current_user.id
