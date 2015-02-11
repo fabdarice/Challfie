@@ -72,8 +72,7 @@ module Api
       render json: selfie
     end    
 
-    def create
-      puts "ENTER CREATE SELFIE"
+    def create      
       @selfie = Selfie.new
       @selfie.message = params[:message]
       @selfie.private = params[:is_private]
@@ -92,13 +91,16 @@ module Api
       end
 
       if @selfie.save
-        # Share the selfie on Facebook
-        #if params[:mysharefacebook] == "1"
-         # @graph = Koala::Facebook::API.new(current_user.oauth_token)
-         # #puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
-         # share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
-         # @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
-        #end 
+        #Share the selfie on Facebook
+        if @selfie.shared_fb == true
+          @graph = Koala::Facebook::API.new(current_user.oauth_token)          
+          share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
+          if Rails.env.production?
+            @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+          else
+            @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+          end
+        end 
 
         render :json=> {:success=>true}        
       else
