@@ -82,7 +82,7 @@ module Api
       challenge = Challenge.find(params[:challenge_id])
       @selfie.challenge = challenge
             
-      @selfie.photo = "data:image/jpeg;base64," + params[:image_base64String]
+      @selfie.photo = params[:mobile_upload_file]
       @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.png"      
 
       @selfie.user = current_user
@@ -97,12 +97,10 @@ module Api
         if @selfie.shared_fb == true
           @graph = Koala::Facebook::API.new(current_user.oauth_token)          
           share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
-          if Rails.env.production?
-            logger.info "ENTER production"
+          if Rails.env.production?            
             logger.info @selfie.photo.url(:original).split("?")[0]
             @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
-          else
-            logger.info "ENTER dev"
+          else            
             @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
           end
         end 

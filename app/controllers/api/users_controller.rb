@@ -11,9 +11,23 @@ module Api
     end  
 
     # Update Photo profil
-    def update        
-      
+    def old_update          
+
       current_user.avatar = "data:image/jpeg;base64," + params[:image_base64String]
+      current_user.avatar_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_userprofile_mobileupload.jpg"
+          
+      if current_user.save
+        render json: current_user
+      else
+        render json: nil
+      end
+    end
+
+    # Update Photo profil
+    def update              
+      puts "ENTER UPDATE PROFILE"
+
+      current_user.avatar = params[:mobile_upload_file]
       current_user.avatar_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_userprofile_mobileupload.jpg"
           
       if current_user.save
