@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
       request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     else
       logger.info "ENTER after_sign_in_path_for false"
-      request.env['omniauth.origin'] || notifications_path
+      request.env['omniauth.origin'] || stored_location_for(resource) || notifications_path
     end
   end
 
