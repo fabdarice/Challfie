@@ -19,8 +19,7 @@ class UsersController < ApplicationController
 		@user = current_user
 	end
 
-	def update
-		puts "ENTER UPDATE USERCONTROLLER"
+	def update		
 		@user = User.friendly.find(params[:id])		
 		if (!params[:mywebcamdata].blank? and params[:myinputtype] == "webcam")
 			@user.avatar = params[:mywebcamdata]

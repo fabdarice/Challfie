@@ -27,7 +27,7 @@
       </div>  
     </div>
 
-    <div id="change_password_form" class="<% if !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">
+    <div id="change_password_form" class="<% if !f.object.errors['current_password'].present? and !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">
       <div class="form-group <% if f.object.errors['current_password'].present? %>error<% end %>">
         <%= f.label :current_password, "#{t 'profile.current_password'}", class: 'col-sm-3 control-label required' %>
         <div class="col-sm-6">
