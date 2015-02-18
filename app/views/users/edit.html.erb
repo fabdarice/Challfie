@@ -11,7 +11,9 @@
 <% content_for :left_content do %>
   <%= render 'home/left_content' %>
 <% end %>
-
+<% if notice.present? %>
+    <br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><strong><%= notice %></strong></div>
+  <% end %>
 <div class="full_width_content">  
   <h4>Edit My Profile</h4>
   <hr><br>
@@ -24,7 +26,6 @@
         <a href="#" id="change_password">Change Password</a>
       </div>  
     </div>
-
 
 
     <div id="change_password_form" class="<% if !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">

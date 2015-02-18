@@ -66,8 +66,6 @@ module Api
     end
 
     
-
-
     protected
 
     def invalid_login_attempt
