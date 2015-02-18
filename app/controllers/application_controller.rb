@@ -41,7 +41,6 @@ class ApplicationController < ActionController::Base
 
   
   def authenticate_user_from_token!
-    puts "LOGIN" + params[:login]
     request.env["devise.skip_trackable"] = true        
     login = params[:login].presence
     user       = login && (User.find_by_email(login) || User.find_by_username(login))
@@ -80,7 +79,7 @@ class ApplicationController < ActionController::Base
         logger.debug token_hash.to_yaml
         redirect_to root_path
       else # Since there is no code in the url, redirect the user to the Facebook auth page for the app
-        oauth_url = oauth.url_for_oauth_code :permissions => 'email, user_friends, public_profile, user_birthday, publish_actions, user_photos'
+        oauth_url = oauth.url_for_oauth_code :permissions => 'email, user_friends, public_profile, publish_actions'
         logger.debug "No code was present; redirecting to the following url to obtain one: #{oauth_url}"
         redirect_to oauth_url
       end
