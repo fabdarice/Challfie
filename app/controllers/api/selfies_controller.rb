@@ -4,8 +4,7 @@ module Api
     before_filter :authenticate_user_from_token!
     respond_to :json
 
-    def timeline
-      logger.info "ENTER TIMELINE"
+    def timeline      
       users_following = current_user.following(1)
       list_following_ids = users_following.map{|u| u.id}
       list_following_ids << current_user.id
@@ -96,12 +95,11 @@ module Api
         #Share the selfie on Facebook
         if @selfie.shared_fb == true
           @graph = Koala::Facebook::API.new(current_user.oauth_token)          
-          share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
-          if Rails.env.production?            
-            logger.info @selfie.photo.url(:original).split("?")[0]
-            @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+          #share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
+          if Rails.env.production?                        
+            @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
           else            
-            @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+            @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
           end
         end 
 

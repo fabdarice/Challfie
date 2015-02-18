@@ -14,7 +14,7 @@ module Api
       if params[:password]
         if resource.valid_password?(params[:password])
           sign_in(:user, resource)        
-          render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login}
+          render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return
         end
       end
@@ -22,7 +22,7 @@ module Api
       if params[:token]
         if resource.authentication_token == params[:token]
           sign_in(:user, resource)        
-          render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login}
+          render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return
         end        
       end

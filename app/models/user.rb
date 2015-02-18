@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #attr :username, :email, :firstname, :lastname, :avatar, :provider, :uid, :location, :from_mobileapp, 
-  #:from_facebook, :facebook_picture
+  #:from_facebook, :facebook_picture, :username_activated
 
   before_save :ensure_authentication_token
 
@@ -29,15 +29,13 @@ class User < ActiveRecord::Base
   attr_accessor :login      
 
   validates :username,
-            :uniqueness => { :case_sensitive => false },
-            if: :not_from_facebook?
+            :uniqueness => { :case_sensitive => false }
 
   validates_presence_of :firstname, :lastname, :email, :username
-  validates_length_of :username, within: 2..15, if: :not_from_facebook?            
+  validates_length_of :username, within: 2..15
 
   validates_format_of :username, with: /\A[a-zA-Z\d]+\z/, 
-                      message: I18n.translate('sign_in.error_username_format'), 
-                      if: :not_from_facebook?                          
+                      message: I18n.translate('sign_in.error_username_format')                     
 
   validates :email,
             format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: I18n.translate('sign_in.error_email_format') }
@@ -82,14 +80,15 @@ class User < ActiveRecord::Base
       user.uid = auth[:uid]      
       user.email = auth[:info][:email]
       user.password = Devise.friendly_token[0,20]
-      user.username = "fb" + auth[:uid]   # assuming the user model has a name
+      user.username = auth[:uid][0,15]   # assuming the user model has a name
       user.firstname = auth[:info][:first_name]
       user.lastname = auth[:info][:last_name]
       user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
       user.oauth_token = auth[:credentials][:token]
       user.oauth_expires_at = auth[:credentials][:expires_at]
       user.from_facebook = true
-      user.from_mobileapp = from_mobileapp      
+      user.from_mobileapp = from_mobileapp
+      user.username_activated = false      
       user.skip_confirmation!  
     else  
       user.update_attributes(uid: auth[:uid],
@@ -140,70 +139,6 @@ class User < ActiveRecord::Base
     else  
       return nil
     end
-  end
-
-  def self.old_find_for_facebook_oauth(auth, from_mobileapp)        
-
-    # to replace his actual email with @facebook.com email to fix the problem of having a doublon
-    email_splitter = auth[:info][:email].split("@")
-    user_facebook_email = email_splitter[0] + "@facebook.com"
-
-    user = self.where(email: auth[:info][:email]) || self.where(provider: auth[:provider], uid: auth[:uid])
-
-    if user == nil
-      user = User.new
-      user.provider = auth[:provider]
-      user.uid = auth[:uid]      
-      user.email = user_facebook_email
-      user.password = Devise.friendly_token[0,20]
-      user.username = auth[:info][:name]   # assuming the user model has a name
-      user.firstname = auth[:info][:first_name]
-      user.lastname = auth[:info][:last_name]
-      user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
-      user.oauth_token = auth[:credentials][:token]
-      user.oauth_expires_at = auth[:credentials][:expires_at]
-      user.from_facebook = true
-      user.from_mobileapp = from_mobileapp      
-      user.skip_confirmation!  
-    end
-
-    facebook_user = where(provider: auth[:provider], uid: auth[:uid]).first_or_initialize do |user|    
-      user.provider = auth[:provider]
-      user.uid = auth[:uid]      
-      user.email = user_facebook_email
-      user.password = Devise.friendly_token[0,20]
-      user.username = auth[:info][:name]   # assuming the user model has a name
-      user.firstname = auth[:info][:first_name]
-      user.lastname = auth[:info][:last_name]
-      user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
-      user.oauth_token = auth[:credentials][:token]
-      user.oauth_expires_at = auth[:credentials][:expires_at]
-      user.from_facebook = true
-      user.from_mobileapp = from_mobileapp      
-      user.skip_confirmation!             
-    end
-
-    facebook_user.update_attributes(email: user_facebook_email, 
-                                    username: auth[:info][:name], 
-                                    firstname: auth[:info][:first_name],
-                                    oauth_token: auth[:credentials][:token],
-                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
-                                    facebook_picture: auth[:info][:image].gsub!("http", "https")) 
-    facebook_user.save                                   
-
-    facebook_info = FacebookInfo.find_by(user_id: facebook_user.id)
-          
-    if facebook_info == nil
-      facebook_info = FacebookInfo.new(facebook_uid: auth[:uid], facebook_lastname: auth[:info][:last_name],
-                                     facebook_firstname: auth[:info][:first_name], facebook_email: auth[:info][:email], facebook_locale: auth[:extra][:raw_info][:locale])
-      facebook_info.user = facebook_user
-    else
-      facebook_info.update_attributes(facebook_uid: auth[:uid], facebook_lastname: auth[:info][:last_name],
-                                     facebook_firstname: auth[:info][:first_name], facebook_email: auth[:info][:email], facebook_locale: auth[:extra][:raw_info][:locale])
-    end
-    
-    facebook_info.save
-    return facebook_user
   end
 
   def self.new_with_session(params, session)

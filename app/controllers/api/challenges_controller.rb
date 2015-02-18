@@ -5,12 +5,14 @@ module Api
 
     	def index    		
     	  books = current_user.books.order('level')
-    	  #challenges = []
-    	  #books.each do |book|
-    	  #	challenges << book.challenges.order('difficulty, point')
-    	  #end
-        #challenges = Challenge.all.order('difficulty, point')
-        render json: books
+
+        if current_user.oauth_token.blank? or current_user.uid.blank?
+          isFacebookLinked = false
+        else
+          isFacebookLinked = true
+        end
+    	  
+        render json: books, meta: {isFacebookLinked: isFacebookLinked}
       end
           
     end

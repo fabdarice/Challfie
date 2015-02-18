@@ -28,11 +28,11 @@ class SelfiesController < ApplicationController
 			if params[:mysharefacebook] == "1"
 				@graph = Koala::Facebook::API.new(current_user.oauth_token)
 				#puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
-				share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
+				#share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
 				if Rails.env.production?
-					@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+					@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
 				else
-					@graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => share_post_message })
+					@graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
 				end
 			end	
 
