@@ -12,27 +12,26 @@
   <%= render 'home/left_content' %>
 <% end %>
 <% if flash[:notice] %>
-    <br><br><div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
+    <div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
 <% end %>
 <div class="full_width_content">  
-  <h4>Edit My Profile</h4>
+  <h4><%= t 'profile.edit_my_profile' %></h4>
   <hr><br>
   <%= form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal' }) do |f| %>
     
     <%= render 'devise/registrations/form', :f => f, :source => 'user' %> 
     <div class="form-group <% if f.object.errors['password_confirmation'].present? or f.object.errors['password'].present? %>hide<% end %>">      
-      <%= f.label :password, class: 'col-sm-3 control-label' %>      
+      <%= f.label :password, "#{t 'sign_in.password'}", class: 'col-sm-3 control-label' %>      
       <div class="col-sm-6" style='padding-top: 6px;'>
-        <a href="#" id="change_password">Change Password</a>
+        <a href="#" id="change_password"><%= t 'profile.change_password' %></a>
       </div>  
     </div>
 
-
     <div id="change_password_form" class="<% if !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">
       <div class="form-group <% if f.object.errors['password'].present? %>error<% end %>">
-        <%= f.label :password, "New Password", class: 'col-sm-3 control-label required' %>
+        <%= f.label :password, "#{t 'profile.new_password'}", class: 'col-sm-3 control-label required' %>
         <div class="col-sm-6">
-          <%= f.password_field :password, placeholder: 'Password', class: 'form-control', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"Must be at least 8 characters." %>
+          <%= f.password_field :password, placeholder: 'Password', class: 'form-control', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=>"#{t 'profile.password_tooltip'}" %>
         </div>
         <div class="col-sm-3" style="padding-top: 7px;">  
           <span class="help-inline"><%= display_error(f.object, 'password') %></span>
@@ -40,9 +39,9 @@
       </div>
 
       <div class="form-group <% if f.object.errors['password_confirmation'].present? %>error<% end %>">
-        <%= f.label :password_confirmation, class: 'col-sm-3 control-label required' %>
+        <%= f.label :password_confirmation, "#{t 'sign_in.password_confirmation'}", class: 'col-sm-3 control-label required' %>
         <div class="col-sm-6">
-          <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
+          <%= f.password_field :password_confirmation, placeholder: "#{t 'sign_in.password_confirmation'}", class: 'form-control' %>
         </div>
         <div class="col-sm-3" style="padding-top: 7px;">  
           <span class="help-inline"><%= display_error(f.object, 'password_confirmation') %></span>
@@ -50,14 +49,11 @@
       </div>    
     </div>
 
-
-
-
     <hr><br>
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-6">
-        <button type="submit" class="btn btn-primary pull-right" style="margin-left: 10px;">Save</button>        
-        <%= link_to "Cancel", root_path, class:'btn btn-default pull-right' %>        
+        <button type="submit" class="btn btn-primary pull-right" style="margin-left: 10px;"><%= t 'all_pages.edit' %></button>        
+        <%= link_to "#{t 'all_pages.cancel'}", root_path, class:'btn btn-default pull-right' %>        
       </div>      
     </div>      
   <% end %>

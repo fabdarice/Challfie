@@ -54,14 +54,11 @@ class ApplicationController < ActionController::Base
     render :json=> {:success=>false, :message=>"You need to be authenticate."}, :status=>421
   end
 
-  def after_sign_in_path_for(resource)
-    logger.info "ENTER after_sign_in_path_for"
-    if resource.username_activated == true
-      logger.info "ENTER after_sign_in_path_for true"
+  def after_sign_in_path_for(resource)    
+    if resource.username_activated == true      
       request.env['omniauth.origin'] || stored_location_for(resource) || root_path
-    else
-      logger.info "ENTER after_sign_in_path_for false"
-      flash[:notice] = "Thank you very much for reaching out to us. Your message has been transfered. We will get back at you as soon as possible."
+    else      
+      flash[:notice] = I18n.translate('profile.alert_set_username_html')
       request.env['omniauth.origin'] || stored_location_for(resource) || edit_user_path(resource)
     end
   end
