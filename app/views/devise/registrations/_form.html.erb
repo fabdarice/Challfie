@@ -1,11 +1,16 @@
 <div class="form-group <% if f.object.errors['username'].present? %>error<% end %>">
   <%= f.label :username, "#{t 'sign_in.username'}", class: 'col-sm-3 control-label required' %>
-  <div class="col-sm-6">
+  <div class="col-sm-6 <%= f.object.username_activated == true ? '': 'field_with_errors' %>">
     <%= f.text_field :username, placeholder: 'Username', class: 'form-control', style:' margin-bottom:3px;', :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title=> "#{t 'sign_in.error_username_format'}" %>
     <span class="text-info" style="margin-top: 5px;"><span class="glyphicon glyphicon-warning-sign"></span> <%= t 'profile.username_info_html' %></span>
   </div>
   <div class="col-sm-3">  
-    <span class="help-inline"><%= display_error(f.object, 'username') %></span>
+    <span class="help-inline">
+      <% if f.object.username_activated == false %>    
+        <%= t 'profile.change_username' %>
+      <% end %>
+      <%= display_error(f.object, 'username') %>
+    </span>
   </div>
 </div>
 

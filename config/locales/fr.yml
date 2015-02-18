@@ -50,12 +50,14 @@ fr:
     error_login_or_password: "Identifiant ou mot de passe incorrect"
 
   profile:
-    alert_set_username_html: "Bienvenue sur Challfie! Veuillez modifier votre <strong>Identifiant Challfie</strong>."
+    alert_set_username_html: "Bienvenue sur Challfie! Veuillez modifier votre Identifiant Challfie."
+    change_username: "Modifier Identifiant"
     edit_my_profile: "Mon Profil"
     change_password: "Modifier Mot-de-Passe"
     username_info_html: "<u>Identifiant</u> principal pour t'authentifier."
     password_tooltip: "Doit contenir au minimum 8 caractères."
     new_password: "Nouveau mot de passe"
+    current_password: "Mot de passe actuel"
 
   password:
     email_doesnt_exist: "L'addresse Email n'existe pas."

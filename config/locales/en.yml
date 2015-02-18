@@ -50,12 +50,14 @@ en:
     error_login_or_password: "Error with your login or password"
 
   profile:
-    alert_set_username_html: "Welcome to Challfie! Please select your <strong>Challfie Username</strong>."
+    alert_set_username_html: "Welcome to Challfie! Please select your Challfie Username."
+    change_username: "Change Username"
     edit_my_profile: "Edit My Profile"
     change_password: "Change Password"
     username_info_html: "Your <u>username</u> is your primary ID to login."
     password_tooltip: "Must be at least 8 characters."
     new_password: "New Password"
+    current_password: "Current Password"
 
   password:
     email_doesnt_exist: "Email address doesn't exist."
