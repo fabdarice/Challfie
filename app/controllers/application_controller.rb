@@ -61,6 +61,7 @@ class ApplicationController < ActionController::Base
       request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     else
       logger.info "ENTER after_sign_in_path_for false"
+      flash[:notice] = "Thank you very much for reaching out to us. Your message has been transfered. We will get back at you as soon as possible."
       request.env['omniauth.origin'] || stored_location_for(resource) || edit_user_path(resource)
     end
   end

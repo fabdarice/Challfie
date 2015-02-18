@@ -11,9 +11,9 @@
 <% content_for :left_content do %>
   <%= render 'home/left_content' %>
 <% end %>
-<% if notice.present? %>
-    <br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><strong><%= notice %></strong></div>
-  <% end %>
+<% if flash[:notice] %>
+    <br><br><div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div>
+<% end %>
 <div class="full_width_content">  
   <h4>Edit My Profile</h4>
   <hr><br>
