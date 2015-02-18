@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :firstname, :lastname, :email, :password, :password_confirmation, :current_password) }
   end
 
-  
+  # Authenticate the User from a token (to allow API calls)
   def authenticate_user_from_token!
     request.env["devise.skip_trackable"] = true        
     login = params[:login].presence
@@ -53,6 +53,17 @@ class ApplicationController < ActionController::Base
     end
     
     render :json=> {:success=>false, :message=>"You need to be authenticate."}, :status=>421
+  end
+
+  def after_sign_in_path_for(resource)
+    logger.info "ENTER after_sign_in_path_for"
+    if resource.username_activated == true
+      logger.info "ENTER after_sign_in_path_for true"
+      request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+    else
+      logger.info "ENTER after_sign_in_path_for false"
+      notifications_path
+    end
   end
 
   def layout_by_resource
