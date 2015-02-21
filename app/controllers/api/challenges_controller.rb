@@ -6,6 +6,12 @@ module Api
     	def index    		
     	  books = current_user.books.order('level')
 
+        #Create a temporary Daily Book containing the Daily Challenge for Display -->
+        daily_book = Book.new(name: "Daily Challenge", level: 0)
+        daily_challenge = DailyChallenge.last
+        daily_book.challenges << daily_challenge.challenge if daily_challenge
+        books.unshift(daily_book) if daily_challenge
+
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
         else

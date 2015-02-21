@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, 
                     :styles => {:thumb => "" }, 
                     :convert_options => { :thumb => Proc.new { |instance| instance.avatar_dimension } },
-                    :default_url => "/assets/missing.jpg"                    
+                    :default_url => "/assets/missing_user.png"                    
   
   validates_attachment :avatar,
             :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
