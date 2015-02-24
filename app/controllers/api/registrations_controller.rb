@@ -9,7 +9,7 @@ module Api
 
     def create
       user = User.new(username: params[:login], firstname: params[:firstname], lastname: params[:lastname], password: params[:password], 
-                      email: params[:email], from_facebook: params[:from_facebook], from_mobileapp: params[:from_mobileapp], username_activated: true)
+                      email: params[:email], from_facebook: params[:from_facebook], from_mobileapp: params[:from_mobileapp], username_activated: true, device_token: params[:device_token])
       user.skip_confirmation! 
       if user.save
         render :json=> {:success => true, :auth_token => user.authentication_token, :login => user.username}
@@ -52,8 +52,10 @@ module Api
                 }
               }
 
-      resource = User.find_for_facebook_oauth(auth, true)
-      
+      resource = User.find_for_facebook_oauth(auth, true)      
+      resource.device_token = params[:device_token]
+      resource.save
+
       if resource
         if !user_signed_in?                  
           sign_in(:user, resource)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217040647) do
+ActiveRecord::Schema.define(version: 20150224024229) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 20150217040647) do
     t.string   "slug"
     t.integer  "administrator",          default: 0
     t.boolean  "username_activated",     default: true
+    t.string   "device_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

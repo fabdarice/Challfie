@@ -20,6 +20,16 @@ module Api
     	  
         render json: books, meta: {isFacebookLinked: isFacebookLinked}
       end
+
+      def daily_challenge
+        dailychallenge = DailyChallenge.last
+        if dailychallenge
+          render json: {daily_challenge: dailychallenge.challenge.description}
+        else
+          render json: nil
+        end
+
+      end
           
     end
 end

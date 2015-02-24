@@ -83,6 +83,8 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     colorize (0.7.3)
+    commander (4.3.0)
+      highline (~> 1.6.11)
     commonjs (0.2.7)
     daemons (1.1.9)
     devise (3.2.4)
@@ -105,6 +107,9 @@ GEM
     hashie (3.2.0)
     highline (1.6.21)
     hike (1.2.3)
+    houston (2.2.3)
+      commander (~> 4.1)
+      json
     http_accept_language (2.0.2)
     i18n (0.6.11)
     jbuilder (1.5.3)
@@ -290,6 +295,7 @@ DEPENDENCIES
   devise
   font-awesome-rails
   friendly_id (~> 5.0.0)
+  houston
   http_accept_language
   jbuilder (~> 1.2)
   jquery-rails

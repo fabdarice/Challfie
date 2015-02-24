@@ -88,6 +88,9 @@ gem "whenever"
 gem 'active_model_serializers'
 
 
+# Gem to send iOS Notifications
+gem 'houston'
+
 
 group :development, :test do  
   # For Email testing in development mode

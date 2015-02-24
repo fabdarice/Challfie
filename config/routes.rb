@@ -106,6 +106,7 @@ Challfie::Application.routes.draw do
 
     # ChallengesController
     post '/challenges' => 'challenges#index', as: :challenges
+    post '/daily_challenge' => 'challenges#daily_challenge', as: :daily_challenge
 
   end
 

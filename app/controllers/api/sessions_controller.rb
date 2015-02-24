@@ -11,9 +11,12 @@ module Api
       resource = User.find_for_database_authentication(:username => params[:login]) || User.find_for_database_authentication(:email => params[:login])
       return invalid_login_attempt unless resource
 
+      resource.device_token = params[:device_token]
+      resource.save
+
       if params[:password]
         if resource.valid_password?(params[:password])
-          sign_in(:user, resource)        
+          sign_in(:user, resource)                  
           render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return
         end
