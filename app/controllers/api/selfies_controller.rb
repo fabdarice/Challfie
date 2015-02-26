@@ -72,8 +72,7 @@ module Api
       render json: selfie
     end    
 
-    def create      
-      logger.info "ENTER CREATEAPI SELFIE"
+    def create            
       @selfie = Selfie.new
       @selfie.message = params[:message]
       @selfie.private = params[:is_private]

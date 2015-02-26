@@ -1,6 +1,7 @@
-#require 'houston'
-
+require 'houston'
 class User < ActiveRecord::Base
+
+  include ActionView::Helpers::SanitizeHelper
   #attr :username, :email, :firstname, :lastname, :avatar, :provider, :uid, :location, :from_mobileapp, 
   #:from_facebook, :facebook_picture, :username_activated
 
@@ -239,27 +240,37 @@ class User < ActiveRecord::Base
                                              selfie: selfie, book: book, type_notification: type_notification)
     @notification.save
 
-    if self.device_token != nil
+    if self.device_token != nil and !self.device_token.blank?
       # Environment variables are automatically read, or can be overridden by any specified options. You can also
       # conveniently use `Houston::Client.development` or `Houston::Client.production`.
-      APN = Houston::Client.development
+      apn_client = Houston::Client.development
       #APN.certificate = File.read("/path/to/apple_push_notification.pem")
-      APN.certificate = File.read("#{Rails.root}/config/ios_certificate/ck_dev.pem")
+      apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification.pem")
+
+      if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
+        notif_msg = @notification.author.username + @notification.message
+      else
+        notif_msg = @notification.message
+      end
 
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
-      notification = Houston::Notification.new(device: self.device_token)
-      notification.alert = "Hello, World!"
-
+      ios_push_notification = Houston::Notification.new(device: self.device_token)
+      ios_push_notification.alert = strip_tags(notif_msg)
+      
       # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
-      notification.badge = 57
-      notification.sound = "sosumi.aiff"
-      notification.category = "INVITE_CATEGORY"
-      notification.content_available = true
-      notification.custom_data = {foo: "bar"}
+      push_badge_number = self.notifications.where(read: false).count + self.followers(0).count
 
+      ios_push_notification.badge = push_badge_number
+      ios_push_notification.sound = "sosumi.aiff"
+      ios_push_notification.category = "INVITE_CATEGORY"
+      ios_push_notification.content_available = true
+      
+      #puts "Error: #{ios_push_notification.error}." if ios_push_notification.error
       # And... sent! That's all it takes.
-      APN.push(notification)
+      apn_client.push(ios_push_notification)
     end
+
+
   end
 
 

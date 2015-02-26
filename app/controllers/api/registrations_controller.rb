@@ -53,7 +53,6 @@ module Api
               }
 
       resource = User.find_for_facebook_oauth(auth, true)      
-      resource.device_token = params[:device_token]
       resource.save
 
       if resource

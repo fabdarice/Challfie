@@ -1,5 +1,5 @@
 class NotificationSerializer < ActiveModel::Serializer
-  include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::DateHelper  
 
   attributes :id, :message, :read, :type_notification, :selfie_id, :selfie_img, :book_img, :time_ago
 

@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     # in the database with the token given in the params, mitigating
     # timing attacks.
     if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
-      sign_in user, store: false      
+      sign_in user, store: false          
       return true
     end
     

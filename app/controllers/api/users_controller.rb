@@ -22,6 +22,10 @@ module Api
         current_user.username = params[:new_username]
         current_user.username_activated = true
       end
+
+      if params[:device_token]
+        current_user.device_token = params[:device_token]
+      end
           
       if current_user.save
         render json: current_user
@@ -29,11 +33,7 @@ module Api
         render json: current_user.errors
       end
     end
-
-    def update_username
-
-    end
-
+    
 
     # Show Current User Profil Page
     def show_current_user

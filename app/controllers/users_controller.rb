@@ -37,8 +37,9 @@ class UsersController < ApplicationController
 	def follow
 		@user = User.friendly.find(params[:id])
 		current_user.follow(@user)
-		flash[:notice] = "You are now following #{@user.username}."
-		
+		@user.add_notifications(" has requested to be your friend.", 
+										" souhaite faire parti de ta liste d'amis.",
+										current_user , nil, nil, Notification.type_notifications[:friend_request])
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }
