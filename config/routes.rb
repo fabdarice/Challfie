@@ -108,6 +108,9 @@ Challfie::Application.routes.draw do
     post '/challenges' => 'challenges#index', as: :challenges
     post '/daily_challenge' => 'challenges#daily_challenge', as: :daily_challenge
 
+    # ContactsController
+    post '/contact/create' => 'contacts#create', as: :contact_create
+
   end
 
 end
