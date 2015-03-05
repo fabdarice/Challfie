@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :books, :through => :book_users
   has_many :book_users, dependent: :destroy
   
-  
+  has_many :devices
 
   has_attached_file :avatar, 
                     :styles => {:thumb => "" }, 
@@ -240,21 +240,21 @@ class User < ActiveRecord::Base
                                              selfie: selfie, book: book, type_notification: type_notification)
     @notification.save
 
-    if self.device_token != nil and !self.device_token.blank?
-      # Environment variables are automatically read, or can be overridden by any specified options. You can also
-      # conveniently use `Houston::Client.development` or `Houston::Client.production`.
-      apn_client = Houston::Client.development
-      #APN.certificate = File.read("/path/to/apple_push_notification.pem")
-      apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification.pem")
+    # Environment variables are automatically read, or can be overridden by any specified options. You can also
+    # conveniently use `Houston::Client.development` or `Houston::Client.production`.
+    apn_client = Houston::Client.development
+    #APN.certificate = File.read("/path/to/apple_push_notification.pem")
+    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification.pem")
 
-      if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
-        notif_msg = @notification.author.username + @notification.message
-      else
-        notif_msg = @notification.message
-      end
+    if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
+      notif_msg = @notification.author.username + @notification.message
+    else
+      notif_msg = @notification.message
+    end
 
+    self.devices.each do |device|
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
-      ios_push_notification = Houston::Notification.new(device: self.device_token)
+      ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(notif_msg)
       
       # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
@@ -268,9 +268,7 @@ class User < ActiveRecord::Base
       #puts "Error: #{ios_push_notification.error}." if ios_push_notification.error
       # And... sent! That's all it takes.
       apn_client.push(ios_push_notification)
-    end
-
-
+    end      
   end
 
 

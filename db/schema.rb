@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224024229) do
+ActiveRecord::Schema.define(version: 20150305000454) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(version: 20150224024229) do
 
   create_table "daily_challenges", force: true do |t|
     t.integer  "challenge_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "devices", force: true do |t|
+    t.integer  "user_id"
+    t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -172,8 +179,7 @@ ActiveRecord::Schema.define(version: 20150224024229) do
     t.integer  "points",                 default: 0
     t.string   "slug"
     t.integer  "administrator",          default: 0
-    t.boolean  "username_activated",     default: true
-    t.string   "device_token"
+    t.boolean  "username_activated",     default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

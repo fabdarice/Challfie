@@ -24,7 +24,7 @@ module Api
       end
 
       if params[:device_token]
-        current_user.device_token = params[:device_token]
+        current_user.devices.find_or_create_by(token: params[:device_token])        
       end
           
       if current_user.save
