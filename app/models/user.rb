@@ -253,7 +253,7 @@ class User < ActiveRecord::Base
     end
 
     self.devices.each do |device|
-      Logger.info "ENTER DEVICE : " + device.token
+      logger.info "ENTER DEVICE : " + device.token
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(notif_msg)
@@ -266,7 +266,7 @@ class User < ActiveRecord::Base
       ios_push_notification.category = "INVITE_CATEGORY"
       ios_push_notification.content_available = true
       
-      Logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error
+      logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error
       # And... sent! That's all it takes.
       apn_client.push(ios_push_notification)
     end      
