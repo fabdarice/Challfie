@@ -265,10 +265,11 @@ class User < ActiveRecord::Base
       ios_push_notification.sound = "sosumi.aiff"
       ios_push_notification.category = "INVITE_CATEGORY"
       ios_push_notification.content_available = true
-      
-      logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error
+            
       # And... sent! That's all it takes.
       apn_client.push(ios_push_notification)
+
+      logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error
     end      
   end
 
