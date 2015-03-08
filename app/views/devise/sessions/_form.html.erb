@@ -15,6 +15,7 @@
 		}
 	});		
 </script>
+
 <% if notice.present? %>
   <br><div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><strong><%= notice %></strong></div>
 <% end %>
@@ -24,21 +25,7 @@
   <%= image_tag "/assets/new_logo.png", style: "height: 50px; margin-right: 10px; float:left;" %>
   <p style="font-size: 22px; width: 650px;color: white; margin-top: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;"> <%= t 'sign_in.subtitle' %></p><br>
   
-  <div class="phone_section">
-    <div class="phone">
-      <%= image_tag "/assets/galaxy_s4.png", style:'width: 170px' %>
-      <%= image_tag "/assets/iphone.png", style:'width: 170px; left: 60px;' %>
-    </div>  
-    <div class="available_ios_android">   
-
-      <p class="welcome_page_intro"><%= t 'sign_in.downloadapp_html' %></p>
-      <%= image_tag "/assets/download_ios.png", style:'width: 160px;' %>
-      <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
-    </div>
-  </div>
-
-
-  
+   
 </div>
 <div class="login_form">    
 	<div class='login_block_small'>  

@@ -37,8 +37,8 @@ class UsersController < ApplicationController
 	def follow
 		@user = User.friendly.find(params[:id])
 		current_user.follow(@user)
-		@user.add_notifications(" has requested to be your friend.", 
-										" souhaite faire parti de ta liste d'amis.",
+		@user.add_notifications(" has requested to follow you.", 
+										" souhaite faire parti de ta liste d'abonnée.",
 										current_user , nil, nil, Notification.type_notifications[:friend_request])
 		respond_to do |format|
 	      format.html { render :nothing => true }
@@ -74,8 +74,8 @@ class UsersController < ApplicationController
 		@follow = Follow.find_by followable_id: current_user.id, follower_id: @user.id
 		@follow.status = 1
 		@follow.save			
-		@user.add_notifications(" has accepted your <strong>following request</strong>.", 
-										" a accepté ta <strong>demande d'ami</strong>.",
+		@user.add_notifications(" has accepted your <strong>request</strong>.", 
+										" a accepté ta <strong>demande d'abonnement</strong>.",
 										current_user , nil, nil, Notification.type_notifications[:friend_request])
 		@followers = current_user.followers(1)
 		@pending_request = current_user.followers(0)

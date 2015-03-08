@@ -1,7 +1,10 @@
-<div class='container' style="background-color: white;">
-	<div class="extrapage_title">About Us</div>
+<div class='container' style="background-color: white; width: 500px;">
+	<div class="extrapage_title"><%= t 'about_us.title' %></div>
 	<%= link_to root_path, style: 'font-size: 14px;' do %>
 	<i class="fa fa-angle-double-left"></i> <u>Back to homepage</u>
+
 <% end %>
-<br><br>
+<br><br><br>
+<%= t 'about_us.message_html' %>
+
 </div>

@@ -14,7 +14,7 @@
 <body style="padding-top: 0px;">	
 	<nav class="menu_signin navbar" role="navigation">
 		<div class="container" style="text-align:center; margin:auto">					
-				<%= link_to image_tag("/assets/challfie_letter.png", style: 'height: 40px; margin-top: 5px; text-align:center;'), root_path %>
+				<%= link_to image_tag("/assets/challfie_letter_white.png", style: 'height: 40px; margin-top: 5px; text-align:center;'), root_path %>
 		</div>	
       
    </nav>
@@ -25,43 +25,56 @@
 				<%= link_to (image_tag "/assets/navigate_down.png", style: "width: 50px;"), "#main_content_signin_steps" %>				
 			</div>	
    		
-		</div>
-		
+		</div>		
+	</div>
+
+	<div id="main_content_challfie_download_app" class="container">		
+		<div class="phone_section">
+		    <div class="phone">
+		      <%= image_tag "/assets/galaxy_s4.png", style:'width: 170px' %>
+		      <%= image_tag "/assets/iphone.png", style:'width: 170px; left: 100px;' %>
+		    </div>  
+		    <div class="available_ios_android">   
+
+		      <p class="welcome_page_intro"><%= t 'sign_in.downloadapp_html' %></p>
+		      <%= image_tag "/assets/download_ios.png", style:'width: 160px;' %>
+		      <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
+		    </div>
+		</div> 
+
 	</div>
 
 	<div id="main_content_signin_steps">
-
 		<div class="container" style="width: 1200px;">		
 			<p class="step_header"><%= t 'sign_in.step_header' %></p>	
 			<div style='margin-left: 50px;'>
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/step_challenge.png" %><br>
-					<p class="one_step_title"><strong>STEP 1</strong></p>
-					<p class="one_step_title"><u><small style="color: black;">Challenge</small></u></p>
+					<p class="one_step_title">STEP 1</p>
+					<p class="one_step_subtitle">Challenge</p>
 					<p class="step_text"><%= t 'sign_in.step_challenge_title' %></p>
 					<p class="step_description"><%= t 'sign_in.step_challenge_text_html' %></p>
 				</div>
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/step_selfie.png" %><br>
-					<p class="one_step_title"><strong>STEP 2</strong></p>
-					<p class="one_step_title"><u><small style="color: black;">Selfie</small></u></p>
+					<p class="one_step_title">STEP 2</p>
+					<p class="one_step_subtitle">Selfie</p>
 					<p class="step_text"><%= t 'sign_in.step_selfie_title' %></p>
 					<p class="step_description"><%= t 'sign_in.step_selfies_text_html' %></p>
 				</div> 
-				
-				
+								
 				<div class="one_step" style="margin-right: 50px;">
 					<%= image_tag "/assets/step_approve.png" %><br>
-					<p class="one_step_title"><strong>STEP 3</strong></p>
-					<p class="one_step_title"><u><small style="color: black;"><%= t 'sign_in.step_community' %></small></u></p>
+					<p class="one_step_title">STEP 3</p>
+					<p class="one_step_subtitle"><%= t 'sign_in.step_community' %></p>
 					<p class="step_text"><%= t 'sign_in.step_community_title' %></p>
 					<p class="step_description"><%= t 'sign_in.step_community_text_html' %></p>			
 				</div>
 
 				<div class="one_step">
 					<%= image_tag "/assets/step_earn_points.png" %><br>
-					<p class="one_step_title"><strong>STEP 4</strong></p>
-					<p class="one_step_title"><u><small style="color: black;"><%= t 'sign_in.step_competitive' %></small></u></p>
+					<p class="one_step_title">STEP 4</p>
+					<p class="one_step_subtitle"><%= t 'sign_in.step_competitive' %></p>
 					<p class="step_text"><%= t 'sign_in.step_competitive_title' %></p>
 					<p class="step_description"><%= t 'sign_in.step_competitive_text_html' %></p>		
 				</div>
@@ -71,11 +84,11 @@
 
 	<div id="footer_signin">
 		<div class="container" style="width: 500px;">
-			<%= link_to "About Us", about_us_path %>			
+			<%= link_to "#{t 'about_us.title'}", about_us_path %>			
 			<%= link_to "Contact", new_contact_path %>
 			<%= link_to "Privacy", privacy_path %>
 			<%= link_to "Terms", terms_path %>
-			<span class="copyright">Challfie &copy; 2014-2015</span>
+			<span class="copyright">Challfie &copy; 2015-2016</span>
 		</div>
 	</div>
 

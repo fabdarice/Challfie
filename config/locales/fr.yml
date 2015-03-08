@@ -1,6 +1,6 @@
 fr:
   sign_up:
-    confirmation_email_01_html: "Bienvenue sur Challfie, le nouveau <strong>Reseau Social</strong> réservé exclusivement pour les <strong>Selfies</strong>.<br>Simple, divertissant et compétitif, Challfie te permet de partager tes selfies avec tes amis et de te battre pour le titre suprême de Challfie's King."
+    confirmation_email_01_html: "Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.<br><br>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges."
     confirmation_email_02_html: "<strong>Confirme ton compte</strong> en cliquant sur le lien suivant :"
     confirmation_email_03_html: "N'oublie pas de telecharger dès à présent <strong>l'application Challfie</strong> disponible gratuitement sur Android et iPhone<br><br><br>Bienvenue parmi nous!<br><em>La Challfie Team.</em>"
     confirm_my_account: "Confirmez mon compte"
@@ -15,9 +15,9 @@ fr:
     change_password: "Change mon mot de passe"
 
   sign_in:
-    title: "Le Nouveau Reseau Social exclusivement pour les Selfies"
-    subtitle: "Prenez des Selfies Challenge comme nulle part ailleurs."
-    downloadapp_html: "Téléchargez dès à présent <u>l'application Challfie</u> disponible gratuitement sur Android et iPhone" 
+    title: "Le Nouveau Réseau Social exclusivement pour les Selfies"
+    subtitle: "Prenez des selfies comme nulle part ailleurs."
+    downloadapp_html: "Télécharger dès à présent <u>l'application Challfie</u> disponible gratuitement sur Android et iPhone" 
     username: "Identifiant"
     login: "Identifiant or Email"
     firstname: "Prénom"
@@ -37,15 +37,15 @@ fr:
     error_email_format: "format incorrect."
     step_header: "Simple, Divertissant et Compétitif"
     step_challenge_title: "Choisis un challenge"
-    step_challenge_text_html: "Découvre plus de 100 Selfie Challenges répartis en 10 différents livres à débloquer."
+    step_challenge_text_html: "Découvre plus de cent challenges répartis en neuf différents livres à débloquer."
     step_selfie_title: "Prends un Selfie"
-    step_selfies_text_html: "Complete ton Challenge en prenant le Selfie correspondant."
+    step_selfies_text_html: "Complète ton Challenge en prenant le Selfie correspondant."
     step_community: "Approbation"
     step_community_title: "Obtiens l'approbation de ton Challenge par tes amis"
-    step_community_text_html: "Partage tes Selfies avec tes amis sur Facebook et fais approuver tes Challenges."
-    step_competitive: "Compétitif"
+    step_community_text_html: "Partage tes Selfies sur Facebook et fais approuver tes Challenges."
+    step_competitive: "Compétition"
     step_competitive_title: "Rivalise avec tes amis"
-    step_competitive_text_html: "Gagne des points, augmente de niveau et rivalise avec tes amis pour le titre de Challfie King."
+    step_competitive_text_html: "Gagne des points, progresse de niveau et rivalise avec tes amis pour le titre de Challfie King."
     missing_username: "Champ Identifiant manquant"
     error_login_or_password: "Identifiant ou mot de passe incorrect"
 
@@ -66,7 +66,7 @@ fr:
     send_email_error: "Erreur lors de la tentative de réinitialisation de votre mot de passe. Réessayer ultérieurement ou via le siteweb www.challfie.com."
 
   flash:  
-    sign_in_alert: "Vous devez vous authentifié avant de pouvoir continuer."  
+    sign_in_alert: "Vous devez vous authentifier avant de pouvoir continuer."  
   activerecord:
     errors: 
       messages:        
@@ -74,15 +74,15 @@ fr:
         too_long: "maximum %{count} caractères"
         too_short: "minumum %{count} caractères"
         taken: "L'identifiant existe déjà."  
-        confirmation: "mot de passe et confirmation different."
+        confirmation: "mot de passe et confirmation differents."
   homepage:
     search_friends: "Rechercher par identifiant.."
     search_no_results: "Aucun résultat trouvé.."
     menu_friends: "Amis"
     user_menu_my_profile: "Mon Profil"
     sign_out: "Se Déconnecter"
-    alert_first_selfie_html: "Bienvenue sur Challfie! Démarre en cliquant <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>ici</a></u> pour prendre ton premier <strong>Selfie Challenge</strong>."
-    take_a_selfie: "Prendre un Selfie Challenge"
+    alert_first_selfie_html: "Bienvenue sur Challfie! Démarre en cliquant <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>ici</a></u> pour prendre ton premier <strong>Challfie</strong>."
+    take_a_selfie: "Prendre un Challfie"
 
   selfie:
     radio_public_text: "Tout le monde peut voir ce Selfie."
@@ -132,14 +132,14 @@ fr:
     cancel_request: "Annuler demande" 
     pending_request: "Demande d'Amis"  
     remove: "Suppr."
-    accept_request_tooltip: "Acceptez la demande"
-    decline_request_tooltip: "Déclinez la demande"
+    accept_request_tooltip: "Accepter la demande"
+    decline_request_tooltip: "Décliner la demande"
     block_request_tooltip: "Bloquer l'utilisateur"
 
   left_content:
     next_book_unlock: "Prochain Livre à débloquer"
     this_book_contains: "Ce Livre contient"
-    progress_bar: "Lorsque tu atteindras 100%, tu debloqueras ton prochain livre de challenges."
+    progress_bar: "Lorsque tu atteindras 100%, tu débloqueras ton prochain livre de challenges."
     change_profile_picture: "Modifier Image Profile"
 
   right_content:
@@ -149,9 +149,13 @@ fr:
     search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."    
 
   book:
-    locked: "Débloque ce livre en complétant des selfies challenge." 
+    locked: "Débloque ce livre en complétant des Challfies." 
     challenge_description: "Description du Challenge"
     difficulty: "Difficulté" 
+
+  about_us:
+    message_html: "<p>Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.</p><p>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges.</p><p>N'attendez plus et prenez votre premier <strong>Challfie</strong> !!</p><br><br><p><i>La Challfie Team</i></p>"
+    title: "A Propos"
 
   date:
     abbr_day_names:

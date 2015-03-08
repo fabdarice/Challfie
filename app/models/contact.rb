@@ -4,14 +4,12 @@ class Contact < ActiveRecord::Base
 		when 1 
 			return "Report a bug"
 		when 2
-			return "Require Assistance for your account"
+			return "Request assistance for your account"
 		when 3
-			return "Report obscene, pornographic, offensive content"
+			return "Report obscene, offensive content"
 		when 4
-			return "Give suggestions for the website"
+			return "Give suggestions for the website"		
 		when 5
-			return "Contact us for any marketing or advertising request"
-		when 6
 			return "Others"
 		else
 			return ""

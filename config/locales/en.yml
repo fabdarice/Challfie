@@ -1,6 +1,6 @@
 en:
   sign_up:
-    confirmation_email_01_html: "Welcome to Challfie, the new <strong>social network</strong> designed exclusively for <strong>Selfies</strong>.<br>Challfie is a fun and simple way to share your selfies with your friends and to compete with them over the title of Challfie's King."
+    confirmation_email_01_html: "Welcome to Challfie, the <strong>new social network</strong> that takes selfies to the next level by adding a fun and competitive spin. <br><br>It incorporates the <strong>concept of challenges</strong> that users must complete and have approved by their friends. <br>The more challenges that are completed and approved, the more points users earn, allowing them to <strong>reach higher levels and unlock new challenges.</strong>"
     confirmation_email_02_html: "<strong>Confirm your account</strong> through the following link :"
     confirmation_email_03_html: "Don't forget to download the <strong>Challfie app</strong> available on iOS and Android for free!<br><br><br>Thank you for joining us !<br><em>The Challfie Team.</em>"
     confirm_my_account: "Confirm my account"
@@ -16,8 +16,8 @@ en:
 
   sign_in:
     title: "The New Social Network exclusively for Selfies"
-    subtitle: "Take Selfie Challenge like you've never done before"
-    downloadapp_html: "Get Started and Download the <u>Challfie app</u> available on iOs and Android for free"
+    subtitle: "Take Selfie Challenges like you've never done before"
+    downloadapp_html: "Get started and download right now the <u>Challfie app</u> available on iPhone and Android for free"
     username: "Username"
     login: "Username or Email"
     firstname: "First name"
@@ -35,17 +35,17 @@ en:
     register_for_challfie: "Register for Challfie"    
     error_username_format: "must contain only alphanumeric characters."
     error_email_format: "format incorrect."
-    step_header: "Easy, Funny and Competitive"
+    step_header: "Easy, Fun and Competitive"
     step_challenge_title: "Pick a challenge"
-    step_challenge_text_html: "Discover more than 100 Selfie Challenges divided in 10 levels of book to unlock."
+    step_challenge_text_html: "Discover over a hundred Selfie Challenges divided among nine levels of book to unlock."
     step_selfie_title: "Take a Selfie"
-    step_selfies_text_html: "Complete your challenge by taking the corresponding Selfie."
+    step_selfies_text_html: "Take a Selfie to complete your challenge."
     step_community: "Approval"
-    step_community_title: "Get your Selfie Challenge approved by your friends"
-    step_community_text_html: "Shared your Selfie Challenges with your friends and on Facebook and get your Challfie approved."
-    step_competitive: "Competitive"
+    step_community_title: "Get your Challfie approved by your friends"
+    step_community_text_html: "Share your Challfie with your friends and get it approved."
+    step_competitive: "Competition"
     step_competitive_title: "Compete with your friends"
-    step_competitive_text_html: "Earn points for each Challfie approved, up levels and compete among your friends upon the title of Challfie King"
+    step_competitive_text_html: "Earn points for each Challfie approved, level up and compete for the title of Challfie King"
     missing_username: "Missing username parameter"
     error_login_or_password: "Error with your login or password"
 
@@ -82,8 +82,8 @@ en:
     menu_friends: "Friends"
     user_menu_my_profile: "My Profile"
     sign_out: "Sign Out"
-    alert_first_selfie_html: "Welcome to Challfie! Get started and click <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>here</a></u> to take your first <strong>Selfie Challenge</strong>."
-    take_a_selfie: "Take a Selfie Challenge"
+    alert_first_selfie_html: "Welcome to Challfie! Get started and click <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>here</a></u> to take your first <strong>Challfie</strong>."
+    take_a_selfie: "Take a Challfie"
 
   selfie:
     radio_public_text: "Everyone can see this selfie."
@@ -101,7 +101,7 @@ en:
     take_a_selfie: "Take a Selfie Challenge"
     write_message: "Write your message.."
     camera_alert: "If you don't see a preview on the left side, please authorize your webcam/camera."
-    share_facebook_tooltip: "Share this Selfie on Facebook."
+    share_facebook_tooltip: "Share this selfie on Facebook."
     share_facebook: "Share"
     add_selfie: "Add a Selfie"
     upload_file: "Upload from file"
@@ -128,7 +128,7 @@ en:
     following: "Following"
     is_following: "Following"
     follow: "Follow"
-    waiting_approval: "Waiting approval"
+    waiting_approval: "Awaiting Approval"
     unfollow: "Delete"
     cancel_request: "Cancel Request"
     pending_request: "Pending Request"
@@ -153,4 +153,8 @@ en:
     locked: "Unlock this book by completing selfie's challenges."
     challenge_description: "Challenge Description"
     difficulty: "Difficulty"
+
+  about_us:
+    message_html: "<p>Challfie is a <strong>social network</strong> that takes selfies to the next level by adding a fun and competitive spin. </p><p>It incorporates the <strong>concept of challenges</strong> that users must complete and have approved by their friends. <br>The more challenges that are completed and approved, the more points users earn, allowing them to <strong>reach higher levels and unlock new challenges.</strong> </p><p>So grab your camera and take your first <strong>Challfie</strong>!</p><br><br><p><i>The Challfie Team</i></p>"
+    title: "About Us"
 

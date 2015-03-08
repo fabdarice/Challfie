@@ -117,13 +117,13 @@ class ApplicationController < ActionController::Base
       book_users.save
 
       # First 200 subscribers
-      if User.count <= 2000
-        challfie_special_book = Book.find_by level: 100
-        book_users = BookUser.new
-        book_users.user = user
-        book_users.book = challfie_special_book
-        book_users.save
-      end
+      #if User.count <= 2000
+      #  challfie_special_book = Book.find_by level: 100
+      #  book_users = BookUser.new
+      #  book_users.user = user
+      #  book_users.book = challfie_special_book
+      #  book_users.save
+      #end
     end
   end
 

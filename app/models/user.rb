@@ -127,15 +127,15 @@ class User < ActiveRecord::Base
         end
 
         # First 200 subscribers
-        if User.count <= 2000
-          challfie_special_book = Book.find_by level: 100
-          book_users = BookUser.new
-          book_users.user = user
-          book_users.book = challfie_special_book
-          if !book_users.save 
-            return nil
-          end
-        end          
+        #if User.count <= 2000
+        #  challfie_special_book = Book.find_by level: 100
+        #  book_users = BookUser.new
+        # book_users.user = user
+        #  book_users.book = challfie_special_book
+        #  if !book_users.save 
+        #    return nil
+        #  end
+        #end          
       end
 
       return user
@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
     # conveniently use `Houston::Client.development` or `Houston::Client.production`.
     apn_client = Houston::Client.development
     #APN.certificate = File.read("/path/to/apple_push_notification.pem")
-    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification.pem")
+    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem")
 
     if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
       notif_msg = @notification.author.username + @notification.message
@@ -383,8 +383,8 @@ class User < ActiveRecord::Base
         book_users.user = self
         book_users.book = book_to_unlock
         book_users.save      
-        self.add_notifications("Congratulations! You have unlocked \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
-                              "Félicitations! Tu as débloqué \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
+        self.add_notifications("Congratulations! You have unlocked a new book : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
+                              "Félicitations! Tu as débloqué un nouveau livre : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
                               self, nil, book_to_unlock, Notification.type_notifications[:book_unlock])      
       end
     end  

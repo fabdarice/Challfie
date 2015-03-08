@@ -9,7 +9,7 @@
 			         <% elsif selfie.approval_status == 2 %>
 			            <%= image_tag "/assets/challenge_rejected.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Get more upvotes to be approve.", style: "width: 50px;", class: "tab_photos_one_selfie_infos_status" %>
 			         <% elsif selfie.approval_status == 0 %>
-			            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Require more votes.", style: "width: 50px;", class: "tab_photos_one_selfie_infos_status" %>            
+			            <%= image_tag "/assets/challenge_pending.png", :"data-toggle"=>"tooltip", :"data-placement"=>"right", :title=>"Requires more votes.", style: "width: 50px;", class: "tab_photos_one_selfie_infos_status" %>            
 			         <% end %>
 						
 						<div class="tab_photos_one_selfie_infos hide">

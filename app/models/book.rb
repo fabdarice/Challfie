@@ -23,25 +23,25 @@ class Book < ActiveRecord::Base
       if I18n.locale == :fr
         "Niveau <br>débutant"
       else
-        "Newbie <br>Tier"
+        "Newbie <br>Level"
       end
     when 2
       if I18n.locale == :fr
         "Niveau <br>apprentit"
       else
-        "Apprentice <br>Tier"
+        "Apprentice <br>Level"
       end         
     when 3
       if I18n.locale == :fr
         "Niveau <br>Maître"
       else
-        "Master <br>Tier"
+        "Master <br>Level"
       end          
     when 100
       if I18n.locale == :fr
         "Niveau Challfie Spécial"
       else
-        "Challfie Special Tier"
+        "Challfie Special Level"
       end 
     end  	
    end

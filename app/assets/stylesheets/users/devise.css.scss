@@ -179,21 +179,22 @@ label.remember_me_link {
 }
 
 .welcome_page_intro {
-  color: #FFFFFF;
+  color: #000000;
   font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
   font-size: 20px;
   line-height: 30px;
-  text-shadow: 2px 2px black;
-  width: 320px;
-  font-weight: 600;
+  
+  width: 400px;
+  
   margin-bottom: 40px;
   margin-top: 20px;
 }
 
-
-.phone_section {
-  width: 620px;
+.phone_section {  
+  margin-left: 200px;
+  width: 800px;
   margin-top: 20px;
+  
 
   .phone {
     float: left;
@@ -209,7 +210,7 @@ label.remember_me_link {
     float: left;
     width: 400px;
     margin-top: 40px;    
-    margin-left: 250px;
+    margin-left: 300px;
 
     img {
       margin-bottom: 10px;
