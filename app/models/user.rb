@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
     # conveniently use `Houston::Client.development` or `Houston::Client.production`.
     apn_client = Houston::Client.development
     #APN.certificate = File.read("/path/to/apple_push_notification.pem")
-    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem")
+    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification.pem")
 
     if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
       notif_msg = @notification.author.username + @notification.message
