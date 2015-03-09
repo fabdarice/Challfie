@@ -238,27 +238,31 @@ class User < ActiveRecord::Base
   def add_notifications(message_en, message_fr, author, selfie, book, type_notification)     
     @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author,
                                              selfie: selfie, book: book, type_notification: type_notification)
-    @notification.save
+    
+    if @notification.save
+      if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
+        notif_msg = @notification.author.username + @notification.message
+      else
+        notif_msg = @notification.message
+      end
 
+      # send notification to iOS device
+      self.delay.send_ios_notification(notif_msg)
+    end
+  end
+
+  def send_ios_notification(message)
     # Environment variables are automatically read, or can be overridden by any specified options. You can also
     # conveniently use `Houston::Client.development` or `Houston::Client.production`.
-    if Rails.env.production?
-      logger.info "ENTER DEVICE PROD"
+    if Rails.env.production?      
       apn_client = Houston::Client.production
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem")
     else
       apn_client = Houston::Client.development
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
     end        
-
-    if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
-      notif_msg = @notification.author.username + @notification.message
-    else
-      notif_msg = @notification.message
-    end
-
-    self.devices.each do |device|
-      logger.info "ENTER DEVICE : " + device.token
+    
+    self.devices.each do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(notif_msg)
@@ -271,14 +275,12 @@ class User < ActiveRecord::Base
       ios_push_notification.category = "INVITE_CATEGORY"
       ios_push_notification.content_available = true
       
-      logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error      
+      #logger.info "Error: #{ios_push_notification.error}." if ios_push_notification.error      
+      
       # And... sent! That's all it takes.
       apn_client.push(ios_push_notification)
-
-      
-    end      
+    end 
   end
-
 
   # return list of block users by self user
   def block_by_users

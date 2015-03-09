@@ -91,6 +91,9 @@ gem 'active_model_serializers'
 # Gem to send iOS Notifications
 gem 'houston'
 
+# To run background task like ios Notifications
+gem 'delayed_job_active_record'
+
 
 group :development, :test do  
   # For Email testing in development mode

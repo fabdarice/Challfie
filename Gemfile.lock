@@ -87,6 +87,11 @@ GEM
       highline (~> 1.6.11)
     commonjs (0.2.7)
     daemons (1.1.9)
+    delayed_job (4.0.6)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.0.3)
+      activerecord (>= 3.0, < 5.0)
+      delayed_job (>= 3.0, < 4.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -292,6 +297,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1.1)
   capistrano-rvm!
+  delayed_job_active_record
   devise
   font-awesome-rails
   friendly_id (~> 5.0.0)
