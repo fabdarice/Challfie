@@ -297,6 +297,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1.1)
   capistrano-rvm!
+  daemons
   delayed_job_active_record
   devise
   font-awesome-rails

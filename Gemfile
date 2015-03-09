@@ -93,6 +93,7 @@ gem 'houston'
 
 # To run background task like ios Notifications
 gem 'delayed_job_active_record'
+gem "daemons"
 
 
 group :development, :test do  
