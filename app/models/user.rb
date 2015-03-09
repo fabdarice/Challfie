@@ -265,7 +265,7 @@ class User < ActiveRecord::Base
     self.devices.each do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
-      ios_push_notification.alert = strip_tags(notif_msg)
+      ios_push_notification.alert = strip_tags(message)
       
       # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
       push_badge_number = self.notifications.where(read: false).count + self.followers(0).count
