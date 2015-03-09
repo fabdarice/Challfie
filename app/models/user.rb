@@ -242,10 +242,14 @@ class User < ActiveRecord::Base
 
     # Environment variables are automatically read, or can be overridden by any specified options. You can also
     # conveniently use `Houston::Client.development` or `Houston::Client.production`.
-    apn_client = Houston::Client.development
-    #APN.certificate = File.read("/path/to/apple_push_notification.pem")
-    apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem")
-    logger.info "CERTIFICATE = " + "#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem"
+    if Rails.env.production?
+      logger.info "ENTER DEVICE PROD"
+      apn_client = Houston::Client.production
+      apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_prod.pem")
+    else
+      apn_client = Houston::Client.development
+      apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
+    end        
 
     if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
       notif_msg = @notification.author.username + @notification.message
