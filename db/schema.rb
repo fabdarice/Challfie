@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20150309013611) do
     t.integer  "points",                 default: 0
     t.string   "slug"
     t.integer  "administrator",          default: 0
-    t.boolean  "username_activated",     default: false
+    t.boolean  "username_activated",     default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
