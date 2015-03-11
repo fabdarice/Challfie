@@ -67,7 +67,7 @@ if Book.count == 0
 	apprentice_one_book.challenges.create(point: 100, description_en: 'Take a selfie at a basketball game', description_fr: 'Prendre un selfie à un match de basketball', difficulty: 2)
 	apprentice_one_book.challenges.create(point: 150, description_en: 'Take a selfie on a roadtrip', description_fr: 'Prendre un selfie lors d\'un roadtrip', difficulty: 3)
 	apprentice_one_book.challenges.create(point: 150, description_en: 'Take a selfie while dancing', description_fr: 'Prendre un selfie en dansant', difficulty: 3)
-	apprentice_one_book.challenges.create(point: 150, description_en: 'Take a selfie during a businesss meeting', description_fr: 'Prendre un selfie durant une réunion d\'affaires', difficulty: 4)	
+	apprentice_one_book.challenges.create(point: 200, description_en: 'Take a selfie during a businesss meeting', description_fr: 'Prendre un selfie durant une réunion d\'affaires', difficulty: 4)	
 	apprentice_one_book.challenges.create(point: 200, description_en: 'Take a selfie driving shirtless', description_fr: 'Prendre un selfie en conduisant torse nu', difficulty: 4)
 	apprentice_one_book.challenges.create(point: 250, description_en: 'Take a selfie with your birthday cake', description_fr: 'Prendre un selfie avec son gâteau d\'anniversaire', difficulty: 5)
 
@@ -134,6 +134,6 @@ if Book.count == 0
 	master_three_book.challenges.create(point: 400, description_en: 'Take a selfie at the finish line of the marathon', description_fr: 'Prendre un selfie à la ligne d\'arrivé d\'un marathon', difficulty: 4)
 	master_three_book.challenges.create(point: 400, description_en: 'Take a selfie on top of the Empire State Building', description_fr: 'Prendre un selfie sur l\'Empire State Building', difficulty: 4)
 	master_three_book.challenges.create(point: 500, description_en: 'Take a scuba diving selfie', description_fr: 'Prendre un selfie en plongée sous-marine', difficulty: 5)
-	master_three_book.challenges.create(point: 500, description_en: 'Take a selfie getting married', description_fr: 'Prendre un selfie à son propre mariage', difficulty: 1)
+	master_three_book.challenges.create(point: 500, description_en: 'Take a selfie getting married', description_fr: 'Prendre un selfie à son propre mariage', difficulty: 5)
 	master_three_book.challenges.create(point: 500, description_en: 'Take a selfie with a famous basketball player', description_fr: 'Prendre un selfie avec un joueur de basketball professionnel', difficulty: 5)
 end
