@@ -249,6 +249,15 @@ class User < ActiveRecord::Base
       # send notification to iOS device
       self.delay.send_ios_notification(notif_msg)
     end
+
+    #apn_client = Houston::Client.development
+    #apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
+    #puts "APN DEVICES" 
+    #apn_client.devices.each do |d|
+    #  puts "1"
+    #  puts d
+    #end
+    
   end
 
   def send_ios_notification(message)
@@ -261,6 +270,8 @@ class User < ActiveRecord::Base
       apn_client = Houston::Client.development
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
     end        
+
+    
     
     self.devices.each do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
