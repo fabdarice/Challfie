@@ -1,7 +1,6 @@
 class SelfiesController < ApplicationController
 	before_filter :authenticate_user!
 	
-
 	def new
 		@selfie = Selfie.new
 	end
@@ -57,19 +56,59 @@ class SelfiesController < ApplicationController
 	end
 
 	def filter_by_keyword
-	    if params[:search] == 'emptySelection'
-	      @challenges = Challenge.all
-	    else
+		@users_books = current_user.books.order('level')
+
+	   if params[:search] == 'emptySelection'	    		      
+	       daily_book = Book.new(name: "Daily Challenge", level: 0) 
+			 daily_challenge = DailyChallenge.last 
+			 daily_book.challenges << daily_challenge.challenge if daily_challenge 
+			 @users_books.unshift(daily_book) if daily_challenge     
+	   else
 	      @solr_search = Challenge.search do
 	        fulltext params[:search]
-	      end      
+	   	end      
 	      @challenges = @solr_search.results
-	    end
 
-	    respond_to do |format|
-	      format.html { render :nothing => true }
-	      format.js { }
-	    end
+		 	newbie_book_one = Book.new(name: "Newbie I", level: 1) 	
+			newbie_book_two = Book.new(name: "Newbie II", level: 2) 
+			newbie_book_three = Book.new(name: "Newbie III", level: 3) 
+			apprentice_one = Book.new(name: "Apprentice I", level: 4) 
+			apprentice_two = Book.new(name: "Apprentice I", level: 5) 
+			apprentice_three = Book.new(name: "Apprentice I", level: 6) 
+			master_one = Book.new(name: "Master I", level: 7) 
+			master_two = Book.new(name: "Master I", level: 8) 
+			master_three = Book.new(name: "Master I", level: 9) 			 
+
+			@challenges.each do |challenge| 				 
+				if @users_books.where(id: challenge.book.id).present? 					 
+					newbie_book_one.challenges << challenge if challenge.book.level == 1 
+					newbie_book_two.challenges << challenge if challenge.book.level == 2 
+					newbie_book_three.challenges << challenge if challenge.book.level == 3   
+					apprentice_one.challenges << challenge if challenge.book.level == 4   
+					apprentice_two.challenges << challenge if challenge.book.level == 5   
+					apprentice_three.challenges << challenge if challenge.book.level == 6   
+					master_one.challenges << challenge if challenge.book.level == 7   
+					master_two.challenges << challenge if challenge.book.level == 8   
+					master_three.challenges << challenge if challenge.book.level == 9   					
+				end  
+			end 
+
+			@users_books = [] 
+			@users_books << newbie_book_one if newbie_book_one.challenges.size != 0 
+			@users_books << newbie_book_two if newbie_book_two.challenges.size != 0 
+			@users_books << newbie_book_three if newbie_book_three.challenges.size != 0 
+			@users_books << apprentice_one if apprentice_one.challenges.size != 0 
+			@users_books << apprentice_two if apprentice_two.challenges.size != 0 
+			@users_books << apprentice_three if apprentice_three.challenges.size != 0 
+			@users_books << master_one if master_one.challenges.size != 0 
+			@users_books << master_two if master_two.challenges.size != 0 
+			@users_books << master_three if master_three.challenges.size != 0 
+	   end
+
+		respond_to do |format|
+			format.html { render :nothing => true }
+			format.js { }
+		end
 	end
 
 	def update

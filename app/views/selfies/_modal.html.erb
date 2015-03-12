@@ -49,8 +49,7 @@ $(function () {
 	   return false;  
 	});
 
-	$('#filter_challenge_field').keydown(function(e) {
-		if(e.which == 13) {
+	$('#filter_challenge_field').keyup(function(e) {		
 		var search_val = $(this).val();
 		if (search_val == '') {
 		  search_val = 'emptySelection'
@@ -60,8 +59,7 @@ $(function () {
 		    type: 'get',
 		    dataType: 'script'
 		 });
-		return false;    
-		}
+		return true;    		
 	});
 
 	// To Check if a selfie has been uploaded before submitting the form

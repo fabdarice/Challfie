@@ -9,13 +9,13 @@ class Challenge < ActiveRecord::Base
 	belongs_to :book
 
 	searchable do 
-   	text :description
+    text :description_fr, :description_en
   end
 
   def description
-    if I18n.locale == :fr
+    if I18n.locale == :fr      
       self.description_fr
-    else
+    else      
       self.description_en
     end
   end
