@@ -37,7 +37,7 @@ en:
     error_email_format: "format incorrect."
     step_header: "Easy, Fun and Competitive"
     step_challenge_title: "Pick a challenge"
-    step_challenge_text_html: "Discover over a hundred Selfie Challenges divided among nine levels of book to unlock."
+    step_challenge_text_html: "Discover over a hundred selfie challenges divided among nine levels of book to unlock."
     step_selfie_title: "Take a Selfie"
     step_selfies_text_html: "Take a Selfie to complete your challenge."
     step_community: "Approval"
@@ -140,7 +140,7 @@ en:
   left_content:
     next_book_unlock: "Next Book To Unlock"
     this_book_contains: "This book contains"
-    progress_bar: "Once your progress bar reached 100%, you will unlocked your next book of challenges."
+    progress_bar: "Once your progress bar reaches 100%, you will unlock your next book of challenges."
     change_profile_picture: "Change Profil Picture"
 
   right_content:

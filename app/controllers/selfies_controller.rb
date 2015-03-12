@@ -19,7 +19,7 @@ class SelfiesController < ApplicationController
 		@selfie.shared_fb = true if params[:mysharefacebook] == "1"
 
 		daily_challenge = DailyChallenge.last		
-		if @selfie.challenge == daily_challenge.challenge			
+		if daily_challenge != nil and @selfie.challenge == daily_challenge.challenge			
 			@selfie.is_daily = true		
 		end
 

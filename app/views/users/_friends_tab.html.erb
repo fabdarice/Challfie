@@ -18,9 +18,9 @@
 						<!-- FOLLOWERS TAB -->
 						<% if not current_user.is_following?(friend) and not current_user.is_following_with_pending_request?(friend) %>
 							<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>	
-						<% end %>
+						<% end %>						
 						<!-- Little X top right of the block to delete a followers -->
-						<%= link_to raw("<i class='fa fa-times-circle'></i>") ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "friends_btn_suppr friends_btn friends_btn_remove_#{friend.id}" %>
+						<%= link_to raw("<i class='fa fa-times-circle'></i>") ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "friends_btn_suppr friends_btn friends_btn_remove_#{friend.id}" if friend.id != current_user.id %>
 					<% else %>
 						<% if friendship == "pending_request" %>
 							<!-- USER WHO ADDED YOU - PENDING REQUEST -->
