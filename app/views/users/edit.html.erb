@@ -20,12 +20,15 @@
   <%= form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal' }) do |f| %>
     
     <%= render 'devise/registrations/form', :f => f, :source => 'user' %> 
-    <div class="form-group <% if f.object.errors['password_confirmation'].present? or f.object.errors['password'].present? %>hide<% end %>">      
-      <%= f.label :password, "#{t 'sign_in.password'}", class: 'col-sm-3 control-label' %>      
-      <div class="col-sm-6" style='padding-top: 6px;'>
-        <a href="#" id="change_password"><%= t 'profile.change_password' %></a>
-      </div>  
-    </div>
+
+    <% if current_user.from_facebook == false %>
+      <div class="form-group <% if f.object.errors['password_confirmation'].present? or f.object.errors['password'].present? %>hide<% end %>">      
+        <%= f.label :password, "#{t 'sign_in.password'}", class: 'col-sm-3 control-label' %>      
+        <div class="col-sm-6" style='padding-top: 6px;'>
+          <a href="#" id="change_password"><%= t 'profile.change_password' %></a>
+        </div>  
+      </div>
+    <% end %>
 
     <div id="change_password_form" class="<% if !f.object.errors['current_password'].present? and !f.object.errors['password_confirmation'].present? and !f.object.errors['password'].present? %>hide<% end %>">
       <div class="form-group <% if f.object.errors['current_password'].present? %>error<% end %>">

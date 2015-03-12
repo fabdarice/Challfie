@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    if verify_recaptcha
+    #if verify_recaptcha
       @contact = Contact.new(contacts_params)
       
       if @contact.email.blank?
@@ -20,10 +20,10 @@ class ContactsController < ApplicationController
         flash[:error] = "Error while sending this message. Try again later."  
         render 'new'      
       end
-    else
-      flash[:error] = "Your entry don't match the words in the box. Please try again."  
-      redirect_to new_contact_path, flash: {manifesto_modal: true}
-    end
+    #else
+    #  flash[:error] = "Your entry don't match the words in the box. Please try again."  
+    #  redirect_to new_contact_path, flash: {manifesto_modal: true}
+    #end
   end
 
   def destroy

@@ -119,7 +119,7 @@ fr:
     books: "Livres" 
     edit: "Modifier" 
     cancel: "Annuler"
-    save: "Ajouter"
+    save: "Valider"
 
   friends:
     mutual_friends: "amis en commun"
