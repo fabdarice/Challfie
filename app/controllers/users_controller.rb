@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 		@user = User.friendly.find(params[:id])
 		current_user.follow(@user)
 		@user.add_notifications(" has requested to follow you.", 
-										" souhaite faire parti de ta liste d'abonnée.",
+										" souhaite faire parti de ta liste d'abonnées.",
 										current_user , nil, nil, Notification.type_notifications[:friend_request])
 		respond_to do |format|
 	      format.html { render :nothing => true }
