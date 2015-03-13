@@ -14,10 +14,11 @@
 			$(window).scroll();
 		}
 
-		//if(window.opener) {
-		//    window.opener.location.reload(true);
-		//    window.close()
-		//}
+		// close the Facebook pop-up when logged in
+		if(window.opener) {
+		    //window.opener.location.reload(true);
+		    window.close()
+		}
 	});
 </script>
 
