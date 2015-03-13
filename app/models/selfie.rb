@@ -37,7 +37,7 @@ class Selfie < ActiveRecord::Base
 			challenge_value = self.challenge.point
 			challenge_value = challenge_value * 1.25 if self.is_daily 
 
-			if upvotes >= 5
+			if (upvotes + downvotes) >= 5
 				vote_ratio = upvotes.to_f / (upvotes + downvotes)				
 				if vote_ratio >= 0.75
 					# Selfie Status = Approved

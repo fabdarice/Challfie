@@ -24,11 +24,11 @@ namespace :solr do
   
   desc "reindex the whole solr database"
   task :reindex do
-    invoke 'solr:stop'
-    on roles(:app) do
-      execute :rm, "-rf #{shared_path}/solr/data"
-    end
-    invoke 'solr:start'
+    #invoke 'solr:stop'
+    #on roles(:app) do
+    #  execute :rm, "-rf #{shared_path}/solr/data"
+    #end
+    #invoke 'solr:start'
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env, 'production') do
