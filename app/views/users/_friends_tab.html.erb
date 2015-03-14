@@ -4,7 +4,7 @@
 		<% if !friend.blank? %>
 			<div class="one_following_block_border <% if slice.count < 3 %>block_space <% else %><%= cycle('block_space', 'block_space', '') %> <% end %>">
 				<div class="one_following_block">
-					<%= link_to (image_tag friend.show_profile_picture, style: "float: left; margin-right: 10px; width: 75px; height:75px; background-image: url(/assets/#{friend.current_book.book_color});", class: 'img-thumbnail'), user_path(friend) %>									
+					<%= link_to (image_tag friend.show_profile_picture("thumb"), style: "float: left; margin-right: 10px; width: 75px; height:75px; background-image: url(/assets/#{friend.current_book.book_color});", class: 'img-thumbnail'), user_path(friend) %>									
 					<p class="friend_username" style="margin-bottom: 3px;"><%= link_to friend.username, user_path(friend) %></p>
 					<span class="friend_rank">
 						<%= pluralize(friend.followers(1).count, "#{t 'friends.followers'}") %>

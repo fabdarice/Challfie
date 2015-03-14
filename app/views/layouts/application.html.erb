@@ -236,7 +236,7 @@
 						<a id="dropdownMenu2" data-toggle="dropdown">
 							<div class="dropdown_profile_pic" style="float: right; color: #f6f8f8; font-size: 11px;"><%=h truncate(current_user.username, :length => 25) %></div>
 							<div style="width: 35px; height: 35px; vertical-align: middle; float:right; margin-right: 5px;">
-								<%= image_tag current_user.show_profile_picture , alt: "Profile Picture", title: 'Profile Picture', style:"width: 35px; height: 35px; padding: 0.01em;", class: 'img-thumbnail' %>								
+								<%= image_tag current_user.show_profile_picture("thumb") , alt: "Profile Picture", title: 'Profile Picture', style:"width: 35px; height: 35px; padding: 0.01em;", class: 'img-thumbnail' %>								
 							</div>
 						</a>					
 

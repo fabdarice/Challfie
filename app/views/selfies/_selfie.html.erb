@@ -2,7 +2,7 @@
   <div class="selfie_post" data-time="<%= selfie.created_at.to_i %>">
   	<!-- SELFIE USER PICTURE AND NAME -->
     <div class="selfie_post_user">
-    		<%= link_to (image_tag selfie.user.show_profile_picture, class: 'img-thumbnail', style: "float: left; margin-right: 10px; background-image: url(/assets/#{selfie.user.current_book.book_color});"), user_path(selfie.user) %>
+    		<%= link_to (image_tag selfie.user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "float: left; margin-right: 10px; background-image: url(/assets/#{selfie.user.current_book.book_color});"), user_path(selfie.user) %>
     		<div class="selfie_post_user_username_challenge pull-left">
     			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %> <span style="margin-left: 10px; font-size: 11px; color: gray;"><%= selfie.user.current_book.name %></span></p>
 
@@ -60,7 +60,7 @@
 
     <!-- SELFIE PICTURE & STATUS -->
     <div class="selfie_image">
-    		<%= image_tag selfie.photo.url(:original), style: "width: 508px;" %>
+    		<%= image_tag selfie.photo.url(:website), style: "width: 508px;" %>
         <!-- SELFIE STATUS IMAGE -->
         <div class="selfie_challenge_status_img">
           <% if selfie.approval_status == 1 %>            

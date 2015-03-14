@@ -5,7 +5,7 @@
 <div class="left_content_block">
 	<% if user_signed_in? %>
 		<div class="show_speaker_thumb">
-			<%= link_to (image_tag current_user.show_profile_picture, alt: "Profile Picture", title: 'Profile Picture', class: 'img-thumbnail', style: "background-image: url(/assets/#{current_user.current_book.book_color});") , user_path(current_user) %>
+			<%= link_to (image_tag current_user.show_profile_picture("thumb"), alt: "Profile Picture", title: 'Profile Picture', class: 'img-thumbnail', style: "background-image: url(/assets/#{current_user.current_book.book_color});") , user_path(current_user) %>
 		</div>
 		<div class="homepage_user_info">	
 			<span class="homepage_user_info_username"><%= link_to truncate(current_user.username, :length => 22), user_path(current_user) %></span>

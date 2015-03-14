@@ -1,6 +1,6 @@
 <div class="one_notification <% if !notification.read %>notification_unread<% end %>">
 	<div class="one_notification_author">
-		<%= link_to (image_tag notification.author.show_profile_picture), user_path(notification.author)  %>
+		<%= link_to (image_tag notification.author.show_profile_picture("thumb")), user_path(notification.author)  %>
 	</div>
 	<div class="one_notification_message">
 

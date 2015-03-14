@@ -54,15 +54,16 @@ class User < ActiveRecord::Base
   has_many :devices
 
   has_attached_file :avatar, 
-                    :styles => {:thumb => "" }, 
-                    :convert_options => { :thumb => Proc.new { |instance| instance.avatar_dimension } },
+                    :styles => {:thumb => "", :medium => "" }, 
+                    :convert_options => { :medium => Proc.new { |instance| instance.avatar_dimension }, 
+                                          :thumb => Proc.new { |instance| instance.avatar_dimension(75) } },
                     :default_url => "/assets/missing_user.png"                    
   
   validates_attachment :avatar,
             :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
-            :size => { :in => 0..5.megabytes }
+            :size => { :in => 0..5.megabytes }  
 
-  def avatar_dimension(size=400)
+  def avatar_dimension(size=300)
     dimensions = Paperclip::Geometry.from_file(avatar.queued_for_write[:original].path)
     min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
     "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{size}x#{size}^"
@@ -175,14 +176,16 @@ class User < ActiveRecord::Base
     @login || self.username || self.email
   end
 
-  def show_profile_picture
-    if self.not_from_facebook?
-        self.avatar.url(:thumb)
+  def show_profile_picture(size_type)
+    if self.not_from_facebook?      
+        return self.avatar.url(:thumb) if size_type == "thumb"
+        return self.avatar.url(:medium) if size_type == "medium"
     else
       if self.avatar.blank?
         self.facebook_picture
       else            
-        self.avatar.url(:thumb)
+        return self.avatar.url(:thumb) if size_type == "thumb"
+        return self.avatar.url(:medium) if size_type == "medium"
       end
     end
   end
