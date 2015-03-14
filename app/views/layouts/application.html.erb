@@ -9,8 +9,8 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <%= favicon_link_tag 'favicon.ico' %> 
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, async: true, cache: true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true, async: true, cache: true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
