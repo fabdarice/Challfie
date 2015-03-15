@@ -23,9 +23,9 @@ module Api
         current_user.username_activated = true
       end
 
-      if params[:device_token]
-        current_user.devices.find_or_create_by(token: params[:device_token])        
-      end
+      #if params[:device_token]
+      #  current_user.devices.find_or_create_by(token: params[:device_token])        
+      #end
           
       if current_user.save
         render json: current_user
@@ -137,7 +137,7 @@ module Api
       @user = User.friendly.find(params[:user_id])
       @user.stop_following(current_user)     
 
-      render json: {}       
+      render json: {}
     end
 
 

@@ -111,6 +111,9 @@ Challfie::Application.routes.draw do
     # ContactsController
     post '/contact/create' => 'contacts#create', as: :contact_create
 
+    # DevicesController
+    post '/device/create' => 'devices#create', as: :device_create
+
   end
 
 end
