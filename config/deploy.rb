@@ -48,6 +48,7 @@ namespace :deploy do
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
   after :finishing, 'delayed_job:restart'
+  after :finishing, 'solr:restart'
   
 end
 

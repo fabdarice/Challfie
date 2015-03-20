@@ -36,10 +36,8 @@
 		  <%= t 'homepage.alert_first_selfie_html' %>
 		</div>
 	<% end %>	
-	<div class="list_selfies">
-		<% cache(cache_key_for_selfies) do %>
-			<%= render @selfies, :editable => true %>			
-		<% end %>
+	<div class="list_selfies">		
+		<%= render @selfies, :editable => true %>					
 	</div>	
 	<center><%= will_paginate @selfies %></center>	
 </div>
