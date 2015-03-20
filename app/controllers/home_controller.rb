@@ -9,7 +9,7 @@ class HomeController < ApplicationController
  		list_following_ids = users_following.map{|u| u.id}
  		list_following_ids << current_user.id
  		
-		@selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"])
+		@selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge, comments: [:user])
 		@selfie = Selfie.new
 		
 	end

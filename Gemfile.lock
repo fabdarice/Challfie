@@ -60,6 +60,9 @@ GEM
     bcrypt (3.1.7)
     browser (0.7.0)
     builder (3.2.2)
+    bullet (4.14.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -278,6 +281,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
     whenever (0.9.4)
@@ -293,6 +297,7 @@ DEPENDENCIES
   acts_as_votable (~> 0.10.0)
   aws-sdk
   browser
+  bullet
   capistrano (~> 3.2.1)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1.1)

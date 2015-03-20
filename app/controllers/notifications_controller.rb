@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 	
 	
 	def index
-		@notifications = current_user.notifications.order('created_at DESC').paginate(:page => params[:page])
+		@notifications = current_user.notifications.order('created_at DESC').paginate(:page => params[:page]).includes(:author, :selfie, :book)
 	end
 
 	def all_read		

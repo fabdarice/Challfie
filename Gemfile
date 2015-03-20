@@ -99,6 +99,7 @@ gem "daemons"
 group :development, :test do  
   # For Email testing in development mode
   gem 'mailcatcher'
+  gem "bullet"
 
 end
 

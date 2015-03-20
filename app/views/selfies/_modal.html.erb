@@ -260,7 +260,7 @@ $(function () {
 
 				<div class="form-group">
 					<!-- Retrive Books unlocked by the current user -->
-					<% current_user_books = current_user.books.order('level') %>
+					<% current_user_books = current_user.books.order('level').includes(:challenges) %>
 
 					<!-- Create a temporary Daily Book containing the Daily Challenge for Display -->
 					<% daily_book = Book.new(name: "Daily Challenge", level: 0) %>

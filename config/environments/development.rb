@@ -35,4 +35,11 @@ Challfie::Application.configure do
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
+  # Bullet Configuration
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.rails_logger = true  
+  end
+
 end
