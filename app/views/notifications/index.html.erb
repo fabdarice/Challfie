@@ -35,7 +35,9 @@
 	<h5>Notifications</h5>
 	<hr style="border: 0.01em solid grey; margin-bottom: 15px;">
 	<div id="list_notifications">
-		<%= render @notifications %>		
+		<% cache(cache_key_for_notifications) do %>
+			<%= render @notifications %>		
+		<% end %>	
 	</div>	
 	<center><%= will_paginate @notifications %></center>
 </div>

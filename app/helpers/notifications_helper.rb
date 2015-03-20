@@ -14,4 +14,10 @@ module NotificationsHelper
 	   # when Notification.book_unlock 
 	   msg = msg + raw(notif_obj.message)	   	     
 	end
+
+	def cache_key_for_notifications
+	    count          = Notification.count
+	    max_updated_at = Notification.maximum(:updated_at).try(:utc).try(:to_s, :number)
+	    "notifications/all-#{count}-#{max_updated_at}"
+	end
 end
