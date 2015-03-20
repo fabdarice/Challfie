@@ -95,6 +95,9 @@ gem 'houston'
 gem 'delayed_job_active_record'
 gem "daemons"
 
+# To analyse performance of the rails app
+gem 'newrelic_rpm'
+
 
 group :development, :test do  
   # For Email testing in development mode
