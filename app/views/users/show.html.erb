@@ -43,7 +43,7 @@
 	<% if !current_user.is_following?(@user) %>
 		<% if current_user.following?(@user) %>
 			<div class="alert alert-info alert_friends_<%= @user.id %>" role="alert">
-			  Your following request has been sent. Waiting on approval.
+			  Your friend request has been sent. Waiting on approval.
 			</div>
 		<% else %>
 			<div class="alert alert-info alert_friends_<%= @user.id %>" role="alert">

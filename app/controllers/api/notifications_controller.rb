@@ -17,10 +17,10 @@ module Api
 	      render json: @notifications, meta: {new_alert_nb: unread_notifications.count}
 	    end
 
-	   def all_read
-	   	current_user.notifications.where(read: false).update_all(read: true)
-      render json: {}
-	   end
+	    def all_read
+	   	  current_user.notifications.where(read: false).update_all(read: true)
+        render json: {}
+	    end
 
     end
 end

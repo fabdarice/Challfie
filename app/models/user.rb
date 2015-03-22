@@ -440,7 +440,10 @@ class User < ActiveRecord::Base
     return progression_percentage
   end
 
-  
+  def should_generate_new_friendly_id?
+    username_changed?
+  end
+
 
   private
   

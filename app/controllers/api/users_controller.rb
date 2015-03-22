@@ -126,7 +126,7 @@ module Api
       @follow = Follow.find_by followable_id: current_user.id, follower_id: @user.id
       @follow.status = 1
       @follow.save      
-      @user.add_notifications(" has accepted your <strong>following request</strong>.", 
+      @user.add_notifications(" has accepted your <strong>friend request</strong>.", 
                       " a accepté ta <strong>demande d'ami</strong>.",
                       current_user , nil, nil, Notification.type_notifications[:friend_request])
       render json: {}
