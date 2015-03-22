@@ -110,6 +110,9 @@ module Api
     def follow
       @user = User.friendly.find(params[:user_id])
       current_user.follow(@user)
+      @user.add_notifications(" has requested to follow you.", 
+                    " souhaite faire parti de ta liste d'abonnées.",
+                    current_user , nil, nil, Notification.type_notifications[:friend_request])
       render json: {} 
     end
 
