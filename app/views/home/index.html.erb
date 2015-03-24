@@ -16,8 +16,8 @@
 
 		// close the Facebook pop-up when logged in and reload main page
 		if(window.opener) {		 
-			logger.info "ENTER window.opener"
-		   window.close()
+			alert("ENTER window");
+		   window.close();
 		   window.opener.location.reload(true);
 		}
 	});
