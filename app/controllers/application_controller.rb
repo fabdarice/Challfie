@@ -104,15 +104,12 @@ class ApplicationController < ActionController::Base
   end
 
   def initiate_first_book(username)
-    user = resource || (User.find_by username: username)
+    user = resource || (User.find_by username: username)    
 
     if user and not user.username.blank?        
       first_level_book = Book.find_by level: 1
-      book_users = BookUser.new
-      book_users.user = user
-      book_users.book = first_level_book
-      book_users.save
-
+      BookUser.where(user_id: user.id, book_id: first_level_book.id).first_or_create!
+      
       # First 200 subscribers
       #if User.count <= 2000
       #  challfie_special_book = Book.find_by level: 100

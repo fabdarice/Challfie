@@ -13,7 +13,11 @@ module Api
         pending_request = current_user.followers(0)
         progress_percentage = current_user.next_book_progression
         current_level = current_user.current_book.name
-        next_level = current_user.next_book.name        
+        if current_user.next_book
+          next_level = current_user.next_book.name        
+        else
+          next_level = ""
+        end
 
         render :json=> {:success=>true, progress_percentage: progress_percentage, current_level: current_level, next_level: next_level,
           new_alert_nb: unread_notifications.count, new_friends_request_nb: pending_request.count}

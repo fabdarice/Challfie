@@ -118,15 +118,10 @@ class User < ActiveRecord::Base
       facebook_info.save
 
       # IF FIRST TIME REGISTRATION FROM FACEBOOK 
-      if BookUser.where(user_id: user.id).count == 0
+      if user and BookUser.where(user_id: user.id).count == 0
         first_level_book = Book.find_by level: 1
-        book_users = BookUser.new
-        book_users.user = user
-        book_users.book = first_level_book
-        if !book_users.save 
-          return nil
-        end
-
+        BookUser.where(user_id: user.id, book_id: first_level_book.id).first_or_create!
+        
         # First 200 subscribers
         #if User.count <= 2000
         #  challfie_special_book = Book.find_by level: 100
@@ -251,16 +246,7 @@ class User < ActiveRecord::Base
 
       # send notification to iOS device
       self.delay.send_ios_notification(notif_msg)
-    end
-
-    #apn_client = Houston::Client.development
-    #apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
-    #puts "APN DEVICES" 
-    #apn_client.devices.each do |d|
-    #  puts "1"
-    #  puts d
-    #end
-    
+    end  
   end
 
   def send_ios_notification(message)
@@ -431,7 +417,7 @@ class User < ActiveRecord::Base
     nextbook = self.next_book
 
     if nextbook == nil
-      return nil
+      return 100
     end
 
     book_diff = nextbook.required_points - curbook.required_points
