@@ -1,0 +1,12 @@
+<script type="text/javascript">
+	$(function() {		
+		// close the Facebook pop-up when logged in and reload main page
+		if (window.opener) {		 			
+		   window.close();
+		   window.opener.location.reload(true);
+		}
+	});
+</script>
+<div class='container' style="background-color: white; width: 200px; margin-top : 20px; margin-bottom: 20px;">
+	Signing in with Facebook...
+</div>
