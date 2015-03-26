@@ -1,12 +1,14 @@
 <script type="text/javascript">
 	$(function() {		
+		alert("ENTER");
 		// close the Facebook pop-up when logged in and reload main page
-		if (window.opener) {		 			
+		if (window.opener) {		
+			alert("ENTER 2"); 			
 		   window.close();
 		   window.opener.location.reload(true);
 		}
 	});
 </script>
-<div class='container' style="background-color: white; width: 200px; margin-top : 20px; margin-bottom: 20px;">
+<div style="text-align: center; margin-right: 300px; margin-top: 20px;">
 	Signing in with Facebook...
 </div>

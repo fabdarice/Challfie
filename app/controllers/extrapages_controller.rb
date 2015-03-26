@@ -32,6 +32,6 @@ class ExtrapagesController < ApplicationController
 	end
 
 	def after_facebook_login
-		render layout: "extra_pages"
+		#render layout: "extra_pages"
 	end
 end
