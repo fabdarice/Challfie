@@ -1,9 +1,7 @@
 <script type="text/javascript">
-	$(function() {		
-		alert("ENTER");
+	$(function() {				
 		// close the Facebook pop-up when logged in and reload main page
-		if (window.opener) {		
-			alert("ENTER 2"); 			
+		if (window.opener) {					
 		   window.close();
 		   window.opener.location.reload(true);
 		}
