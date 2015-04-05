@@ -72,7 +72,7 @@
 			<div class="one_friends_suggestions">
 				
 				<ul class="list-unstyled">
-					<% @friends_suggestion.first(6).each do |fds_sug| %>
+					<% @friends_suggestion.first(10).each do |fds_sug| %>
 						<% if !fds_sug.blank? %>
 							<li style='margin-top: 10px;'>
 								<%= link_to (image_tag fds_sug.show_profile_picture("thumb"), style: "float: left; margin-right: 10px; width: 65px; height:65px; background-image: url(/assets/#{fds_sug.current_book.book_color})", class: 'img-thumbnail'), user_path(fds_sug) %>									
