@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
       user.uid = auth[:uid]      
       user.email = auth[:info][:email]
       user.password = Devise.friendly_token[0,20]
-      user.username = auth[:uid][0,15]   # assuming the user model has a name
+      user.username = auth[:uid].to_s[0,15]   # assuming the user model has a name
       user.firstname = auth[:info][:first_name]
       user.lastname = auth[:info][:last_name]
       user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
