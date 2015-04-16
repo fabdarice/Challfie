@@ -195,6 +195,15 @@ module Api
       end        
       
     end
+
+
+    def ranking
+      users = current_user.following(1)
+      users << current_user      
+      users = users.sort_by{|u| -u.points}      
+
+      render json: users, each_serializer: UserrankingSerializer, scope: current_user              
+    end
     
   end  
 end

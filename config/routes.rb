@@ -74,6 +74,7 @@ Challfie::Application.routes.draw do
     post '/user/autocomplete_search_user' => 'users#autocomplete_search_user', as: :autocomplete_search_user
     post '/user/update' => 'users#update', as: :user_update
     post '/user/facebook_link' => 'users#facebook_link', as: :user_facebook_link
+    post '/users/ranking' => 'users#ranking', as: :users_rankin
             
     # Devise Controller
     devise_scope :user do
@@ -81,7 +82,7 @@ Challfie::Application.routes.draw do
       delete '/users/sign_out' => 'sessions#destroy', as: :destroy_user_session
       post   '/users'  => 'registrations#create',  as: :user_registration
       post  '/users/password'  => 'passwords#create', as: :user_password      
-      post "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook      
+      post  "/users/facebook" => "registrations#create_from_facebook", :as => :create_from_facebook      
     end
     
     # SelfiesController
