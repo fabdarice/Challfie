@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312013835) do
+ActiveRecord::Schema.define(version: 20150413013502) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "book_users", ["book_id"], name: "index_book_users_on_book_id", using: :btree
+  add_index "book_users", ["user_id", "book_id"], name: "index_book_users_on_user_id_and_book_id", unique: true, using: :btree
 
   create_table "books", force: true do |t|
     t.text     "name"
@@ -60,6 +63,8 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.text     "description_fr"
   end
 
+  add_index "challenges", ["book_id"], name: "index_challenges_on_book_id", using: :btree
+
   create_table "comments", force: true do |t|
     t.text     "message"
     t.integer  "selfie_id"
@@ -67,6 +72,9 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "comments", ["selfie_id"], name: "index_comments_on_selfie_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "email"
@@ -105,6 +113,9 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.datetime "updated_at"
   end
 
+  add_index "devices", ["token"], name: "index_devices_on_token", using: :btree
+  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
+
   create_table "facebook_infos", force: true do |t|
     t.integer  "user_id"
     t.string   "facebook_lastname"
@@ -113,6 +124,8 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "facebook_infos", ["user_id"], name: "index_facebook_infos_on_user_id", using: :btree
 
   create_table "follows", force: true do |t|
     t.integer  "followable_id",                   null: false
@@ -141,7 +154,12 @@ ActiveRecord::Schema.define(version: 20150312013835) do
     t.integer  "type_notification", default: 0
   end
 
+  add_index "notifications", ["author_id"], name: "index_notifications_on_author_id", using: :btree
   add_index "notifications", ["book_id"], name: "index_notifications_on_book_id", using: :btree
+  add_index "notifications", ["created_at"], name: "index_notifications_on_created_at", using: :btree
+  add_index "notifications", ["read"], name: "index_notifications_on_read", using: :btree
+  add_index "notifications", ["selfie_id"], name: "index_notifications_on_selfie_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "selfies", force: true do |t|
     t.integer  "user_id"
@@ -160,6 +178,8 @@ ActiveRecord::Schema.define(version: 20150312013835) do
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
+  add_index "selfies", ["created_at"], name: "index_selfies_on_created_at", using: :btree
+  add_index "selfies", ["user_id"], name: "index_selfies_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

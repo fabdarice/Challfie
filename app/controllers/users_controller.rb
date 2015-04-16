@@ -10,8 +10,8 @@ class UsersController < ApplicationController
 		else
 			@is_timeline_tab = false			
 		end
-		@selfies = @user.selfies.order("created_at DESC").paginate(:page => params["page"], :per_page => 30)
-		@timeline_selfie = @user.selfies.order("created_at DESC").paginate(:page => params["page"]).includes(:challenge, comments: [:user])
+		@selfies = @user.selfies.order("created_at DESC").paginate(:page => params["page"], :per_page => 20)
+		@timeline_selfie = @user.selfies.order("created_at DESC").paginate(:page => params["page"]).includes(:challenge)
 		@books = Book.all.order(tier: :asc, level: :asc)
 	end
 

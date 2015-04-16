@@ -22,10 +22,6 @@ module Api
         current_user.username = params[:new_username]
         current_user.username_activated = true
       end
-
-      #if params[:device_token]
-      #  current_user.devices.find_or_create_by(token: params[:device_token])        
-      #end
           
       if current_user.save
         render json: current_user

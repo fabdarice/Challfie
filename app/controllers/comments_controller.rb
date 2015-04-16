@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
 
   def show_selfie_comments
     @selfie = Selfie.find(params[:id])
-    @comments = @selfie.comments
+    @comments = @selfie.comments.includes(:user)
 
     respond_to do |format|
       format.html { render :nothing => true }

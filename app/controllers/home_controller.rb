@@ -4,11 +4,14 @@ class HomeController < ApplicationController
 	autocomplete :user, :username, :limit => 10
 
  	def index 	 		 		
- 		users_following = current_user.following(1)
+ 		users_following = current_user.following(1) 		
  		list_following_ids = users_following.map{|u| u.id}
  		list_following_ids << current_user.id
+
+ 		users_following_pending = current_user.following(0)
+ 		list_following_ids_pending = users_following_pending.map{|u| u.id} 		
  		
-		@selfies = Selfie.where("user_id in (?)", list_following_ids).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge, comments: [:user])
+		@selfies = Selfie.where("(user_id in (?)) or (user_id in (?) and private = false)", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)
 		@selfie = Selfie.new
 		
 	end

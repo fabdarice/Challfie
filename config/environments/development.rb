@@ -39,7 +39,9 @@ Challfie::Application.configure do
   config.after_initialize do
     Bullet.enable = true
     Bullet.alert = true
-    Bullet.rails_logger = true  
+    Bullet.rails_logger = true 
+    Bullet.add_whitelist :type => :n_plus_one_query, :class_name => "Selfie", :association => :comments 
+    Bullet.add_whitelist :type => :n_plus_one_query, :class_name => "Comment", :association => :user 
   end
 
 
