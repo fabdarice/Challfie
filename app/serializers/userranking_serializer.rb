@@ -1,5 +1,5 @@
 class UserrankingSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :nb_challenges_complete, :progression
+  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :progression
 
   #delegate :current_user, to: :scope
 
@@ -51,14 +51,7 @@ class UserrankingSerializer < ActiveModel::Serializer
     else
       return true
     end
-  end
-
-  def nb_challenges_complete
-    if object.selfies.count == 0
-      return 0
-    end
-    return object.selfies.where(approval_status: 1).count
-  end
+  end 
   
   def progression
     return object.next_book_progression

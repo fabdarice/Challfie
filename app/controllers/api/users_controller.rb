@@ -200,7 +200,8 @@ module Api
     def ranking
       users = current_user.following(1)
       users << current_user      
-      users = users.sort_by{|u| -u.points}      
+      users = users.sort_by{|u| -u.points} 
+      users = users.paginate(:page => params["page"], :per_page => 10)     
 
       render json: users, each_serializer: UserrankingSerializer, scope: current_user              
     end
