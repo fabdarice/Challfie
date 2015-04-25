@@ -14,16 +14,14 @@
 <body style="padding-top: 0px;">	
 	<nav class="menu_signin navbar" role="navigation">
 		<div class="container" style="text-align:center; margin:auto">					
-				<%= link_to image_tag("/assets/challfie_letter_white.png", style: 'height: 40px; margin-top: 5px; text-align:center;'), root_path %>
+				<%= link_to image_tag("/assets/challfie_letter.png", style: 'height: 40px; margin-top: 5px; text-align:center;'), root_path %>
 		</div>	
       
    </nav>
 	<div id="main_content_signin" >
 		<div class="container" style="width: 1300px; position: relative;">						
 			<%= yield %>
-			<div class="arrow_sign_in_page">
-				<%= link_to (image_tag "/assets/navigate_down.png", style: "width: 50px;"), "#main_content_signin_steps" %>				
-			</div>	
+				
    		
 		</div>		
 	</div>

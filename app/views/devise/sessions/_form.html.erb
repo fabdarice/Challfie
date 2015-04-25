@@ -23,7 +23,15 @@
 <div class="logo_intro">
 	<p class="welcome_page_title"><%= t 'sign_in.title' %></p>
   <%= image_tag "/assets/new_logo.png", style: "height: 50px; margin-right: 10px; float:left;" %>
-  <p style="font-size: 22px; width: 650px;color: white; margin-top: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;"> <%= t 'sign_in.subtitle' %></p><br>
+  <p style="font-size: 22px; width: 650px;color: white; margin-top: 20px; margin-bottom: 20px; line-height: 25px; text-shadow: 2px 1px black; font-style:italic;"> <%= t 'sign_in.subtitle' %></p><br>
+  <% if I18n.locale == :en %>
+    <%= image_tag "/assets/sign_in_page_photo_01_EN.png", style: "height: 360px; margin-right: 40px;" %>
+    <%= image_tag "/assets/sign_in_page_photo_02_EN.png", style: "height: 360px;" %>
+  <% else %>
+    <%= image_tag "/assets/sign_in_page_photo_01_FR.png", style: "height: 360px; margin-right: 40px;" %>
+    <%= image_tag "/assets/sign_in_page_photo_02_FR.png", style: "height: 360px;" %>
+  <% end %>
+  
   
    
 </div>

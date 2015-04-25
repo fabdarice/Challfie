@@ -80,7 +80,7 @@ h5 {
 .menu_signin {
 	width: auto;
 	height: 45px;
-	background-color: $mygreen;
+	/*background-color: $mygreen;*/
 	border-radius: 0px;
 
 	img {
@@ -154,7 +154,8 @@ h5 {
 
 #main_content_signin {
 	
-	background-image: url('/assets/challfie_background_login.jpg');
+	background-image: url('/assets/challfie_general_background.png');
+	/*background-color: $mygreen;*/
 	border-bottom: solid 1px $mygrey;
 	border-top: solid 1px $mygrey;
 	background-size: cover;
@@ -183,7 +184,10 @@ h5 {
 	margin: auto;
 	margin-bottom: 20px;
 	margin-top:20px;
-	background-color: $mygreen;
+	background-image: url('/assets/challfie_general_background.png');
+	background-size: cover;
+   background-repeat: no-repeat;
+	/*background-color: $mygreen;*/
 	padding-top: 40px;
 	padding-bottom: 40px;
 
