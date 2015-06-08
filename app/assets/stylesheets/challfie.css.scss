@@ -153,9 +153,9 @@ h5 {
 }
 
 #main_content_signin {
-	
-	/*background-image: url('/assets/challfie_background_login.jpg');*/
-	background-color: $mygreen;
+	position: relative;
+	background-image: url('/assets/challfie_background_login.jpg');
+	/*background-color: $mygreen;*/
 	border-bottom: solid 1px $mygrey;
 	border-top: solid 1px $mygrey;
 	background-size: cover;
