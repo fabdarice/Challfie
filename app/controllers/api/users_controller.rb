@@ -40,10 +40,6 @@ module Api
     def list_selfies
       user = User.friendly.find(params[:user_id])
 
-      #if user.block == true
-      #  render json: [], meta: {number_selfies: -1, number_following: -1, number_followers: -1, number_books: -1}
-      #end
-
       if current_user == user or current_user.is_following?(user)
         user_selfies = user.selfies.where("blocked = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
       else
