@@ -25,7 +25,7 @@ class HomeController < ApplicationController
  		users_following_pending = current_user.following(0)
  		list_following_ids_pending = users_following_pending.map{|u| u.id}
 
- 		@new_selfies = Selfie.where("user_id in (?) or (user_id in (?) and private = false) and created_at > ? and blocked = false", list_following_ids, list_following_ids_pending, Time.at(params[:after_selfie].to_i)).order("created_at DESC").includes(:user, :challenge)
+ 		@new_selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and created_at > ? and blocked = false", list_following_ids, list_following_ids_pending, Time.at(params[:after_selfie].to_i)).order("created_at DESC").includes(:user, :challenge)
 
  		# REFRESH NOTIFICATIONS
  		time_reference = Time.at(Time.now.to_i - (params[:interval].to_i / 1000) - 2)

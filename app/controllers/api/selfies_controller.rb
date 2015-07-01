@@ -29,9 +29,9 @@ module Api
       list_following_ids << current_user.id
 
       users_following_pending = current_user.following(0)
-      list_following_ids_pending = users_following_pending.map{|u| u.id}
+      list_following_ids_pending = users_following_pending.map{|u| u.id}      
 
-      @selfies = Selfie.where("(user_id in (?)) or (user_id in (?) and private = false) and id >= ? and blocked = false", list_following_ids, list_following_ids_pending, params[:last_selfie_id]).order("created_at DESC")
+      @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and id >= ? and blocked = false", list_following_ids, list_following_ids_pending, params[:last_selfie_id]).order("created_at DESC")
 
       # Number of New Notifications
       unread_notifications = current_user.notifications.where(read: 0)
