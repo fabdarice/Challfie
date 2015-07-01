@@ -40,10 +40,14 @@ module Api
     def list_selfies
       user = User.friendly.find(params[:user_id])
 
+      #if user.block == true
+      #  render json: [], meta: {number_selfies: -1, number_following: -1, number_followers: -1, number_books: -1}
+      #end
+
       if current_user == user or current_user.is_following?(user)
-        user_selfies = user.selfies.order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
+        user_selfies = user.selfies.where("blocked = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
       else
-        user_selfies = user.selfies.where("private = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
+        user_selfies = user.selfies.where("private = false and blocked = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
       end
       followers = user.followers(1)
       following = user.all_following

@@ -1,7 +1,7 @@
 class SelfieSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
-  attributes :id, :message, :photo, :shared_fb, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote
+  attributes :id, :message, :photo, :shared_fb, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote, :flag_count, :blocked
 
   delegate :current_user, to: :scope
 

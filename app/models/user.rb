@@ -205,7 +205,7 @@ class User < ActiveRecord::Base
     following = []
     user_following.each do |f|
       user = User.friendly.find(f.followable_id)
-      following << user
+      following << user if user.blocked == false
     end
     following = following.sort_by{|u| u.username.downcase}
   end
@@ -217,7 +217,7 @@ class User < ActiveRecord::Base
     followers = []
     user_followers.each do |f|
       user = User.friendly.find(f.follower_id)
-      followers << user
+      followers << user if user.blocked == false
     end
     followers = followers.sort_by{|u| u.username.downcase}
   end
@@ -304,7 +304,7 @@ class User < ActiveRecord::Base
         facebook_friends.each do |fb_friend|
           fb_friends_sug = User.find_by uid: fb_friend['id']
           # ADD TO SUGGESTION IF NOT ALREADY FOLLOWING
-          @friends_suggestion << fb_friends_sug if not fb_friends_sug.blank? and not self.following?(fb_friends_sug)
+          @friends_suggestion << fb_friends_sug if not fb_friends_sug.blank? and not self.following?(fb_friends_sug) and fb_friends_sug.blocked == false
         end
       rescue Koala::Facebook::APIError
         logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
@@ -321,7 +321,7 @@ class User < ActiveRecord::Base
     results = client.query("CALL GetSuggestedFriends(#{self.id})")
     results.each do |result|
       local_user = User.friendly.find(result['id'])      
-      @friends_suggestion << local_user if not @friends_suggestion.include?(local_user)
+      @friends_suggestion << local_user if not @friends_suggestion.include?(local_user) and local_user.blocked == false
     end
     
     @friends_suggestion

@@ -1,5 +1,5 @@
 class FriendsSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :nb_mutual_friend, :is_facebook_picture, :nb_followers, :is_pending, :is_following
+  attributes :id, :username, :avatar, :book_tier, :book_level, :nb_mutual_friend, :is_facebook_picture, :nb_followers, :is_pending, :is_following, :blocked
 
   #delegate :current_user, to: :scope
 

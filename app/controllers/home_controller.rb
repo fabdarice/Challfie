@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
 	autocomplete :user, :username, :limit => 10
 
- 	def index 	 		 		
+ 	def index 	 		 		 		
  		users_following = current_user.following(1) 		
  		list_following_ids = users_following.map{|u| u.id}
  		list_following_ids << current_user.id
@@ -11,7 +11,7 @@ class HomeController < ApplicationController
  		users_following_pending = current_user.following(0)
  		list_following_ids_pending = users_following_pending.map{|u| u.id} 		
  		
-		@selfies = Selfie.where("(user_id in (?)) or (user_id in (?) and private = false)", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)
+		@selfies = Selfie.where("(user_id in (?)) or (user_id in (?) and private = false) and blocked = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)
 		@selfie = Selfie.new
 		
 	end
@@ -20,8 +20,12 @@ class HomeController < ApplicationController
 		# REFRESH SELFIES ON TIMELINE
 		users_following = current_user.following(1)
  		list_following_ids = users_following.map{|u| u.id}
- 		list_following_ids << current_user.id  
- 		@new_selfies = Selfie.where("user_id in (?) and created_at > ?", list_following_ids, Time.at(params[:after_selfie].to_i)).order("created_at DESC").includes(:user, :challenge)
+ 		list_following_ids << current_user.id
+
+ 		users_following_pending = current_user.following(0)
+ 		list_following_ids_pending = users_following_pending.map{|u| u.id}
+
+ 		@new_selfies = Selfie.where("user_id in (?) or (user_id in (?) and private = false) and created_at > ? and blocked = false", list_following_ids, list_following_ids_pending, Time.at(params[:after_selfie].to_i)).order("created_at DESC").includes(:user, :challenge)
 
  		# REFRESH NOTIFICATIONS
  		time_reference = Time.at(Time.now.to_i - (params[:interval].to_i / 1000) - 2)

@@ -10,8 +10,8 @@ class UsersController < ApplicationController
 		else
 			@is_timeline_tab = false			
 		end
-		@selfies = @user.selfies.order("created_at DESC").paginate(:page => params["page"], :per_page => 20)
-		@timeline_selfie = @user.selfies.order("created_at DESC").paginate(:page => params["page"]).includes(:challenge)
+		@selfies = @user.selfies.where("blocked = false").order("created_at DESC").paginate(:page => params["page"], :per_page => 20)
+		@timeline_selfie = @user.selfies.where("blocked = false").order("created_at DESC").paginate(:page => params["page"]).includes(:challenge)
 		@books = Book.all.order(tier: :asc, level: :asc)
 	end
 
@@ -121,6 +121,6 @@ class UsersController < ApplicationController
 
 	private
 		def users_params
-			params.require(:user).permit(:username, :firstname, :lastname, :email, :avatar, :password)
+			params.require(:user).permit(:username, :firstname, :lastname, :email, :avatar, :password, :blocked)
 		end
 end

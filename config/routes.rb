@@ -93,6 +93,7 @@ Challfie::Application.routes.draw do
     post '/selfie/comments' => 'selfies#list_comments', as: :selfie_list_comments
     post '/selfie' => 'selfies#show', as: :selfie
     post '/selfie/create' => 'selfies#create', as: :selfie_create
+    post '/selfie/flag_selfie' => 'selfies#flag_selfie', as: :selfie_flag
     
     # CommentsController
     resources :comments, :only => [:create]
@@ -115,6 +116,12 @@ Challfie::Application.routes.draw do
 
     # DevicesController
     post '/device/create' => 'devices#create', as: :device_create
+
+    # AdministratorsController
+    post '/admin/list_flag_selfies' => 'administrators#list_flag_selfies', as: :admin_list_flag_selfies    
+    post '/admin/block_selfie' => 'administrators#block_selfie', as: :admin_block_selfie
+    post '/admin/block_user' => 'administrators#block_user', as: :admin_block_user
+    post '/admin/clear_flag_selfie' => 'administrators#clear_flag_selfie', as: :admin_clear_flag_selfie
 
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413013502) do
+ActiveRecord::Schema.define(version: 20150626003026) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -175,6 +175,8 @@ ActiveRecord::Schema.define(version: 20150413013502) do
     t.integer  "approval_status",    default: 0
     t.boolean  "shared_fb",          default: false
     t.boolean  "is_daily",           default: false
+    t.integer  "flag_count",         default: 0
+    t.boolean  "blocked",            default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
@@ -216,6 +218,7 @@ ActiveRecord::Schema.define(version: 20150413013502) do
     t.string   "slug"
     t.integer  "administrator",          default: 0
     t.boolean  "username_activated",     default: true
+    t.boolean  "blocked",                default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

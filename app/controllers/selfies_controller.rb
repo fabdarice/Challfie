@@ -178,7 +178,7 @@ class SelfiesController < ApplicationController
 	
 	private
     def selfie_params
-      params.require(:selfie).permit(:message, :photo, :challenge_id, :private, :shared_fb)
+      params.require(:selfie).permit(:message, :photo, :challenge_id, :private, :shared_fb, :flag_count, :blocked)
     end
 
 end

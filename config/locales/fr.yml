@@ -48,6 +48,7 @@ fr:
     step_competitive_text_html: "Gagne des points, progresse de niveau et rivalise avec tes amis pour le titre de Challfie King."
     missing_username: "Champ Identifiant manquant"
     error_login_or_password: "Identifiant ou mot de passe incorrect"
+    account_blocked: "Ton compte a été bloqué par un administrateur. Merci de nous contacter en cas d'erreur."
 
   profile:
     alert_set_username_html: "Bienvenue sur Challfie! Veuillez modifier votre Identifiant Challfie."

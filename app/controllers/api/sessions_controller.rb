@@ -11,6 +11,11 @@ module Api
       resource = User.find_for_database_authentication(:username => params[:login]) || User.find_for_database_authentication(:email => params[:login])
       return invalid_login_attempt unless resource
 
+      if resource.blocked == true
+        render :json=> {:success=>false, :message=> I18n.translate('sign_in.account_blocked')}, :status=>401
+        return
+      end
+
       if params[:password]
         if resource.valid_password?(params[:password])
           sign_in(:user, resource)                  
