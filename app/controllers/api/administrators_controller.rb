@@ -11,7 +11,7 @@ module Api
         selfies.each do |selfie|
           selfies_json << selfie if selfie.user.blocked == false
         end
-        render json: selfies
+        render json: selfies_json
       else
         render :json=> {:success=>false}
       end
