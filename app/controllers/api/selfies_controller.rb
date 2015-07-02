@@ -75,7 +75,7 @@ module Api
       if params[:all_comment] == "false"
         render json: selfie.comments.last(20)
       else
-        render json: selfie.comments.last(100)
+        render json: selfie.comments.last(40)
       end
     end
 
