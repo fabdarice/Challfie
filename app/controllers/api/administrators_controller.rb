@@ -7,6 +7,10 @@ module Api
     def list_flag_selfies
       if current_user.administrator >= 4
         selfies = Selfie.where('flag_count > 0 and blocked = false').order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
+        selfies_json = []
+        selfies.each do |selfie|
+          selfies_json << selfie if selfie.user.blocked == false
+        end
         render json: selfies
       else
         render :json=> {:success=>false}
