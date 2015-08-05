@@ -36,8 +36,8 @@
 		    <div class="available_ios_android">   
 
 		      <p class="welcome_page_intro"><%= t 'sign_in.downloadapp_html' %></p>
-		      <%= image_tag "/assets/download_ios.png", style:'width: 160px;' %>
-		      <%= image_tag "/assets/download_android.png", style:'width: 150px; ' %>
+		      <%= link_to (image_tag "/assets/download_ios.png"), "https://itunes.apple.com/fr/app/challfie/id974913351?l=en&mt=8", style: 'width: 160px;', target: '_blank' %>
+		      <%= link_to (image_tag "/assets/download_android.png"), "https://play.google.com/store/apps/details?id=com.challfie.android&hl=en", style:'width: 150px;', target: '_blank' %>
 		    </div>
 		</div> 
 
