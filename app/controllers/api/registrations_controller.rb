@@ -35,7 +35,7 @@ module Api
     end
 
     def create_from_facebook        
-      params[:email] = params[:uid] + "@facebook.com" if params[:email].blank?      
+      params[:email] = params[:uid].to_s + "@facebook.com" if params[:email].blank?      
 
       auth = {
                 :provider => "facebook",
