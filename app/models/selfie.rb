@@ -37,7 +37,14 @@ class Selfie < ActiveRecord::Base
 		else
 			upvotes = self.get_upvotes.size
 			downvotes = self.get_downvotes.size
-			challenge_value = self.challenge.point
+
+			next_book = Book.where("level = ? and tier != 100", self.current_book.level + 1).first
+			if self.challenge.point > next_book.required_points 
+				challenge_value = next_book.required_points	
+			else	
+				challenge_value = self.challenge.point
+			end
+			
 			challenge_value = challenge_value * 1.25 if self.is_daily 
 
 			if (upvotes + downvotes) >= 5
