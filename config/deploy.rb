@@ -51,4 +51,3 @@ namespace :deploy do
   after :finishing, 'solr:restart'
   
 end
-
