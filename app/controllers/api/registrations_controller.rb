@@ -34,7 +34,9 @@ module Api
       end
     end
 
-    def create_from_facebook      
+    def create_from_facebook        
+      params[:email] = params[:uid] + "@facebook.com" if params[:email].blank?      
+
       auth = {
                 :provider => "facebook",
                 :uid => params[:uid],
@@ -56,8 +58,7 @@ module Api
                 }
               }
 
-      resource = User.find_for_facebook_oauth(auth, true)      
-      resource.save
+      resource = User.find_for_facebook_oauth(auth, true)
 
       if resource
         if !user_signed_in?                  
