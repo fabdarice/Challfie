@@ -38,21 +38,21 @@ class Selfie < ActiveRecord::Base
 			upvotes = self.get_upvotes.size
 			downvotes = self.get_downvotes.size
 
-			next_book = Book.where("level = ? and tier != 100", self.user.current_book.level + 1).first
-			if self.challenge.point > next_book.required_points 
-				challenge_value = next_book.required_points	
-			else	
-				challenge_value = self.challenge.point
-			end
-			
-			challenge_value = challenge_value * 1.25 if self.is_daily 
-
 			if (upvotes + downvotes) >= 5
 				vote_ratio = upvotes.to_f / (upvotes + downvotes)				
 				if vote_ratio >= 0.75
 					# Selfie Status = Approved
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
+
+						if self.challenge.point > self.user.next_book.required_points 
+							challenge_value = self.user.next_book.required_points	
+						else	
+							challenge_value = self.challenge.point
+						end
+						
+						challenge_value = challenge_value * 1.25 if self.is_daily 
+
 
 						self.user.update_column(:points, challenge_value + self.user.points)										
 						self.user.unlock_book!												
@@ -64,7 +64,16 @@ class Selfie < ActiveRecord::Base
 					# Selfie Status = Unapproved
 					if self.approval_status != 2
 						tmp_approval_status = self.approval_status
-						self.update_column(:approval_status, 2)						
+						self.update_column(:approval_status, 2)	
+
+						if self.challenge.point > self.user.current_book.required_points 
+							challenge_value = self.user.current_book.required_points	
+						else	
+							challenge_value = self.challenge.point
+						end
+						
+						challenge_value = challenge_value * 1.25 if self.is_daily 
+
 						if tmp_approval_status == 1
 							self.user.update_column(:points, self.user.points - challenge_value)																
 						end
