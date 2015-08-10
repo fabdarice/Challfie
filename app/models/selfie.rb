@@ -5,8 +5,8 @@ class Selfie < ActiveRecord::Base
 
 	has_attached_file :photo, 
                     :styles => {:mobile => "", :website => "508x", :website_small => "508x", :thumb => ""}, 
-                    :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension },
-                    								:website => Proc.new { |instance| instance.photo_dimension(508, 508) },
+                    :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension(930, 930) },
+                    								:website => Proc.new { |instance| instance.photo_dimension(930, 930) },
                     								:website_small => Proc.new { |instance| instance.photo_dimension(190, 190) },
                     								:thumb => Proc.new { |instance| instance.photo_dimension(40, 40) }  
                     							 },
