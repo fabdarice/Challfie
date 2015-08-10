@@ -4,10 +4,8 @@ class Selfie < ActiveRecord::Base
 	self.per_page = 4
 
 	has_attached_file :photo, 
-                    :styles => {:mobile => "", :website => "508x", :website_small => "508x", :thumb => ""}, 
-                    :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension(930, 930) },
-                    								:website => Proc.new { |instance| instance.photo_dimension(930, 930) },
-                    								:website_small => Proc.new { |instance| instance.photo_dimension(190, 190) },
+                    :styles => {:mobile => "", :thumb => ""}, 
+                    :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension(930, 930) },                    								
                     								:thumb => Proc.new { |instance| instance.photo_dimension(40, 40) }  
                     							 },
                     :default_url => "/assets/missing.png"
