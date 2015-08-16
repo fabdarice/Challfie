@@ -27,6 +27,12 @@ class Selfie < ActiveRecord::Base
 	def photo_dimension(width=400, height=400)
 	 dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original].path)
 	 min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
+
+	if min < width
+		width = min
+		height = min
+	end
+
 	 "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{width}x#{height}^"
 	end         
 
