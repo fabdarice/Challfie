@@ -93,7 +93,7 @@ module Api
       @selfie.challenge = challenge
             
       @selfie.photo = params[:mobile_upload_file]
-      @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.png"      
+      @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.jpg"      
 
       @selfie.user = current_user
       
