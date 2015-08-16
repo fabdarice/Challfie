@@ -57,6 +57,9 @@ Challfie::Application.routes.draw do
   
   resources :errors, :only => [:show]  
 
+  match '*path', via: :all, to: 'errors#not_found'
+
+
 
   # API HTTP REQUEST FOR MOBILE APPS
   namespace :api, defaults:{format: 'json'} do    

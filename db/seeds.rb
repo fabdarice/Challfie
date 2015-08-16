@@ -22,7 +22,7 @@ if Book.count == 0
 	#Newbie I Challenges
 	newbie_one_book = Book.find_by name: 'Newbie I'
 	newbie_one_book.challenges.create(point: 20, description_en: 'Take a selfie', description_fr: 'Prendre un selfie', difficulty: 1)
-	newbie_one_book.challenges.create(point: 20, description_en: 'Take a selfie with your best friend', description_fr: 'Prendre un selfie avec son meilleur(e) ami(e)', difficulty: 1)
+	newbie_one_book.challenges.create(point: 20, description_en: 'Take a selfie with your friends', description_fr: 'Prendre un selfie avec ses amis', difficulty: 1)
 	newbie_one_book.challenges.create(point: 20, description_en: 'Take a mirror selfie', description_fr: 'Prendre un selfie avec un miroir', difficulty: 1)
 	newbie_one_book.challenges.create(point: 40, description_en: 'Take a gym selfie', description_fr: 'Prendre un selfie à la salle de sport', difficulty: 2)
 	newbie_one_book.challenges.create(point: 40, description_en: 'Take a selfie with your new haircut', description_fr: 'Prendre un selfie avec sa nouvelle coupe de cheveux', difficulty: 2)
@@ -35,7 +35,7 @@ if Book.count == 0
 	#Newbie II Challenges
 	newbie_two_book = Book.find_by name: 'Newbie II'
 	newbie_two_book.challenges.create(point: 30, description_en: 'Take a selfie with your dad', description_fr: 'Prendre un selfie avec son père', difficulty: 1)
-	newbie_two_book.challenges.create(point: 30, description_en: 'Take a selfie with your friends', description_fr: 'Prendre un selfie avec ses amis', difficulty: 1)
+	newbie_two_book.challenges.create(point: 30, description_en: 'Take a selfie with your best friend', description_fr: 'Prendre un selfie avec son meilleur ami', difficulty: 1)
 	newbie_two_book.challenges.create(point: 30, description_en: 'Take a selfie during sunset', description_fr: 'Prendre un selfie au coucher de soleil', difficulty: 1)
 	newbie_two_book.challenges.create(point: 60, description_en: 'Take a drunk selfie', description_fr: 'Prendre un selfie en étant alcoolisé', difficulty: 2)
 	newbie_two_book.challenges.create(point: 60, description_en: 'Take a selfie post-workout', description_fr: 'Prendre un selfie après une séance de cardio/musculation', difficulty: 2)
