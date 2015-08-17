@@ -99,11 +99,12 @@ class User < ActiveRecord::Base
       logger.info "enter find_for_facebook_oauth"
       logger.info "#{auth[:credentials][:expires_at]}"
       logger.info "#{Time.at(auth[:credentials][:expires_at])}"
-      user.update_attributes(uid: auth[:uid],
-                            provider: auth[:provider],
+      user.update(uid: auth[:uid],
+                            provider: "Instagram",
                             oauth_token: auth[:credentials][:token],
                             oauth_expires_at: auth[:credentials][:expires_at],
-                            facebook_picture: auth[:info][:image].gsub!("http", "https")) 
+                            facebook_picture: auth[:info][:image].gsub!("http", "https"))      
+
     end
 
     if user.save                                   
