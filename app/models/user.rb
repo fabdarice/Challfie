@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   def avatar_dimension(size=300)
     dimensions = Paperclip::Geometry.from_file(avatar.queued_for_write[:original].path)
     min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
+    size = min if min < size
     "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{size}x#{size}^"
   end            
 
@@ -98,7 +99,7 @@ class User < ActiveRecord::Base
       user.update_attributes(uid: auth[:uid],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
-                            oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
+                            oauth_expires_at: auth[:credentials][:expires_at],
                             facebook_picture: auth[:info][:image].gsub!("http", "https")) 
     end
 
