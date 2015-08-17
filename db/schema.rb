@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626003026) do
+ActiveRecord::Schema.define(version: 20150809011628) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 20150626003026) do
     t.datetime "avatar_updated_at"
     t.string   "provider"
     t.string   "uid"
-    t.string   "oauth_token"
+    t.text     "oauth_token"
     t.datetime "oauth_expires_at"
     t.string   "facebook_picture"
     t.integer  "points",                 default: 0
