@@ -90,17 +90,17 @@ class User < ActiveRecord::Base
       user.lastname = auth[:info][:last_name]
       user.facebook_picture = auth[:info][:image].gsub!("http", "https") # assuming the user model has an image
       user.oauth_token = auth[:credentials][:token]
-      user.oauth_expires_at = auth[:credentials][:expires_at]
+      user.oauth_expires_at = Time.at(auth[:credentials][:expires_at].to_i.utc)
       user.from_facebook = true
       user.from_mobileapp = from_mobileapp
       user.username_activated = false      
       user.skip_confirmation!  
     else  
-      
+
       user.update_attributes(uid: auth[:uid],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
-                            oauth_expires_at: auth[:credentials][:expires_at],
+                            oauth_expires_at: Time.at(auth[:credentials][:expires_at].to_i.utc),
                             facebook_picture: auth[:info][:image].gsub!("http", "https")) 
     end
 
