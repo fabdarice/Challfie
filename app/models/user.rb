@@ -96,6 +96,9 @@ class User < ActiveRecord::Base
       user.username_activated = false      
       user.skip_confirmation!  
     else  
+      logger.info "enter find_for_facebook_oauth"
+      logger.info "#{auth[:credentials][:expires_at]}"
+      logger.info "#{Time.at(auth[:credentials][:expires_at])}"
       user.update_attributes(uid: auth[:uid],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
