@@ -169,18 +169,40 @@ module Api
                   }
                 }
               }
-
-      if params[:isPublishPermissionEnabled].blank?      
-        isPublishPermissionEnabled = false
-      else
-        isPublishPermissionEnabled = true
-      end
-
+   
       current_user.update_attributes(provider: auth[:provider],
                                     uid: auth[:uid],                                                                             
                                     oauth_token: auth[:credentials][:token],
                                     oauth_expires_at: Time.at(auth[:credentials][:expires_at]))
       
+      facebook_info = FacebookInfo.find_by(user_id: current_user.id)
+          
+      if facebook_info == nil
+        facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
+                                        facebook_firstname: auth[:info][:first_name],
+                                        facebook_locale: auth[:extra][:raw_info][:locale])
+        facebook_info.user = current_user
+      else
+        facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
+                                       facebook_firstname: auth[:info][:first_name],
+                                       facebook_locale: auth[:extra][:raw_info][:locale])
+      end
+      
+      if !current_user.save or !facebook_info.save
+        render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
+      else
+        render :json => {:success => true}
+      end        
+      
+    end
+
+    def update_facebook_permission
+      if params[:isPublishPermissionEnabled].blank?      
+        isPublishPermissionEnabled = false
+      else
+        isPublishPermissionEnabled = params[:isPublishPermissionEnabled]
+      end
+
       facebook_info = FacebookInfo.find_by(user_id: current_user.id)
           
       if facebook_info == nil
@@ -200,8 +222,7 @@ module Api
         render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
       else
         render :json => {:success => true}
-      end        
-      
+      end   
     end
 
 
