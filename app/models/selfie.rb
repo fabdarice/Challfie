@@ -50,14 +50,26 @@ class Selfie < ActiveRecord::Base
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
 
-						if self.challenge.point > self.user.next_book.required_points 
-							challenge_value = self.user.next_book.required_points	
-						else	
+						if self.is_daily
+							case self.challenge.difficulty
+							when 1
+								challenge_value = self.user.next_book.required_points * 0.05
+							when 2
+								challenge_value = self.user.next_book.required_points * 0.10
+							when 3
+								challenge_value = self.user.next_book.required_points * 0.15
+							when 4
+								challenge_value = self.user.next_book.required_points * 0.20
+							when 5
+								challenge_value = self.user.next_book.required_points * 0.25
+							else
+								challenge_value = self.challenge.point
+							end
+
+							challenge_value = challenge_value.round
+						else
 							challenge_value = self.challenge.point
 						end
-						
-						challenge_value = challenge_value * 1.25 if self.is_daily 
-
 
 						self.user.update_column(:points, challenge_value + self.user.points)										
 						self.user.unlock_book!												
@@ -71,13 +83,26 @@ class Selfie < ActiveRecord::Base
 						tmp_approval_status = self.approval_status
 						self.update_column(:approval_status, 2)	
 
-						if self.challenge.point > self.user.current_book.required_points 
-							challenge_value = self.user.current_book.required_points	
-						else	
+						if self.is_daily
+							case self.challenge.difficulty
+							when 1
+								challenge_value = self.user.next_book.required_points * 0.05
+							when 2
+								challenge_value = self.user.next_book.required_points * 0.10
+							when 3
+								challenge_value = self.user.next_book.required_points * 0.15
+							when 4
+								challenge_value = self.user.next_book.required_points * 0.20
+							when 5
+								challenge_value = self.user.next_book.required_points * 0.25
+							else
+								challenge_value = self.challenge.point
+							end
+							challenge_value = challenge_value.round
+
+						else
 							challenge_value = self.challenge.point
 						end
-						
-						challenge_value = challenge_value * 1.25 if self.is_daily 
 
 						if tmp_approval_status == 1
 							self.user.update_column(:points, self.user.points - challenge_value)																
