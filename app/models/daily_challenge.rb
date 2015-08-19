@@ -16,7 +16,7 @@ class DailyChallenge < ActiveRecord::Base
 
 	def send_daily_challenge_notifications
 		User.all.each do |user|
-			user.add_notifications("Today's <strong>Daily Challenge</strong> (x1.25 points) : \"#{self.challenge.description_en}\"", "<strong>Challenge du Jour</strong> (x1.25 points) : \"#{self.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])				
+			user.add_notifications("Today's <strong>daily challenge</strong> : \"#{self.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{self.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])				
 		end			
 	end
 	handle_asynchronously :send_daily_challenge_notifications
