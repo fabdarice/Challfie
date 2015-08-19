@@ -14,11 +14,13 @@ module Api
 
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
+          isPublishPermissionEnabled = false
         else
           isFacebookLinked = true
+          isPublishPermissionEnabled = current_user.facebook_info.publish_permissions
         end
     	  
-        render json: books, meta: {isFacebookLinked: isFacebookLinked}
+        render json: books, meta: {isFacebookLinked: isFacebookLinked, isPublishPermissionEnabled: isPublishPermissionEnabled}
       end
 
       def daily_challenge

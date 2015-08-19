@@ -94,6 +94,7 @@ Challfie::Application.routes.draw do
     post '/selfie' => 'selfies#show', as: :selfie
     post '/selfie/create' => 'selfies#create', as: :selfie_create
     post '/selfie/flag_selfie' => 'selfies#flag_selfie', as: :selfie_flag
+    post '/selfie/delete' => 'selfies#destroy', as: :selfie_delete
     
     # CommentsController
     resources :comments, :only => [:create]

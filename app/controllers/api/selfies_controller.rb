@@ -130,5 +130,24 @@ module Api
       end
     end
 
+    def destroy
+      selfie = Selfie.find(params[:selfie_id])
+
+      if selfie.user == current_user
+        if (selfie.destroy)
+          #Delete Notifications related to that selfie
+          notifications_to_delete = Notification.where(selfie_id: params[:id])
+          notifications_to_delete.each do |notification|
+            notification.destroy
+          end
+          render :json=> {:success=>true}
+        else 
+          render :json=> {:success=>false}
+        end
+      else 
+          render :json=> {:success=>false}
+      end      
+    end
+
   end    
 end

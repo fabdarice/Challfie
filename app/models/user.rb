@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   include ActionView::Helpers::SanitizeHelper
   #attr :username, :email, :firstname, :lastname, :avatar, :provider, :uid, :location, :from_mobileapp, 
-  #:from_facebook, :facebook_picture, :username_activated
+  #:from_facebook, :facebook_picture, :username_activated, :publish_permissions
 
   before_save :ensure_authentication_token
 

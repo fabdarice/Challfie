@@ -170,6 +170,12 @@ module Api
                 }
               }
 
+      if params[:isPublishPermissionEnabled].blank?      
+        isPublishPermissionEnabled = false
+      else
+        isPublishPermissionEnabled = true
+      end
+
       current_user.update_attributes(provider: auth[:provider],
                                     uid: auth[:uid],                                                                             
                                     oauth_token: auth[:credentials][:token],
@@ -180,12 +186,14 @@ module Api
       if facebook_info == nil
         facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
                                         facebook_firstname: auth[:info][:first_name],
-                                        facebook_locale: auth[:extra][:raw_info][:locale])
+                                        facebook_locale: auth[:extra][:raw_info][:locale], 
+                                        publish_permissions: isPublishPermissionEnabled)
         facebook_info.user = current_user
       else
         facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
                                        facebook_firstname: auth[:info][:first_name],
-                                       facebook_locale: auth[:extra][:raw_info][:locale])
+                                       facebook_locale: auth[:extra][:raw_info][:locale], 
+                                       publish_permissions: isPublishPermissionEnabled)
       end
       
       if !current_user.save or !facebook_info.save

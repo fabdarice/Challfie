@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809011628) do
+ActiveRecord::Schema.define(version: 20150819065432) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20150809011628) do
     t.string   "facebook_locale"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "publish_permissions", default: false
   end
 
   add_index "facebook_infos", ["user_id"], name: "index_facebook_infos_on_user_id", using: :btree
