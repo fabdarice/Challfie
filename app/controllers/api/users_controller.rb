@@ -180,12 +180,14 @@ module Api
       if facebook_info == nil
         facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
                                         facebook_firstname: auth[:info][:first_name],
-                                        facebook_locale: auth[:extra][:raw_info][:locale])
+                                        facebook_locale: auth[:extra][:raw_info][:locale],
+                                        publish_permissions: true)
         facebook_info.user = current_user
       else
         facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
                                        facebook_firstname: auth[:info][:first_name],
-                                       facebook_locale: auth[:extra][:raw_info][:locale])
+                                       facebook_locale: auth[:extra][:raw_info][:locale],
+                                       publish_permissions: true)
       end
       
       if !current_user.save or !facebook_info.save
