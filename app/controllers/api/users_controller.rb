@@ -206,22 +206,16 @@ module Api
       facebook_info = FacebookInfo.find_by(user_id: current_user.id)
           
       if facebook_info == nil
-        facebook_info = FacebookInfo.new(facebook_lastname: auth[:info][:last_name],
-                                        facebook_firstname: auth[:info][:first_name],
-                                        facebook_locale: auth[:extra][:raw_info][:locale], 
-                                        publish_permissions: isPublishPermissionEnabled)
+        facebook_info = FacebookInfo.new(publish_permissions: isPublishPermissionEnabled)
         facebook_info.user = current_user
       else
-        facebook_info.update_attributes(facebook_lastname: auth[:info][:last_name],
-                                       facebook_firstname: auth[:info][:first_name],
-                                       facebook_locale: auth[:extra][:raw_info][:locale], 
-                                       publish_permissions: isPublishPermissionEnabled)
+        facebook_info.update_attributes(publish_permissions: isPublishPermissionEnabled)
       end
       
-      if !current_user.save or !facebook_info.save
-        render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
+      if facebook_info.save
+        render :json => {:success => true}        
       else
-        render :json => {:success => true}
+        render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
       end   
     end
 
