@@ -105,8 +105,7 @@ module Api
       if @selfie.save
         #Share the selfie on Facebook
         if @selfie.shared_fb == true
-          @graph = Koala::Facebook::API.new(current_user.oauth_token)          
-          #share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
+          @graph = Koala::Facebook::API.new(current_user.oauth_token)                    
           if Rails.env.production?                        
             @graph.put_picture(@selfie.photo.url(:mobile).split("?")[0], { "message" => @selfie.message })
           else            
