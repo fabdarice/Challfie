@@ -135,7 +135,7 @@ module Api
       if selfie.user == current_user
         if (selfie.destroy)
           #Delete Notifications related to that selfie
-          notifications_to_delete = Notification.where(selfie_id: params[:id])
+          notifications_to_delete = Notification.where(selfie_id: params[:selfie_id])
           notifications_to_delete.each do |notification|
             notification.destroy
           end

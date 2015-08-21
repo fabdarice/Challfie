@@ -30,7 +30,7 @@ if Book.count == 0
 	newbie_one_book.challenges.create(point: 60, description_en: 'Take a selfie with a complete stranger', description_fr: 'Prendre un selfie avec un inconnu', difficulty: 3)
 	newbie_one_book.challenges.create(point: 60, description_en: 'Take a "I love Challfie" selfie', description_fr: 'Prendre un "J\'aime Challfie" selfie ', difficulty: 3)
 	newbie_one_book.challenges.create(point: 80, description_en: 'Take a selfie showing your professor during a lecture', description_fr: 'Prendre un selfie montrant son professeur en plein cours', difficulty: 4)
-	newbie_one_book.challenges.create(point: 100, description_en: 'Take a selfie with a famous singer', description_fr: 'Prendre un selfie avec un chanteur connu', difficulty: 5)	
+	newbie_one_book.challenges.create(point: 100, description_en: 'Take a selfie with someone who is currently mad at you', description_fr: 'Prendre un selfie avec quelqu\'un d\'énervé contre toi', difficulty: 5)	
 
 	#Newbie II Challenges
 	newbie_two_book = Book.find_by name: 'Newbie II'
@@ -39,7 +39,7 @@ if Book.count == 0
 	newbie_two_book.challenges.create(point: 30, description_en: 'Take a selfie during sunset', description_fr: 'Prendre un selfie au coucher de soleil', difficulty: 1)
 	newbie_two_book.challenges.create(point: 60, description_en: 'Take a drunk selfie', description_fr: 'Prendre un selfie en étant alcoolisé', difficulty: 2)
 	newbie_two_book.challenges.create(point: 60, description_en: 'Take a selfie post-workout', description_fr: 'Prendre un selfie après une séance de cardio/musculation', difficulty: 2)
-	newbie_two_book.challenges.create(point: 60, description_en: 'Take a selfie at a soccer game', description_fr: 'Prendre un selfie à un match de football', difficulty: 2)
+	newbie_two_book.challenges.create(point: 60, description_en: 'Take a selfie with your boss or teacher', description_fr: 'Prendre un selfie avec son boss ou son professeur', difficulty: 2)
 	newbie_two_book.challenges.create(point: 90, description_en: 'Take a selfie at a concert', description_fr: 'Prendre un selfie à un concert', difficulty: 3)
 	newbie_two_book.challenges.create(point: 120, description_en: 'Take a selfie jumping in a pool', description_fr: 'Prendre un selfie en sautant dans une piscine', difficulty: 4)
 	newbie_two_book.challenges.create(point: 120, description_en: 'Take a selfie wearing a costume in public', description_fr: 'Prendre un selfie en portant un costume en publique', difficulty: 4)
@@ -50,13 +50,13 @@ if Book.count == 0
 	newbie_three_book.challenges.create(point: 40, description_en: 'Take a selfie with your mom', description_fr: 'Prendre un selfie avec sa mère', difficulty: 1)
 	newbie_three_book.challenges.create(point: 40, description_en: 'Take a selfie with your boyfriend', description_fr: 'Prendre un selfie avec ton petit ami', difficulty: 1)
 	newbie_three_book.challenges.create(point: 40, description_en: 'Take a selfie with your meal', description_fr: 'Prendre un selfie avec son repas', difficulty: 1)
-	newbie_three_book.challenges.create(point: 80, description_en: 'Take a selfie with your dog', description_fr: 'Prendre un selfie avec son chien', difficulty: 2)
+	newbie_three_book.challenges.create(point: 80, description_en: 'Take a selfie with your pet', description_fr: 'Prendre un selfie avec son animal domestique', difficulty: 2)
 	newbie_three_book.challenges.create(point: 80, description_en: 'Take a car selfie', description_fr: 'Prendre un selfie dans sa voiture', difficulty: 2)
 	newbie_three_book.challenges.create(point: 80, description_en: 'Take a selfie in a very ugly outfit', description_fr: 'Prendre un selfie dans une tenue atrocement moche', difficulty: 2)
 	newbie_three_book.challenges.create(point: 120, description_en: 'Take a selfie with a dead bug', description_fr: 'Prendre un selfie avec un insecte mort', difficulty: 3)
 	newbie_three_book.challenges.create(point: 120, description_en: 'Take a selfie with your team after a victory', description_fr: 'Prendre un selfie avec son équipe après une victoire', difficulty: 3)
-	newbie_three_book.challenges.create(point: 160, description_en: 'Take a selfie with someone who is currently mad at you', description_fr: 'Prendre un selfie avec quelqu\'un d\'énervé contre toi', difficulty: 4)
-	newbie_three_book.challenges.create(point: 200, description_en: 'Take a selfie on a helicopter', description_fr: 'Prendre un selfie dans un hélicoptère', difficulty: 5)
+	newbie_three_book.challenges.create(point: 160, description_en: 'Take a selfie on a helicopter', description_fr: 'Prendre un selfie dans un hélicoptère', difficulty: 4)
+	newbie_three_book.challenges.create(point: 200, description_en: 'Take a selfie with a famous singer', description_fr: 'Prendre un selfie avec un chanteur connu', difficulty: 5)
 
 	# Apprentice I Callenges
 	apprentice_one_book = Book.find_by name: 'Apprentice I'
@@ -90,9 +90,9 @@ if Book.count == 0
 	apprentice_three_book.challenges.create(point: 70, description_en: 'Take a selfie with your favorite stuffed animal', description_fr: 'Prendre un selfie avec ton animal en peluche préféré', difficulty: 1)
 	apprentice_three_book.challenges.create(point: 70, description_en: 'Take a "I ate too much" selfie', description_fr: 'Prendre un "J\'ai trop mangé" selfie', difficulty: 1)
 	apprentice_three_book.challenges.create(point: 140, description_en: 'Take a selfie at a baseball game', description_fr: 'Prendre un selfie à un match de baseball', difficulty: 2)
-	apprentice_three_book.challenges.create(point: 140, description_en: 'Take a selfie with your cat', description_fr: 'Prendre un selfie avec son chat', difficulty: 2)
+	apprentice_three_book.challenges.create(point: 140, description_en: 'Take a selfie at a soccer game', description_fr: 'Prendre un selfie à un match de football', difficulty: 2)
 	apprentice_three_book.challenges.create(point: 140, description_en: 'Take a selfie with a minion', description_fr: 'Prendre un selfie avec un minion', difficulty: 2)
-	apprentice_three_book.challenges.create(point: 210, description_en: 'Take a selfie with your boss or teacher', description_fr: 'Prendre un selfie avec son boss ou son professeur', difficulty: 3)
+	apprentice_three_book.challenges.create(point: 210, description_en: 'Take a selfie with your company\'s CEO', description_fr: 'Prendre un selfie avec le PDG de son entreprise', difficulty: 3)
 	apprentice_three_book.challenges.create(point: 210, description_en: 'Take a selfie with a bug alive', description_fr: 'Prendre un selfie avec un insecte vivant', difficulty: 3)
 	apprentice_three_book.challenges.create(point: 280, description_en: 'Take a selfie with someone you truly hate', description_fr: 'Prendre un selfie avec quelqu\'un que tu déteste sincèrement', difficulty: 4)
 	apprentice_three_book.challenges.create(point: 350, description_en: 'Take a selfie with a politician', description_fr: 'Prendre un selfie avec un politicien', difficulty: 5)
