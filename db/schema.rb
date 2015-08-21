@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819065432) do
+ActiveRecord::Schema.define(version: 20150821060209) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20150819065432) do
   add_index "challenges", ["book_id"], name: "index_challenges_on_book_id", using: :btree
 
   create_table "comments", force: true do |t|
-    t.text     "message"
+    t.text     "message",    limit: 16777215
     t.integer  "selfie_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -164,20 +164,20 @@ ActiveRecord::Schema.define(version: 20150819065432) do
 
   create_table "selfies", force: true do |t|
     t.integer  "user_id"
-    t.text     "message"
+    t.text     "message",            limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
+    t.string   "photo_file_name",    limit: 191
+    t.string   "photo_content_type", limit: 191
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "challenge_id"
-    t.boolean  "private",            default: false
-    t.integer  "approval_status",    default: 0
-    t.boolean  "shared_fb",          default: false
-    t.boolean  "is_daily",           default: false
-    t.integer  "flag_count",         default: 0
-    t.boolean  "blocked",            default: false
+    t.boolean  "private",                             default: false
+    t.integer  "approval_status",                     default: 0
+    t.boolean  "shared_fb",                           default: false
+    t.boolean  "is_daily",                            default: false
+    t.integer  "flag_count",                          default: 0
+    t.boolean  "blocked",                             default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
