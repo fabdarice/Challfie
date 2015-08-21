@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821060209) do
+ActiveRecord::Schema.define(version: 20150821072030) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -143,16 +143,16 @@ ActiveRecord::Schema.define(version: 20150821060209) do
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
   create_table "notifications", force: true do |t|
-    t.text     "message_en"
+    t.text     "message_en",        limit: 16777215
     t.integer  "user_id"
     t.integer  "author_id"
     t.integer  "selfie_id"
-    t.boolean  "read",              default: false
+    t.boolean  "read",                               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "book_id"
-    t.text     "message_fr"
-    t.integer  "type_notification", default: 0
+    t.text     "message_fr",        limit: 16777215
+    t.integer  "type_notification",                  default: 0
   end
 
   add_index "notifications", ["author_id"], name: "index_notifications_on_author_id", using: :btree
