@@ -50,23 +50,9 @@ class Selfie < ActiveRecord::Base
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
 
-						if self.is_daily
-							case self.challenge.difficulty
-							when 1
-								challenge_value = self.user.next_book.required_points * 0.05
-							when 2
-								challenge_value = self.user.next_book.required_points * 0.10
-							when 3
-								challenge_value = self.user.next_book.required_points * 0.15
-							when 4
-								challenge_value = self.user.next_book.required_points * 0.20
-							when 5
-								challenge_value = self.user.next_book.required_points * 0.25
-							else
-								challenge_value = self.challenge.point
-							end
-
-							challenge_value = challenge_value.round
+						if self.is_daily													
+							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
+							challenge_value = challenge_very_easy.point
 						else
 							challenge_value = self.challenge.point
 						end
@@ -84,22 +70,8 @@ class Selfie < ActiveRecord::Base
 						self.update_column(:approval_status, 2)	
 
 						if self.is_daily
-							case self.challenge.difficulty
-							when 1
-								challenge_value = self.user.next_book.required_points * 0.05
-							when 2
-								challenge_value = self.user.next_book.required_points * 0.10
-							when 3
-								challenge_value = self.user.next_book.required_points * 0.15
-							when 4
-								challenge_value = self.user.next_book.required_points * 0.20
-							when 5
-								challenge_value = self.user.next_book.required_points * 0.25
-							else
-								challenge_value = self.challenge.point
-							end
-							challenge_value = challenge_value.round
-
+							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
+							challenge_value = challenge_very_easy.point
 						else
 							challenge_value = self.challenge.point
 						end

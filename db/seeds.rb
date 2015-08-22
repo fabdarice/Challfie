@@ -13,11 +13,11 @@ if Book.count == 0
 	Book.create!(name: 'Newbie II' , required_points: '200', level: '2', tier: '1')
 	Book.create!(name: 'Newbie III' , required_points: '600', level: '3', tier: '1')
 	Book.create!(name: 'Apprentice I' , required_points: '1400', level: '4', tier: '2')
-	Book.create!(name: 'Apprentice II' , required_points: '2600', level: '5', tier: '2')
-	Book.create!(name: 'Apprentice III' , required_points: '4000', level: '6', tier: '2')
-	Book.create!(name: 'Master I' , required_points: '6000', level: '7', tier: '3')
-	Book.create!(name: 'Master II' , required_points: '8500', level: '8', tier: '3')
-	Book.create!(name: 'Master III' , required_points: '11000', level: '9', tier: '3')
+	Book.create!(name: 'Apprentice II' , required_points: '3000', level: '5', tier: '2')
+	Book.create!(name: 'Apprentice III' , required_points: '6000', level: '6', tier: '2')
+	Book.create!(name: 'Master I' , required_points: '10500', level: '7', tier: '3')
+	Book.create!(name: 'Master II' , required_points: '16500', level: '8', tier: '3')
+	Book.create!(name: 'Master III' , required_points: '25000', level: '9', tier: '3')
 
 	#Newbie I Challenges
 	newbie_one_book = Book.find_by name: 'Newbie I'
