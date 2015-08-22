@@ -49,13 +49,11 @@
 	<!-- DAILY CHALLENGE BLOCK -->
 	<% if daily_challenge %>
 		<div class="daily_challenge">
-			<span class="block_title"><%= t 'selfie.daily_challenge_title' %></span> *
+			<span class="block_title"><%= t 'selfie.daily_challenge_title' %></span>
 			<hr style="margin-bottom: 10px;">
 			<span style="color: gray; font-size: 11px;"><%= t 'selfie.difficulty' %> :</span> <%= image_tag "/assets/" + daily_challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{daily_challenge.difficulty_verbose}" %><br>
 			
-			<span class="daily_challenge_description"><%= daily_challenge.description %></span>
-			
-			<span class="daily_challenge_explanation">(*) <%= t 'selfie.daily_challenge_explanation' %></span>
+			<span class="daily_challenge_description"><%= daily_challenge.description %></span>					
 		</div>
 	<% end %>
 
