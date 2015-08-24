@@ -96,6 +96,12 @@ module Api
       @selfie.photo_file_name = Time.now.strftime("%Y%m%d%H%M%S") + "_selfie_mobileupload.jpg"      
 
       @selfie.user = current_user
+
+      if not params[:approval_status].blank?      
+        @selfie.approval_status = params[:approval_status]
+        current_user.points = challenge.points
+        current_user.save        
+      end
       
       daily_challenge = DailyChallenge.last   
       if @selfie.challenge == daily_challenge.challenge     
@@ -134,6 +140,13 @@ module Api
 
       if selfie.user == current_user
         if (selfie.destroy)
+          # remove points win by this selfie if it was approved
+          if selfie.approval_status == true
+            challenge = selfie.challenge
+            current_user.points = current_user.points - challenge.point
+            current_user.save
+          end
+
           #Delete Notifications related to that selfie
           notifications_to_delete = Notification.where(selfie_id: params[:selfie_id])
           notifications_to_delete.each do |notification|

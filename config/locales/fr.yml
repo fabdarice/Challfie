@@ -4,12 +4,12 @@ fr:
     confirmation_email_02_html: "<strong>Confirme ton compte</strong> en cliquant sur le lien suivant :"
     confirmation_email_03_html: "N'oublie pas de telecharger dès à présent <strong>l'application Challfie</strong> disponible gratuitement sur Android et iPhone<br><br><br>Bienvenue parmi nous!<br><em>La Challfie Team.</em>"
     confirm_my_account: "Confirmez mon compte"
-    reset_password_email_01_html: "Une demande de changement de mot de passe a été éffectué. Pour modifier votre mot de passe, cliquez sur le lien ci-dessous :"
-    reset_password_email_02_html: "<brSi vous n'en êtes pas l'auteur, merci de notifier les équipes Challfie immédiatement.<br> Si vous ne souhaitez pas modifier votre mot de passe, merci d'ignorer cet email, votre mot de passe ne changera pas tant que vous n'ayez pas cliquer sur le lien ci-dessus.<br><br>La Challfie Team."
+    reset_password_email_01_html: "Une demande de changement de mot de passe a été éffectué. Pour modifier ton mot de passe, cliquez sur le lien ci-dessous :"
+    reset_password_email_02_html: "<brSi tu n'en es pas l'auteur, merci de notifier les équipes Challfie immédiatement.<br> Si tu ne souhaites pas modifier ton mot de passe, merci d'ignorer cet email, ton mot de passe ne changera pas tant que tu n'auras pas cliquer sur le lien ci-dessus.<br><br>La Challfie Team."
     reset_password: "Modifier mon mot de passe"
     resend_confirmation_email: "Renvoyer l'email de confirmation"
     email_or_username: "Email ou Identifiant"
-    email_or_username_placeholder: "Entrez votre addresse email ou votre identifiant"
+    email_or_username_placeholder: "Entre ton adresse email ou ton identifiant"
     forgot_password: "Mot de passe oublié?"
     send_reset_password_email: "Envoyer Email"
     change_password: "Change mon mot de passe"
@@ -51,7 +51,7 @@ fr:
     account_blocked: "Ton compte a été bloqué par un administrateur. Merci de nous contacter en cas d'erreur."
 
   profile:
-    alert_set_username_html: "Bienvenue sur Challfie! Veuillez modifier votre Identifiant Challfie."
+    alert_set_username_html: "Bienvenue sur Challfie! Merci de modifier ton identifiant Challfie."
     change_username: "Modifier Identifiant"
     edit_my_profile: "Mon Profil"
     change_password: "Modifier Mot-de-Passe"
@@ -61,13 +61,13 @@ fr:
     current_password: "Mot de passe actuel"
 
   password:
-    email_doesnt_exist: "L'addresse Email n'existe pas."
+    email_doesnt_exist: "L'adresse email n'existe pas."
     missing_email: "Champ Email manquant"
-    send_email_instructions: "Consulter votre boite email pour réinitialiser votre mot de passe."
-    send_email_error: "Erreur lors de la tentative de réinitialisation de votre mot de passe. Réessayer ultérieurement ou via le siteweb www.challfie.com."
+    send_email_instructions: "Consulte ta boite email pour réinitialiser ton mot de passe."
+    send_email_error: "Erreur lors de la tentative de réinitialisation de ton mot de passe. Réessaye ultérieurement ou via le siteweb www.challfie.com."
 
   flash:  
-    sign_in_alert: "Vous devez vous authentifier avant de pouvoir continuer."  
+    sign_in_alert: "Tu ddois t'authentifier avant de pouvoir continuer."  
   activerecord:
     errors: 
       messages:        
@@ -96,8 +96,8 @@ fr:
     approve: "Approuver"
     reject: "Rejeter"
     write_comment: "Ecrire un commentaire.."
-    error_no_challenge: "Veuillez sélectionner un challenge."
-    error_no_selfie: "Veuillez sélectionner/prendre un selfie."
+    error_no_challenge: "Sélectionne un challenge."
+    error_no_selfie: "Sélectionne ou prends un selfie."
     take_a_selfie: "Prendre un Selfie Challenge"
     write_message: "Ajouter une description.."
     camera_alert: "Si tu n'appercois pas la camera sur le côté gauche, penses à autoriser ta webcam/camera."
@@ -146,8 +146,8 @@ fr:
   right_content:
     friends_suggestions_title: "Suggestion d'Amis"
     show_all_suggestions: "+ Afficher Tout"
-    search_fb_friends: "Rechercher vos amis Facebook"
-    search_fb_friends_tooltip: "Chercher lequel de vos amis Facebook sont inscris à Challfie."    
+    search_fb_friends: "Rechercher tes amis Facebook"
+    search_fb_friends_tooltip: "Chercher lequel de tes amis Facebook sont inscris à Challfie."    
 
   book:
     locked: "Débloque ce livre en complétant des Challfies." 
@@ -155,7 +155,7 @@ fr:
     difficulty: "Difficulté" 
 
   about_us:
-    message_html: "<p>Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.</p><p>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges.</p><p>N'attendez plus et prenez votre premier <strong>Challfie</strong> !!</p><br><br><p><i>La Challfie Team</i></p>"
+    message_html: "<p>Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.</p><p>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges.</p><p>N'attends plus et prends ton premier <strong>Challfie</strong> !!</p><br><br><p><i>La Challfie Team</i></p>"
     title: "A Propos"
 
   date:
