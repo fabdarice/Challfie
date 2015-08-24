@@ -83,15 +83,7 @@ class Selfie < ActiveRecord::Base
 															"Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été rejeté.",
 															self.user , self, nil, Notification.type_notifications[:selfie_status])																		
 					end
-				end
-			else
-				if self.approval_status == 1
-					self.update_column(:approval_status, 2)												
-					self.user.update_column(:points, self.user.points - challenge_value)																						
-					self.user.add_notifications("Unfortunately.. your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{self.challenge.description_en}</i></strong>\" has been rejected.", 
-														 "Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été rejeté.",
-														 self.user , self, nil, Notification.type_notifications[:selfie_status])	
-				end
+				end			
 			end			
 		end
 	end   

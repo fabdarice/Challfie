@@ -99,7 +99,7 @@ module Api
 
       if not params[:approval_status].blank?      
         @selfie.approval_status = params[:approval_status]
-        current_user.points = challenge.points
+        current_user.points = current_user.points + challenge.point
         current_user.save        
       end
       
@@ -138,12 +138,14 @@ module Api
     def destroy
       selfie = Selfie.find(params[:selfie_id])
 
+      selfie_approved = selfie.approval_status
+      challenge_points = selfie.challenge.point
+
       if selfie.user == current_user
-        if (selfie.destroy)
+        if (selfie.destroy)          
           # remove points win by this selfie if it was approved
-          if selfie.approval_status == true
-            challenge = selfie.challenge
-            current_user.points = current_user.points - challenge.point
+          if selfie_approved == 1
+            current_user.points = current_user.points - challenge_points
             current_user.save
           end
 

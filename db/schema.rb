@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821072030) do
+ActiveRecord::Schema.define(version: 20150824195404) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20150821072030) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "type_device", default: 0
   end
 
   add_index "devices", ["token"], name: "index_devices_on_token", using: :btree

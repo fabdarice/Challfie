@@ -67,7 +67,7 @@ fr:
     send_email_error: "Erreur lors de la tentative de réinitialisation de ton mot de passe. Réessaye ultérieurement ou via le siteweb www.challfie.com."
 
   flash:  
-    sign_in_alert: "Tu ddois t'authentifier avant de pouvoir continuer."  
+    sign_in_alert: "Tu dois t'authentifier avant de pouvoir continuer."  
   activerecord:
     errors: 
       messages:        

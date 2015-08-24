@@ -5,7 +5,14 @@ module Api
 
     	def create        
         user = User.find_by username: params[:login]
-        device = Device.find_or_create_by(token: params[:device_token])
+
+        if params[:type_device].blank?
+          type_device = 0
+        else
+          type_device = params[:type_device]
+        end
+
+        device = Device.find_or_create_by(token: params[:device_token], type_device: type_device)        
         device.user = user
         device.save
         render json: {}                

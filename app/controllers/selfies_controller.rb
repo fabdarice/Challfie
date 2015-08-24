@@ -124,12 +124,16 @@ class SelfiesController < ApplicationController
 
 	def destroy
 	   selfie = Selfie.find(params[:id])
+
+	   selfie_approved = selfie.approval_status	   
+	   challenge_points = selfie.challenge.point	   
+
 	   if current_user == selfie.user
 			session[:return_to] ||= request.referer
 			
 			if (selfie.destroy)
-				flash[:notice] = 'Selfie deleted.'
-
+				flash[:notice] = 'Selfie deleted.'				
+				
 				#Delete Notifications related to that selfie
 				notifications_to_delete = Notification.where(selfie_id: params[:id])
 				notifications_to_delete.each do |notification|
@@ -138,9 +142,8 @@ class SelfiesController < ApplicationController
 
 				# Update user points
 				# remove points win by this selfie if it was approved
-				if selfie.approval_status == true
-					challenge = selfie.challenge
-					current_user.points = current_user.points - challenge.point
+				if selfie_approved == 1							
+					current_user.points = current_user.points - challenge_points
 					current_user.save
 				end
 				
