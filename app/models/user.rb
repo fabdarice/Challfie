@@ -249,6 +249,12 @@ class User < ActiveRecord::Base
       # send notification to iOS device & Android Device
       self.delay.send_ios_notification(notif_msg)
       self.delay.send_android_notification(notif_msg)
+
+
+
+      puts "ADD NOTIFICATIONS"
+      number = self.devices.where("type_device = 0").count
+      puts number.to_s
     end  
   end
 
@@ -263,7 +269,7 @@ class User < ActiveRecord::Base
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
     end        
 
-    self.devices.where(type_device: 0) do |device|      
+    self.devices.where("type_device = 0").each do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(message)
@@ -285,20 +291,17 @@ class User < ActiveRecord::Base
 
   def send_android_notification(message)
     
-    app = RailsPushNotifications::GCMApp.new
-    app.gcm_key = 'AIzaSyA8FyhMAHUZxWCGgftQv8e6b09dt9d7icw'
-    app.save
+    app = RailsPushNotifications::GCMApp.find_or_create_by(gcm_key: 'AIzaSyA8FyhMAHUZxWCGgftQv8e6b09dt9d7icw')            
     
     array_of_android_device_token = []
 
-    self.devices.where(type_device: 1) do |device|      
+    self.devices.where("type_device = 1").each do |device|      
       array_of_android_device_token << device.token
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app            
     end 
 
     if array_of_android_device_token.count != 0 
-      notification = app.notifications.create(destinations: array_of_android_device_token, data: { text: message })     
-      
+      notification = app.notifications.create(destinations: array_of_android_device_token, data: { text: message })           
       # And... sent! That's all it takes.
       app.push_notifications
     end
