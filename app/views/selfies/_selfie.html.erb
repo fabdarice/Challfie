@@ -77,24 +77,29 @@
     		
     </div>
 
-    <!-- SELFIE APPROVE / DISAPPROVE BLOCK  -->
-    <div class="selfie_vote_block selfie_vote_block_<%= selfie.id %>">  		
-    		<%= link_to selfie_approve_path(selfie), class: 'btn-vote', remote: true do %>	
-    			<span class="approve_button <% if current_user.voted_up_on? selfie %>vote_green<% end %>">
-    				<span class="glyphicon glyphicon-thumbs-up"></span> <%= t 'selfie.approve' %>
-  			   </span>
-    		<% end %>
-    		<%= link_to selfie_disapprove_path(selfie), class: 'btn-vote', remote: true do %>
-    			<span class="disapprove_button <% if current_user.voted_down_on? selfie %>vote_red<% end %>">
-    				<span class="glyphicon glyphicon-thumbs-down"></span> <%= t 'selfie.reject' %>
-  			  </span>
-    		<% end %>			  
-    		
-    		<div class="selfie_nb_vote_block">
-    			<span class="vote_green" data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_upvotes.size, 'user')%> approve"><i class="fa fa-thumbs-up"></i> <span class='upvote'><%= selfie.get_upvotes.size %></span></span>
-    			<span data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_downvotes.size, 'user') %> reject"><i class="fa fa-thumbs-down" style='margin-left: 10px;'></i> <span class='downvote'><%= selfie.get_downvotes.size %></span></span>
-    		</div>
-    </div>
+
+
+    <!-- SELFIE APPROVE / DISAPPROVE BLOCK  -->    
+      <div class="selfie_vote_block selfie_vote_block_<%= selfie.id %>">  		
+        <% if current_user != selfie.user %>
+      		<%= link_to selfie_approve_path(selfie), class: 'btn-vote', remote: true do %>	
+      			<span class="approve_button <% if current_user.voted_up_on? selfie %>vote_green<% end %>">
+      				<span class="glyphicon glyphicon-thumbs-up"></span> <%= t 'selfie.approve' %>
+    			   </span>
+      		<% end %>
+      		<%= link_to selfie_disapprove_path(selfie), class: 'btn-vote', remote: true do %>
+      			<span class="disapprove_button <% if current_user.voted_down_on? selfie %>vote_red<% end %>">
+      				<span class="glyphicon glyphicon-thumbs-down"></span> <%= t 'selfie.reject' %>
+    			  </span>
+      		<% end %>		
+        <% end %>   	  
+      		
+      		<div class="selfie_nb_vote_block">
+      			<span class="vote_green" data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_upvotes.size, 'user')%> approve"><i class="fa fa-thumbs-up"></i> <span class='upvote'><%= selfie.get_upvotes.size %></span></span>
+      			<span data-toggle="tooltip" data-placement="bottom" title="<%=pluralize(selfie.get_downvotes.size, 'user') %> reject"><i class="fa fa-thumbs-down" style='margin-left: 10px;'></i> <span class='downvote'><%= selfie.get_downvotes.size %></span></span>
+      		</div>
+      </div>
+     
 
   <!-- COMMENTS SECTION -->
     <div class="selfie_post_comment_block">    

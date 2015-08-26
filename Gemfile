@@ -88,8 +88,11 @@ gem "whenever"
 gem 'active_model_serializers'
 
 
-# Gem to send iOS Notifications
+# Gem to send iOS Push Notifications
 gem 'houston'
+
+# Gem to send Android Push Notifications
+gem 'rails-push-notifications', '~> 0.2.0'
 
 # To run background task like ios Notifications
 gem 'delayed_job_active_record'

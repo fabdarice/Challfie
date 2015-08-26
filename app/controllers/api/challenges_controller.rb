@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
     	def index    		
-    	  books = current_user.books.order('level')
+    	  books = current_user.books.where('level > 0 and visible = true and active = true').order('level')
 
         #Create a temporary Daily Book containing the Daily Challenge for Display -->
         daily_book = Book.new(name: "Daily Challenge", level: 0)

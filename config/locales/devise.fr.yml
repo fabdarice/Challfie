@@ -14,7 +14,7 @@ fr:
       last_attempt: "You have one more attempt before your account will be locked."
       not_found_in_database: "Identifiant ou mot de pass éronné."
       timeout: "Ta session a expiré. Tu es prié de te reconnecter."
-      unauthenticated: "Tu ddois etre authentifié pour pouvoir continuer."
+      unauthenticated: "Tu dois etre authentifié pour pouvoir continuer."
       unconfirmed: "Tu dois confirmer ton compte pour pouvoir continuer. Consulte ta boite email."
     mailer:
       confirmation_instructions:

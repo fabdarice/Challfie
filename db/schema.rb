@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824195404) do
+ActiveRecord::Schema.define(version: 20150826060248) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20150824195404) do
     t.integer  "thumb_file_size"
     t.datetime "thumb_updated_at"
     t.integer  "tier"
+    t.boolean  "visible",            default: true
+    t.boolean  "active",             default: true
   end
 
   create_table "categories", force: true do |t|
@@ -162,6 +164,25 @@ ActiveRecord::Schema.define(version: 20150824195404) do
   add_index "notifications", ["read"], name: "index_notifications_on_read", using: :btree
   add_index "notifications", ["selfie_id"], name: "index_notifications_on_selfie_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "rails_push_notifications_gcm_apps", force: true do |t|
+    t.string   "gcm_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rails_push_notifications_notifications", force: true do |t|
+    t.text     "destinations"
+    t.integer  "app_id"
+    t.string   "app_type"
+    t.text     "data"
+    t.text     "results"
+    t.integer  "success"
+    t.integer  "failed"
+    t.boolean  "sent",         default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "selfies", force: true do |t|
     t.integer  "user_id"

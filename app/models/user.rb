@@ -246,8 +246,9 @@ class User < ActiveRecord::Base
         notif_msg = @notification.message
       end
 
-      # send notification to iOS device
+      # send notification to iOS device & Android Device
       self.delay.send_ios_notification(notif_msg)
+      self.delay.send_android_notification(notif_msg)
     end  
   end
 
@@ -262,9 +263,7 @@ class User < ActiveRecord::Base
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
     end        
 
-    
-    
-    self.devices.each do |device|      
+    self.devices.where(type_device: 0) do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(message)
@@ -282,6 +281,27 @@ class User < ActiveRecord::Base
       # And... sent! That's all it takes.
       apn_client.push(ios_push_notification)
     end 
+  end
+
+  def send_android_notification(message)
+    
+    app = RailsPushNotifications::GCMApp.new
+    app.gcm_key = 'AIzaSyA8FyhMAHUZxWCGgftQv8e6b09dt9d7icw'
+    app.save
+    
+    array_of_android_device_token = []
+
+    self.devices.where(type_device: 1) do |device|      
+      array_of_android_device_token << device.token
+      # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app            
+    end 
+
+    if array_of_android_device_token.count != 0 
+      notification = app.notifications.create(destinations: array_of_android_device_token, data: { text: message })     
+      
+      # And... sent! That's all it takes.
+      app.push_notifications
+    end
   end
 
   # return list of block users by self user
@@ -388,7 +408,7 @@ class User < ActiveRecord::Base
 
   # Check if user has enough point to unlock a new book 
   def unlock_book!
-    next_books = Book.where("level > ? and tier != 100", self.current_book.level)
+    next_books = Book.where("level > ? and visible = true and active = true", self.current_book.level)
     next_books.each do |book_to_unlock|          
       if book_to_unlock.required_points <= self.points
         book_users = BookUser.new
@@ -404,13 +424,12 @@ class User < ActiveRecord::Base
 
   # Return last book unlocked
   def current_book
-    book = self.books.where('tier != 100').order("level DESC").first    
+    book = self.books.where('level > 0 and visible = true and active = true').order("level DESC").first    
     return book
   end
 
-  def next_book
-    book = self.books.where('tier != 100').order("level DESC").first
-    book = Book.find_by level: (book.level + 1)
+  def next_book    
+    book = Book.find_by level: (self.current_book.level + 1)
     return book
   end
 
