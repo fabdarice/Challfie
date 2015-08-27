@@ -10,7 +10,7 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	Book.create!(name: 'DailyChallenge' , required_points: '0', level: '0', tier: '0', visible: '0', active: '1')
 	#Daily Challenge
 	daily_challenge_book = Book.find_by name:'DailyChallenge'
-	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your own drawing of Challfie\'s logo', description_fr: 'Prendre un selfie avec son illustration du logo Challfie' , difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your own drawing of Challfie\'s logo', description_fr: 'Prendre un selfie avec son dessin du logo Challfie' , difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with today\'s lunch', description_fr: 'Prendre un selfie avec son repas du midi' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie showing what time you woke up today', description_fr: 'Prendre un selfie affichant l\'heure à laquelle tu t\'es réveillé aujourd\'hui' , difficulty: 1)
 end

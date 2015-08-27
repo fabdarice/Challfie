@@ -249,12 +249,6 @@ class User < ActiveRecord::Base
       # send notification to iOS device & Android Device
       self.delay.send_ios_notification(notif_msg)
       self.delay.send_android_notification(notif_msg)
-
-
-
-      puts "ADD NOTIFICATIONS"
-      number = self.devices.where("type_device = 0").count
-      puts number.to_s
     end  
   end
 
@@ -301,7 +295,7 @@ class User < ActiveRecord::Base
     end 
 
     if array_of_android_device_token.count != 0 
-      notification = app.notifications.create(destinations: array_of_android_device_token, data: { text: message })           
+      notification = app.notifications.create(destinations: array_of_android_device_token, data: { message: message })           
       # And... sent! That's all it takes.
       app.push_notifications
     end
