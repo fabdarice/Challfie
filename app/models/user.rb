@@ -295,7 +295,7 @@ class User < ActiveRecord::Base
     end 
 
     if array_of_android_device_token.count != 0 
-      notification = app.notifications.create(destinations: array_of_android_device_token, data: { message: message })           
+      notification = app.notifications.create(destinations: array_of_android_device_token, data: { message: strip_tags(message) })           
       # And... sent! That's all it takes.
       app.push_notifications
     end
