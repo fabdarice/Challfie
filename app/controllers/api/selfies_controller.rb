@@ -12,14 +12,14 @@ module Api
       users_following_pending = current_user.following(0)
       list_following_ids_pending = users_following_pending.map{|u| u.id}
     
-      @selfies = Selfie.where("(user_id in (?)) or (user_id in (?) and private = false) and blocked = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"])
+      @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"])
 
       # Number of New Notifications
       unread_notifications = current_user.notifications.where(read: 0)
       # Number of New Friends Request
       pending_request = current_user.followers(0)
 
-      render json: @selfies, meta: {new_alert_nb: unread_notifications.count, new_friends_request_nb: pending_request.count}
+      render json: @selfies, meta: {new_alert_nb: unread_notifications.count, new_friends_request_nb: pending_request.count, profile_picture: current_user.show_profile_picture(:medium)}
     end
     
 
@@ -31,7 +31,7 @@ module Api
       users_following_pending = current_user.following(0)
       list_following_ids_pending = users_following_pending.map{|u| u.id}      
 
-      @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and id >= ? and blocked = false", list_following_ids, list_following_ids_pending, params[:last_selfie_id]).order("created_at DESC")
+      @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and id >= ? and blocked = false and hidden = false", list_following_ids, list_following_ids_pending, params[:last_selfie_id]).order("created_at DESC")
 
       # Number of New Notifications
       unread_notifications = current_user.notifications.where(read: 0)
@@ -80,8 +80,8 @@ module Api
     end
 
     def show
-      selfie = Selfie.find(params[:id])
-      render json: selfie
+      selfie = Selfie.find(params[:id])      
+      render json: selfie, meta: {hidden: selfie.hidden}      
     end    
 
     def create            
@@ -136,20 +136,24 @@ module Api
     end
 
     def destroy
+
+      # Not a permanent destroy but a hidden flag
       selfie = Selfie.find(params[:selfie_id])
+
+      selfie.hidden = true
 
       selfie_approved = selfie.approval_status
       challenge_points = selfie.challenge.point
 
       if selfie.user == current_user
-        if (selfie.destroy)          
+        if selfie.save          
           # remove points win by this selfie if it was approved
           if selfie_approved == 1
             current_user.points = current_user.points - challenge_points
             current_user.save
           end
 
-          #Delete Notifications related to that selfie
+          #Delete Permanently Notifications related to that selfie
           notifications_to_delete = Notification.where(selfie_id: params[:selfie_id])
           notifications_to_delete.each do |notification|
             notification.destroy
@@ -161,6 +165,22 @@ module Api
       else 
           render :json=> {:success=>false}
       end      
+    end
+
+    def list_approval
+      selfie = Selfie.find(params[:selfie_id])
+
+      users = selfie.votes_for.up.by_type(User).voters.paginate(:page => params["page"], :per_page => 10)
+      render json: users, each_serializer: FriendsSerializer, scope: current_user
+
+    end
+
+
+    def list_reject
+      selfie = Selfie.find(params[:selfie_id])
+
+      users = selfie.votes_for.down.by_type(User).voters.paginate(:page => params["page"], :per_page => 10)
+      render json: users, each_serializer: FriendsSerializer, scope: current_user
     end
 
   end    

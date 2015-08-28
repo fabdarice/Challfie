@@ -97,6 +97,8 @@ Challfie::Application.routes.draw do
     post '/selfie/create' => 'selfies#create', as: :selfie_create
     post '/selfie/flag_selfie' => 'selfies#flag_selfie', as: :selfie_flag
     post '/selfie/delete' => 'selfies#destroy', as: :selfie_delete
+    post '/selfie/list_approval' => 'selfies#list_approval', as: :selfie_list_approval
+    post '/selfie/list_reject' => 'selfies#list_reject', as: :selfie_list_reject
     
     # CommentsController
     resources :comments, :only => [:create]

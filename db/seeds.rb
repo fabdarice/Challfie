@@ -13,6 +13,7 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your own drawing of Challfie\'s logo', description_fr: 'Prendre un selfie avec son dessin du logo Challfie' , difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with today\'s lunch', description_fr: 'Prendre un selfie avec son repas du midi' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie showing what time you woke up today', description_fr: 'Prendre un selfie affichant l\'heure à laquelle tu t\'es réveillé aujourd\'hui' , difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your co-workers or classmates', description_fr: 'Prendre un selfie avec tes collègues ou camarades de classe' , difficulty: 1)
 end
 
 if Book.count == 0

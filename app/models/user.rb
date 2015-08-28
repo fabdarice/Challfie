@@ -236,20 +236,22 @@ class User < ActiveRecord::Base
   end
 
   def add_notifications(message_en, message_fr, author, selfie, book, type_notification)     
-    @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author,
-                                             selfie: selfie, book: book, type_notification: type_notification)
-    
-    if @notification.save
-      if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
-        notif_msg = @notification.author.username + @notification.message
-      else
-        notif_msg = @notification.message
-      end
+    if selfie.blank? || (not selfie.blank? and selfie.hidden == false)
+      @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author,
+                                               selfie: selfie, book: book, type_notification: type_notification)
+      
+      if @notification.save
+        if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
+          notif_msg = @notification.author.username + @notification.message
+        else
+          notif_msg = @notification.message
+        end
 
-      # send notification to iOS device & Android Device
-      self.delay.send_ios_notification(notif_msg)
-      self.delay.send_android_notification(notif_msg)
-    end  
+        # send notification to iOS device & Android Device
+        self.delay.send_ios_notification(notif_msg)
+        self.delay.send_android_notification(notif_msg)
+      end 
+    end 
   end
 
   def send_ios_notification(message)
@@ -263,7 +265,7 @@ class User < ActiveRecord::Base
       apn_client.certificate = File.read("#{Rails.root}/config/ios_certificate/apple_push_notification_dev.pem")
     end        
 
-    self.devices.where("type_device = 0").each do |device|      
+    self.devices.where("type_device = 0 and active = true").each do |device|      
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
       ios_push_notification = Houston::Notification.new(device: device.token)
       ios_push_notification.alert = strip_tags(message)
@@ -289,7 +291,7 @@ class User < ActiveRecord::Base
     
     array_of_android_device_token = []
 
-    self.devices.where("type_device = 1").each do |device|      
+    self.devices.where("type_device = 1 and active = true").each do |device|      
       array_of_android_device_token << device.token
       # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app            
     end 

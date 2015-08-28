@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826060248) do
+ActiveRecord::Schema.define(version: 20150827190519) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -114,9 +114,12 @@ ActiveRecord::Schema.define(version: 20150826060248) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "type_device", default: 0
+    t.boolean  "active",      default: true
   end
 
+  add_index "devices", ["active"], name: "index_devices_on_active", using: :btree
   add_index "devices", ["token"], name: "index_devices_on_token", using: :btree
+  add_index "devices", ["type_device"], name: "index_devices_on_type_device", using: :btree
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "facebook_infos", force: true do |t|
@@ -200,6 +203,7 @@ ActiveRecord::Schema.define(version: 20150826060248) do
     t.boolean  "is_daily",                            default: false
     t.integer  "flag_count",                          default: 0
     t.boolean  "blocked",                             default: false
+    t.boolean  "hidden",                              default: false
   end
 
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree

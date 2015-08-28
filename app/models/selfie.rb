@@ -37,7 +37,7 @@ class Selfie < ActiveRecord::Base
 	end         
 
 	def set_approval_status!(typevote)
-		if (typevote == "upvote" and self.approval_status == 1) or (typevote == "downvote" and self.approval_status == 2)
+		if (typevote == "upvote" and self.approval_status == 1) or (typevote == "downvote" and self.approval_status == 2) or (self.hidden == true)			
 			return
 		else
 			upvotes = self.get_upvotes.size

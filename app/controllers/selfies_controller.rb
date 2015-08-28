@@ -123,15 +123,18 @@ class SelfiesController < ApplicationController
 	end
 
 	def destroy
+		# This isn't a destroy permanently, it's updating a Hidden field
 	   selfie = Selfie.find(params[:id])
 
 	   selfie_approved = selfie.approval_status	   
 	   challenge_points = selfie.challenge.point	   
 
+	   selfie.hidden = true
+
 	   if current_user == selfie.user
 			session[:return_to] ||= request.referer
 			
-			if (selfie.destroy)
+			if (selfie.save)
 				flash[:notice] = 'Selfie deleted.'				
 				
 				#Delete Notifications related to that selfie

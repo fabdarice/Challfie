@@ -12,9 +12,25 @@ module Api
           type_device = params[:type_device]
         end
 
-        device = Device.find_or_create_by(token: params[:device_token], type_device: type_device)        
-        device.user = user
-        device.save
+        if params[:device_token].blank?
+          device = Device.find_by user_id: user.id          
+        else
+          device = Device.find_or_create_by(token: params[:device_token])
+        end
+
+        if params[:active].blank?
+          active_device = true
+        else
+          active_device = params[:active]
+        end
+                
+        if not device.blank?        
+          device.user = user
+          device.active = active_device
+          device.type_device = type_device
+          device.save
+        end
+
         render json: {}                
       end
     end
