@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827190519) do
+ActiveRecord::Schema.define(version: 20150828085446) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -206,8 +206,11 @@ ActiveRecord::Schema.define(version: 20150827190519) do
     t.boolean  "hidden",                              default: false
   end
 
+  add_index "selfies", ["blocked"], name: "index_selfies_on_blocked", using: :btree
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
   add_index "selfies", ["created_at"], name: "index_selfies_on_created_at", using: :btree
+  add_index "selfies", ["hidden"], name: "index_selfies_on_hidden", using: :btree
+  add_index "selfies", ["private"], name: "index_selfies_on_private", using: :btree
   add_index "selfies", ["user_id"], name: "index_selfies_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
