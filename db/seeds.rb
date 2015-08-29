@@ -16,6 +16,9 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your co-workers or classmates', description_fr: 'Prendre un selfie avec tes collègues ou camarades de classe' , difficulty: 1)
 end
 
+daily_challenge_book = Book.find_by name:'DailyChallenge'
+daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie between 8pm and 9pm', description_fr: 'Prendre un selfie entre 20h et 21h' , difficulty: 1)
+
 if Book.count == 0
 	#Book.create!(name: 'Challfie Special' , required_points: '0', level: '0', tier: '0')
 	Book.create!(name: 'Newbie I' , required_points: '0', level: '1', tier: '1')
