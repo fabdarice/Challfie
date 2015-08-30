@@ -13,11 +13,20 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your own drawing of Challfie\'s logo', description_fr: 'Prendre un selfie avec son dessin du logo Challfie' , difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with today\'s lunch', description_fr: 'Prendre un selfie avec son repas du midi' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie showing what time you woke up today', description_fr: 'Prendre un selfie affichant l\'heure à laquelle tu t\'es réveillé aujourd\'hui' , difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie between 8pm and 9pm', description_fr: 'Prendre un selfie entre 20h et 21h' , difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your co-workers or classmates', description_fr: 'Prendre un selfie avec tes collègues ou camarades de classe' , difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with a bird', description_fr: 'Prendre un selfie avec un oiseau' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "duckface" selfie', description_fr: 'Prendre un "duckface" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m bored" selfie', description_fr: 'Prendre un "je m\'ennuie" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m angry" selfie', description_fr: 'Prendre un "je suis énervé" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m a gangsta" selfie', description_fr: 'Prendre un "je suis un gangster" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with a red light', description_fr: 'Prendre un selfie avec un feu rouge' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at your desk at work', description_fr: 'Prendre un selfie à son bureau de travail' , difficulty: 1)	
 end
 
 daily_challenge_book = Book.find_by name:'DailyChallenge'
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie between 8pm and 9pm', description_fr: 'Prendre un selfie entre 20h et 21h' , difficulty: 1)
+daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie wearing your sunglasses', description_fr: 'Prendre un selfie portant ses lunettes de soleil' , difficulty: 1)	
+
 
 if Book.count == 0
 	#Book.create!(name: 'Challfie Special' , required_points: '0', level: '0', tier: '0')
