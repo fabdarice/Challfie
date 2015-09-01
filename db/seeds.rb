@@ -16,19 +16,21 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie between 8pm and 9pm', description_fr: 'Prendre un selfie entre 20h et 21h' , difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie wearing your sunglasses', description_fr: 'Prendre un selfie portant ses lunettes de soleil' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "Monday? I\'m bored.." selfie', description_fr: 'Prendre un "Lundi? je m\'ennuie.." selfie' , difficulty: 1)	
+
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie while brushing your teeth', description_fr: 'Prendre un selfie en se brossant les dents', difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "duckface" selfie', description_fr: 'Prendre un "duckface" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m bored" selfie', description_fr: 'Prendre un "je m\'ennuie" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at your workstation', description_fr: 'Prendre un selfie à son bureau de travail' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m a gangsta" selfie', description_fr: 'Prendre un "je suis un gangster" selfie' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at a red light', description_fr: 'Prendre un selfie à un feu rouge' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your co-workers or classmates', description_fr: 'Prendre un selfie avec tes collègues ou camarades de classe' , difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with a bird', description_fr: 'Prendre un selfie avec un oiseau' , difficulty: 1)	
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m angry" selfie', description_fr: 'Prendre un "je suis énervé" selfie' , difficulty: 1)	
 end
 
 daily_challenge_book = Book.find_by name:'DailyChallenge'
+daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie in your pyjamas', description_fr: 'Prendre un selfie dans ton pyjama', difficulty: 1)
 
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie while brushing your teeth', description_fr: 'Prendre un selfie en se brossant les dents', difficulty: 1)
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "duckface" selfie', description_fr: 'Prendre un "duckface" selfie' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m bored" selfie', description_fr: 'Prendre un "je m\'ennuie" selfie' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at your workstation', description_fr: 'Prendre un selfie à son bureau de travail' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m a gangsta" selfie', description_fr: 'Prendre un "je suis un gangster" selfie' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at a red light', description_fr: 'Prendre un selfie à un feu rouge' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with your co-workers or classmates', description_fr: 'Prendre un selfie avec tes collègues ou camarades de classe' , difficulty: 1)
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with a bird', description_fr: 'Prendre un selfie avec un oiseau' , difficulty: 1)	
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m angry" selfie', description_fr: 'Prendre un "je suis énervé" selfie' , difficulty: 1)	
 
 
 
@@ -67,7 +69,7 @@ if Book.count == 0
 	newbie_two_book.challenges.create(point: 60, description_en: 'Take a selfie with your boss or teacher', description_fr: 'Prendre un selfie avec son boss ou son professeur', difficulty: 2)
 	newbie_two_book.challenges.create(point: 90, description_en: 'Take a selfie at a concert', description_fr: 'Prendre un selfie à un concert', difficulty: 3)
 	newbie_two_book.challenges.create(point: 120, description_en: 'Take a selfie jumping in a pool', description_fr: 'Prendre un selfie en sautant dans une piscine', difficulty: 4)
-	newbie_two_book.challenges.create(point: 120, description_en: 'Take a selfie wearing a costume in public', description_fr: 'Prendre un selfie en portant un costume en publique', difficulty: 4)
+	newbie_two_book.challenges.create(point: 120, description_en: 'Take a selfie wearing a costume in public', description_fr: 'Prendre un selfie en portant un costume en public', difficulty: 4)
 	newbie_two_book.challenges.create(point: 150, description_en: 'Take a skydiving selfie', description_fr: 'Prendre un selfie en saut en parachute', difficulty: 5)
 
 	# Newbie III Challenges
