@@ -1,13 +1,12 @@
 class Selfie < ActiveRecord::Base
-	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily
+	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :flag_count, 
+	#:blocked, :hidden, :photo_meta
 
 	self.per_page = 4
 
 	has_attached_file :photo, 
-                    :styles => {:mobile => "", :thumb => ""}, 
-                    :convert_options => { :mobile => Proc.new { |instance| instance.photo_dimension(930, 930) },                    								
-                    								:thumb => Proc.new { |instance| instance.photo_dimension(40, 40) }  
-                    							 },
+                    :styles => {:mobile => "450x", :thumb => ""}, 
+                    :convert_options => { :thumb => Proc.new { |instance| instance.photo_dimension(150, 150) }  },                    							 
                     :default_url => "/assets/missing.png"
   
 	validates :photo, :attachment_presence => true
@@ -25,16 +24,15 @@ class Selfie < ActiveRecord::Base
 
 	
 	def photo_dimension(width=400, height=400)
-	 dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original].path)
-	 min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
+	   dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original].path)
+	   min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width
 
-	if min < width
-		width = min
-		height = min
-	end
-
-	 "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{width}x#{height}^"
-	end         
+	   if min < width
+			width = min
+			height = min
+	   end
+	  "-gravity Center -crop #{min}x#{min}+0+0 +repage -resize #{width}x#{height}^"
+	end   
 
 	def set_approval_status!(typevote)
 		if (typevote == "upvote" and self.approval_status == 1) or (typevote == "downvote" and self.approval_status == 2) or (self.hidden == true)			

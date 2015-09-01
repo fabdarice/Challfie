@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   include ActionView::Helpers::SanitizeHelper
   #attr :username, :email, :firstname, :lastname, :avatar, :provider, :uid, :location, :from_mobileapp, 
-  #:from_facebook, :facebook_picture, :username_activated, :publish_permissions
+  #:from_facebook, :facebook_picture, :username_activated, :locale, :blocked
 
   before_save :ensure_authentication_token
 
@@ -93,7 +93,8 @@ class User < ActiveRecord::Base
       user.oauth_expires_at = Time.at(auth[:credentials][:expires_at].to_i).utc
       user.from_facebook = true
       user.from_mobileapp = from_mobileapp
-      user.username_activated = false      
+      user.username_activated = false   
+      user.locale = I18n.locale   
       user.skip_confirmation!  
     else  
 
@@ -101,7 +102,8 @@ class User < ActiveRecord::Base
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
                             oauth_expires_at: Time.at(auth[:credentials][:expires_at].to_i).utc,
-                            facebook_picture: auth[:info][:image].gsub!("http", "https")) 
+                            facebook_picture: auth[:info][:image].gsub!("http", "https"),
+                            locale: I18n.locale) 
     end
 
     if user.save                                   
@@ -241,10 +243,16 @@ class User < ActiveRecord::Base
                                                selfie: selfie, book: book, type_notification: type_notification)
       
       if @notification.save
-        if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
-          notif_msg = @notification.author.username + @notification.message
+        if self.locale == "fr"
+          message = message_fr
         else
-          notif_msg = @notification.message
+          message = message_en
+        end
+
+        if @notification.comment_mine? or @notification.comment_other? or @notification.selfie_approval? or @notification.friend_request?
+          notif_msg = @notification.author.username + message
+        else
+          notif_msg = message
         end
 
         # send notification to iOS device & Android Device
@@ -450,6 +458,10 @@ class User < ActiveRecord::Base
     username_changed?
   end
 
+
+  def current_rank
+     return User.where('points > ?', self.points).count + 1
+  end
 
   private
   

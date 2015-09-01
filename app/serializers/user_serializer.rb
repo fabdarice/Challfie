@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :administrator, :blocked
+  attributes :id, :username, :avatar, :book_tier, :book_level, :book_image, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :administrator, :blocked, :is_current_user
 
   delegate :current_user, to: :scope
 
@@ -9,6 +9,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def book_level
   	return object.current_book.name
+  end
+
+  def book_image
+    return object.current_book.thumb.url(:original)
   end
 
   def avatar
@@ -50,6 +54,14 @@ class UserSerializer < ActiveModel::Serializer
       return false
     else
       return true
+    end
+  end
+
+  def is_current_user
+    if object == current_user
+      return true
+    else
+      return false
     end
   end
   

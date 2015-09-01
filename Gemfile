@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 1.2'
 
 # to handle image
 gem "paperclip", "~> 4.1"
+# Get image dimension
+gem 'paperclip-meta'
 
 
 gem "therubyracer"

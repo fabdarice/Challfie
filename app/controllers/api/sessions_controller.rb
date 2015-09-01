@@ -18,6 +18,7 @@ module Api
 
       if params[:password]
         if resource.valid_password?(params[:password])
+          resource.update(locale: I18n.locale)
           sign_in(:user, resource)                  
           render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return

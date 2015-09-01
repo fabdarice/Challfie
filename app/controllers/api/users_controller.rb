@@ -232,9 +232,23 @@ module Api
       users = current_user.following(1)
       users << current_user      
       users = users.sort_by{|u| -u.points} 
-      users = users.paginate(:page => params["page"], :per_page => 15)     
+      hash_user = Hash[users.map.with_index.to_a]      
+      users = users.paginate(:page => params["page"], :per_page => 15)
+      render json: {
+        users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
+        current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
+        current_rank: hash_user[current_user] + 1
+      }
+      #render json: users, each_serializer: UserrankingSerializer, scope: current_user, meta: {current_rank: , current_user: current_user}
+    end
 
-      render json: users, each_serializer: UserrankingSerializer, scope: current_user              
+    def ranking_global
+      users = User.order("points DESC").paginate(:page => params["page"], :per_page => 15)
+      render json: {
+        users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
+        current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
+        current_rank: current_user.current_rank
+      }      
     end
     
   end  

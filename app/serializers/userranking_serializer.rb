@@ -1,5 +1,5 @@
 class UserrankingSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :progression
+  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :progression, :is_current_user
 
   #delegate :current_user, to: :scope
 
@@ -57,4 +57,11 @@ class UserrankingSerializer < ActiveModel::Serializer
     return object.next_book_progression
   end
 
+  def is_current_user
+    if object == @scope
+      return true
+    else
+      return false
+    end
+  end
 end

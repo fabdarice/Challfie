@@ -60,7 +60,7 @@
 
     <!-- SELFIE PICTURE & STATUS -->
     <div class="selfie_image">
-    		<%= image_tag selfie.photo.url(:mobile), style: "width: 508px;" %>
+    		<%= image_tag selfie.photo.url(:original), style: "width: 508px;" %>
         <!-- SELFIE STATUS IMAGE -->
         <div class="selfie_challenge_status_img">
           <% if selfie.approval_status == 1 %>            

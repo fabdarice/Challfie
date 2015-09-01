@@ -11,11 +11,7 @@ module Api
       user = User.new(username: params[:login], firstname: params[:firstname], lastname: params[:lastname], password: params[:password], 
                       email: params[:email], from_facebook: params[:from_facebook], from_mobileapp: params[:from_mobileapp], username_activated: true)
       user.skip_confirmation! 
-      if user.save
-        # create ios device token
-        if params[:device_token]
-          user.devices.find_or_create_by(token: params[:device_token])        
-        end
+      if user.save        
         render :json=> {:success => true, :auth_token => user.authentication_token, :login => user.username}
         return
       else

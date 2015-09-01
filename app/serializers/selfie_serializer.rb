@@ -1,7 +1,7 @@
 class SelfieSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
-  attributes :id, :message, :photo, :shared_fb, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote, :flag_count, :blocked
+  attributes :id, :message, :photo, :shared_fb, :private, :approval_status, :is_daily, :creation_date, :nb_upvotes, :nb_downvotes, :nb_comments, :last_comment, :status_vote, :flag_count, :blocked, :ratio_photo
 
   delegate :current_user, to: :scope
 
@@ -48,6 +48,10 @@ class SelfieSerializer < ActiveModel::Serializer
       return 2
     end
     return 0
+  end
+
+  def ratio_photo
+    return object.photo.aspect_ratio
   end
 
 end

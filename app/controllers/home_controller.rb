@@ -12,8 +12,7 @@ class HomeController < ApplicationController
  		list_following_ids_pending = users_following_pending.map{|u| u.id} 		
  		
 		@selfies = Selfie.where("((user_id in (?)) or (user_id in (?) and private = false)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)
-		@selfie = Selfie.new
-		
+		@selfie = Selfie.new			
 	end
 
 	def auto_refresh

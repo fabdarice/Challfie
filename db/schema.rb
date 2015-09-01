@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828085446) do
+ActiveRecord::Schema.define(version: 20150831095304) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150828085446) do
     t.integer  "flag_count",                          default: 0
     t.boolean  "blocked",                             default: false
     t.boolean  "hidden",                              default: false
+    t.text     "photo_meta"
   end
 
   add_index "selfies", ["blocked"], name: "index_selfies_on_blocked", using: :btree
@@ -249,10 +250,12 @@ ActiveRecord::Schema.define(version: 20150828085446) do
     t.integer  "administrator",          default: 0
     t.boolean  "username_activated",     default: true
     t.boolean  "blocked",                default: false
+    t.string   "locale",                 default: "en"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["locale"], name: "index_users_on_locale", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

@@ -25,11 +25,9 @@ class ApplicationController < ActionController::Base
     end        
   end
 
-  def set_user_language    
-    #puts I18n.available_locales
+  def set_user_language        
     available = %w(en fr)
-    I18n.locale = http_accept_language.compatible_language_from(available)    
-    #I18n.locale = "fr"
+    I18n.locale = http_accept_language.compatible_language_from(available)        
   end
 
   def configure_permitted_parameters
