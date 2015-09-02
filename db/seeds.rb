@@ -50,7 +50,7 @@ if Book.where("name = 'DailyChallenge'").count == 0
 end
 
 daily_challenge_book = Book.find_by name:'DailyChallenge'
-
+daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie while brushing your teeth', description_fr: 'Prendre un selfie en se brossant les dents', difficulty: 1)
 
 
 
