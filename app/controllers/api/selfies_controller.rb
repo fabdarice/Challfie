@@ -38,7 +38,7 @@ module Api
       # Number of New Friends Request
       pending_request = current_user.followers(0)
       
-      render json: @selfies, meta: {new_alert_nb: unread_notifications.count, new_friends_request_nb: pending_request.count}
+      render json: @selfies.includes(:user, :challenge), meta: {new_alert_nb: unread_notifications.count, new_friends_request_nb: pending_request.count}
     end
 
     def approve

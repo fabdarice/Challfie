@@ -1,6 +1,6 @@
 namespace :paperclip do
   desc "build missing paperclip styles"
-  task :refresh_style do
+  task :refresh_missing_style do
     on roles(:app) do
     	within current_path do
         with rails_env: fetch(:rails_env, 'production') do
@@ -10,4 +10,16 @@ namespace :paperclip do
  		end       
     end
   end
+
+  desc "build missing paperclip styles"
+  task :refresh_selfie do
+    on roles(:app) do
+    	within current_path do
+        with rails_env: fetch(:rails_env, 'production') do      
+          execute :bundle, 'exec', :rake, 'paperclip:refresh CLASS=Selfie'
+ 		  end
+ 		end       
+    end
+  end
+  
 end
