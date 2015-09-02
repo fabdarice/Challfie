@@ -17,8 +17,9 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie wearing your sunglasses', description_fr: 'Prendre un selfie portant ses lunettes de soleil' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "Monday? I\'m bored.." selfie', description_fr: 'Prendre un "Lundi? je m\'ennuie.." selfie' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie in your pyjamas', description_fr: 'Prendre un selfie dans ton pyjama', difficulty: 1)
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie while brushing your teeth', description_fr: 'Prendre un selfie en se brossant les dents', difficulty: 1)
 
-
+	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie "It\'s the week-end! Cheers!!"', description_fr: 'Prendre un selfie "C\'est le week-end! Santé!!"', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie showing your artistic side', description_fr: 'Prendre un selfie montrant son côté artistique', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with Hello Kitty', description_fr: 'Prendre un selfie avec Hello Kitty', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie cooking', description_fr: 'Prendre un selfie en cuisinant', difficulty: 1)
@@ -50,7 +51,7 @@ if Book.where("name = 'DailyChallenge'").count == 0
 end
 
 daily_challenge_book = Book.find_by name:'DailyChallenge'
-daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie while brushing your teeth', description_fr: 'Prendre un selfie en se brossant les dents', difficulty: 1)
+
 
 
 
