@@ -8,13 +8,14 @@ namespace :amazon_s3 do
     bucket.objects.each do |object|
     puts object.key
       if object.key.match(/^selfies/)      	
-      	if object.key.scan(/selfies\/photos\/000\/000\/\d+/).first.empty?
+      	if object.key.scan(/selfies\/photos\/000\/000\/\d+/).first != nil
       		puts "ERROR FOR " + object.key
       	else
 	   		selfie_id = object.key.scan(/selfies\/photos\/000\/000\/\d+/).first.gsub(/selfies\/photos\/000\/000\// , "")
 	   		selfie_id.gsub(/^0*/, "")
-	      	selfie = Selfie.find(selfie_id)
-	      	if selfie
+	      	
+	      	if Selfie.where(id: selfie_id).count != 0 
+	      		selfie = Selfie.find(selfie_id)
 	      		user_id = selfie.user_id
 
 					if object.key.scan(/thumb\/.*/).first
