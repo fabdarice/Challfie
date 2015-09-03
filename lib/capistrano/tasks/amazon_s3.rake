@@ -1,11 +1,13 @@
+require 'aws-sdk'
+
 namespace :amazon_s3 do
   desc "Migrate Selfies to Different Folder on Amazon S3"
-  task migrate: :environment do
+  task :migrate do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env, 'production') do
             s3 = AWS::S3.new(:access_key_id => ENV['CHALLFIE_AWS_ACCESS_KEY'], :secret_access_key => ENV['CHALLFIE_AWS_SECRET_KEY'])
-            bucket = s3.buckets["challfie_dev"]
+            bucket = s3.buckets["challfie"]
             bucket.objects.each do |object|
               
               if object.key.match(/^selfies/)       
