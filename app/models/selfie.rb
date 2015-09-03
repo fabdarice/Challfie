@@ -7,8 +7,9 @@ class Selfie < ActiveRecord::Base
 	has_attached_file :photo, 
                     :styles => {:mobile => "450x", :thumb => ""}, 
                     :convert_options => { :thumb => Proc.new { |instance| instance.photo_dimension(150, 150) }  },                    							                     
+                    :path => "/:class/:attachment/:id_user/:id/:style/:filename",
                     :default_url => "/assets/missing.png"
-#:path => "/:class/:attachment/:id_user/:id/:style/:filename",
+#
   
 	validates :photo, :attachment_presence => true
 	validates_with AttachmentPresenceValidator, :attributes => :photo
