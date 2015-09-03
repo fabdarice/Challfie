@@ -7,7 +7,9 @@ class Selfie < ActiveRecord::Base
 	has_attached_file :photo, 
                     :styles => {:mobile => "450x", :thumb => ""}, 
                     :convert_options => { :thumb => Proc.new { |instance| instance.photo_dimension(150, 150) }  },                    							 
+                    :path => "/:class/:attachment/:id_user/:id/:style/:filename",
                     :default_url => "/assets/missing.png"
+
   
 	validates :photo, :attachment_presence => true
 	validates_with AttachmentPresenceValidator, :attributes => :photo
@@ -22,7 +24,10 @@ class Selfie < ActiveRecord::Base
 
 	acts_as_votable
 
-	
+	Paperclip.interpolates :id_user do |attachment, style|
+	  attachment.instance.user_id
+	end	
+
 	def photo_dimension(width=400, height=400)
 	   dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original].path)
 	   min = dimensions.width > dimensions.height ? dimensions.height : dimensions.width

@@ -35,6 +35,18 @@ Challfie::Application.configure do
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
+  config.paperclip_defaults = {
+    :storage => :s3,   
+    :s3_protocol => :https, 
+    :url => ":s3_domain_url",
+    :path => "/:class/:attachment/:id_partition/:style/:filename",
+    :s3_credentials => {
+      :bucket => "challfie_dev",
+      :access_key_id => ENV['CHALLFIE_AWS_ACCESS_KEY'],
+      :secret_access_key => ENV['CHALLFIE_AWS_SECRET_KEY']
+    }
+  }
+
   # Bullet Configuration
   config.after_initialize do
     Bullet.enable = true
