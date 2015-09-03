@@ -40,8 +40,7 @@ namespace :amazon_s3 do
 	      			object.copy_to new_object, {:acl => :public_read}
 		      	end
 	      	else
-	      		puts "SELFIE EMTPY : " + selfie_id.to_s
-		      	
+	      		puts "SELFIE EMTPY : " + selfie_id.to_s		      	
 		      end
 	      end
       end
