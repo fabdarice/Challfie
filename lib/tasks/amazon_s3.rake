@@ -12,11 +12,10 @@ namespace :amazon_s3 do
       		puts "ERROR FOR " + object.key
       	else
 	   		selfie_id = object.key.scan(/selfies\/photos\/000\/000\/\d+/).first.gsub(/selfies\/photos\/000\/000\// , "")
+	   		selfie_id.gsub(/^0*/, "")
 	      	selfie = Selfie.find(selfie_id)
-	      	if selfie.empty?
-	      		puts "SELFIE EMTPY : " + selfie_id.to_s
-	      	else
-		      	user_id = selfie.user_id
+	      	if selfie
+	      		user_id = selfie.user_id
 
 					if object.key.scan(/thumb\/.*/).first
 						end_path = object.key.scan(/thumb\/.*/).first
@@ -38,6 +37,9 @@ namespace :amazon_s3 do
 		      		new_object = bucket.objects[new_key]
 	      			object.copy_to new_object, {:acl => :public_read}
 		      	end
+	      	else
+	      		puts "SELFIE EMTPY : " + selfie_id.to_s
+		      	
 		      end
 	      end
       end
