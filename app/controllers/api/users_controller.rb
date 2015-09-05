@@ -49,7 +49,7 @@ module Api
       following = user.all_following
       books = user.books
 
-      render json: user_selfies, meta: {number_selfies: user.selfies.count, number_following: following.count, number_followers: followers.count, number_books: books.count}
+      render json: user_selfies.includes(:challenge), meta: {number_selfies: user.selfies.count, number_following: following.count, number_followers: followers.count, number_books: books.count}
     end
 
 

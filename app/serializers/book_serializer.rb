@@ -12,5 +12,6 @@ class BookSerializer < ActiveModel::Serializer
       return false
     end
   end
-    
+
+
 end
