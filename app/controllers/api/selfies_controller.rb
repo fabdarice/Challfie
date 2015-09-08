@@ -112,11 +112,7 @@ module Api
         #Share the selfie on Facebook
         if @selfie.shared_fb == true
           @graph = Koala::Facebook::API.new(current_user.oauth_token)                    
-          if Rails.env.production?                        
-            @graph.put_picture(@selfie.photo.url(:mobile).split("?")[0], { "message" => @selfie.message })
-          else            
-            @graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:mobile).split("?")[0], { "message" => @selfie.message })
-          end
+          @graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
         end 
 
         render :json=> {:success=>true}        

@@ -47,9 +47,10 @@ module Api
       end
       followers = user.followers(1)
       following = user.all_following
-      books = user.books
+      #books = user.books
+      number_selfie_approved = user.selfies.where("blocked = false and hidden = false and approval_status = 1").count
 
-      render json: user_selfies.includes(:challenge), meta: {number_selfies: user.selfies.count, number_following: following.count, number_followers: followers.count, number_books: books.count}
+      render json: user_selfies.includes(:challenge), meta: {number_selfies: user.selfies.count, number_following: following.count, number_followers: followers.count, number_approved: number_selfie_approved}
     end
 
 
@@ -211,7 +212,7 @@ module Api
                                        publish_permissions: publish_permissions)
       end
       
-      if !current_user.save or !facebook_info.save
+      if !current_user.save or !facebook_info.save        
         render :json => {:success => false, :message => "There was an error authenticating you with your Facebook account. Please try again later."}               
       else
         render :json => {:success => true}

@@ -17,8 +17,10 @@ class ChallengeSerializer < ActiveModel::Serializer
   		else
   			if current_user.selfies.where(challenge_id: object.id, approval_status: 2, blocked: false, hidden: false).count != 0
   				return 2
-  			else
+  			elsif current_user.selfies.where(challenge_id: object.id, approval_status: 0, blocked: false, hidden: false).count != 0
   				return 0
+        else
+          return -1
   			end	
   		end  		
   end

@@ -50,8 +50,9 @@ class SelfieSerializer < ActiveModel::Serializer
     return 0
   end
 
-  def ratio_photo
-    return object.photo.aspect_ratio
+  def ratio_photo    
+    ratio = object.photo.width(:mobile).to_f / object.photo.height(:mobile).to_f
+    return ratio.round(2)
   end
 
 end

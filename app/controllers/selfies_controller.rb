@@ -28,11 +28,9 @@ class SelfiesController < ApplicationController
 				@graph = Koala::Facebook::API.new(current_user.oauth_token)
 				#puts "FILENAME = " + "#{Rails.root}/public" + current_user.selfies.first.photo.url(:original).split("?")[0]
 				#share_post_message = "Challfie Challenge : " + @selfie.challenge.description + "\n\n" + @selfie.message 
-				if Rails.env.production?
-					@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
-				else
-					@graph.put_picture("#{Rails.root}/public" + @selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
-				end
+				
+				@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })
+				
 			end	
 
 			redirect_to root_path

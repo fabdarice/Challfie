@@ -460,7 +460,7 @@ class User < ActiveRecord::Base
 
 
   def current_rank
-     return User.where('points > ?', self.points).count + 1
+     return User.where('points >= ?', self.points).count + 1
   end
 
   private
