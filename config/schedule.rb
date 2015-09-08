@@ -21,10 +21,10 @@
 set :output, "/home/deploy/challfie/shared/log/cron_log.log"
 
 
-every 1.day, :at => '1:40am' do
+every 1.day, :at => '4:42am' do
 	runner "DailyChallenge.new.set_daily_challenge_us"
 end
 
-every 1.day, :at => '1:38am' do
+every 1.day, :at => '4:40am' do
 	runner "DailyChallenge.new.set_daily_challenge_fr"
 end
