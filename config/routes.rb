@@ -75,8 +75,7 @@ Challfie::Application.routes.draw do
     post '/user/update' => 'users#update', as: :user_update
     post '/user/facebook_link' => 'users#facebook_link', as: :user_facebook_link
     post '/users/ranking' => 'users#ranking', as: :users_rankin
-    post '/users/ranking_global' => 'users#ranking_global', as: :users_ranking_global
-    post '/users/update_facebook_permission' => 'users#update_facebook_permission', as: :user_update_facebook_permission        
+    post '/users/ranking_global' => 'users#ranking_global', as: :users_ranking_global       
             
     # Devise Controller
     devise_scope :user do
