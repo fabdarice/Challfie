@@ -99,6 +99,7 @@ class User < ActiveRecord::Base
     else  
 
       user.update_attributes(uid: auth[:uid],
+                            email: auth[:info][:email],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
                             oauth_expires_at: Time.at(auth[:credentials][:expires_at].to_i).utc,
@@ -124,18 +125,7 @@ class User < ActiveRecord::Base
       # IF FIRST TIME REGISTRATION FROM FACEBOOK 
       if user and BookUser.where(user_id: user.id).count == 0
         first_level_book = Book.find_by level: 1
-        BookUser.where(user_id: user.id, book_id: first_level_book.id).first_or_create!
-        
-        # First 200 subscribers
-        #if User.count <= 2000
-        #  challfie_special_book = Book.find_by level: 100
-        #  book_users = BookUser.new
-        # book_users.user = user
-        #  book_users.book = challfie_special_book
-        #  if !book_users.save 
-        #    return nil
-        #  end
-        #end          
+        BookUser.where(user_id: user.id, book_id: first_level_book.id).first_or_create!                
       end
 
       return user

@@ -9,7 +9,7 @@ module Api
 
     def create
       user = User.new(username: params[:login], firstname: params[:firstname], lastname: params[:lastname], password: params[:password], 
-                      email: params[:email], from_facebook: params[:from_facebook], from_mobileapp: params[:from_mobileapp], username_activated: true)
+                      email: params[:email], from_facebook: params[:from_facebook], from_mobileapp: params[:from_mobileapp], username_activated: true, locale: I18n.locale)
       user.skip_confirmation! 
       if user.save        
         render :json=> {:success => true, :auth_token => user.authentication_token, :login => user.username}
