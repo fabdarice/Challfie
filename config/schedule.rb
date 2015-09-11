@@ -24,7 +24,7 @@ every 1.day, :at => '3:30am' do
 	runner "DailyChallenge.new.set_daily_challenge"
 end
 
-every :hour, :at: 10 do
+every :hour, :at => 10 do
 	daily = DailyChallenge.last
 	#runner "Delayed::Job.enqueue(DailyChallenge.new.send_daily_challenge_notifications, priority:1, run_at:Time.now)"
 	runner "daily.delay.send_daily_challenge_notifications"
