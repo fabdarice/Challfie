@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     !self.from_facebook
   end
 
-  def self.find_for_facebook_oauth(auth, from_mobileapp)        
+  def self.find_for_facebook_oauth(auth, from_mobileapp, timezone)        
 
     # to replace his actual email with @facebook.com email to fix the problem of having a doublon
     user = self.where(email: auth[:info][:email]).first || self.where(provider: auth[:provider], uid: auth[:uid]).first
@@ -94,7 +94,8 @@ class User < ActiveRecord::Base
       user.from_facebook = true
       user.from_mobileapp = from_mobileapp
       user.username_activated = false   
-      user.locale = I18n.locale   
+      user.locale = I18n.locale 
+      user.timezone = timezone  
       user.skip_confirmation!  
     else  
 
@@ -104,7 +105,8 @@ class User < ActiveRecord::Base
                             oauth_token: auth[:credentials][:token],
                             oauth_expires_at: Time.at(auth[:credentials][:expires_at].to_i).utc,
                             facebook_picture: auth[:info][:image].gsub!("http", "https"),
-                            locale: I18n.locale) 
+                            locale: I18n.locale,
+                            timezone: timezone) 
     end
 
     if user.save                                   

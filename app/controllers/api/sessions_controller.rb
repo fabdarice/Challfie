@@ -16,6 +16,10 @@ module Api
         return
       end
 
+      if params[:timezone].blank?
+        params[:timezone] = "France"
+      end
+
       if params[:password]
         if resource.valid_password?(params[:password])
           resource.update(locale: I18n.locale, timezone: params[:timezone])

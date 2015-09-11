@@ -33,6 +33,10 @@ module Api
     def create_from_facebook        
       params[:email] = params[:uid].to_s + "@facebook.com" if params[:email].blank?      
 
+      if params[:timezone].blank?
+        params[:timezone] = "France"
+      end
+
       auth = {
                 :provider => "facebook",
                 :uid => params[:uid],
@@ -54,7 +58,7 @@ module Api
                 }
               }
 
-      resource = User.find_for_facebook_oauth(auth, true)
+      resource = User.find_for_facebook_oauth(auth, true, params[:timezone])
 
       if resource
         if !user_signed_in?                  
