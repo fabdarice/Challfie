@@ -412,8 +412,8 @@ class User < ActiveRecord::Base
         book_users.user = self
         book_users.book = book_to_unlock
         book_users.save      
-        self.add_notifications("Congratulations! You have unlocked a new book : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
-                              "Félicitations! Tu as débloqué un nouveau livre : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
+        self.add_notifications("Congratulations! You just level up : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
+                              "Félicitations ! Tu viens de monter de niveau : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
                               self, nil, book_to_unlock, Notification.type_notifications[:book_unlock])      
       end
     end  

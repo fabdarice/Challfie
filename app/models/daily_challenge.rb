@@ -3,13 +3,13 @@ class DailyChallenge < ActiveRecord::Base
 
 	belongs_to :challenge
 
-	def set_daily_challenge_fr		
+	def set_daily_challenge		
 		daily_challenge_book = Book.where(name: 'DailyChallenge').first
 		challenge = daily_challenge_book.challenges.where("point = 0").order('created_at').first
 
 		if challenge.blank?
 			random_offset =  daily_challenge_book.challenges.count
-			challenge = Challenge.offset(rand(random_offset)).first			
+			challenge = daily_challenge_book.challenges.offset(rand(random_offset)).first			
 		else
 			challenge.point = 20
 			challenge.save	
@@ -17,22 +17,19 @@ class DailyChallenge < ActiveRecord::Base
 		
 		daily_challenge = DailyChallenge.new
 		daily_challenge.challenge = challenge 
-		if daily_challenge.save			
-			daily_challenge.send_daily_challenge_notifications("fr")
-		end
+		daily_challenge.save						
 	end
 
-	def set_daily_challenge_us
-		daily_challenge = DailyChallenge.last
-		daily_challenge.send_daily_challenge_notifications("en")		
+	def send_daily_challenge_notifications					
+		daily_challenge = DailyChallenge.last		
+		User.all.each do |user|
+			current_time = Time.now.in_time_zone(user.timezone)
+			if current_time.hour == 5
+				user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
+			end				
+		end	
 	end
 
-
-	def send_daily_challenge_notifications(location)
-		User.where(locale: location).each do |user|
-			user.add_notifications("Today's <strong>daily challenge</strong> : \"#{self.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{self.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])				
-		end			
-	end
-	handle_asynchronously :send_daily_challenge_notifications
+	#handle_asynchronously :send_daily_challenge_notifications_delay
 
 end

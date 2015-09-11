@@ -20,11 +20,12 @@
 # Learn more: http://github.com/javan/whenever
 set :output, "/home/deploy/challfie/shared/log/cron_log.log"
 
-
-every 1.day, :at => '8am' do
-	runner "DailyChallenge.new.set_daily_challenge_us"
+every 1.day, :at => '3:30am' do
+	runner "DailyChallenge.new.set_daily_challenge"
 end
 
-every 1.day, :at => '11pm' do
-	runner "DailyChallenge.new.set_daily_challenge_fr"
+every :hour, :at: 10 do
+	daily = DailyChallenge.last
+	#runner "Delayed::Job.enqueue(DailyChallenge.new.send_daily_challenge_notifications, priority:1, run_at:Time.now)"
+	runner "daily.delay.send_daily_challenge_notifications"
 end

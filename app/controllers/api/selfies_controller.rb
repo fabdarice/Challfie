@@ -103,7 +103,12 @@ module Api
         current_user.save        
       end
       
-      daily_challenge = DailyChallenge.last   
+      current_user_time = Time.now.in_time_zone(current_user.timezone)
+      if current_user_time.hour < 5
+          daily_challenge = DailyChallenge.offset(1).last
+      else
+          daily_challenge = DailyChallenge.last
+      end         
       if @selfie.challenge == daily_challenge.challenge     
         @selfie.is_daily = true   
       end

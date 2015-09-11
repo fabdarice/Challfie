@@ -8,7 +8,13 @@ module Api
 
         #Create a temporary Daily Book containing the Daily Challenge for Display -->
         daily_book = Book.new(name: "Daily Challenge", level: 0)
-        daily_challenge = DailyChallenge.last
+
+        current_user_time = Time.now.in_time_zone(current_user.timezone)        
+        if current_user_time.hour < 5
+          daily_challenge = DailyChallenge.offset(1).last
+        else
+          daily_challenge = DailyChallenge.last
+        end         
         daily_book.challenges << daily_challenge.challenge if daily_challenge
         books.unshift(daily_book) if daily_challenge
 
@@ -22,7 +28,14 @@ module Api
       end
 
       def daily_challenge
-        dailychallenge = DailyChallenge.last
+        current_user_time = Time.now.in_time_zone(current_user.timezone)
+        
+        if current_user_time.hour < 5
+          dailychallenge = DailyChallenge.offset(1).last                    
+        else
+          dailychallenge = DailyChallenge.last
+        end
+        
         if dailychallenge
           render json: {daily_challenge: dailychallenge.challenge.description}
         else

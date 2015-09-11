@@ -18,7 +18,7 @@ module Api
 
       if params[:password]
         if resource.valid_password?(params[:password])
-          resource.update(locale: I18n.locale)
+          resource.update(locale: I18n.locale, timezone: params[:timezone])
           sign_in(:user, resource)                  
           render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return
@@ -27,6 +27,7 @@ module Api
 
       if params[:token]
         if resource.authentication_token == params[:token]
+          resource.update(locale: I18n.locale, timezone: params[:timezone])
           sign_in(:user, resource)        
           render :json=> {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :username_activated => resource.username_activated}
           return
