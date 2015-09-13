@@ -17,7 +17,7 @@ module Api
       end
 
       if params[:timezone].blank?
-        params[:timezone] = "France"
+        params[:timezone] = "Europe/Paris"
       end
 
       if params[:password]

@@ -36,7 +36,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       auth[:info][:email] = auth[:uid].to_s + "@facebook.com" if auth[:info][:email].blank?      
       
       # Creating a new Facebook user or new Facebook session
-      @user = User.find_for_facebook_oauth(auth, false, "France")
+      @user = User.find_for_facebook_oauth(auth, false, "Europe/Paris")
 
       if @user
         sign_in @user
