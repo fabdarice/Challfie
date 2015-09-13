@@ -1,5 +1,5 @@
 class UserrankingSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :progression, :is_current_user
+  attributes :id, :username, :avatar, :book_tier, :book_level, :book_image, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :points, :progression, :is_current_user
 
   #delegate :current_user, to: :scope
 
@@ -9,6 +9,10 @@ class UserrankingSerializer < ActiveModel::Serializer
 
   def book_level
   	return object.current_book.name
+  end
+
+  def book_image
+    return object.current_book.thumb.url(:original)
   end
 
   def avatar

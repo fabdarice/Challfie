@@ -20,7 +20,7 @@ module Api
           isFacebookLinked = true          
         end
     	  
-        render json: books, meta: {isFacebookLinked: isFacebookLinked}
+        render json: books.includes(:challenges), meta: {isFacebookLinked: isFacebookLinked}
       end
 
       def daily_challenge

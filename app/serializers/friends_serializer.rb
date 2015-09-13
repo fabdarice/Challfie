@@ -1,5 +1,5 @@
 class FriendsSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :nb_mutual_friend, :is_facebook_picture, :nb_followers, :is_pending, :is_following, :blocked
+  attributes :id, :username, :avatar, :book_tier, :book_level, :book_image, :nb_mutual_friend, :is_facebook_picture, :nb_followers, :is_pending, :is_following, :blocked
 
   #delegate :current_user, to: :scope
 
@@ -9,6 +9,10 @@ class FriendsSerializer < ActiveModel::Serializer
 
   def book_level
   	return object.current_book.name
+  end
+
+  def book_image
+    return object.current_book.thumb.url(:original)
   end
 
   def avatar
