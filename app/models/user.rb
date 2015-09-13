@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
             format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: I18n.translate('sign_in.error_email_format') }
 
   has_one :facebook_info
+  belongs_to :daily_challenge
   has_many :selfies
   has_many :comments
   has_many :notifications

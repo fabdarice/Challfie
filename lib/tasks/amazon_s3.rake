@@ -6,7 +6,6 @@ namespace :amazon_s3 do
   	s3 = AWS::S3.new(:access_key_id => ENV['CHALLFIE_AWS_ACCESS_KEY'], :secret_access_key => ENV['CHALLFIE_AWS_SECRET_KEY'])
     bucket = s3.buckets["challfie"]
     bucket.objects.each do |object|
-    puts object.key
       if object.key.match(/^selfies/)      	
       	if object.key.scan(/selfies\/photos\/000\/000\/\d+/).first == nil
       		puts "ERROR FOR " + object.key

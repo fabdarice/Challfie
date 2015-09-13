@@ -17,7 +17,7 @@ class SelfiesController < ApplicationController
 		@selfie.user = current_user
 		@selfie.shared_fb = true if params[:mysharefacebook] == "1"
 
-		daily_challenge = DailyChallenge.last		
+		daily_challenge = current_user.daily_challenge
 		if daily_challenge != nil and @selfie.challenge == daily_challenge.challenge			
 			@selfie.is_daily = true		
 		end
@@ -58,7 +58,7 @@ class SelfiesController < ApplicationController
 
 	   if params[:search] == 'emptySelection'	    		      
 	       daily_book = Book.new(name: "Daily Challenge", level: 0) 
-			 daily_challenge = DailyChallenge.last 
+			 daily_challenge = current_user.daily_challenge
 			 daily_book.challenges << daily_challenge.challenge if daily_challenge 
 			 @users_books.unshift(daily_book) if daily_challenge     
 	   else

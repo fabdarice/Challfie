@@ -104,11 +104,7 @@ module Api
       end
       
       current_user_time = Time.now.in_time_zone(current_user.timezone)
-      if current_user_time.hour < 5
-          daily_challenge = DailyChallenge.offset(1).last
-      else
-          daily_challenge = DailyChallenge.last
-      end         
+      daily_challenge = current_user.daily_challenge      
       if @selfie.challenge == daily_challenge.challenge     
         @selfie.is_daily = true   
       end

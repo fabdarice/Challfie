@@ -264,7 +264,7 @@ $(function () {
 
 					<!-- Create a temporary Daily Book containing the Daily Challenge for Display -->
 					<% daily_book = Book.new(name: "Daily Challenge", level: 0) %>
-					<% daily_challenge = DailyChallenge.last %>
+					<% daily_challenge = current_user.daily_challenge %>
 					<% daily_book.challenges << daily_challenge.challenge if daily_challenge %>
 					<% current_user_books.unshift(daily_book) if daily_challenge %>
 

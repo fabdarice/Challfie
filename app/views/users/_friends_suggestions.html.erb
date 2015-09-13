@@ -42,7 +42,7 @@
 <% user = current_user %>
 <% @friends_suggestion = current_user.friends_suggestions %>
 <% facebook_url = user_omniauth_authorize_path("facebook") + "?type=friends_search" %>
-<% daily_challenge = DailyChallenge.last.challenge if not DailyChallenge.last.blank? %>
+<% daily_challenge = current_user.daily_challenge.challenge if not DailyChallenge.last.blank? %>
 			
 <div id="right_content">
 
