@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
     	def index
-        @notifications = current_user.notifications.order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
+        @notifications = current_user.notifications.order('created_at DESC').paginate(:page => params[:page], :per_page => 20)
         unread_notifications = current_user.notifications.where(read: 0)
         
         render json: @notifications, meta: {new_alert_nb: unread_notifications.count}

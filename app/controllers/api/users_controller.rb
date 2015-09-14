@@ -41,9 +41,9 @@ module Api
       user = User.friendly.find(params[:user_id])
 
       if current_user == user or current_user.is_following?(user)
-        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
+        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 18)
       else
-        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 12)
+        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 18)
       end
       followers = user.followers(1)
       following = user.all_following
@@ -58,7 +58,7 @@ module Api
       # LIST OF ALL FRIEND FOLLOWING
       @following = current_user.all_following
       @following = @following.sort_by {|u| u.username.downcase}
-      @following = @following.paginate(:page => params["page"], :per_page => 10)
+      @following = @following.paginate(:page => params["page"], :per_page => 20)
 
       # Number of unread Notifications
       unread_notifications = current_user.notifications.where(read: 0)  
@@ -69,7 +69,7 @@ module Api
 
     def followers       
       # LIST OF ALL FOLLOWERS
-      @followers = current_user.followers(1).paginate(:page => params["page"], :per_page => 10)
+      @followers = current_user.followers(1).paginate(:page => params["page"], :per_page => 20)
       # Number of unread Notifications
       unread_notifications = current_user.notifications.where(read: 0)  
       # Number of New Friends Request
@@ -92,7 +92,7 @@ module Api
       end
 
       # Friends Suggestions
-      @friends_suggestions = current_user.friends_suggestions.paginate(:page => params[:page], :per_page => 10)
+      @friends_suggestions = current_user.friends_suggestions.paginate(:page => params[:page], :per_page => 20)
       # Number of unread Notifications
       unread_notifications = current_user.notifications.where(read: 0)  
       # Number of New Friends Request
@@ -159,7 +159,7 @@ module Api
     def autocomplete_search_user    
       search = User.search do
         fulltext params[:user_input]
-        paginate :page => 1, :per_page => 10
+        paginate :page => 1, :per_page => 20
       end
 
       @users = search.results   
@@ -217,7 +217,7 @@ module Api
       users << current_user      
       users = users.sort_by{|u| -u.points} 
       hash_user = Hash[users.map.with_index.to_a]      
-      users = users.paginate(:page => params["page"], :per_page => 15)
+      users = users.paginate(:page => params["page"], :per_page => 20)
       render json: {
         users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
         current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
@@ -227,7 +227,7 @@ module Api
     end
 
     def ranking_global
-      users = User.order("points DESC").limit(100).paginate(:page => params["page"], :per_page => 15)
+      users = User.order("points DESC").limit(100).paginate(:page => params["page"], :per_page => 20)
       render json: {
         users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
         current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),

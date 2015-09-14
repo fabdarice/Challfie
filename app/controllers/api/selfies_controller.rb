@@ -167,7 +167,7 @@ module Api
     def list_approval
       selfie = Selfie.find(params[:selfie_id])
 
-      users = selfie.votes_for.up.by_type(User).voters.paginate(:page => params["page"], :per_page => 10)
+      users = selfie.votes_for.up.by_type(User).voters.paginate(:page => params["page"], :per_page => 20)
       render json: users, each_serializer: FriendsSerializer, scope: current_user
 
     end
@@ -176,7 +176,7 @@ module Api
     def list_reject
       selfie = Selfie.find(params[:selfie_id])
 
-      users = selfie.votes_for.down.by_type(User).voters.paginate(:page => params["page"], :per_page => 10)
+      users = selfie.votes_for.down.by_type(User).voters.paginate(:page => params["page"], :per_page => 20)
       render json: users, each_serializer: FriendsSerializer, scope: current_user
     end
 
