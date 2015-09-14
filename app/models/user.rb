@@ -456,7 +456,7 @@ class User < ActiveRecord::Base
     if self.current_book.level < 2
       return "TBD"
     else
-      return User.where('points >= ?', self.points).count + 1
+      return User.where('points >= ?', self.points).count
     end
      
   end
