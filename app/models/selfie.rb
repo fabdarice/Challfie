@@ -2,7 +2,7 @@ class Selfie < ActiveRecord::Base
 	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :flag_count, 
 	#:blocked, :hidden, :photo_meta
 
-	self.per_page = 4
+	self.per_page = 10
 
 	has_attached_file :photo, 
                     :styles => {:mobile => "450x", :thumb => ""}, 
