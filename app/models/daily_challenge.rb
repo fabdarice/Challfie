@@ -25,7 +25,7 @@ class DailyChallenge < ActiveRecord::Base
 		daily_challenge = DailyChallenge.last		
 		User.all.each do |user|
 			current_time = Time.now.in_time_zone(user.timezone)
-			if current_time.hour == 13				
+			if current_time.hour == 5				
 				user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
 				user.daily_challenge = daily_challenge
 				user.save
