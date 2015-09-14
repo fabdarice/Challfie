@@ -7,12 +7,11 @@ module Api
     	  books = current_user.books.where('level > 0 and visible = true and active = true').order('level')
 
         #Create a temporary Daily Book containing the Daily Challenge for Display -->
-        daily_book = Book.new(name: "Daily Challenge", level: 0)
-
-        current_user_time = Time.now.in_time_zone(current_user.timezone)        
+        daily_book = Book.new(name: "Daily Challenge", level: 0, visible: true, active: true, required_points: 0, tier: 0) 
         daily_challenge = current_user.daily_challenge       
-        daily_book.challenges << daily_challenge.challenge if daily_challenge
-        books.unshift(daily_book) if daily_challenge
+        daily_book.challenges << daily_challenge.challenge if daily_challenge 
+
+        books.unshift(daily_book)
 
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
@@ -20,11 +19,10 @@ module Api
           isFacebookLinked = true          
         end
     	  
-        render json: books.includes(:challenges), meta: {isFacebookLinked: isFacebookLinked}
+        render json: books, meta: {isFacebookLinked: isFacebookLinked}
       end
 
       def daily_challenge
-        current_user_time = Time.now.in_time_zone(current_user.timezone)        
         dailychallenge = current_user.daily_challenge
         
         if dailychallenge

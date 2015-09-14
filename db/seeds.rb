@@ -42,13 +42,14 @@ if Book.where("name = 'DailyChallenge'").count == 0
 	# Potentiel new Challenges
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m on vacation" selfie', description_fr: 'Prendre un "je suis en vacance" selfie' , difficulty: 1)	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a "I\'m all wet" selfie', description_fr: 'Prendre un "je suis trempé" selfie' , difficulty: 1)	
+	
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie wearing flip-flops at work', description_fr: 'Prendre un selfie en portant des tongs au travail', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie in a convertible', description_fr: 'Prendre un selfie dans une décapotable', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie under a waterfall', description_fr: 'Prendre un selfie sous une chute d\'eau', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie on a stage in front of an audience', description_fr: 'Prendre un selfie sur un scène devant un public', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie with a fireman', description_fr: 'Prendre un selfie avec un pompier', difficulty: 1)
 	daily_challenge_book.challenges.create(point: 0, description_en: 'Take a selfie at a phonebox', description_fr: 'Prendre un selfie à une cabine téléphonique', difficulty: 1)
-	daily_challenge_book.challenges.createpoint: 0, description_en: 'Take a selfie with an elderly teethless person', description_fr: '', difficulty: 1)
+	daily_challenge_book.challenges.createpoint: 0, description_en: 'Take a selfie with a teethless person', description_fr: 'Prendre un selfie avec une personne édentée', difficulty: 1)
 end
 
 daily_challenge_book = Book.find_by name:'DailyChallenge'
