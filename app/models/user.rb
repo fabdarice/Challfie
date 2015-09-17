@@ -3,9 +3,10 @@ class User < ActiveRecord::Base
 
   include ActionView::Helpers::SanitizeHelper
   #attr :username, :email, :firstname, :lastname, :avatar, :provider, :uid, :location, :from_mobileapp, 
-  #:from_facebook, :facebook_picture, :username_activated, :locale, :blocked
+  #:from_facebook, :facebook_picture, :username_activated, :locale, :blocked, 
 
   before_save :ensure_authentication_token
+  after_create :set_initial_daily_challenge
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -63,6 +64,11 @@ class User < ActiveRecord::Base
   validates_attachment :avatar,
             :content_type => { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
             :size => { :in => 0..5.megabytes }  
+
+  def set_initial_daily_challenge    
+    self.daily_challenge =  DailyChallenge.last   
+    self.save
+  end
 
   def avatar_dimension(size=300)
     dimensions = Paperclip::Geometry.from_file(avatar.queued_for_write[:original].path)

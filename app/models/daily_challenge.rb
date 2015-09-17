@@ -6,13 +6,16 @@ class DailyChallenge < ActiveRecord::Base
 
 	def set_daily_challenge		
 		daily_challenge_book = Book.where(name: 'DailyChallenge').first
-		challenge = daily_challenge_book.challenges.where("point = 0").order('created_at').first
+
+		challenge = daily_challenge_book.challenges.where("priority > 0").order('priority DESC').first
+		challenge = daily_challenge_book.challenges.where("point = 0").order('created_at').first if challenge.blank?
 
 		if challenge.blank?
 			random_offset =  daily_challenge_book.challenges.count
 			challenge = daily_challenge_book.challenges.offset(rand(random_offset)).first			
 		else
 			challenge.point = 20
+			challenge.priority = 0
 			challenge.save	
 		end
 		

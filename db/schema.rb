@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913194455) do
+ActiveRecord::Schema.define(version: 20150915203353) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -63,9 +63,11 @@ ActiveRecord::Schema.define(version: 20150913194455) do
     t.datetime "updated_at"
     t.integer  "difficulty"
     t.text     "description_fr"
+    t.integer  "priority",       default: 0
   end
 
   add_index "challenges", ["book_id"], name: "index_challenges_on_book_id", using: :btree
+  add_index "challenges", ["priority"], name: "index_challenges_on_priority", using: :btree
 
   create_table "comments", force: true do |t|
     t.text     "message",    limit: 16777215

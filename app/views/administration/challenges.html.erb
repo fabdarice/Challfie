@@ -16,15 +16,17 @@
         <tr>
             <th width="580">Description</th>
             <th width="100">Points</th>        
+            <th width="100">Priority</th>        
             <th class='text-center'>Edit</th>
             <th class='text-center'>Delete</th>
         </tr>
       </thead>
       <tbody>
-        <% book.challenges.each do |challenge| %>
+        <% book.challenges.order('priority DESC, created_at DESC').each do |challenge| %>
           <tr>
             <td width="600"><%= challenge.description %></td>
             <td width="100"><%= challenge.point %></td>
+            <td width="100"><%= challenge.priority %></td>
             <td class='text-center'><%= link_to 'Edit', edit_challenge_path(challenge), class: 'btn'%></td>
             <td class='text-center'><%= link_to 'Delete', challenge_path(challenge), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
           </tr>

@@ -67,6 +67,7 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content" style="padding:0px;">
+	  <!-- TIMELINE TAB -->
 	  <div class="tab-pane fade in active" id="tab_timeline">
 	  		<div class="tab_challfie list_selfies">
 				<%= render @timeline_selfie, :editable => true %>				
@@ -74,15 +75,18 @@
 			<center><%= will_paginate @timeline_selfie %></center>
 	  </div>
 	  <% if current_user.is_following?(@user) or current_user == @user %>
+	    <!-- CHALLENGE TAB -->
 		  <div class="tab-pane fade" id="tab_challenges">
 		  		<%= render 'books/list_books', :user => @user %>
 		  </div>
+		  <!-- SELFIES TAB -->
 		  <div class="tab-pane fade" id="tab_photos">
 		  		<div class="tab_selfies">
 		  			<%= render "selfies_tab", :selfies => @selfies %>
 		  		</div>	
 		  		<center><%= will_paginate @selfies %></center>
 		  </div>
+		  <!-- FOLLOWERS TAB -->
 		  <div class="tab-pane fade" id="tab_followers">
 		  		<%= render 'friends_tab', :friends => @followers, :friendship => "followers", :user => @user %>
 		  </div>

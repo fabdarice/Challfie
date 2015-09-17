@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-	#attr :description_en, :point, :description_fr, :book_id, :difficulty
+	#attr :description_en, :point, :description_fr, :book_id, :difficulty, :priority
   default_scope { order("difficulty") }
 
 
