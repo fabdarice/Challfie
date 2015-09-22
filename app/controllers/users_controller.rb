@@ -108,7 +108,7 @@ class UsersController < ApplicationController
 
 	def autocomplete_search_user		
 		search = User.search do
-			fulltext params[:user_input]
+			fulltext params[:user_input].gsub("@", " ")
 			paginate :page => 1, :per_page => 10
 		end
 

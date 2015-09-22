@@ -60,7 +60,7 @@
 	  <li class="active"><a href="#tab_timeline" role="tab" data-toggle="tab">Timeline</a></li>
 	  <% if current_user.is_following?(@user) or current_user == @user %>
 		  <li><a href="#tab_challenges" role="tab" data-toggle="tab">Challenges</a></li>
-		  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @user.selfies.count %></span></a></li>
+		  <li><a href="#tab_photos" role="tab" data-toggle="tab">Selfies <span class="mybadge"><%= @selfies.count %></span></a></li>
 		  <li><a href="#tab_followers" role="tab" data-toggle="tab"><%= t 'friends.followers' %><span class="mybadge"><%= @followers.count %></span></a></li>
 		<% end %>  
 	</ul>

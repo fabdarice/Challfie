@@ -41,16 +41,16 @@ module Api
       user = User.friendly.find(params[:user_id])
 
       if current_user == user or current_user.is_following?(user)
-        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 18)
+        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 24)
       else
-        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 18)
+        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 24)
       end
       followers = user.followers(1)
       following = user.all_following
       #books = user.books
       number_selfie_approved = user.selfies.where("blocked = false and hidden = false and approval_status = 1").count
 
-      render json: user_selfies.includes(:challenge), meta: {number_selfies: user.selfies.count, number_following: following.count, number_followers: followers.count, number_approved: number_selfie_approved}
+      render json: user_selfies.includes(:challenge), meta: {number_selfies: user_selfies.count, number_following: following.count, number_followers: followers.count, number_approved: number_selfie_approved}
     end
 
 
@@ -158,8 +158,8 @@ module Api
 
     def autocomplete_search_user    
       search = User.search do
-        fulltext params[:user_input]
-        paginate :page => 1, :per_page => 20
+        fulltext params[:user_input].gsub("@", " ")
+        paginate :page => 1, :per_page => 30
       end
 
       @users = search.results   
@@ -189,7 +189,8 @@ module Api
       current_user.update_attributes(provider: auth[:provider],
                                     uid: auth[:uid],                                                                             
                                     oauth_token: auth[:credentials][:token],
-                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]))
+                                    oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
+                                    facebook_picture: params[:facebook_picture])
       
       facebook_info = FacebookInfo.find_by(user_id: current_user.id)
           
