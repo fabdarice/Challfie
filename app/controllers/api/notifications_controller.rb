@@ -18,7 +18,13 @@ module Api
 	    end
 
 	    def all_read
-	   	  current_user.notifications.where(read: false).update_all(read: true)
+
+        if params[:last_notification_id].blank?          
+          current_user.notifications.where(read: false).update_all(read: true)
+        else          
+          current_user.notifications.where("'read' = false and id <= ?", params[:last_notification_id]).update_all(read: true)
+        end
+	   	  
         render json: {}
 	    end
 
