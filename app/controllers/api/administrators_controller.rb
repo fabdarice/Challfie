@@ -5,7 +5,7 @@ module Api
     respond_to :json
 
     def list_flag_selfies
-      if current_user.administrator >= 4
+      if current_user.administrator >= 3
         selfies = Selfie.where('flag_count > 0 and blocked = false').order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
         selfies_json = []
         selfies.each do |selfie|
@@ -18,7 +18,7 @@ module Api
     end    
 
     def block_selfie
-      if current_user.administrator >= 4
+      if current_user.administrator >= 3
         selfie = Selfie.find(params[:selfie_id])
         selfie.blocked = true
         if selfie.save
@@ -32,7 +32,7 @@ module Api
     end
 
     def block_user
-      if current_user.administrator >= 4
+      if current_user.administrator >= 3
         user = User.find(params[:user_id])
         user.blocked = true
         if user.save
@@ -46,7 +46,7 @@ module Api
     end
 
     def clear_flag_selfie
-      if current_user.administrator >= 4
+      if current_user.administrator >= 3
         selfie = Selfie.find(params[:selfie_id])
         selfie.flag_count = 0
         if selfie.save

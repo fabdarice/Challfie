@@ -139,7 +139,7 @@ en:
     block_request_tooltip: "Block User"    
 
   left_content:
-    next_book_unlock: "Next Book To Unlock"
+    next_book_unlock: "Next level to unlock"
     this_book_contains: "This book contains"
     progress_bar: "Once your progress bar reaches 100%, you will unlock your next book of challenges."
     change_profile_picture: "Change Profile Picture"

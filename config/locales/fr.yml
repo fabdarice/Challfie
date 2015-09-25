@@ -1,6 +1,6 @@
 fr:
   sign_up:
-    confirmation_email_01_html: "Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.<br><br>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges."
+    confirmation_email_01_html: "Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.<br><br>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>monter de niveau</strong> et de débloquer de nouveaux challenges."
     confirmation_email_02_html: "<strong>Confirme ton compte</strong> en cliquant sur le lien suivant :"
     confirmation_email_03_html: "N'oublie pas de telecharger dès à présent <strong>l'application Challfie</strong> disponible gratuitement sur Android et iPhone<br><br><br>Bienvenue parmi nous!<br><em>La Challfie Team.</em>"
     confirm_my_account: "Confirmez mon compte"
