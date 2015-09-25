@@ -67,6 +67,7 @@ Challfie::Application.routes.draw do
     post '/following/unfollow' => 'users#unfollow', as: :unfollow
     post '/followers/remove_follower' => 'users#remove_follower', as: :remove_follower
     post '/follow' => 'users#follow', as: :follow
+    post '/suggestions/remove_suggestions' => 'users#remove_suggestions', as: :user_remove_suggestions
     post '/accept_request' => 'users#accept_request', as: :accept_request
     post '/user' => 'users#show', as: :user
     post '/current_user' => 'users#show_current_user', as: :user_current_user

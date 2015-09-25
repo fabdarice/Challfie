@@ -37,9 +37,17 @@ class UsersController < ApplicationController
 	def follow
 		@user = User.friendly.find(params[:id])
 		current_user.follow(@user)
-		@user.add_notifications(" has requested to follow you.", 
+
+		if current_user.following?(@user)
+        @follow = Follow.find_by followable_id: @user.id, follower_id: current_user.id
+        @follow.status = 0
+        if @follow.save
+          @user.add_notifications(" has requested to follow you.", 
 										" souhaite faire parti de ta liste d'abonnées.",
 										current_user , nil, nil, Notification.type_notifications[:friend_request])
+        end
+      end
+		
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }
@@ -48,8 +56,12 @@ class UsersController < ApplicationController
 
 	def unfollow
 		@user = User.friendly.find(params[:id])
-		current_user.stop_following(@user)
-		flash[:notice] = "You unfollowed #{@user.username}."
+		@follow = Follow.find_by followable_id: @user.id, follower_id: current_user.id
+      @follow.status = 2
+      
+      if @follow.save
+			flash[:notice] = "You unfollowed #{@user.username}."
+		end
 		respond_to do |format|
 	      format.html { render :nothing => true }
 	      format.js { }
@@ -87,7 +99,10 @@ class UsersController < ApplicationController
 
 	def remove_follower
 		@user = User.friendly.find(params[:id])
-		@user.stop_following(current_user)
+		@follow = Follow.find_by followable_id: current_user.id, follower_id: @user.id
+      @follow.status = 2
+      @follow.save      
+          
 		@pending_request = current_user.followers(0)
 		@followers = current_user.followers(1)
 		respond_to do |format|

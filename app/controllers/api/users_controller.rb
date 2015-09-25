@@ -108,10 +108,16 @@ module Api
       @user = User.friendly.find(params[:user_id])
       current_user.follow(@user)
       if current_user.following?(@user)
-        @user.add_notifications(" has requested to follow you.", 
-                      " souhaite faire parti de ta liste d'abonnées.",
-                      current_user , nil, nil, Notification.type_notifications[:friend_request])
-        render :json => {:success => true}
+        @follow = Follow.find_by followable_id: @user.id, follower_id: current_user.id
+        @follow.status = 0
+        if @follow.save
+          @user.add_notifications(" has requested to follow you.", 
+                        " souhaite faire parti de ta liste d'abonnées.",
+                        current_user , nil, nil, Notification.type_notifications[:friend_request])
+          render :json => {:success => true}
+        else
+          render :json => {:success => false}
+        end
       else
         render :json => {:success => false}
       end
@@ -120,11 +126,14 @@ module Api
     # Delete a Following Relationship
     def unfollow
       @user = User.friendly.find(params[:user_id])
-      current_user.stop_following(@user)   
-      if current_user.following?(@user) 
-          render :json => {:success => false}
-      else 
+
+      @follow = Follow.find_by followable_id: @user.id, follower_id: current_user.id
+      @follow.status = 2
+      
+      if @follow.save
           render :json => {:success => true}
+      else 
+          render :json => {:success => false}
       end
     end
 
@@ -144,15 +153,36 @@ module Api
       
     end
 
-    # Delete or Decline a Followers Relationship/Request
+    # Delete a Followers or Decline a pending Request
     def remove_follower
       @user = User.friendly.find(params[:user_id])
-      @user.stop_following(current_user)     
-      if @user.following?(current_user)
-          render :json => {:success => false}
-      else
+
+      @follow = Follow.find_by followable_id: current_user.id, follower_id: @user.id
+      @follow.status = 2
+
+      if @follow.save
           render :json => {:success => true}
+      else
+          render :json => {:success => false}
       end
+    end
+
+    def remove_suggestions
+      @user = User.friendly.find(params[:user_id])
+      current_user.follow(@user)
+
+      if current_user.following?(@user)
+        @follow = Follow.find_by followable_id: @user.id, follower_id: current_user.id
+        @follow.status = 2
+        
+        if @follow.save
+            render :json => {:success => true}
+        else 
+            render :json => {:success => false}
+        end
+      else 
+          render :json => {:success => false}
+      end            
     end
 
 

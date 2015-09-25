@@ -201,8 +201,9 @@ class User < ActiveRecord::Base
     follow.destroy    
   end
 
-  # If status = false : Return list of users self is following with pending request
-  # If status = true : Return list of users self is following
+  # If status = 0 : Return list of users self is following with pending request
+  # If status = 1 : Return list of users self is following
+  # If status = 2 : Return list of users self is following but has been removed/unfollowed
   def following(status)
     user_following = Follow.where('status = ? and follower_id = ? and blocked = false', status, self.id);
     following = []
@@ -213,8 +214,19 @@ class User < ActiveRecord::Base
     following = following.sort_by{|u| u.username.downcase}
   end
 
-  # If status = false : Return list of pending request
-  # If status = true : Return list of followers (users who are following you)
+  def all_following    
+    user_following = Follow.where('(status = 0 or status = 1) and follower_id = ? and blocked = false', self.id);
+    following = []
+    user_following.each do |f|
+      user = User.friendly.find(f.followable_id)
+      following << user if user.blocked == false
+    end
+    following = following.sort_by{|u| u.username.downcase}
+  end
+
+  # If status = 0 : Return list of pending request
+  # If status = 1 : Return list of followers (users who are following you)
+  # If status = 2 : Return list of followers that has been unfollowed/removed
   def followers(status)
     user_followers = Follow.where('status = ? and followable_id = ? and blocked = false', status, self.id);
     followers = []
