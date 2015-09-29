@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   searchable do 
     text :username, :boost => 5.0
     text :firstname
-    text :lastname, :boost => 3.0
+    text :lastname
     text :email
   end  
 

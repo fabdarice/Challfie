@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+if User.count == 0 
+	User.create(email: "contact@challfie.com", username: "Challfie", firstname: "Challfie", lastname: "Challfie")
+end
+
 if Book.where("name = 'DailyChallenge'").count == 0
 	Book.create!(name: 'DailyChallenge' , required_points: '0', level: '0', tier: '0', visible: '0', active: '1')
 	#Daily Challenge

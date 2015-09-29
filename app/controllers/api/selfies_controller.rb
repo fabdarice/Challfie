@@ -11,8 +11,12 @@ module Api
 
       users_following_pending = current_user.following(0)
       list_following_ids_pending = users_following_pending.map{|u| u.id}
-    
+
+      challfie_admin = User.find_by username: "Challfie"
+
       @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"])
+
+#      @admin_selfies = Selfie.where("user_id = ? and created_at < ? and created_at > ?", challfie_admin.id).order("created_at DESC")
 
       # Number of New Notifications
       unread_notifications = current_user.notifications.where(read: 0)

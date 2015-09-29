@@ -21,7 +21,22 @@ module Api
       if current_user.administrator >= 3
         selfie = Selfie.find(params[:selfie_id])
         selfie.blocked = true
+        selfie.hidden = true
+        selfie_approved = selfie.approval_status
+        challenge_points = selfie.challenge.point
+
         if selfie.save
+          # remove points win by this selfie if it was approved
+          if selfie_approved == 1
+            selfie.user.points = selfie.user.points - challenge_points
+            selfie.user.save
+          end
+
+          #Delete Permanently Notifications related to that selfie
+          notifications_to_delete = Notification.where(selfie_id: params[:selfie_id])
+          notifications_to_delete.each do |notification|
+            notification.destroy
+          end
           render :json=> {:success=>true}
         else
           render :json=> {:success=>false}
