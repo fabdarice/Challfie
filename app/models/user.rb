@@ -390,17 +390,17 @@ class User < ActiveRecord::Base
     user_friends_array = []
 
     # MY ARRAY OF FRIENDS
-    myfriends = Follow.for_follower(self).select("followable_id")
+    myfriends = Follow.for_follower(self).select("followable_id").where(status: 1)
     myfriends.each do |myfriend|
       myfriends_array << myfriend.followable_id      
     end
 
     # param <user> ARRAY OF FRIENDS
-    user_friends = Follow.for_follower(user).select("followable_id")
+    user_friends = Follow.for_follower(user).select("followable_id").where(status: 1)
     user_friends.each do |f|
       user_friends_array << f.followable_id
     end
-    user_friends = Follow.for_followable(user).select("follower_id")
+    user_friends = Follow.for_followable(user).select("follower_id").where(status: 1)
     user_friends.each do |f|
       user_friends_array << f.follower_id
     end
