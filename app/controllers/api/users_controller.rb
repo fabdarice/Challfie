@@ -41,9 +41,9 @@ module Api
       user = User.friendly.find(params[:user_id])
 
       if current_user == user or current_user.is_following?(user)
-        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 24)
+        user_selfies = user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 39)
       else
-        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 24)
+        user_selfies = user.selfies.where("private = false and blocked = false and hidden = false").order("created_at DESC").paginate(:page => params[:page], :per_page => 39)
       end
       followers = user.followers(1)
       following = user.all_following
