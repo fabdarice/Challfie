@@ -122,6 +122,7 @@ module Api
       end
 
       if @selfie.save
+        facebook_error = false
         #Share the selfie on Facebook
         if @selfie.shared_fb == true
           begin                
@@ -131,10 +132,14 @@ module Api
             logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
             current_user.oauth_token = nil 
             current_user.save    
-            render :json=> {:success=>false}   
+            facebook_error = true
           end   
         end         
-        render :json=> {:success=>true}        
+        if facebook_error == true
+          render :json=> {:success=>false}        
+        else
+          render :json=> {:success=>true}        
+        end
       else
         render :json=> {:success=>false}        
       end
