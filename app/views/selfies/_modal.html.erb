@@ -267,6 +267,10 @@ $(function () {
 					<% daily_challenge = current_user.daily_challenge %>
 					<% daily_book.challenges << daily_challenge.challenge if daily_challenge %>
 					<% current_user_books.unshift(daily_book) if daily_challenge %>
+					<% if current_user.username == "Challfie" %>
+						<% challfie_book = Book.find_by name: "Challfie Message" %>
+						<% current_user_books.unshift(challfie_book) %>
+					<% end %>
 
 					<%= f.grouped_collection_select :challenge_id, current_user_books, :challenges, :name, :id, :description, {}, {:class => 'form-control', size: '15', id: 'selfie_challenge_collection'} %> 
 					<%# f.collection_select :challenge_id, Challenge.all, :id, :description, {:selected => Challenge.first.id}, {:class => 'form-control', size: '6', id: 'selfie_challenge_collection'} %>   

@@ -22,7 +22,7 @@
 <div class="form-group">
   <%= f.label :difficulty, class: 'control-label' %>
   <div class="controls">    
-    <%= f.select :difficulty, options_for_select([['Very Easy', 1], ['Easy', 2], ['Intermediate', 3], ['Hard', 4], ['Very Hard', 5]], f.object.difficulty ), class: 'form-control' %>
+    <%= f.select :difficulty, options_for_select([['Very Easy', 1], ['Easy', 2], ['Intermediate', 3], ['Hard', 4], ['Very Hard', 5], ['Challfie Message', -1]], f.object.difficulty ), class: 'form-control' %>
   </div>
 </div>
 
