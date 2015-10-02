@@ -31,8 +31,7 @@ class SelfiesController < ApplicationController
 				rescue Koala::Facebook::APIError
 	            logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
 	            current_user.oauth_token = nil 
-	            current_user.save    
-	            render 'selfies/new'
+	            current_user.save    	            
 	          end  
 			end	
 
