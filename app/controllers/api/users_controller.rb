@@ -78,13 +78,7 @@ module Api
     end
 
     # Get list of friends requests and suggestions
-    def suggestions_and_request
-      if current_user.oauth_token.blank? or current_user.uid.blank?
-        is_facebook_link = false
-      else
-        is_facebook_link = true
-      end
-
+    def suggestions_and_request      
       if params[:page] == "1"        
         @pending_request = current_user.followers(0)
       else         
@@ -95,6 +89,12 @@ module Api
       @friends_suggestions = current_user.friends_suggestions.paginate(:page => params[:page], :per_page => 20)
       # Number of unread Notifications
       unread_notifications = current_user.notifications.where(read: 0)  
+
+      if current_user.oauth_token.blank? or current_user.uid.blank?
+        is_facebook_link = false
+      else
+        is_facebook_link = true
+      end
       # Number of New Friends Request
       pending_request = current_user.followers(0) 
       render json: {
