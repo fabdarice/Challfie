@@ -25,8 +25,15 @@ class SelfiesController < ApplicationController
 		if @selfie.save
 			# Share the selfie on Facebook
 			if params[:mysharefacebook] == "1"
-				@graph = Koala::Facebook::API.new(current_user.oauth_token)				
-				@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })				
+				begin
+					@graph = Koala::Facebook::API.new(current_user.oauth_token)				
+					@graph.put_picture(@selfie.photo.url(:original).split("?")[0], { "message" => @selfie.message })				
+				rescue Koala::Facebook::APIError
+	            logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
+	            current_user.oauth_token = nil 
+	            current_user.save    
+	            render 'selfies/new'
+	          end  
 			end	
 
 			redirect_to root_path
