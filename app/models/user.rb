@@ -108,7 +108,6 @@ class User < ActiveRecord::Base
     else  
 
       user.update_attributes(uid: auth[:uid],
-                            email: auth[:info][:email],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
                             oauth_expires_at: Time.at(auth[:credentials][:expires_at].to_i).utc,
