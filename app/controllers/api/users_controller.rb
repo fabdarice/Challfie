@@ -245,7 +245,7 @@ module Api
     end
 
     def ranking
-      users = current_user.following(1).where("blocked = false")
+      users = current_user.following(1)
       users << current_user      
       users = users.sort_by{|u| -u.points} 
       hash_user = Hash[users.map.with_index.to_a]      

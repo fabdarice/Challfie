@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
     text :firstname
     text :lastname
     text :email
+    boolean :blocked
   end  
 
   acts_as_voter
