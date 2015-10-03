@@ -54,7 +54,7 @@ class Selfie < ActiveRecord::Base
 						self.update_column(:approval_status, 1)
 
 						# Selfie is Daily or Special Book
-						if self.is_daily or self.challenge.book.tier == 0							
+						if self.is_daily or (self.challenge.book.tier == 0 and self.challenge.book.name != "DailyChallenge")							
 							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
 							challenge_value = challenge_very_easy.point
 						else							
@@ -73,7 +73,7 @@ class Selfie < ActiveRecord::Base
 						tmp_approval_status = self.approval_status
 						self.update_column(:approval_status, 2)	
 
-						if self.is_daily or self.challenge.book.tier == 0
+						if self.is_daily or (self.challenge.book.tier == 0 and self.challenge.book.name != "DailyChallenge")
 							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
 							challenge_value = challenge_very_easy.point
 						else
