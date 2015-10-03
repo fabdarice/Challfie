@@ -53,19 +53,21 @@ class Selfie < ActiveRecord::Base
 					if self.approval_status != 1
 						self.update_column(:approval_status, 1)
 
-						# Selfie is Daily or Special Book
-						if self.is_daily or (self.challenge.book.tier == 0 and self.challenge.book.name != "DailyChallenge")							
-							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
-							challenge_value = challenge_very_easy.point
-						else							
-							challenge_value = self.challenge.point						
-						end
+						if self.challenge.book.name != "DailyChallenge"
+							# Selfie is Daily or Special Book
+							if self.is_daily or self.challenge.book.tier == 0						
+								challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
+								challenge_value = challenge_very_easy.point
+							else							
+								challenge_value = self.challenge.point						
+							end
 
-						self.user.update_column(:points, challenge_value + self.user.points)										
-						self.user.unlock_book!												
-						self.user.add_notifications("Congratulations! Your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{self.challenge.description_en}</i></strong>\" has been approved.", 
-															 "Félicitations! Ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été approuvé.",
-															 self.user , self, nil, Notification.type_notifications[:selfie_status])	
+							self.user.update_column(:points, challenge_value + self.user.points)										
+							self.user.unlock_book!												
+							self.user.add_notifications("Congratulations! Your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{self.challenge.description_en}</i></strong>\" has been approved.", 
+																 "Félicitations! Ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été approuvé.",
+																 self.user , self, nil, Notification.type_notifications[:selfie_status])
+						end	
 					end	
 				else
 					# Selfie Status = Unapproved
@@ -73,19 +75,21 @@ class Selfie < ActiveRecord::Base
 						tmp_approval_status = self.approval_status
 						self.update_column(:approval_status, 2)	
 
-						if self.is_daily or (self.challenge.book.tier == 0 and self.challenge.book.name != "DailyChallenge")
-							challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
-							challenge_value = challenge_very_easy.point
-						else
-							challenge_value = self.challenge.point
-						end
+						if self.challenge.book.name != "DailyChallenge"
+							if self.is_daily or self.challenge.book.tier == 0
+								challenge_very_easy = self.user.current_book.challenges.where("difficulty = ?", self.challenge.difficulty).first							
+								challenge_value = challenge_very_easy.point
+							else
+								challenge_value = self.challenge.point
+							end
 
-						if tmp_approval_status == 1
-							self.user.update_column(:points, self.user.points - challenge_value)																
-						end
-						self.user.add_notifications("Unfortunately.. your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{self.challenge.description_en}</i></strong>\" has been rejected.", 
-															"Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été rejeté.",
-															self.user , self, nil, Notification.type_notifications[:selfie_status])																		
+							if tmp_approval_status == 1
+								self.user.update_column(:points, self.user.points - challenge_value)																
+							end
+							self.user.add_notifications("Unfortunately.. your #{self.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{self.challenge.description_en}</i></strong>\" has been rejected.", 
+																"Malheureusement.. ton #{self.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{self.challenge.description_fr}</i></strong>\" a été rejeté.",
+																self.user , self, nil, Notification.type_notifications[:selfie_status])		
+						end																
 					end
 				end			
 			end			
