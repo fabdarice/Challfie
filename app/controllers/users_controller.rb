@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 		end
 		@selfies = @user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params["page"], :per_page => 20)
 		@timeline_selfie = @user.selfies.where("blocked = false and hidden = false").order("created_at DESC").paginate(:page => params["page"]).includes(:challenge)
-		@books = Book.where("visible = true and active = true and tier > 0").order(tier: :asc, level: :asc)
+		@books = Book.where("visible = true and active = true").order(tier: :asc, level: :asc)
 	end
 
 	def edit

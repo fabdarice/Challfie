@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
     	def index
-        books = Book.where("active = true and visible = true and level > 0").includes(:challenges).order('level ASC')
+        books = Book.where("active = true and visible = true").includes(:challenges).order('level ASC')
         render json: books
       end
 

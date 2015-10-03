@@ -7,7 +7,8 @@ class BooksController < ApplicationController
 	end
 
 	def show
-		@book = current_user.books.find(params[:id])
+		#@book = current_user.books.find(params[:id])
+		@book = Book.find(params[:id])		
 		if @book
 			@challenges = @book.challenges.order('difficulty ASC')
 			render :layout => false			

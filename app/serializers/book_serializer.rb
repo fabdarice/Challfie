@@ -6,7 +6,7 @@ class BookSerializer < ActiveModel::Serializer
   has_many :challenges
 
   def is_unlocked
-  	if current_user.books.exists?(id: object.id)
+  	if current_user.books.exists?(id: object.id) or (object.tier == 0)
       return true
     else
       return false

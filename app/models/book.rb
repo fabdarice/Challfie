@@ -38,11 +38,11 @@ class Book < ActiveRecord::Base
       else
         "Master <br>Level"
       end          
-    when 100
+    when 0
       if I18n.locale == :fr
-        "Niveau Challfie Spécial"
+        "Challfie Spécial"
       else
-        "Challfie Special Level"
+        "Challfie Special"
       end 
     end  	
    end
