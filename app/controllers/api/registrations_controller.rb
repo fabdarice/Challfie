@@ -64,6 +64,11 @@ module Api
 
       resource = User.find_for_facebook_oauth(auth, true, params[:timezone])
 
+      if resource.blocked == true
+        render :json=> {:success=>false, :message=> I18n.translate('sign_in.account_blocked')}, :status=>401
+        return
+      end
+
       if resource
         if !user_signed_in?                  
           sign_in(:user, resource)
