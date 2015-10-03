@@ -189,10 +189,11 @@ module Api
     def autocomplete_search_user    
       search = User.search do
         fulltext params[:user_input].gsub("@", " ")
+        with :blocked, false
         paginate :page => 1, :per_page => 30
       end
 
-      @users = search.results.where("blocked = false")
+      @users = search.results
       render json: @users, each_serializer: FriendsSerializer, scope: current_user              
     end
 
@@ -244,11 +245,11 @@ module Api
     end
 
     def ranking
-      users = current_user.following(1)
+      users = current_user.following(1).where("blocked = false")
       users << current_user      
       users = users.sort_by{|u| -u.points} 
       hash_user = Hash[users.map.with_index.to_a]      
-      users = users.where("blocked = false").paginate(:page => params["page"], :per_page => 20)
+      users = users.paginate(:page => params["page"], :per_page => 20)
       render json: {
         users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
         current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
