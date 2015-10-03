@@ -192,7 +192,7 @@ module Api
         paginate :page => 1, :per_page => 30
       end
 
-      @users = search.results   
+      @users = search.results.where("blocked = false")
       render json: @users, each_serializer: FriendsSerializer, scope: current_user              
     end
 
@@ -248,7 +248,7 @@ module Api
       users << current_user      
       users = users.sort_by{|u| -u.points} 
       hash_user = Hash[users.map.with_index.to_a]      
-      users = users.paginate(:page => params["page"], :per_page => 20)
+      users = users.where("blocked = false").paginate(:page => params["page"], :per_page => 20)
       render json: {
         users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
         current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
@@ -258,7 +258,7 @@ module Api
     end
 
     def ranking_global
-      users = User.order("points DESC").limit(100).paginate(:page => params["page"], :per_page => 20)
+      users = User.where("blocked = false").order("points DESC").limit(100).paginate(:page => params["page"], :per_page => 20)
       render json: {
         users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
         current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
