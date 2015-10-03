@@ -277,7 +277,7 @@ $(function () {
 					<!-- Add Admin Challenges Message -->
 					<% if current_user.username == "Challfie" %>
 						<% challfie_book = Book.find_by name: "Challfie Message" %>
-						<% current_user_books.unshift(challfie_book) %>
+						<% current_user_books.unshift(challfie_book) if challfie_book %>
 					<% end %>
 
 					<%= f.grouped_collection_select :challenge_id, current_user_books, :challenges, :name, :id, :description, {}, {:class => 'form-control', size: '15', id: 'selfie_challenge_collection'} %> 
