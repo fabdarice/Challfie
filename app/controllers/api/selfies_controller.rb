@@ -57,13 +57,14 @@ module Api
       selfie = Selfie.find(params[:id])
       selfie.vote_by :voter => current_user
 
-      selfie.set_approval_status!("upvote")
-
       if selfie.user != current_user        
         selfie.user.add_notifications(" has approved your #{selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{selfie.challenge.description_en}</i></strong>\".", 
                             " a approuvé ton #{selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{selfie.challenge.description_fr}</i></strong>\".",
                             current_user , selfie, nil, Notification.type_notifications[:selfie_approval])
-      end      
+      end  
+      selfie.set_approval_status!("upvote")
+
+          
       render :json=> {:success=>true, :approval_status=>selfie.approval_status}
     end
 
@@ -71,13 +72,15 @@ module Api
       selfie = Selfie.find(params[:id])
       selfie.downvote_from current_user
 
-      selfie.set_approval_status!("downvote")
-
       if selfie.user != current_user        
         selfie.user.add_notifications(" has rejected your #{selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{selfie.challenge.description_en}</i></strong>\".", 
                             " a rejeté ton #{selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{selfie.challenge.description_fr}</i></strong>\".",
                             current_user , selfie, nil, Notification.type_notifications[:selfie_approval])
       end
+
+      selfie.set_approval_status!("downvote")
+
+      
       render :json=> {:success=>true, :approval_status=>selfie.approval_status}
     end
 

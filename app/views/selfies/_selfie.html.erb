@@ -5,12 +5,7 @@
     		<%= link_to (image_tag selfie.user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "float: left; margin-right: 10px; background-image: url(/assets/#{selfie.user.current_book.book_color});"), user_path(selfie.user) %>
     		<div class="selfie_post_user_username_challenge pull-left">
     			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %> <span style="margin-left: 10px; font-size: 11px; color: gray;"><%= selfie.user.current_book.name %></span></p>
-
-          <!-- SELFIE CHALLENGE -->
-          <% if !selfie.challenge.description.blank? %>
-    			   <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> </span>
-          <% end %> 
-
+          
           <!-- SELFIE PRIVACY -->
           <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
             <%= form_for selfie do |f| %>
@@ -56,6 +51,13 @@
     <!-- SELFIE MESSAGE -->
     <div class="selfie_post_message_<%= selfie.id %>">
       <%= simple_format(selfie.message, class: "selfie_post_message ") %>
+    </div>  
+
+    <!-- SELFIE CHALLENGE -->
+    <div class="selfie_challenge">
+      <% if !selfie.challenge.description.blank? %>
+         <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> </span>
+      <% end %> 
     </div>  
 
     <!-- SELFIE PICTURE & STATUS -->

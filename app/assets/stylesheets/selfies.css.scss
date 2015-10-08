@@ -61,7 +61,7 @@
 		line-height: 14px;
 		margin-bottom: 8px;
 		display: block;
-		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+		font-family:"Chinacat", "Helvetica Neue","Tahoma","Geneva","Arial";
 		color: #575757;
 	}
 
@@ -79,6 +79,16 @@
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.selfie_challenge {
+	background-color: #658d99;
+	min-height: 35px;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-family:"Chinacat", "Helvetica Neue","Tahoma","Geneva","Arial";
+	color: white;
+}
+
 .selfie_image {
 	position: relative;
 
@@ -92,7 +102,6 @@
 			height: 82px;
 		}
 	}
-
 }
 
 
