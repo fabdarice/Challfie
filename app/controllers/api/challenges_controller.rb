@@ -12,7 +12,7 @@ module Api
         end
 
         #Create a temporary Daily Book containing the Daily Challenge for Display -->
-        daily_book = Book.new(name: I18n.translate('daily_challenge_title'), level: 0, visible: true, active: true, required_points: 0, tier: 0) 
+        daily_book = Book.new(name: I18n.translate('selfie.daily_challenge_title'), level: 0, visible: true, active: true, required_points: 0, tier: 0) 
         daily_challenge = current_user.daily_challenge       
         daily_book.challenges << daily_challenge.challenge if daily_challenge 
 
