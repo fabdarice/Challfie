@@ -23,7 +23,14 @@ module Api
         selfie.blocked = true
         selfie.hidden = true
         selfie_approved = selfie.approval_status
-        challenge_points = selfie.challenge.point
+
+        if selfie.is_daily or selfie.challenge.book.tier == 0                           
+          challenge_very_easy = selfie.user.current_book.challenges.where("difficulty = ?", selfie.challenge.difficulty).first              
+          challenge_points = challenge_very_easy.point               
+        else                        
+          challenge_points = selfie.challenge.point
+        end  
+        
 
         if selfie.save
           # remove points win by this selfie if it was approved
