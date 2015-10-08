@@ -169,7 +169,7 @@ module Api
 
       if selfie.is_daily or selfie.challenge.book.tier == 0                           
         challenge_very_easy = selfie.user.current_book.challenges.where("difficulty = ?", selfie.challenge.difficulty).first              
-        challenge_value = challenge_very_easy.point               
+        challenge_points = challenge_very_easy.point               
       else                        
         challenge_points = selfie.challenge.point
       end      

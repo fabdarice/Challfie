@@ -126,8 +126,14 @@ class SelfiesController < ApplicationController
 		# This isn't a destroy permanently, it's updating a Hidden field
 	   selfie = Selfie.find(params[:id])
 
-	   selfie_approved = selfie.approval_status	   
-	   challenge_points = selfie.challenge.point	   
+	   selfie_approved = selfie.approval_status	 
+
+	   if selfie.is_daily or selfie.challenge.book.tier == 0                           
+        challenge_very_easy = selfie.user.current_book.challenges.where("difficulty = ?", selfie.challenge.difficulty).first              
+        challenge_points = challenge_very_easy.point               
+      else                        
+        challenge_points = selfie.challenge.point	   
+      end       	   
 
 	   selfie.hidden = true
 
