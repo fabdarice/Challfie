@@ -16,15 +16,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def avatar
-	   if object.facebook_picture.blank?
-	        object.avatar.url(:medium)
-	   else
-	      if object.avatar.blank?
-	        object.facebook_picture
-	      else            
-	        object.avatar.url(:medium)
-	      end
-	   end
+    object.show_profile_picture("medium")	   
   end
 
   def is_facebook_picture

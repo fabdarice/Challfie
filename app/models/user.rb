@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   end
 
   def show_profile_picture(size_type)
-    if self.not_from_facebook?      
+    if self.facebook_picture.blank?      
         return self.avatar.url(:thumb) if size_type == "thumb"
         return self.avatar.url(:medium) if size_type == "medium"
     else

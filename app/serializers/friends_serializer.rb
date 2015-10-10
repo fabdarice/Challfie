@@ -16,15 +16,7 @@ class FriendsSerializer < ActiveModel::Serializer
   end
 
   def avatar
-	  	if object.not_from_facebook?
-	        object.avatar.url(:thumb)
-	   else
-	      if object.avatar.blank?
-	        object.facebook_picture
-	      else            
-	        object.avatar.url(:thumb)
-	      end
-	   end
+	  object.show_profile_picture("thumb")
   end
 
   def is_facebook_picture
