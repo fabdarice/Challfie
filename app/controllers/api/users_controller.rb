@@ -216,12 +216,18 @@ module Api
                   }
                 }
               }
+
+      if params[:facebook_picture].blank?
+        user_facebook_picture = "http://graph.facebook.com/" + params[:uid] + "/picture?type=large"
+      else
+        user_facebook_picture = params[:facebook_picture]
+      end
    
       current_user.update_attributes(provider: auth[:provider],
                                     uid: auth[:uid],                                                                             
                                     oauth_token: auth[:credentials][:token],
                                     oauth_expires_at: Time.at(auth[:credentials][:expires_at]),
-                                    facebook_picture: params[:facebook_picture])
+                                    facebook_picture: user_facebook_picture.gsub!("http", "https"))
       
       facebook_info = FacebookInfo.find_by(user_id: current_user.id)
           
