@@ -16,7 +16,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def avatar
-	  	if object.not_from_facebook?
+	   if object.facebook_picture.blank?
 	        object.avatar.url(:medium)
 	   else
 	      if object.avatar.blank?
