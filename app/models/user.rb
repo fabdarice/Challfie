@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   #:from_facebook, :facebook_picture, :username_activated, :locale, :blocked, 
 
   before_save :ensure_authentication_token
+  before_destroy :delete_association
   after_create :set_initial_daily_challenge
 
   # Include default devise modules. Others available are:
@@ -45,16 +46,16 @@ class User < ActiveRecord::Base
   validates :email,
             format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: I18n.translate('sign_in.error_email_format') }
 
-  has_one :facebook_info
+  has_one :facebook_info, dependent: :destroy
   belongs_to :daily_challenge
-  has_many :selfies
-  has_many :comments
-  has_many :notifications
+  has_many :selfies, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   has_many :books, :through => :book_users
-  has_many :book_users, dependent: :destroy
+  has_many :book_users
   
-  has_many :devices
+  has_many :devices, dependent: :destroy
 
   has_attached_file :avatar, 
                     :styles => {:thumb => "", :medium => "" }, 
@@ -475,8 +476,31 @@ class User < ActiveRecord::Base
       return "TBD"
     else
       return User.where('points >= ?', self.points).count
+    end     
+  end
+
+  # Delete assocation that aren't link to has_one or has_many
+  def delete_association
+    # Delete Follower/Followings form Follows table
+    follows_to_delete = Follow.where("followable_id = ? or follower_id = ?", self.id, self.id)
+    follows_to_delete.each do |follow|
+      follow.destroy
     end
-     
+
+    #Deletes Votes
+    votes_to_delete = self.votes
+    votes_to_delete.each do |vote|
+      vote.destroy
+    end
+
+    #Delete Book Users
+    self.books.delete_all
+
+    #Delete Permanently Notifications related to that user
+    notifications_to_delete = Notification.where(author_id: self.id)
+    notifications_to_delete.each do |notification|
+      notification.destroy
+    end
   end
 
   private

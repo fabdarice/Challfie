@@ -11,13 +11,14 @@ Challfie::Application.routes.draw do
 
   get '/users' => 'home#index'
 
-  resources :users, :only => [:update, :show] do
+  resources :users, :only => [:update, :show, :destroy] do
     member do
       get :follow
       get :unfollow      
       get :accept_request
       get :remove_follower
       get :block
+      get :hide_user
     end    
   end
   get '/friends' => 'users#friends', as: :user_friends

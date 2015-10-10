@@ -52,7 +52,7 @@
 		<div class="big_profile_picture">
 
 			<!-- User Profile Picture -->
-			<%= image_tag user.show_profile_picture("medium"), class: 'selfie-img-thumbnail', style: "background-image: url(/assets/#{user.current_book.book_color});", id: 'user_profile_picture' %>
+			<%= image_tag user.show_profile_picture("medium"), class: 'selfie-img-thumbnail', style: "background-color: #{user.current_book.book_color};", id: 'user_profile_picture' %>
 			
 			<% if current_user != user %>
 				<!-- Friendships Status button -->

@@ -48,7 +48,7 @@ en:
     step_competitive_text_html: "Earn points for each Challfie approved, level up and compete for the title of Challfie King"
     missing_username: "Missing username parameter"
     error_login_or_password: "Error with your login or password"
-    account_blocked: "Your account have been blocked by an administrator. Please contact us if this was a mistake."
+    account_blocked: "Your account has been blocked by an administrator. Please contact us if this was a mistake."
 
   profile:
     alert_set_username_html: "Welcome to Challfie! Please select your Challfie Username."

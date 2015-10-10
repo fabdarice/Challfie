@@ -133,6 +133,31 @@ class UsersController < ApplicationController
     	render json: list		
 	end
 
+	def hide_user
+      if current_user.administrator >= 4
+        user = User.friendly.find(params[:id])
+        user.blocked = true
+        if user.save
+          flash[:notice] = user.username + " user hidden."
+        else
+          flash[:error] = "error hidden user " + user.username 
+        end
+      else
+        flash[:error] = "error. no permission to hidden user " + user.username 
+      end    
+      redirect_to controller:'administration', action:'users'
+	end
+
+	def destroy
+		 user = User.friendly.find(params[:id])
+	    if (user.destroy)
+	    	flash[:notice] = user.username + ' deleted.'
+	    else 
+	    	flash[:notice] = "error deleting " + user.username
+	    end
+	    redirect_to controller:'administration', action:'users'		
+	end
+
 
 	private
 		def users_params

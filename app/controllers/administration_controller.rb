@@ -18,6 +18,6 @@ class AdministrationController < ApplicationController
 	end
 
 	def users
-		@users = User.order("lastname").paginate(page: params[:page])
+		@users = User.order("created_at DESC").paginate(page: params[:page])
 	end
 end

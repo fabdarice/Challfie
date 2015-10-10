@@ -9,6 +9,12 @@
   <h3>Manage Users</h3> 
   <%= link_to 'Add New User', "#", class: 'btn btn-primary' %>
   <br><br>
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div><br><br>
+  <% end %>
+  <% if flash[:error] %>
+    <div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div><br><br>
+  <% end %>
 
   <table class="table table-hover">
     <thead>
@@ -21,6 +27,7 @@
           <th>Signed in count</th>          
           
           <th class='text-center'>Show</th>
+          <th class='text-center'>Block</th>
           <th class='text-center'>Delete</th>
       </tr>
     </thead>
@@ -34,7 +41,8 @@
           <td><%= user.username %></td>
           <td><%= user.sign_in_count %></td>
           <td class='text-center'><%= link_to 'Show', user_path(user), class: 'btn'%></td>
-          <td class='text-center'><%= link_to 'Delete', "#", class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
+          <td class='text-center'><%= link_to 'Hide', hide_user_user_path(user), class: 'btn', data: {confirm: 'Are you sure?'} %></td>
+          <td class='text-center'><%= link_to 'Delete', user_path(user), class: 'btn', method: 'delete', data: {confirm: 'Are you sure?'} %></td>
         </tr>         
       <% end %>
     </tbody>

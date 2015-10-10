@@ -2,10 +2,10 @@
   <div class="selfie_post" data-time="<%= selfie.created_at.to_i %>">
   	<!-- SELFIE USER PICTURE AND NAME -->
     <div class="selfie_post_user">
-    		<%= link_to (image_tag selfie.user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "float: left; margin-right: 10px; background-image: url(/assets/#{selfie.user.current_book.book_color});"), user_path(selfie.user) %>
+    		<%= link_to (image_tag selfie.user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "float: left; margin-right: 10px; background-color: #{selfie.user.current_book.book_color};"), user_path(selfie.user) %>
     		<div class="selfie_post_user_username_challenge pull-left">
-    			<p class="selfie_post_user_username" style="margin-bottom: 7px;"><%= link_to selfie.user.username, user_path(selfie.user) %> <span style="margin-left: 10px; font-size: 11px; color: gray;"><%= selfie.user.current_book.name %></span></p>
-          
+    			<p class="selfie_post_user_username" style="margin-bottom: 3px;"><%= link_to selfie.user.username, user_path(selfie.user)%> </p> <%= image_tag selfie.user.current_book.thumb.url(:original) %> 
+          <div style="clear: both;"></div>        
           <!-- SELFIE PRIVACY -->
           <div class="form_group hide selfie_privacy_form_<%= selfie.id %>" style="float:left;">
             <%= form_for selfie do |f| %>
@@ -55,8 +55,18 @@
 
     <!-- SELFIE CHALLENGE -->
     <div class="selfie_challenge">
-      <% if !selfie.challenge.description.blank? %>
-         <span class="selfie_post_user_challenge"><%= image_tag "/assets/" + selfie.challenge.difficulty_icon, style: 'width: 70px; height: 14px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> </span>
+      <% if !selfie.challenge.description.blank? %>        
+         <span class="selfie_post_user_challenge">
+          <% if selfie.is_daily == true %>
+            <% if I18n.locale == :fr %>
+              <%= image_tag "/assets/challenge_daily_small_fr.png", style: 'width: 20px; height: 20px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> 
+            <% else %>
+              <%= image_tag "/assets/challenge_daily_small_en.png", style: 'width: 20px; height: 20px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> 
+            <% end %>  
+          <% else %>
+            <%= image_tag "/assets/" + selfie.challenge.difficulty_icon_small, style: 'width: 20px; height: 20px; vertical-align: top;', :"data-toggle"=>"tooltip", :"data-placement"=>"bottom", :title=>"#{selfie.challenge.difficulty_verbose}" %> <%= selfie.challenge.description %> 
+          <% end %>  
+          </span>
       <% end %> 
     </div>  
 

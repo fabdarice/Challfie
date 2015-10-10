@@ -51,16 +51,13 @@ class Book < ActiveRecord::Base
       case self.tier
       when 1
         # Newbie Tier
-        #"#e6c88e"
-        "background_newbie.png"
+        "#bfa499"        
       when 2
         # Apprentice Tier
-        #"#b8b8b8"
-        "background_apprentice.png"
+        "#89b7b4"        
       when 3
         # Master Tier
-        #"#FDD017"
-        "background_master.png"
+        "#f1eb6c"        
       end  
    end
 

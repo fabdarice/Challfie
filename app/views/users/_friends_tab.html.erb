@@ -4,45 +4,50 @@
 		<% if !friend.blank? %>
 			<div class="one_following_block_border <% if slice.count < 3 %>block_space <% else %><%= cycle('block_space', 'block_space', '') %> <% end %>">
 				<div class="one_following_block">
-					<%= link_to (image_tag friend.show_profile_picture("thumb"), style: "float: left; margin-right: 10px; width: 75px; height:75px; background-image: url(/assets/#{friend.current_book.book_color});", class: 'img-thumbnail'), user_path(friend) %>									
-					<p class="friend_username" style="margin-bottom: 3px;"><%= link_to friend.username, user_path(friend) %></p>
-					<span class="friend_rank">
-						<%= pluralize(friend.followers(1).count, "#{t 'friends.followers'}") %>
+					<%= link_to (image_tag friend.show_profile_picture("thumb"), style: "margin-right: 10px; width: 75px; height:75px; background-color: #{friend.current_book.book_color};", class: 'img-thumbnail'), user_path(friend), style:'float: left; ' %>
+
+					<div style="float: left; width: 144px;">
+						<p class="friend_username"><%= link_to friend.username, user_path(friend) %></p>
+						<%= image_tag friend.current_book.thumb.url(:original), style: 'width:20px; height:20px; float: left;' %>			
+						<div style="clear: both;"></div>	           	
+						<span class="friend_rank">
+							<%= pluralize(friend.followers(1).count, "#{t 'friends.followers'}") %>						
+						</span>
+						<div style="clear: both;"></div>
+						<span class="friend_follower">
+							<%= current_user.number_mutualfriends(friend) %> <%= t 'friends.mutual_friends' %>											
+						</span><br>
 						
-					</span><br>
-					<span class="friend_follower">
-						<%= current_user.number_mutualfriends(friend) %> <%= t 'friends.mutual_friends' %>											
-					</span><br>
-					
-					<% if friendship == "followers" %>
-						<!-- FOLLOWERS TAB -->
-						<% if not current_user.is_following?(friend) and not current_user.is_following_with_pending_request?(friend) %>
-							<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>	
-						<% end %>						
-						<!-- Little X top right of the block to delete a followers -->
-						<%= link_to raw("<i class='fa fa-times-circle'></i>") ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "friends_btn_suppr friends_btn friends_btn_remove_#{friend.id}" if friend.id != current_user.id %>
-					<% else %>
-						<% if friendship == "pending_request" %>
-							<!-- USER WHO ADDED YOU - PENDING REQUEST -->
-							<%= link_to raw('<i class="fa fa-check-circle"></i>') ,"javascript:void(0)", :"data-href" => accept_request_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.accept_request_tooltip'}", class: "btn btn-success btn-xs friends_btn friends_btn_#{friend.id}" %>
-							<%= link_to raw('<i class="fa fa-times"></i>') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.decline_request_tooltip'}", class: "btn btn-danger btn-xs friends_btn friends_btn_remove_#{friend.id}" %>
-							<%= link_to raw('<span class="glyphicon glyphicon-ban-circle"></span>') ,"javascript:void(0)", :"data-href" => block_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.block_request_tooltip'}", class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
+						<% if friendship == "followers" %>
+							<!-- FOLLOWERS TAB -->
+							<% if not current_user.is_following?(friend) and not current_user.is_following_with_pending_request?(friend) %>
+								<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>	
+							<% end %>						
+							<!-- Little X top right of the block to delete a followers -->
+							<%= link_to raw("<i class='fa fa-times-circle'></i>") ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), class: "friends_btn_suppr friends_btn friends_btn_remove_#{friend.id}" if friend.id != current_user.id %>
 						<% else %>
-							<% if friendship == "friends_suggestions" %>
-								<!-- FRIENDS SUGGESTIONS TAB -->
-								<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>
+							<% if friendship == "pending_request" %>
+								<!-- USER WHO ADDED YOU - PENDING REQUEST -->
+								<%= link_to raw('<i class="fa fa-check-circle"></i>') ,"javascript:void(0)", :"data-href" => accept_request_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.accept_request_tooltip'}", class: "btn btn-success btn-xs friends_btn friends_btn_#{friend.id}" %>
+								<%= link_to raw('<i class="fa fa-times"></i>') ,"javascript:void(0)", :"data-href" => remove_follower_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.decline_request_tooltip'}", class: "btn btn-danger btn-xs friends_btn friends_btn_remove_#{friend.id}" %>
+								<%= link_to raw('<span class="glyphicon glyphicon-ban-circle"></span>') ,"javascript:void(0)", :"data-href" => block_user_path(friend), :"data-toggle"=>"tooltip", :"data-placement"=>"top", :title => "#{t 'friends.block_request_tooltip'}", class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id}" %>
 							<% else %>
-								<!-- FOLLOWING TAB -->
-								<% if user.following_status(friend) == 1 %>
-									<!-- ALREADY FOLLOWING -->
-									<%= link_to raw("<i class='fa fa-check'></i> #{t 'friends.is_following'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} friends_btn_hover" %>
+								<% if friendship == "friends_suggestions" %>
+									<!-- FRIENDS SUGGESTIONS TAB -->
+									<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(friend), class: "btn btn-info btn-xs friends_btn friends_btn_#{friend.id}" %>
 								<% else %>
-									<!-- USER YOU ADD - PENDING REQUEST -->
-									<%= link_to raw("<i class='fa fa-times'></i> #{t 'friends.waiting_approval'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} cancel_request_btn_hover" %>
+									<!-- FOLLOWING TAB -->
+									<% if user.following_status(friend) == 1 %>
+										<!-- ALREADY FOLLOWING -->
+										<%= link_to raw("<i class='fa fa-check'></i> #{t 'friends.is_following'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} friends_btn_hover" %>
+									<% else %>
+										<!-- USER YOU ADD - PENDING REQUEST -->
+										<%= link_to raw("<i class='fa fa-times'></i> #{t 'friends.waiting_approval'}") ,"javascript:void(0)", :"data-href" => unfollow_user_path(friend), class: "btn btn-default btn-xs friends_btn friends_btn_#{friend.id} cancel_request_btn_hover" %>
+									<% end %>	
 								<% end %>	
 							<% end %>	
-						<% end %>	
-					<% end %>
+						<% end %>
+					</div>	
 					
 					<div style="clear:both;"></div>							
 				</div>

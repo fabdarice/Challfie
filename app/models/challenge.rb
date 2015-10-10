@@ -36,6 +36,24 @@ class Challenge < ActiveRecord::Base
 	end
 
 
+  def difficulty_icon_small    
+    case self.difficulty
+    when -1
+      "challfie_logo_messsage.png"
+    when 1
+      "challenge_difficulty_one_small.png"
+    when 2
+      "challenge_difficulty_two_small.png"
+    when 3
+      "challenge_difficulty_three_small.png"
+    when 4
+      "challenge_difficulty_four_small.png"
+    else
+      "challenge_difficulty_five_small.png"
+    end
+  end
+
+
   def difficulty_verbose
     case self.difficulty
     when 1

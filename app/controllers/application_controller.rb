@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_user_language
   before_action :check_browser
+  before_action :check_is_blocked
 
   layout :layout_by_resource
 
@@ -18,6 +19,15 @@ class ApplicationController < ActionController::Base
 
 
   protected
+
+  def check_is_blocked
+    if user_signed_in? and current_user
+      if current_user.blocked == true        
+        sign_out current_user        
+        flash[:notice] = "Your account have been blocked by an administrator. Please contact us if this was a mistake."        
+      end
+    end
+  end
 
   def check_browser        
     if browser.mobile?

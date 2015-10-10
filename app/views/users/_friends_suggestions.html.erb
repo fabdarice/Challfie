@@ -73,13 +73,19 @@
 					<% @friends_suggestion.first(10).each do |fds_sug| %>
 						<% if !fds_sug.blank? %>
 							<li style='margin-top: 10px;'>
-								<%= link_to (image_tag fds_sug.show_profile_picture("thumb"), style: "float: left; margin-right: 10px; width: 65px; height:65px; background-image: url(/assets/#{fds_sug.current_book.book_color})", class: 'img-thumbnail'), user_path(fds_sug) %>									
-								<p class="friend_username" style="margin-bottom: 5px;"><%= link_to fds_sug.username, user_path(fds_sug) %></p>
-								<span class="friend_rank">
-										<%= current_user.number_mutualfriends(fds_sug) %> <%= t 'friends.mutual_friends' %>								
-								</span><br>
-								
-								<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-info btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
+								<%= link_to (image_tag fds_sug.show_profile_picture("thumb"), style: "float: left; margin-right: 10px; width: 65px; height:65px; background-color: #{fds_sug.current_book.book_color}", class: 'img-thumbnail'), user_path(fds_sug) %>
+								<div style="float: left; width: 143px;">									
+									<p class="friend_username">
+										<%= link_to fds_sug.username, user_path(fds_sug) %>
+									</p>
+									<%= image_tag fds_sug.current_book.thumb.url(:original), style: 'width:20px; height:20px; float: left;' %>
+									<div style="clear:both;"></div>
+									<span class="friend_rank">
+											<%= current_user.number_mutualfriends(fds_sug) %> <%= t 'friends.mutual_friends' %>		
+									</span><br>
+									
+									<%= link_to raw("<i class='fa fa-rss'></i> #{t 'friends.follow'}") ,"javascript:void(0)", :"data-href" => follow_user_path(fds_sug), class: "btn btn-info btn-xs friends_btn friends_btn_#{fds_sug.id}" %>
+								</div>	
 								<div style="clear:both;"></div>
 							</li>
 						<% end %>	
