@@ -218,7 +218,7 @@ module Api
               }
 
       if params[:facebook_picture].blank?
-        user_facebook_picture = "http://graph.facebook.com/" + params[:uid] + "/picture?type=large"
+        user_facebook_picture = "http://graph.facebook.com/" + params[:uid].to_s + "/picture?type=large"
       else
         user_facebook_picture = params[:facebook_picture]
       end
