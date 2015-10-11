@@ -80,6 +80,7 @@ fr:
     search_friends: "Rechercher par identifiant.."
     search_no_results: "Aucun résultat trouvé.."
     menu_friends: "Amis"
+    ranking: "Classement"
     user_menu_my_profile: "Mon Profil"
     sign_out: "Se Déconnecter"
     alert_first_selfie_html: "Bienvenue sur Challfie! Démarre en cliquant <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>ici</a></u> pour prendre ton premier <strong>Challfie</strong>."
@@ -136,6 +137,14 @@ fr:
     accept_request_tooltip: "Accepter la demande"
     decline_request_tooltip: "Décliner la demande"
     block_request_tooltip: "Bloquer l'utilisateur"
+
+  ranking:
+    ranking_friends: "Classement - Amis"
+    ranking_global: "Classement - Top 100"
+    rank: "Rang"
+    username: "Identifiant"
+    level: "Niveau"
+    progression_next_level: "Prochain Niveau %"
 
   left_content:
     next_book_unlock: "Prochain Livre à débloquer"

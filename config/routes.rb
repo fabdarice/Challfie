@@ -23,6 +23,7 @@ Challfie::Application.routes.draw do
   end
   get '/friends' => 'users#friends', as: :user_friends
   get '/edit' => 'users#edit', as: :edit_user
+  get '/ranking' => 'users#ranking', as: :user_ranking
 
   resources :selfies do
     resources :comments, :only => [:create]

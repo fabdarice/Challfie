@@ -1,0 +1,58 @@
+<% content_for :left_content do %>
+	<%= render 'users/left_content_profile', :user => current_user %>
+<% end %>
+
+<div id="ranking_block">
+	<ul class="nav nav-tabs" role="tablist">
+	  <li class="active"><a href="#ranking_friends" role="tab" data-toggle="tab" id="ranking_friends_tab"><%= t 'ranking.ranking_friends' %></a></li>
+	  <li><a href="#ranking_global" role="tab" data-toggle="tab" id="ranking_global_tab"><%= t 'ranking.ranking_global' %></a></li>	  
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+	  <div class="tab-pane fade in active" id="ranking_friends">
+		  	<table class="table table-striped">
+		  		<thead>
+		  			<tr>
+		  				<th><%= t 'ranking.rank' %></th>		  				
+		  				<th><%= t 'ranking.username' %></th>
+		  				<th><%= t 'ranking.level' %></th>
+		  				<th><%= t 'ranking.progression_next_level' %></th>
+		  			</tr>
+		  		</thead>	
+		  		<tbody>	
+		  			<% @ranking_friends_users.each_with_index do |user, index| %>
+		  				<tr>
+		  					<td><%= index + 1 %></td>
+		  					<td><%= link_to (image_tag user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "padding: 0px;width:30px; height: 30px; margin-right: 10px; background-color: #{user.current_book.book_color};"), user_path(user) %> <%= link_to "#{user.username}", user_path(user) %></td>		  					
+		  					<td><%= image_tag user.current_book.thumb.url(:original), style: 'width:20px; 20px; margin-right: 5px;' %> <%= user.current_book.name %></td>
+		  					<td style="padding-left: 40px;"><%= user.next_book_progression %>%</td>
+		  				</tr>
+		  			<% end %>
+		  		</tbody>
+		  	</table>
+	  </div>
+	  <div class="tab-pane fade" id="ranking_global">
+	  		<table class="table table-striped">
+		  		<thead>
+		  			<tr>
+		  				<th><%= t 'ranking.rank' %></th>		  				
+		  				<th><%= t 'ranking.username' %></th>
+		  				<th><%= t 'ranking.level' %></th>
+		  				<th><%= t 'ranking.progression_next_level' %></th>
+		  			</tr>
+		  		</thead>	
+		  		<tbody>	
+		  			<% @ranking_global_users.each_with_index do |user, index| %>
+		  				<tr>
+		  					<td><%= index + 1 %></td>
+		  					<td><%= link_to (image_tag user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "padding: 0px;width:30px; height: 30px; margin-right: 10px; background-color: #{user.current_book.book_color};"), user_path(user) %> <%= link_to "#{user.username}", user_path(user) %></td>		  					
+		  					<td><%= image_tag user.current_book.thumb.url(:original), style: 'width:20px; 20px; margin-right: 5px;' %> <%= user.current_book.name %></td>
+		  					<td style="padding-left: 40px;"><%= user.next_book_progression %>%</td>
+		  				</tr>
+		  			<% end %>
+		  		</tbody>
+		  	</table>
+	  </div>	  
+	</div>
+</div>	

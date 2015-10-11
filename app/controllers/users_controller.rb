@@ -158,6 +158,13 @@ class UsersController < ApplicationController
 	    redirect_to controller:'administration', action:'users'		
 	end
 
+	def ranking
+      users = current_user.following(1)
+      users << current_user      
+      @ranking_friends_users = users.sort_by{|u| -u.points}             
+      @ranking_global_users = User.where("blocked = false").order("points DESC").limit(100)
+   end
+
 
 	private
 		def users_params

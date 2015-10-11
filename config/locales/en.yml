@@ -81,6 +81,7 @@ en:
     search_friends: "Search by username.."
     search_no_results: "No Results found.."
     menu_friends: "Friends"
+    ranking: "Ranking"
     user_menu_my_profile: "My Profile"
     sign_out: "Sign Out"
     alert_first_selfie_html: "Welcome to Challfie! Get started and click <u><a style='text-decoration: none;'' href='#'' data-toggle='modal' data-target='#myModal'>here</a></u> to take your first <strong>Challfie</strong>."
@@ -137,6 +138,14 @@ en:
     accept_request_tooltip: "Accept Request"
     decline_request_tooltip: "Decline Request"
     block_request_tooltip: "Block User"    
+
+  ranking:
+    ranking_friends: "Ranking - Friends"
+    ranking_global: "Ranking - Top 100"
+    rank: "Rank"
+    username: "Username"
+    level: "Level"
+    progression_next_level: "Next Level %"
 
   left_content:
     next_book_unlock: "Next level to unlock"

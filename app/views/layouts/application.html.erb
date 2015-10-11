@@ -245,6 +245,7 @@
 						<li role="presentation" class="divider"></li>
 						<li role="presentation"><%= link_to user_path(current_user, :anchor => "tab_challenges") do %><i class="fa fa-bolt" style="width: 20px; text-align:center;"></i> Challenges<% end %></li>
 						<li role="presentation"><%= link_to user_friends_path do %><i class="fa fa-users"  style="width: 20px; text-align:center;"></i> <%= t 'homepage.menu_friends' %><% end %></li>
+						<li role="presentation"><%= link_to user_ranking_path do %><i class="fa fa-list-ol"  style="width: 20px; text-align:center;"></i> <%= t 'homepage.ranking' %><% end %></li>
 						<li role="presentation"><%= link_to notifications_path do %><i class="fa fa-bullhorn"  style="width: 20px; text-align:center;"></i> Notifications<% end %></li>
 						<li role="presentation" class="divider"></li>						
 						<li role="presentation"><%= link_to destroy_user_session_path, method: "delete" do %><span class='glyphicon glyphicon-off' style="width: 20px; text-align:center;"></span> <%= t 'homepage.sign_out' %><% end %></li>
