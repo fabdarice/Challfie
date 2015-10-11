@@ -58,7 +58,7 @@
 		font-weight: 600;
 		font-size: 14px;
 		margin-top: 30px;		
-		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+		font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 	}
 
 	.selfie_post_user_username a:hover, .selfie_post_user_username a:focus {
@@ -75,7 +75,7 @@
 		line-height: 14px;
 		margin-bottom: 8px;
 		display: block;
-		font-family:"Chinacat", "Helvetica Neue","Tahoma","Geneva","Arial";
+		font-family: "Chinacat", "HelveticaNeue-light", "Helvetica Neue","Tahoma","Geneva","Arial";
 		color: #575757;
 	}
 
@@ -90,7 +90,7 @@
 .selfie_post_message {
 	font-size: 13px;
 	margin-bottom: 15px;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .selfie_challenge {
@@ -101,7 +101,7 @@
 	padding-bottom: 7px;
 	vertical-align: middle;
 	line-height: 20px;
-	font-family:"Chinacat", "Helvetica Neue","Tahoma","Geneva","Arial";
+	font-family: "Chinacat", "HelveticaNeue-light", "Helvetica Neue", "Helvetica Neue","Tahoma","Geneva","Arial";
 	color: white;
 }
 
@@ -124,6 +124,7 @@
 
 .selfie_post_comment_block {
 	background-color: $mygrey;
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Helvetica Neue","Tahoma","Geneva","Arial";
 }
 
 .selfie_vote_block {
@@ -166,7 +167,7 @@
 	font-weight: 600;
 	
 	margin-right: 20px;
-	font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 }
 
 .selfie_post_comment_existing_username a:hover, .selfie_post_comment_existing_username a:focus {
@@ -188,7 +189,7 @@
 		height: 35px;
 		font-size: 14px;
 		padding-left:10px;
-		font-family: "Tahoma, Arial";
+		font-family: "HelveticaNeue-light", "Helvetica Neue", "Tahoma, Arial";
 	}
 }
 

@@ -6,10 +6,15 @@
     src: font-url('chint___.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'HelveticaNeue-Light';
+    src: font-url('HelveticaNeueLight.ttf') format('truetype');    
+}
+
 body { 
 	padding-top: 45px;
 	background-color: #f6f8f8;
-  	font-family: "Century Gothic","Tahoma", "Geneva", "Arial";
+  	font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma", "Geneva", "Arial";
   	font-size :12px;
   	line-height: 16px;
 }
@@ -19,11 +24,11 @@ a:visited, a:focus, a:hover {
 }
 
 h2 {
-	font-family: "Tahoma", "Geneva", "Arial";
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Tahoma", "Geneva", "Arial";
 }
 
 h3 {
-	font-family: "Arial", "Geneva", "Arial";
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Arial", "Geneva", "Arial";
 	border-bottom: 1px solid gray;
 	font-size: 20px;
 	color: gray;
@@ -39,7 +44,7 @@ h5 {
 	font-weight: 500;
 	font-size: 13px;
 	text-transform: uppercase;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "HelveticaNeue-light", "Helvetica Neue", "Helvetica Neue",Helvetica,Arial,sans-serif;
 	display: inline;
 	float: left;
 }
@@ -142,7 +147,7 @@ h5 {
 
 .block_title {
 	text-transform: uppercase;
-	font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-family: "HelveticaNeue-light", "Helvetica Neue", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
 	color: #636363;
 	font-size: 12px;
 	font-weight: 600;
@@ -196,7 +201,7 @@ h5 {
 		color: #FFFFFF;
 		text-align: center;
 		margin-bottom: 40px;
-		font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+		font-family:"HelveticaNeue-light", "Century Gothic","Tahoma","Geneva","Arial";
 	}
 
 	.one_step {
@@ -209,7 +214,7 @@ h5 {
 			color: #FFFFFF;
 			margin-bottom: 10px;
 			text-transform: uppercase;
-			font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+			font-family:"HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 			font-weight: 400;					
 		}
 
@@ -217,7 +222,7 @@ h5 {
 			font-size: 18px;
 			color: #ffcc66;
 			text-transform: uppercase;
-			font-family:"Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+			font-family:"HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 		}
 
 		.step_text {
@@ -227,7 +232,7 @@ h5 {
 
 		.step_description {
 			color: $myfontgrey;
-			font-size: 11px;
+			font-size: 12px;
 			font-style: italic;
 			color: #D6D6D6;
 		}
@@ -260,7 +265,7 @@ h5 {
 	margin-bottom: 10px;
 
 	.daily_challenge_description {
-		font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+		font-family: "HelveticaNeue-light", "Helvetica Neue", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
 		display: block;
 		margin-bottom: 10px;
 		margin-top: 5px;
@@ -356,7 +361,7 @@ h5 {
 	a {
 		color: black;
 		text-decoration: none;
-		font-family:"Century Gothic","Tahoma","Geneva","Arial";
+		font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 	}
 }
 

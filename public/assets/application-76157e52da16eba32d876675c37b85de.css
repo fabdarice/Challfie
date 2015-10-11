@@ -117,7 +117,7 @@
   text-align: center;
   line-height: 40px;
   width: 150px;
-  font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+  font-family: "HelveticaNeue-light", "Helvetica Neue", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
 }
 /* line 28, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/books.css.scss */
 .book_tier .one_book {
@@ -8072,7 +8072,7 @@ h5 {
 /* line 143, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/challfie.css.scss */
 .block_title {
   text-transform: uppercase;
-  font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+  font-family: "HelveticaNeue-light", "Helvetica Neue", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
   color: #636363;
   font-size: 12px;
   font-weight: 600;
@@ -8126,7 +8126,7 @@ h5 {
   color: #FFFFFF;
   text-align: center;
   margin-bottom: 40px;
-  font-family: "Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+  font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 }
 /* line 198, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/challfie.css.scss */
 #main_content_signin_steps .one_step {
@@ -8140,7 +8140,7 @@ h5 {
   color: #FFFFFF;
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-family: "Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+  font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
   font-weight: 400;
 }
 /* line 212, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/challfie.css.scss */
@@ -8148,7 +8148,7 @@ h5 {
   font-size: 18px;
   color: #7CC4D9;
   text-transform: uppercase;
-  font-family: "Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
+  font-family: "HelveticaNeue-light", "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";
 }
 /* line 219, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/challfie.css.scss */
 #main_content_signin_steps .one_step .step_text {
@@ -8190,7 +8190,7 @@ h5 {
 }
 /* line 258, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/challfie.css.scss */
 .daily_challenge .daily_challenge_description {
-  font-family: "Chinacat", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
+  font-family: "HelveticaNeue-light", "Helvetica Neue", Helvetica,Arial,"lucida grande",tahoma,verdana,arial,sans-serif;
   display: block;
   margin-bottom: 10px;
   margin-top: 5px;
