@@ -22,7 +22,7 @@
 		  		</thead>	
 		  		<tbody>	
 		  			<% @ranking_friends_users.each_with_index do |user, index| %>
-		  				<tr>
+		  				<tr <% if user == current_user %>style="background-color:#fcf2de" <% end %>>
 		  					<td><%= index + 1 %></td>
 		  					<td><%= link_to (image_tag user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "padding: 0px;width:30px; height: 30px; margin-right: 10px; background-color: #{user.current_book.book_color};"), user_path(user) %> <%= link_to "#{user.username}", user_path(user) %></td>		  					
 		  					<td><%= image_tag user.current_book.thumb.url(:original), style: 'width:20px; 20px; margin-right: 5px;' %> <%= user.current_book.name %></td>
@@ -44,7 +44,7 @@
 		  		</thead>	
 		  		<tbody>	
 		  			<% @ranking_global_users.each_with_index do |user, index| %>
-		  				<tr>
+		  				<tr <% if user == current_user %>style="background-color:#fcf2de" <% end %>>
 		  					<td><%= index + 1 %></td>
 		  					<td><%= link_to (image_tag user.show_profile_picture("thumb"), class: 'img-thumbnail', style: "padding: 0px;width:30px; height: 30px; margin-right: 10px; background-color: #{user.current_book.book_color};"), user_path(user) %> <%= link_to "#{user.username}", user_path(user) %></td>		  					
 		  					<td><%= image_tag user.current_book.thumb.url(:original), style: 'width:20px; 20px; margin-right: 5px;' %> <%= user.current_book.name %></td>
