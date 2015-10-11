@@ -176,7 +176,7 @@ $(function () {
 
 		if ($(this).data("oauthexpired") == true) {			
 			// To Open a popup for Facebook Authentication to share a Post
-			if (!$(this).hasClass("btn-facebook-disable")) {	
+			if (!$(this).hasClass("btn-facebook-disable")) {					
 				popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "Facebook - Challfie Authentification");
 		  		event.stopPropagation(); 
 		  		return false;

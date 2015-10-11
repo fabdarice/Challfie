@@ -122,7 +122,8 @@ class SelfiesController < ApplicationController
 	    end
 	end
 
-	def destroy
+	def destroy		
+
 		# This isn't a destroy permanently, it's updating a Hidden field
 	   selfie = Selfie.find(params[:id])
 

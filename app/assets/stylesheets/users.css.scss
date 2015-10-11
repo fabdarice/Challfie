@@ -231,23 +231,27 @@
 }
 
 #user_webcam {
-	width: 250px;
+	width: 330px;
 	height: 250px;
 	overflow: hidden;
 	float:left;
-	margin-right: 50px;
+	margin-right: 0px;
 }
 
 #preview_user_proflle_pic {	
    vertical-align: middle;
    text-align: center;   
    color:darken($mygrey, 30%); 
-   display: table;
-   margin: 0 auto;
 
-   img {
-   	height: 270px;
-		width: auto;
+   height: 240px;
+   width: 320px;
+
+   img {   	
+   	width: auto;
+	   height : auto;
+	   max-height: 100%;
+	   max-width: 100%;
+
    }
 }	   
 
