@@ -104,10 +104,10 @@ class User < ActiveRecord::Base
       user.from_mobileapp = from_mobileapp
       user.username_activated = false   
       user.locale = I18n.locale 
-      user.timezone = timezone  
+      user.timezone = timezone  if timezone != nil
       user.skip_confirmation!  
     else  
-
+      timezone = "Europe/Paris" if timezone == nil
       user.update_attributes(uid: auth[:uid],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
