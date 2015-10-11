@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
       user.timezone = timezone  if timezone != nil
       user.skip_confirmation!  
     else  
-      timezone = "Europe/Paris" if timezone == nil
+      timezone = user.timezone if timezone == nil
       user.update_attributes(uid: auth[:uid],
                             provider: auth[:provider],
                             oauth_token: auth[:credentials][:token],
