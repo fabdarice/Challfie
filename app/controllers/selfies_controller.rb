@@ -129,7 +129,7 @@ class SelfiesController < ApplicationController
 
 	   selfie_approved = selfie.approval_status	 
 
-	   if selfie.is_daily or selfie.challenge.book.tier == 0                           
+	   if (selfie.is_daily or selfie.challenge.book.tier == 0) and current_user.username != 'Challfie'                          
         challenge_very_easy = selfie.user.current_book.challenges.where("difficulty = ?", selfie.challenge.difficulty).first              
         challenge_points = challenge_very_easy.point               
       else                        
@@ -152,7 +152,7 @@ class SelfiesController < ApplicationController
 
 				# Update user points
 				# remove points win by this selfie if it was approved
-				if selfie_approved == 1							
+				if selfie_approved == 1 and current_user.username != 'Challfie'							
 					current_user.points = current_user.points - challenge_points
 					current_user.save
 				end
