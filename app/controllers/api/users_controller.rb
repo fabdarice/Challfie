@@ -273,7 +273,11 @@ module Api
           current_rank: current_user.current_rank
         }
       else      
-        render json: {}
+        render json: {
+          users: [],
+          current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
+          current_rank: current_user.current_rank
+        }
       end
     end
     
