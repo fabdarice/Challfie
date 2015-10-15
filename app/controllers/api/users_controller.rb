@@ -265,12 +265,16 @@ module Api
     end
 
     def ranking_global
-      users = User.where("blocked = false").order("points DESC").paginate(:page => params["page"], :per_page => 20, :total_entries => 100)
-      render json: {
-        users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
-        current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
-        current_rank: current_user.current_rank
-      }      
+      if params["page"] <= 5
+        users = User.where("blocked = false").order("points DESC").paginate(:page => params["page"], :per_page => 20, :total_entries => 100)
+        render json: {
+          users: ActiveModel::ArraySerializer.new(users, each_serializer: UserrankingSerializer, scope: current_user),
+          current_user: ActiveModel::ArraySerializer.new([current_user], each_serializer: UserrankingSerializer, scope: current_user),
+          current_rank: current_user.current_rank
+        }
+      else      
+        render json: {}
+      end
     end
     
   end  
