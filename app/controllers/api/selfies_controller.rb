@@ -114,8 +114,11 @@ module Api
 
       if not params[:approval_status].blank?      
         @selfie.approval_status = params[:approval_status]
-        current_user.points = current_user.points + challenge.point
-        current_user.save        
+
+        if params[:approval_status] == 1
+          current_user.points = current_user.points + challenge.point
+          current_user.save        
+        end
       end
       
       current_user_time = Time.now.in_time_zone(current_user.timezone)
