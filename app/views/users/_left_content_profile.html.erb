@@ -101,7 +101,7 @@
 		<%= link_to_if_with_block(user == current_user, user_path(user)) do %>
 			<!-- LEFT MENU SELFIES BLOCK -->
 			<div class="homepage_user_selfie_block">
-				<span class="number"><%= user.selfies.count %></span><br><span class="homepage_user_block_name">Selfies</span>
+				<span class="number"><%= user.selfies.where("blocked = false and hidden = false").count %></span><br><span class="homepage_user_block_name">Selfies</span>
 			</div>
 		<% end %>	
 
