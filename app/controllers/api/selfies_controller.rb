@@ -115,7 +115,7 @@ module Api
       if not params[:approval_status].blank?      
         @selfie.approval_status = params[:approval_status]
 
-        if params[:approval_status] == 1
+        if params[:approval_status] == "1"
           current_user.points = current_user.points + challenge.point
           current_user.save        
         end
