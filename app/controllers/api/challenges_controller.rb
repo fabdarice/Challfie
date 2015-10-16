@@ -17,12 +17,19 @@ module Api
         daily_book.challenges << daily_challenge.challenge if daily_challenge 
 
         books.unshift(daily_book)
-
-
+      
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
         else
-          isFacebookLinked = true          
+          begin                
+            @graph = Koala::Facebook::API.new(current_user.oauth_token)                   
+            isFacebookLinked = true
+          rescue Koala::Facebook::APIError
+            logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
+            self.oauth_token = nil 
+            self.save       
+            isFacebookLinked = false
+          end           
         end
     	  
         render json: books, meta: {isFacebookLinked: isFacebookLinked}
