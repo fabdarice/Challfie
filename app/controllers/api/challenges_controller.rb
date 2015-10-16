@@ -23,10 +23,10 @@ module Api
         else
           begin                
             @graph = Koala::Facebook::API.new(current_user.oauth_token)
-            permissions = @graph.get_connections("me", "permissions") 
-            permissions.each do |permission|
+            #permissions = @graph.get_connections("me", "permissions") 
+            #permissions.each do |permission|
               #Rails.logger.info "Permission : " + permission
-            end 
+            #end 
             isFacebookLinked = true
           rescue Koala::Facebook::APIError
             logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
