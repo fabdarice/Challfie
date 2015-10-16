@@ -23,7 +23,9 @@ module Api
         else
           begin                
             @graph = Koala::Facebook::API.new(current_user.oauth_token)
-            permissions = @graph.get_connections("me", "permissions") 
+            Rails.logger.info "Permission : "
+            facebook_friends = @graph.get_connections("me", "friends")  
+            #permissions = @graph.get_connections("me", "permissions") 
             #permissions.each do |permission|
               #Rails.logger.info "Permission : " + permission
             #end 
