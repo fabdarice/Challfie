@@ -25,7 +25,7 @@ module Api
             @graph = Koala::Facebook::API.new(current_user.oauth_token)
             permissions = @graph.get_connections("me", "permissions") 
             permissions.each do |permission|
-              Rails.logger.info "Permission : " + permission
+              #Rails.logger.info "Permission : " + permission
             end 
             isFacebookLinked = true
           rescue Koala::Facebook::APIError
