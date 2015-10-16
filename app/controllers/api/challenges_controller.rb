@@ -18,22 +18,22 @@ module Api
 
         books.unshift(daily_book)
       
-        Rails.logger.info "ENTER INDEX CHALLENGES : "
+        logger.info "ENTER INDEX CHALLENGES : "
 
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
         else
           begin                
             @graph = Koala::Facebook::API.new(current_user.oauth_token)
-            Rails.logger.info "Permission : "
+            logger.info "Permission : "
             #facebook_friends = @graph.get_connections("me", "friends")  
             #permissions = @graph.get_connections("me", "permissions") 
             #permissions.each do |permission|
               #Rails.logger.info "Permission : " + permission
             #end 
             isFacebookLinked = true
-          rescue Koala::Facebook::APIError
-            logger.debug "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
+          rescue Koala::Facebook::APIError 
+            logger.info "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
             self.oauth_token = nil 
             self.save       
             isFacebookLinked = false
