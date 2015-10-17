@@ -16,26 +16,56 @@ module Api
         daily_challenge = current_user.daily_challenge       
         daily_book.challenges << daily_challenge.challenge if daily_challenge 
 
-        books.unshift(daily_book)
-      
-        logger.info "ENTER INDEX CHALLENGES : "
+        books.unshift(daily_book)            
 
         if current_user.oauth_token.blank? or current_user.uid.blank?
           isFacebookLinked = false
         else
-          begin                
+          begin  
+            isFacebookLinked = true              
             @graph = Koala::Facebook::API.new(current_user.oauth_token)
-            logger.info "Permission : "
-            #facebook_friends = @graph.get_connections("me", "friends")  
-            #permissions = @graph.get_connections("me", "permissions") 
-            #permissions.each do |permission|
-              #Rails.logger.info "Permission : " + permission
-            #end 
-            isFacebookLinked = true
+
+            permissions = @graph.get_connections("me", "permissions")
+            permissions_existence = permissions.any? {|permissions| permissions["permission"] == "user_friends"} && 
+                                      permissions.any? {|permissions| permissions["permission"] == "public_profile"} &&
+                                      permissions.any? {|permissions| permissions["permission"] == "email"} &&
+                                      permissions.any? {|permissions| permissions["permission"] == "publish_actions"}
+
+            if permissions_existence == true
+              permissions.each do |permission|                              
+              case permission["permission"]
+                when "user_friends"
+                  if permission["status"] != "granted"
+                    isFacebookLinked = false
+                    break
+                  end
+                when "public_profile"
+                  if permission["status"] != "granted"                    
+                    isFacebookLinked = false
+                    break
+                  end
+                when "email"
+                  if permission["status"] != "granted"                    
+                    isFacebookLinked = false
+                    break
+                  end
+                when "publish_actions"
+                  if permission["status"] != "granted"                                      
+                    isFacebookLinked = false
+                    break
+                  end
+                else
+                  # DO NOTHING
+                end
+              end
+            else
+              isFacebookLinked = false
+            end
+
           rescue Koala::Facebook::APIError 
-            logger.info "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"
-            self.oauth_token = nil 
-            self.save       
+            logger.info "[OAuthException] Either the user's access token has expired, they've logged out of Facebook, deauthorized the app, or changed their password"            
+            current_user.oauth_token = nil 
+            current_user.save       
             isFacebookLinked = false
           end           
         end
