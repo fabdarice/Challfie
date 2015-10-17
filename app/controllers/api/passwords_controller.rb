@@ -1,5 +1,6 @@
 module Api
 	class PasswordsController < Devise::PasswordsController
+		
 		skip_before_filter :verify_authenticity_token
 	   before_filter :ensure_email_exist, :only => [:create ]	
 	   respond_to :json

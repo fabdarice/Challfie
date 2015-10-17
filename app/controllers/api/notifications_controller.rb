@@ -1,5 +1,6 @@
 module Api
     class NotificationsController < ApplicationController
+      skip_before_filter  :verify_authenticity_token
       before_filter :authenticate_user_from_token!
       respond_to :json
 

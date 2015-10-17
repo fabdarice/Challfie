@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Authenticate the User from a token (to allow API calls)
-  def authenticate_user_from_token!
+  def authenticate_user_from_token!    
     request.env["devise.skip_trackable"] = true        
     login = params[:login].presence
     user       = login && (User.find_by_email(login) || User.find_by_username(login))

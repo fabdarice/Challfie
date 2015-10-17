@@ -1,5 +1,7 @@
 module Api
   class SessionsController < Devise::SessionsController
+
+    skip_before_filter  :verify_authenticity_token
     before_filter :ensure_params_exist, :only => [:create ]
 
     before_filter :authenticate_user!, :except => [:create, :destroy]
