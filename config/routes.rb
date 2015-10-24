@@ -48,6 +48,7 @@ Challfie::Application.routes.draw do
   get '/about_us' => 'extrapages#about_us'
   get '/mobile' => 'extrapages#mobile'  
   get '/mobile_info' => 'extrapages#mobile_info'
+  get '/halloween' => 'extrapages#halloween'
   get '/after_facebook_login' => 'extrapages#after_facebook_login'  
 
   resources :contacts, :only => [:new, :create, :destroy]

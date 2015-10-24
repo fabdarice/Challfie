@@ -47,7 +47,7 @@
 		<!-- LEFT MENU BOOKS BLOCK -->
 		<%= link_to user_path(current_user, :anchor => "tab_challenges") do %>
 			<div class="homepage_user_book_block">
-				<span class="number"><%= current_user.books.count %></span><br><span class="homepage_user_block_name"><%= t 'all_pages.books' %></span>
+				<span class="number"><%= current_user.selfies.where("blocked = false and hidden = false and approval_status = 1").count %></span><br><span class="homepage_user_block_name"><%= t 'all_pages.books' %></span>
 			</div>
 		<% end %>	
 	</div>

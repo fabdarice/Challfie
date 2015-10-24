@@ -31,6 +31,10 @@ class ExtrapagesController < ApplicationController
 		render layout: "mobile_layout"
 	end
 
+	def halloween
+		render layout: "extra_pages"
+	end
+
 	def after_facebook_login
 		#render layout: "extra_pages"
 	end

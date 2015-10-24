@@ -119,7 +119,7 @@ en:
   all_pages:
     public: "Public"
     private: "Private"
-    books: "Books"
+    books: "Approved"
     edit: "Edit"
     cancel: "Cancel"
     save: "Save"
@@ -167,4 +167,3 @@ en:
   about_us:
     message_html: "<p>Challfie is a <strong>social network</strong> that takes selfies to the next level by adding a fun and competitive spin. </p><p>It incorporates the <strong>concept of challenges</strong> that users must complete and have approved by their friends. <br>The more challenges that are completed and approved, the more points users earn, allowing them to <strong>reach higher levels and unlock new challenges.</strong> </p><p>So grab your camera and take your first <strong>Challfie</strong>!</p><br><br><p><i>The Challfie Team</i></p>"
     title: "About Us"
-

@@ -118,7 +118,7 @@ fr:
   all_pages:
     public: "Publique"
     private: "Privé"
-    books: "Livres" 
+    books: "Approuvés" 
     edit: "Modifier" 
     cancel: "Annuler"
     save: "Valider"
