@@ -8526,8 +8526,7 @@ h5 {
 /* line 22, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/home.css.scss */
 .homepage_user_info .homepage_user_info_username a {
   font-size: 14px;
-  font-family: "Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
-  font-weight: 600;
+  font-family: "Helvetica Neue", "Century Gothic","Tahoma","Geneva","Arial";  
   color: black;
   line-height: 16px;
   line-height: 25px;
