@@ -8719,8 +8719,7 @@ h5 {
 }
 /* line 42, /Users/fcheng/workspace/Challfie/app/assets/stylesheets/selfies.css.scss */
 .selfie_post_user .selfie_post_user_username a {
-  color: #30768a;
-  font-weight: 600;
+  color: #30768a;  
   font-size: 14px;
   margin-top: 3px;
   font-family: "Chinacat", "Century Gothic","Tahoma","Geneva","Arial";
