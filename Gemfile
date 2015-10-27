@@ -103,6 +103,10 @@ gem "daemons"
 # To analyse performance of the rails app
 gem 'newrelic_rpm'
 
+#to configure Facebook Open Graph Meta Tags
+gem 'meta-tags'
+
+
 
 group :development, :test do  
   # For Email testing in development mode
