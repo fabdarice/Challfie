@@ -37,7 +37,7 @@ Challfie::Application.routes.draw do
   resources :books
   resources :categories
   resources :challenges
-  resources :notifications, :only => [:index]
+  resources :notifications, :only => [:index, :new, :create]
   get '/notifications/all_read' => 'notifications#all_read'
   
 

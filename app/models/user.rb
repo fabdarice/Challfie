@@ -57,6 +57,9 @@ class User < ActiveRecord::Base
   
   has_many :devices, dependent: :destroy
 
+  has_many :matchups, :through => :matchup_users
+  has_many :matchup_users
+
   has_attached_file :avatar, 
                     :styles => {:thumb => "", :medium => "" }, 
                     :convert_options => { :medium => Proc.new { |instance| instance.avatar_dimension }, 
@@ -495,6 +498,9 @@ class User < ActiveRecord::Base
 
     #Delete Book Users
     self.books.delete_all
+
+    #Delete Matchup Users
+    self.matchups.delete_all
 
     #Delete Permanently Notifications related to that user
     notifications_to_delete = Notification.where(author_id: self.id)

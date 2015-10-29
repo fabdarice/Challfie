@@ -6,6 +6,8 @@ class Challenge < ActiveRecord::Base
 	has_many :categories, :through => :category_challenges
   has_many :category_challenges, dependent: :destroy
 	has_many :selfies
+  has_many :matchups
+
 	belongs_to :book
 
 	searchable do 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915203353) do
+ActiveRecord::Schema.define(version: 20151028004645) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -149,6 +149,28 @@ ActiveRecord::Schema.define(version: 20150915203353) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
+  create_table "matchup_users", force: true do |t|
+    t.integer  "matchup_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matchup_users", ["matchup_id"], name: "index_matchup_users_on_matchup_id", using: :btree
+  add_index "matchup_users", ["user_id"], name: "index_matchup_users_on_user_id", using: :btree
+
+  create_table "matchups", force: true do |t|
+    t.integer  "challenge_id"
+    t.integer  "winner_id"
+    t.integer  "type"
+    t.datetime "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matchups", ["challenge_id"], name: "index_matchups_on_challenge_id", using: :btree
+  add_index "matchups", ["winner_id"], name: "index_matchups_on_winner_id", using: :btree
+
   create_table "notifications", force: true do |t|
     t.text     "message_en",        limit: 16777215
     t.integer  "user_id"
@@ -206,12 +228,14 @@ ActiveRecord::Schema.define(version: 20150915203353) do
     t.boolean  "blocked",                             default: false
     t.boolean  "hidden",                              default: false
     t.text     "photo_meta"
+    t.integer  "matchup_id"
   end
 
   add_index "selfies", ["blocked"], name: "index_selfies_on_blocked", using: :btree
   add_index "selfies", ["challenge_id"], name: "index_selfies_on_challenge_id", using: :btree
   add_index "selfies", ["created_at"], name: "index_selfies_on_created_at", using: :btree
   add_index "selfies", ["hidden"], name: "index_selfies_on_hidden", using: :btree
+  add_index "selfies", ["matchup_id"], name: "index_selfies_on_matchup_id", using: :btree
   add_index "selfies", ["private"], name: "index_selfies_on_private", using: :btree
   add_index "selfies", ["user_id"], name: "index_selfies_on_user_id", using: :btree
 

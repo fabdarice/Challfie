@@ -1,0 +1,37 @@
+<% content_for :left_content do %>
+	<%= render 'home/left_content' %>
+<% end %>
+
+<h3>Create Notification</h3>
+
+ <br><br>
+<% if flash[:notice] %>
+ <div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div><br><br>
+<% end %>
+<% if flash[:error] %>
+ <div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div><br><br>
+<% end %>
+
+<%= form_for(@notification, url: notifications_path, :html => { :class => 'form-horizontal'}) do |f| %>
+	<div class="control-group">
+   <%= f.label :message_en, class: 'control-label' %>
+	  <div class="controls">
+	    <%= f.text_area :message_en, class: 'form-control', style: 'width: 300px;', rows: 4 %>
+	  </div>
+	</div>
+
+	<div class="control-group">
+   <%= f.label :message_fr, class: 'control-label' %>
+	  <div class="controls">
+	    <%= f.text_area :message_fr, class: 'form-control', style: 'width: 300px;', rows: 4 %>
+	  </div>
+	</div>
+
+	<br><br>
+
+	<div class="control-group">
+	  <div class="controls">
+	    <button type="submit" class="btn btn-primary">Create Notification</button>
+	  </div>
+	</div>
+<% end %>

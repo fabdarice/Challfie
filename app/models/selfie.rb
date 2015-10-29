@@ -1,6 +1,6 @@
 class Selfie < ActiveRecord::Base
 	#attributes :user_id, :message, :photo, :shared_fb, :challenge_id, :private, :approval_status, :is_daily, :flag_count, 
-	#:blocked, :hidden, :photo_meta
+	#:blocked, :hidden, :photo_meta, :matchup_id
 
 	before_destroy :delete_notifications
 
@@ -23,6 +23,8 @@ class Selfie < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :challenge
 	has_many :comments, dependent: :destroy
+
+	belongs_to :match_up
 
 	acts_as_votable
 
