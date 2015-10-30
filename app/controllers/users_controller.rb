@@ -165,8 +165,9 @@ class UsersController < ApplicationController
       @ranking_global_users = User.where("blocked = false").order("points DESC").limit(100)
    end
 
-   def add_everyone   	
-   	@user = User.find_by username: "fabdR"
+   def add_everyone
+   	tmp_user = User.new(users_params)   	   	
+   	@user = User.find_by username: tmp_user.username
 
    	User.all.each do |user_to_add|
    		if not @user.following?(user_to_add) and @user != user_to_add
@@ -176,7 +177,8 @@ class UsersController < ApplicationController
 											@user , nil, nil, Notification.type_notifications[:friend_request])
    		end
    	end
-   	render :nothing => true		
+   	flash[:notice] = @user.username + " added to everyone"
+   	redirect_to controller:'administration', action:'adm_add_everyone'		
    end
 
 

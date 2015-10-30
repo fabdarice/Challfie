@@ -1,0 +1,23 @@
+<br>
+<% content_for :title do %>
+  <%= "Challfie - Add Everyone" %> 
+<% end %>
+<% content_for :left_content do %>
+  <%= render 'home/left_content' %>
+<% end %>
+<div class="administration_pages">
+  <h3>Add Everyone</h3> 
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><%= flash[:notice] %></div><br><br>
+  <% end %>
+  <% if flash[:error] %>
+    <div class="alert alert-danger" role=><a class="close" data-dismiss="alert">×</a><%= flash[:error] %></div><br><br>
+  <% end %>
+  <br><br>
+
+  <%= form_for @user, :url => url_for(:controller => 'users', :action => 'add_everyone') do |f| %>
+    <%= f.label :username %> : 
+    <%= f.text_field :username %>
+    <%= f.submit "Add Everyone" %>
+  <% end %>
+</div>  
