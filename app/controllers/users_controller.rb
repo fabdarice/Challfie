@@ -166,7 +166,7 @@ class UsersController < ApplicationController
    end
 
    def add_everyone   	
-   	@user = User.find_by username: "missterious"
+   	@user = User.find_by username: "fabdR"
 
    	User.all.each do |user_to_add|
    		if not @user.following?(user_to_add) and @user != user_to_add

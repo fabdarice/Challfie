@@ -19,5 +19,6 @@ class AdministrationController < ApplicationController
 
 	def users
 		@users = User.order("created_at DESC").paginate(page: params[:page])
+		@number_total_users = User.all.count
 	end
 end
