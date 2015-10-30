@@ -45,8 +45,8 @@ class UsersController < ApplicationController
           @user.add_notifications(" has requested to follow you.", 
 										" souhaite faire parti de ta liste d'abonnées.",
 										current_user , nil, nil, Notification.type_notifications[:friend_request])
-        end
-      end
+        end      
+      end      
 		
 		respond_to do |format|
 	      format.html { render :nothing => true }
@@ -75,8 +75,8 @@ class UsersController < ApplicationController
 		@following = @following.sort_by {|u| u.username.downcase}
 		# LIST OF ALL FOLLOWERS
 		@followers = current_user.followers(1)
-		# LIST OF ALL PENDING REQUEST
-		@pending_request = current_user.followers(0)
+		# LIST OF ALL PENDING REQUEST		
+		@pending_request = current_user.followers(0)		
 
 		@friends_suggestions = @user.friends_suggestions
 	end
@@ -163,6 +163,20 @@ class UsersController < ApplicationController
       users << current_user      
       @ranking_friends_users = users.sort_by{|u| -u.points}             
       @ranking_global_users = User.where("blocked = false").order("points DESC").limit(100)
+   end
+
+   def add_everyone   	
+   	@user = User.find_by username: "missterious"
+
+   	User.all.each do |user_to_add|
+   		if not @user.following?(user_to_add) and @user != user_to_add
+	   		@user.follow(user_to_add)
+	   		user_to_add.add_notifications(" has requested to follow you.", 
+											" souhaite faire parti de ta liste d'abonnées.",
+											@user , nil, nil, Notification.type_notifications[:friend_request])
+   		end
+   	end
+   	render :nothing => true		
    end
 
 
