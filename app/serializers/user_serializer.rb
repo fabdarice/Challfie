@@ -31,8 +31,8 @@ class UserSerializer < ActiveModel::Serializer
 	   end
   end
 
-  def is_following
-    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and status = 1', current_user.id, object.id)
+  def is_pending
+    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and status = 0', current_user.id, object.id)
     if @follow.count == 0 
       return false
     else
@@ -40,8 +40,8 @@ class UserSerializer < ActiveModel::Serializer
     end
   end
 
-  def is_pending
-    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and status = 0', current_user.id, object.id)
+  def is_following
+    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and (status = 0 or status = 1)', current_user.id, object.id)
     if @follow.count == 0 
       return false
     else

@@ -49,7 +49,7 @@ class FriendsSerializer < ActiveModel::Serializer
   end
 
   def is_following
-    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and status = 1', @scope.id, object.id)
+    @follow =  Follow.where('follower_id = ? and followable_id = ? and blocked = false and (status = 0 or status = 1)', @scope.id, object.id)
     if @follow.count == 0 
       return false
     else
