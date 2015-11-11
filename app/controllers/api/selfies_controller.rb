@@ -121,8 +121,13 @@ module Api
           current_user.save        
         end
       end
+
+      if not params[:matchup_id].blank?
+        matchup = Matchup.find(params[:matchup_id])
+        @selfie.matchup = matchup
+      end
       
-      current_user_time = Time.now.in_time_zone(current_user.timezone)
+      #current_user_time = Time.now.in_time_zone(current_user.timezone)
       daily_challenge = current_user.daily_challenge      
       if @selfie.challenge == daily_challenge.challenge     
         @selfie.is_daily = true   
@@ -214,7 +219,7 @@ module Api
 
       users = selfie.votes_for.down.by_type(User).voters.paginate(:page => params["page"], :per_page => 20)
       render json: users, each_serializer: FriendsSerializer, scope: current_user
-    end
+    end    
 
   end    
 end

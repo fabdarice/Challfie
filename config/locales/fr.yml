@@ -163,6 +163,9 @@ fr:
     challenge_description: "Description du Challenge"
     difficulty: "Difficulté" 
 
+  matchup:
+    duel: "Duel"
+
   about_us:
     message_html: "<p>Challfie est le <strong>nouveau réseau social</strong> qui amène la notion de Selfie à un tout autre niveau en ajoutant une touche de compétitivité et de divertissement.</p><p>Il intègre le <strong>concept de challenge</strong> que les utilisateurs doivent compléter et faire approuver par leurs amis. <br>Plus un utilisateur aura complété et fait approuver de challenge, plus il sera récompensé par des points qui lui permettront de <strong>progresser de level</strong> et de débloquer de nouveaux challenges.</p><p>N'attends plus et prends ton premier <strong>Challfie</strong> !!</p><br><br><p><i>La Challfie Team</i></p>"
     title: "A Propos"

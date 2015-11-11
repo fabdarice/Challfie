@@ -509,6 +509,169 @@ class User < ActiveRecord::Base
     end
   end
 
+=begin
+# If I ever want to implement Daily Matchup  
+
+  def is_already_in_daily_matchup?
+    if self.matchups.last.created_at < Time.zone.now - 36.hours
+      return true
+    else
+      return false
+    end
+
+  end
+
+  def find_user_daily_matchups
+    user_followers = self.followers(1).where(timezone: self.timezone)
+    user_followings = self.following(1).where(timezone: self.timezone)
+    
+    # If user doesn't have more than 10 following and 10 followers : can't do it
+    if user_followers.count < 10 or user_followings < 10
+      return nil
+    end
+
+    # get user last ten matchups
+    user_last_ten_matchups = self.matchups.where(type: 'daily').last(10)
+
+    list_matchup_user_ids = []
+
+    if user_last_ten_matchups.count != 0
+      # At least one matchup
+      user_last_ten_matchups.each do |matchup|
+        list_matchup_user_ids << matchup.users..map{|u| u.id}
+      end
+
+      # list of last ten user's you've faced in a matchup
+      list_matchup_user_ids = list_matchup_user_ids.uniq
+
+      potential_following_lists = user_followings.where("id not in (?)", list_matchup_user_ids)
+      potential_following_lists.shuffle.each do |potential_following|
+        if not potential_following.is_already_in_daily_matchup?
+          return potential_following
+        end
+      end
+
+      potential_follower_lists = user_followers.where("id not in (?)", list_matchup_user_ids)
+      potential_follower_lists.shuffle.each do |potential_follower|
+        if not potential_follower.is_already_in_daily_matchup?
+          return potential_follower
+        end
+      end
+
+      return nil
+
+    else
+      # No Matchups Yet
+      user_followings.shuffle.each do |potential_following|
+        if not potential_following.is_already_in_daily_matchup?
+          return potential_following
+        end
+      end
+
+      user_followers.shuffle.each do |potential_follower|
+        if not potential_follower.is_already_in_daily_matchup?
+          return potential_follower
+        end
+      end      
+
+      return nil
+    end
+  end
+
+  def create_daily_matchup(opponent, type, end_date, challenge)
+      daily_matchup = Matchup.new
+      daily_matchup.type = type
+      daily_matchup.end_date = end_date
+      daily_matchup.challenge = challenge
+      if daily_matchup.save
+        matchup_user1 = MatchupUser.new
+        matchup_user1.user = self
+        matchup_user1.matchup = daily_matchup
+
+        matchup_user2 = MatchupUser.new
+        matchup_user2.user = opponent
+        matchup_user2.matchup = daily_matchup
+
+        if matchup_user1.save and matchup_user2.save
+          self.add_notifications("Today's daily matchup against <strong>\"#{opponent.username}\"</strong> : \"#{daily_challenge.challenge.description_en}\"", 
+                              "Duel du jour contre <strong>\"#{opponent.username}\"</strong> : \"#{daily_challenge.challenge.description_fr}\"",
+                              opponent, nil, nil, Notification.type_notifications[:daily_matchup])
+          opponent.add_notifications("Today's daily matchup against <strong>\"#{self.username}\"</strong> : \"#{daily_challenge.challenge.description_en}\"", 
+                              "Duel du jour contre <strong>\"#{self.username}\"</strong> : \"#{daily_challenge.challenge.description_fr}\"",
+                              self, nil, nil, Notification.type_notifications[:daily_matchup])                     
+          return true
+        else
+          return false
+        end
+      else
+        return false
+      end
+  end
+=end  
+
+  def challenge_matchup(opponent, challenge, type_matchup, status, duration)
+      matchup = Matchup.new
+      matchup.type_matchup = type_matchup      
+      matchup.challenge = challenge
+      matchup.duration = duration
+      if matchup.save
+        matchup_creator = MatchupUser.new
+        matchup_creator.user = self        
+        matchup_creator.matchup = matchup
+        matchup_creator.is_creator = true
+
+        matchup_opponent = MatchupUser.new
+        matchup_opponent.user = opponent
+        matchup_opponent.matchup = matchup
+        matchup_opponent.is_creator = false
+
+
+        if matchup_creator.save and matchup_opponent.save         
+          opponent.add_notifications("defies you to a <strong>selfie duel</strong> for [\"#{challenge.description_en}\"]", 
+                              "te défie à un duel de selfie pour [\"#{challenge.description_fr}\"]",
+                              self, nil, nil, Notification.type_notifications[:matchup])                     
+          return true
+        else
+          return false
+        end
+      else
+        return false
+      end
+  end
+
+
+=begin
+  def pending_matchup
+    matchup_users = MatchupUser.where(user_id: self.id, is_creator: false)
+
+    pending_matchups = []
+    matchup_users.each do |matchup_user|
+      if matchup_user.matchup.status = Matchup.statuses[:pending]
+        pending_matchups << matchup_user.matchup
+      end
+    end    
+    return pending_matchups
+  end
+=end
+
+
+  def accept_matchup
+
+
+  end
+
+  def nb_win_matchups
+    self.matchups.where("(status = ? and winner_id = ?) or status = ?", Matchup.statuses[:ended], self.id, Matchup.statuses[:ended_with_draw]).count
+  end
+
+  def nb_lose_matchups
+    self.matchups.where("status = ? and winner_id != ?", Matchup.statuses[:ended], self.id).count
+  end
+
+  def get_matchups_stats
+    self.nb_win_matchups.to_s + "-" + self.nb_lose_matchups.to_s
+  end
+
   private
   
   def generate_authentication_token

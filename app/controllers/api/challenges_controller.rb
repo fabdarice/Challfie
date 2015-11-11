@@ -8,6 +8,7 @@ module Api
     	  books = current_user.books.where('visible = true and active = true').order('level')        
         special_books = Book.where("tier = 0 and visible = true and active = true")
 
+        #Add Special Books
         special_books.each do |special_book|          
           books.unshift(special_book)
         end

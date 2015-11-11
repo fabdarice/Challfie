@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :avatar, :book_tier, :book_level, :book_image, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :administrator, :blocked, :is_current_user
+  attributes :id, :username, :avatar, :book_tier, :book_level, :book_image, :is_facebook_picture, :is_following, :is_pending, :uid, :oauth_token, :administrator, :blocked, :is_current_user, :matchups_stats
 
   delegate :current_user, to: :scope
 
@@ -55,6 +55,12 @@ class UserSerializer < ActiveModel::Serializer
     else
       return false
     end
+  end
+
+  def matchups_stats
+    puts "ENTER matchups_stats"
+    puts object.get_matchups_stats
+    return object.get_matchups_stats
   end
   
 end

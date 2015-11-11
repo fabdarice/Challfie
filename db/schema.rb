@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028004645) do
+ActiveRecord::Schema.define(version: 20151105005027) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20151028004645) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_creator", default: false
   end
 
   add_index "matchup_users", ["matchup_id"], name: "index_matchup_users_on_matchup_id", using: :btree
@@ -162,10 +163,12 @@ ActiveRecord::Schema.define(version: 20151028004645) do
   create_table "matchups", force: true do |t|
     t.integer  "challenge_id"
     t.integer  "winner_id"
-    t.integer  "type"
+    t.integer  "type_matchup"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",       default: 0
+    t.integer  "duration",     default: 1
   end
 
   add_index "matchups", ["challenge_id"], name: "index_matchups_on_challenge_id", using: :btree

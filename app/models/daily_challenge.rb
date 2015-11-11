@@ -32,6 +32,16 @@ class DailyChallenge < ActiveRecord::Base
 				user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
 				user.daily_challenge = daily_challenge
 				user.save
+
+=begin
+# If I ever want to implement Daily Matchup
+				matchup_opponent = user.find_user_daily_matchups
+				if matchup_opponent
+					user.create_daily_matchup(matchup_opponent, Matchup.type[:daily], 1.day.from_now, daily_challenge)
+				else
+					user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
+				end		
+=end				
 			end				
 		end	
 	end

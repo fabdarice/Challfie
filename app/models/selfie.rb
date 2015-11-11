@@ -22,9 +22,8 @@ class Selfie < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :challenge
+	belongs_to :matchup
 	has_many :comments, dependent: :destroy
-
-	belongs_to :match_up
 
 	acts_as_votable
 

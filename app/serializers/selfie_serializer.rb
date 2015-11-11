@@ -8,6 +8,7 @@ class SelfieSerializer < ActiveModel::Serializer
 
   has_one :user
   has_one :challenge
+  has_one :matchup
 
   def creation_date
   	return time_ago_in_words(object.created_at)

@@ -133,6 +133,14 @@ Challfie::Application.routes.draw do
     post '/admin/block_user' => 'administrators#block_user', as: :admin_block_user
     post '/admin/clear_flag_selfie' => 'administrators#clear_flag_selfie', as: :admin_clear_flag_selfie
 
+    # MatchupsController
+    post '/matchup/new' => 'matchups#new'
+    post '/matchup/create' => 'matchups#create'
+    post '/matchup/active_matchups' => 'matchups#active_matchups'
+    post '/matchup/complete_matchups' => 'matchups#complete_matchups'
+    post '/matchup/accept_reject_matchup' => 'matchups#accept_reject_matchup'
+    
+
   end
 
 match '*path', via: :all, to: 'errors#not_found'
