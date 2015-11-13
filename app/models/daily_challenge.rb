@@ -29,7 +29,7 @@ class DailyChallenge < ActiveRecord::Base
 		User.all.each do |user|
 			current_time = Time.now.in_time_zone(user.timezone)
 			if current_time.hour == 5				
-				user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
+				user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge], nil)	
 				user.daily_challenge = daily_challenge
 				user.save
 
@@ -39,7 +39,7 @@ class DailyChallenge < ActiveRecord::Base
 				if matchup_opponent
 					user.create_daily_matchup(matchup_opponent, Matchup.type[:daily], 1.day.from_now, daily_challenge)
 				else
-					user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge])	
+					user.add_notifications("Today's <strong>daily challenge</strong> : \"#{daily_challenge.challenge.description_en}\"", "<strong>Challenge du jour</strong> : \"#{daily_challenge.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:daily_challenge], nil)	
 				end		
 =end				
 			end				

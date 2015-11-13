@@ -4,6 +4,7 @@ class NotificationSerializer < ActiveModel::Serializer
   attributes :id, :message, :read, :type_notification, :selfie_id, :selfie_img, :book_img, :time_ago
 
   has_one :author
+  has_one :matchup
   
   def message
     msg = ""

@@ -34,8 +34,19 @@ module Api
 			if matchup and current_user.matchups.where(id: matchup.id, status: Matchup.statuses[:pending]).count != 0			
 				matchup.status = params[:matchup_status].to_i
 				matchup.end_date = Time.now + matchup.duration.days
-
-				if matchup.save
+				
+				if matchup.save					
+					if params[:matchup_status].to_i == Matchup.statuses[:accepted]				
+						matchup.matchup_users.each do |matchup_user|
+							if matchup_user.is_creator == true								
+								creator = matchup_user.user
+								puts creator.username
+								creator.add_notifications(" has agreed to your <strong>duel</strong> for [\"#{matchup.challenge.description_en}\"]", 
+                              " a accepté <strong>ton duel</strong> pour [\"#{matchup.challenge.description_fr}\"]",
+                              current_user, nil, nil, Notification.type_notifications[:matchup], matchup)
+							end
+						end						
+					end
 					render json: matchup
 				else
 					render json: {}

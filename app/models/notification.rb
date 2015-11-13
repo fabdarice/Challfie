@@ -8,6 +8,7 @@ class Notification < ActiveRecord::Base
 	belongs_to :author, :class_name => "User"
 	belongs_to :selfie
 	belongs_to :book
+  belongs_to :matchup
 
   self.per_page = 20
 

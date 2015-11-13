@@ -114,7 +114,7 @@ module Api
         if @follow.save
           @user.add_notifications(" has requested to follow you.", 
                         " souhaite faire parti de ta liste d'abonnées.",
-                        current_user , nil, nil, Notification.type_notifications[:friend_request])
+                        current_user , nil, nil, Notification.type_notifications[:friend_request], nil)
           render :json => {:success => true}
         else
           render :json => {:success => false}
@@ -146,7 +146,7 @@ module Api
       if @follow.save
         @user.add_notifications(" has accepted your <strong>friend request</strong>.", 
                       " a accepté ta <strong>demande d'ami</strong>.",
-                      current_user , nil, nil, Notification.type_notifications[:friend_request])
+                      current_user , nil, nil, Notification.type_notifications[:friend_request], nil)
         render :json => {:success => true}
       else 
         render :json => {:success => false}

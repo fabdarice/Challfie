@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       if @selfie.user != current_user
         @selfie.user.add_notifications(" has commented on your selfie : \"<i>#{@comment.message.truncate(60)}</i>\".", 
                                       " a commenté sur ton selfie : \"<i>#{@comment.message.truncate(60)}</i>\".",
-                                      current_user , @selfie, nil, Notification.type_notifications[:comment_mine])
+                                      current_user , @selfie, nil, Notification.type_notifications[:comment_mine], nil)
 
       end 
     
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
         if f.user != current_user and f.user != @selfie.user               
           f.user.add_notifications(" has commented on <strong>#{@selfie.user.username}'s</strong> selfie : \"<i>#{@comment.message.truncate(60)}</i>\" .", 
                                   " a commenté sur le selfie de <strong>#{@selfie.user.username}</strong> : \"<i>#{@comment.message.truncate(60)}</i>\" .",
-                                  current_user , @selfie, nil, Notification.type_notifications[:comment_other])
+                                  current_user , @selfie, nil, Notification.type_notifications[:comment_other], nil)
         end  
       end 
     end   

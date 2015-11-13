@@ -252,10 +252,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def add_notifications(message_en, message_fr, author, selfie, book, type_notification)     
+  def add_notifications(message_en, message_fr, author, selfie, book, type_notification, matchup)     
     if selfie.blank? || (not selfie.blank? and selfie.hidden == false)
       @notification = self.notifications.build(message_en: message_en, message_fr: message_fr, author: author,
-                                               selfie: selfie, book: book, type_notification: type_notification)
+                                               selfie: selfie, book: book, type_notification: type_notification, matchup: matchup)
       
       if @notification.save
         if self.locale == "fr"
@@ -439,7 +439,7 @@ class User < ActiveRecord::Base
         book_users.save      
         self.add_notifications("Congratulations! You just level up : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ", 
                               "Félicitations ! Tu viens de monter de niveau : \"<strong><i>#{book_to_unlock.name}</i></strong>\". ",
-                              self, nil, book_to_unlock, Notification.type_notifications[:book_unlock])      
+                              self, nil, book_to_unlock, Notification.type_notifications[:book_unlock], nil)      
       end
     end  
   end
@@ -595,10 +595,10 @@ class User < ActiveRecord::Base
         if matchup_user1.save and matchup_user2.save
           self.add_notifications("Today's daily matchup against <strong>\"#{opponent.username}\"</strong> : \"#{daily_challenge.challenge.description_en}\"", 
                               "Duel du jour contre <strong>\"#{opponent.username}\"</strong> : \"#{daily_challenge.challenge.description_fr}\"",
-                              opponent, nil, nil, Notification.type_notifications[:daily_matchup])
+                              opponent, nil, nil, Notification.type_notifications[:daily_matchup], nil)
           opponent.add_notifications("Today's daily matchup against <strong>\"#{self.username}\"</strong> : \"#{daily_challenge.challenge.description_en}\"", 
                               "Duel du jour contre <strong>\"#{self.username}\"</strong> : \"#{daily_challenge.challenge.description_fr}\"",
-                              self, nil, nil, Notification.type_notifications[:daily_matchup])                     
+                              self, nil, nil, Notification.type_notifications[:daily_matchup], nil)                     
           return true
         else
           return false
@@ -629,7 +629,7 @@ class User < ActiveRecord::Base
         if matchup_creator.save and matchup_opponent.save         
           opponent.add_notifications("defies you to a <strong>selfie duel</strong> for [\"#{challenge.description_en}\"]", 
                               "te défie à un duel de selfie pour [\"#{challenge.description_fr}\"]",
-                              self, nil, nil, Notification.type_notifications[:matchup])                     
+                              self, nil, nil, Notification.type_notifications[:matchup], matchup)                     
           return true
         else
           return false

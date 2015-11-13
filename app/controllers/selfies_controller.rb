@@ -169,7 +169,7 @@ class SelfiesController < ApplicationController
 		if @selfie.user != current_user			
 			@selfie.user.add_notifications(" has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
 													" a approuvé ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
-													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval])
+													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval], nil)
 		end
 
 		@selfie.set_approval_status!("upvote")
@@ -187,7 +187,7 @@ class SelfiesController < ApplicationController
 		if @selfie.user != current_user
 			@selfie.user.add_notifications(" has rejected your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
 													" a rejeté ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
-													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval])
+													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval], nil)
 		end
 
 		@selfie.set_approval_status!("downvote")		

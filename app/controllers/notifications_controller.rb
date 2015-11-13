@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
 
 		if challfie 			
 			User.all.each do |user|			
-				user.add_notifications(@notification.message_en, @notification.message_fr, challfie, nil, nil, Notification.type_notifications[:challfie_message])									
+				user.add_notifications(@notification.message_en, @notification.message_fr, challfie, nil, nil, Notification.type_notifications[:challfie_message], nil)									
 			end
 
 			flash[:notice] = "Notification has been created."

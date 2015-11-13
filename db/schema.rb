@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105005027) do
+ActiveRecord::Schema.define(version: 20151113064918) do
 
   create_table "book_users", force: true do |t|
     t.integer  "book_id"
@@ -185,11 +185,13 @@ ActiveRecord::Schema.define(version: 20151105005027) do
     t.integer  "book_id"
     t.text     "message_fr",        limit: 16777215
     t.integer  "type_notification",                  default: 0
+    t.integer  "matchup_id"
   end
 
   add_index "notifications", ["author_id"], name: "index_notifications_on_author_id", using: :btree
   add_index "notifications", ["book_id"], name: "index_notifications_on_book_id", using: :btree
   add_index "notifications", ["created_at"], name: "index_notifications_on_created_at", using: :btree
+  add_index "notifications", ["matchup_id"], name: "index_notifications_on_matchup_id", using: :btree
   add_index "notifications", ["read"], name: "index_notifications_on_read", using: :btree
   add_index "notifications", ["selfie_id"], name: "index_notifications_on_selfie_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree

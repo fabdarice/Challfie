@@ -44,7 +44,7 @@ class UsersController < ApplicationController
         if @follow.save
           @user.add_notifications(" has requested to follow you.", 
 										" souhaite faire parti de ta liste d'abonnées.",
-										current_user , nil, nil, Notification.type_notifications[:friend_request])
+										current_user , nil, nil, Notification.type_notifications[:friend_request], nil)
         end      
       end      
 		
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 		@follow.save			
 		@user.add_notifications(" has accepted your <strong>request</strong>.", 
 										" a accepté ta <strong>demande d'abonnement</strong>.",
-										current_user , nil, nil, Notification.type_notifications[:friend_request])
+										current_user , nil, nil, Notification.type_notifications[:friend_request], nil)
 		@followers = current_user.followers(1)
 		@pending_request = current_user.followers(0)
 		respond_to do |format|
@@ -174,7 +174,7 @@ class UsersController < ApplicationController
 	   		@user.follow(user_to_add)
 	   		user_to_add.add_notifications(" has requested to follow you.", 
 											" souhaite faire parti de ta liste d'abonnées.",
-											@user , nil, nil, Notification.type_notifications[:friend_request])
+											@user , nil, nil, Notification.type_notifications[:friend_request], nil)
    		end
    	end
    	flash[:notice] = @user.username + " added to everyone"
