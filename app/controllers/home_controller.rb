@@ -14,9 +14,9 @@ class HomeController < ApplicationController
 		challfie_admin = User.find_by username: "Challfie"
 
  		if challfie_admin.blank?
- 		  @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)        
+ 		  @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending).order("created_at DESC").paginate(:page => params["page"], :per_page => 4).includes(:user, :challenge)        
       else
-        @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false) or (user_id = ? and created_at > ?)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending, challfie_admin.id, current_user.created_at).order("created_at DESC").paginate(:page => params["page"]).includes(:user, :challenge)        
+        @selfies = Selfie.where("(user_id in (?) or (user_id in (?) and private = false) or (user_id = ? and created_at > ?)) and blocked = false and hidden = false", list_following_ids, list_following_ids_pending, challfie_admin.id, current_user.created_at).order("created_at DESC").paginate(:page => params["page"], :per_page => 4).includes(:user, :challenge)        
       end
 		
 		@selfie = Selfie.new			
