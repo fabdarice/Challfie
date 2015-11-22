@@ -33,4 +33,6 @@ class MatchupSerializer < ActiveModel::Serializer
     end
   end
 
+  
+
 end

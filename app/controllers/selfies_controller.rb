@@ -166,13 +166,20 @@ class SelfiesController < ApplicationController
 		@selfie = Selfie.find(params[:id])
 		@selfie.vote_by :voter => current_user
 
-		if @selfie.user != current_user			
-			@selfie.user.add_notifications(" has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
+		if @selfie.matchup == nil
+        if @selfie.user != current_user        
+          @selfie.user.add_notifications(" has approved your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
 													" a approuvé ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
 													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval], nil)
-		end
-
-		@selfie.set_approval_status!("upvote")
+        end  
+        @selfie.set_approval_status!("upvote")
+      else
+        if @selfie.user != current_user        
+          @selfie.user.add_notifications(" has approved your selfie's duel \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
+                              " a approuvé ton selfie duel \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
+                              current_user , @selfie, nil, Notification.type_notifications[:matchup], @selfie.matchup)
+        end         
+      end
 
 		respond_to do |format|
 	      format.html { render :nothing => true }
@@ -184,13 +191,21 @@ class SelfiesController < ApplicationController
 		@selfie = Selfie.find(params[:id])
 		@selfie.downvote_from current_user
 
-		if @selfie.user != current_user
+		if @selfie.matchup == nil
+        if @selfie.user != current_user
 			@selfie.user.add_notifications(" has rejected your #{@selfie.is_daily ? "<u>daily challenge</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
 													" a rejeté ton #{@selfie.is_daily ? "<u>challenge du jour</u>" : "challenge"} \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
 													current_user , @selfie, nil, Notification.type_notifications[:selfie_approval], nil)
 		end
 
-		@selfie.set_approval_status!("downvote")		
+		@selfie.set_approval_status!("downvote")
+      else
+        if @selfie.user != current_user        
+          @selfie.user.add_notifications(" has rejected your selfie's duel  \"<strong><i>#{@selfie.challenge.description_en}</i></strong>\".", 
+                              " a rejeté ton selfie duel \"<strong><i>#{@selfie.challenge.description_fr}</i></strong>\".",
+                              current_user , @selfie, nil, Notification.type_notifications[:matchup], @selfie.matchup)
+        end
+      end
 
 		respond_to do |format|
 	      format.html { render :nothing => true }

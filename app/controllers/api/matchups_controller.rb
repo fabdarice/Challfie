@@ -25,7 +25,13 @@ module Api
 		end
 
 		def complete_matchups
-			matchups = current_user.matchups.complete
+			matchups = []
+
+			complete_matchups = current_user.matchups.where("status = ? or status = ? ", Matchup.statuses[:ended], Matchup.statuses[:ended_with_draw]).order('end_date DESC').paginate(:page => params["page"])
+			complete_matchups.each do |complete_matchup|
+				matchups << complete_matchup
+			end			
+
 			render json: matchups
 		end
 
@@ -39,9 +45,8 @@ module Api
 					if params[:matchup_status].to_i == Matchup.statuses[:accepted]				
 						matchup.matchup_users.each do |matchup_user|
 							if matchup_user.is_creator == true								
-								creator = matchup_user.user
-								puts creator.username
-								creator.add_notifications(" has agreed to your <strong>duel</strong> for [\"#{matchup.challenge.description_en}\"]", 
+								creator = matchup_user.user								
+								creator.add_notifications(" has agreed to your <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
                               " a accepté <strong>ton duel</strong> pour [\"#{matchup.challenge.description_fr}\"]",
                               current_user, nil, nil, Notification.type_notifications[:matchup], matchup)
 							end
@@ -86,8 +91,7 @@ module Api
 		end
 
 		def create			
-			if params[:opponent_id].blank? or params[:duration].blank? or (params[:description].blank? and params[:challenge_id].blank?)
-				puts "params[:opponent_id].blank? or params[:duration].blank? or (params[:description].blank? and params[:challenge_id].blank?)"
+			if params[:opponent_id].blank? or (params[:description].blank? and params[:challenge_id].blank?)				
 				render :json=> {:success=>false}
 				return
 			end
@@ -121,7 +125,7 @@ module Api
 				return
 			end
 			
-			if current_user.challenge_matchup(opponent, challenge, Matchup.type_matchups[:one_vs_one], Matchup.statuses[:pending], params[:duration]) 
+			if current_user.challenge_matchup(opponent, challenge, Matchup.type_matchups[:one_vs_one], Matchup.statuses[:pending], 3) 
 				# Successfully created the matchup
 				render :json=> {:success=>true}
 				return
@@ -130,7 +134,7 @@ module Api
 				render :json=> {:success=>false}
 				return
 			end
-		end
+		end		
 
 	end
 end

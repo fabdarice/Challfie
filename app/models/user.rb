@@ -627,7 +627,7 @@ class User < ActiveRecord::Base
 
 
         if matchup_creator.save and matchup_opponent.save         
-          opponent.add_notifications("defies you to a <strong>selfie duel</strong> for [\"#{challenge.description_en}\"]", 
+          opponent.add_notifications(" challenges you to a <strong>selfie duel</strong> : \"#{challenge.description_en}\"", 
                               "te défie à un duel de selfie pour [\"#{challenge.description_fr}\"]",
                               self, nil, nil, Notification.type_notifications[:matchup], matchup)                     
           return true
@@ -653,12 +653,6 @@ class User < ActiveRecord::Base
     return pending_matchups
   end
 =end
-
-
-  def accept_matchup
-
-
-  end
 
   def nb_win_matchups
     self.matchups.where("(status = ? and winner_id = ?) or status = ?", Matchup.statuses[:ended], self.id, Matchup.statuses[:ended_with_draw]).count

@@ -28,3 +28,7 @@ every :hour, :at => 10 do
 	runner "Delayed::Job.enqueue(DailyChallenge.new.send_daily_challenge_notifications, priority:1, run_at:Time.now)"
 	#runner "DailyChallenge.new.send_daily_challenge_notifications"
 end
+
+every 10.minutes do
+  runner "Matchup.new.scheduled_set_matchup_results"
+end
