@@ -47,7 +47,7 @@ module Api
 							if matchup_user.is_creator == true								
 								creator = matchup_user.user								
 								creator.add_notifications(" has agreed to your <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
-                              " a accepté <strong>ton duel</strong> pour [\"#{matchup.challenge.description_fr}\"]",
+                              " a accepté <strong>ton selfie duel</strong> : \"#{matchup.challenge.description_fr}\"",
                               current_user, nil, nil, Notification.type_notifications[:matchup], matchup)
 							end
 						end						

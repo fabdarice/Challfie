@@ -38,18 +38,16 @@ class Matchup < ActiveRecord::Base
       	if is_draw or winning_selfie.blank?
       		matchup.status = Matchup.statuses[:ended_with_draw]
       		matchup.users.each do |user|
-      			user.add_notifications(" and you have tied in the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", "It's a tie in the [#{matchup.challenge.description_en}] duel.",  user , nil, nil, Notification.type_notifications[:matchup], matchup)	
+      			user.add_notifications(" , it's a tie in the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
+      										  " , match nul pour ton <strong>selfie duel</strong> : \"#{matchup.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:matchup], matchup)	
       		end
       		
       	else
       		matchup.status = Matchup.statuses[:ended]
       		matchup.winner = winning_selfie.user
-      		matchup.users.each do |user|
-      			if user == winning_selfie.user
-      				user.add_notifications(" Congratulations. You are the winner of the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", " is the winner in the [#{matchup.challenge.description_en}] Duel",  user , nil, nil, Notification.type_notifications[:matchup], matchup)	
-      			else
-      				user.add_notifications(" won the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", " is the winner in the [#{matchup.challenge.description_en}] Duel",  winning_selfie.user , nil, nil, Notification.type_notifications[:matchup], matchup)	
-      			end      			
+      		matchup.users.each do |user|      			
+      			user.add_notifications(" is the winner of the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
+      										  " est le vainqueur du <strong>selfie duel</strong> : \"#{matchup.challenge.description_fr}\"",  winning_selfie.user , nil, nil, Notification.type_notifications[:matchup], matchup)	      			
       		end   
 
       		# Update User's points

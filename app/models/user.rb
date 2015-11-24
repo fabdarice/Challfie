@@ -628,7 +628,7 @@ class User < ActiveRecord::Base
 
         if matchup_creator.save and matchup_opponent.save         
           opponent.add_notifications(" challenges you to a <strong>selfie duel</strong> : \"#{challenge.description_en}\"", 
-                              "te défie à un duel de selfie pour [\"#{challenge.description_fr}\"]",
+                              " te défie à un <strong>selfie duel</strong> : \"#{challenge.description_fr}\"",
                               self, nil, nil, Notification.type_notifications[:matchup], matchup)                     
           return true
         else
