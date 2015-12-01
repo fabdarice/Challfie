@@ -52,6 +52,13 @@ module Api
 							end
 						end						
 					end
+					if params[:matchup_status].to_i == Matchup.statuses[:declined]
+						#Delete Permanently Notifications related to that matchup
+				      notifications_to_delete = Notification.where(matchup_id: matchup.id)
+				      notifications_to_delete.each do |notification|
+				        notification.destroy
+				      end	
+					end
 					render json: matchup
 				else
 					render json: {}
