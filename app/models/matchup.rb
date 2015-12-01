@@ -38,8 +38,8 @@ class Matchup < ActiveRecord::Base
       	if is_draw or winning_selfie.blank?
       		matchup.status = Matchup.statuses[:ended_with_draw]
       		matchup.users.each do |user|
-      			user.add_notifications(" , it's a tie in the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
-      										  " , match nul pour ton <strong>selfie duel</strong> : \"#{matchup.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:matchup], matchup)	
+      			user.add_notifications(", it's a tie in the <strong>selfie duel</strong> : \"#{matchup.challenge.description_en}\"", 
+      										  ", match nul pour ton <strong>selfie duel</strong> : \"#{matchup.challenge.description_fr}\"",  user , nil, nil, Notification.type_notifications[:matchup], matchup)	
       		end
       		
       	else

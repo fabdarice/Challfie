@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
         if @selfie.user != current_user
           @selfie.user.add_notifications(" has commented on your selfie duel : \"<i>#{@comment.message.truncate(60)}</i>\".", 
                                         " a commenté sur ton selfie duel : \"<i>#{@comment.message.truncate(60)}</i>\".",
-                                        current_user , @selfie, nil, Notification.type_notifications[:comment_mine], @selfie.matchup)
+                                        current_user , @selfie, nil, Notification.type_notifications[:matchup], @selfie.matchup)
         end  
 
         comment_list_user =  @selfie.comments.select(:user_id).uniq
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
           if f.user != current_user and f.user != @selfie.user               
             f.user.add_notifications(" has commented on <strong>#{@selfie.user.username}'s</strong> selfie duel: \"<i>#{@comment.message.truncate(60)}</i>\" .", 
                                     " a commenté sur le selfie duel de <strong>#{@selfie.user.username}</strong> : \"<i>#{@comment.message.truncate(60)}</i>\" .",
-                                    current_user , @selfie, nil, Notification.type_notifications[:comment_other], @selfie.matchup)
+                                    current_user , @selfie, nil, Notification.type_notifications[:matchup], @selfie.matchup)
           end  
         end 
       end   
