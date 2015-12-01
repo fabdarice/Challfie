@@ -655,11 +655,11 @@ class User < ActiveRecord::Base
 =end
 
   def nb_win_matchups
-    self.matchups.where("(status = ? and winner_id = ?) or status = ?", Matchup.statuses[:ended], self.id, Matchup.statuses[:ended_with_draw]).count
+    self.matchups.where("(status = ? and winner_id = ?) or status = ?", Matchup.statuses[:ended], self.id).count
   end
 
   def nb_lose_matchups
-    self.matchups.where("status = ? and winner_id != ?", Matchup.statuses[:ended], self.id).count
+    self.matchups.where("(status = ? and winner_id != ?) or status = ?", Matchup.statuses[:ended], self.id, Matchup.statuses[:ended_with_draw]).count
   end
 
   def get_matchups_stats
