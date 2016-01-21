@@ -18,6 +18,7 @@ solr/development/*
 /.bundle
 /vendor/bundle
 config/database.yml
+config/ios_certificate/
 
 # Ignore .DS_Store files on Mac
 .DS_Store
